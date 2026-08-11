@@ -18,6 +18,14 @@ This repository contains work across Python, SQL, R, PyTorch, TensorFlow, PySpar
 
 ## Additional verified work
 
+### Customer Churn Prediction
+
+A decision-ready telecom churn screening system with duplicate-profile grouped validation, cross-fitted probability calibration, proxy-feature review, cost-based thresholding, bootstrap intervals, subgroup diagnostics, drift monitoring and exact artifact reload checks. The status-excluded histogram gradient boosting model achieved holdout PR-AUC **0.955** (95% bootstrap interval **0.927–0.980**) and ROC-AUC **0.990**. At the training-selected threshold, it recalled **94.9%** of churners at **73.2%** precision while flagging **20.2%** of customers for review.
+
+[Open notebook](03_Customer_Churn_Prediction.ipynb) · [Run in Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/03_Customer_Churn_Prediction.ipynb)
+
+> Data-freshness note: this project uses the historical UCI Iranian Churn dataset. It demonstrates rigorous classification and decision design, not current telecom-market behaviour.
+
 ### Energy Demand Forecasting with TensorFlow
 
 A chronological 14-day electricity-demand forecast with an LSTM, two honest baselines, prediction intervals, saved-model verification, and automated checks. On the untouched test period, the LSTM achieved MAE **43.51**, improving on the 7-day seasonal baseline MAE of **53.18** by **18.2%**.
