@@ -1,60 +1,60 @@
 # Advanced Project Completion Plan
 
-The restored notebooks are intentionally kept because they contain useful code and broaden the portfolio. They are not all automatically labelled as verified simply because they exist on `main`.
+The restored notebooks stay on `main` because they contain useful code and demonstrate breadth. They are not all automatically labelled as verified. The portfolio now uses a **preserve + harden + verify** approach rather than deleting good work.
 
 ## Promotion rule
 
-A project moves into the verified flagship tier only after a clean **restart / run all** and a review of the saved evidence. Promotion requires:
+A project moves into the verified flagship tier only after a clean **restart / run all** (or equivalent script run) and review of the retained evidence.
 
-- a clear decision or user problem;
-- explicit data provenance and freshness;
+Promotion requires:
+
+- clear decision/user framing;
+- source provenance, licence/usage constraints and freshness;
 - data-quality and leakage checks;
-- a baseline or benchmark;
-- an untouched evaluation set where the task supports one;
-- uncertainty, calibration, error analysis, stress testing or human review where relevant;
+- a simple baseline;
+- untouched evaluation where the task supports it;
+- uncertainty, calibration, error analysis, stress testing or review policy where relevant;
 - reproducible configuration;
-- saved artefacts / reload or smoke checks where appropriate;
+- saved artifacts and reload/smoke checks where appropriate;
 - honest limitations and next-production-step discussion;
-- no stored notebook errors.
+- no stored notebook errors in the promoted path.
 
-## Restored projects and the upgrade target
+## Current completion map
 
-| Project | Keep | Next completion target |
+| Project | Current status | Material upgrade |
 |---|---|---|
-| ConsultAI AI Opportunity Engine | Monte Carlo simulation, exact portfolio search, governance artefacts, tests and app | Clean full rerun; retain evidence; publish verified decision outputs rather than synthetic claims |
-| VisionForge PyTorch Visual Inspection | Strong production-style CV system, calibration, abstention, Grad-CAM, stress tests, ONNX/TorchScript | GPU restart/run-all; verify benchmark, calibration and export artefacts; promote measured metrics |
-| Advanced Multi-Modal Health Analytics | Multi-modal modelling breadth | Tighten clinical-safety framing, data provenance, leakage checks and untouched evaluation before any health-performance claim |
-| AeroFlow AI Engine | Aviation decision intelligence | Revalidate source freshness, temporal split, uncertainty and operational decision policy |
-| Aviation Strategy PostgreSQL Optimisation | SQL/PostgreSQL + business strategy signal | Make schema/query plan evidence reproducible; preserve before/after query-plan measurements |
-| CineIntelligence NoSQL Data Engineering | NoSQL/data-engineering breadth | Add explicit data model, ingestion contract, indexes/query patterns, quality checks and reproducible benchmark |
-| Clustering Models | Unsupervised-learning breadth | Add business decision framing, stability analysis, cluster validation and interpretation; avoid claiming a single 'best' cluster count without evidence |
-| KDD Cup Analysis | Large-dataset ML experimentation | Confirm dataset provenance/version, split strategy, baseline and reproducible held-out metrics |
-| LLM Mastery — Alignment | Alignment implementation | Add explicit evaluation set, safety/quality rubric, before-vs-after comparison, limitations and reproducibility |
-| LLM Mastery — Core | Transformer/LLM implementation | Retain architecture work; add reproducible train/eval configuration, baseline/perplexity comparison and generation evaluation |
-| Logistic Regression with PySpark | Distributed classification | Add clear data contract, baseline, split/leakage rationale, class-imbalance metrics and saved pipeline reload check |
-| Hybrid DL Movie Recommender | Recommender-system breadth | Use leakage-safe temporal/user split, ranking metrics, popularity baseline, cold-start analysis and recommendation examples |
-| NYC Airbnb Market Analysis | Market analytics | Refresh data if feasible, separate descriptive vs predictive claims, use geography/time-aware validation and decision-focused conclusions |
-| Naive Bayes with PySpark | Distributed probabilistic classification | Add strong benchmark, imbalance-aware evaluation, feature-pipeline audit and saved Spark pipeline verification |
-| Parkinson's Progression ML | Healthcare regression/progression modelling | Strengthen patient/group leakage protection, clinical-safety limits, calibration/uncertainty and untouched patient-level evaluation |
-| Pathfinding | Algorithms/search | Add benchmark grid suite, complexity/runtime comparison, admissibility/optimality explanation and visual route diagnostics |
-| PyTorch Medical AI X-ray Diagnosis | Medical imaging / explainability | Preserve deep-learning code; make patient-level split, dataset provenance, uncertainty, Grad-CAM limitations and non-clinical-use guardrails explicit; rerun before reporting metrics |
-| Strategic Telecom Churn + Predictive SQL | SQL + churn/business decision support | Consolidate data grain, leakage-safe model features, capacity-aware thresholding and SQL/model reconciliation |
-| Financial Fraud / AML Detection | Fraud/imbalanced classification | Add temporal validation, cost-sensitive metrics, precision-at-review-capacity, drift/monitoring plan and explicit distinction between fraud screening and AML investigation |
+| ConsultAI AI Opportunity Engine | **Strong advanced project** | Original notebook already contains substantial decision framing, Monte Carlo analysis, constrained portfolio selection, governance/testing and app engineering. Priority is clean execution evidence, not rewrite-for-rewrite's-sake. |
+| VisionForge PyTorch Visual Inspection | **Strong advanced / near-flagship** | Original notebook already contains real data, custom + transfer models, calibration, abstention, Grad-CAM, corruption stress tests, exports, latency and release-manifest logic. Needs a clean GPU restart/run-all and retained metrics/artifacts. |
+| Advanced Multi-Modal Health Analytics | Advanced | Tighten provenance, patient/group leakage controls, safety framing, untouched evaluation and intended/non-intended use before any health-performance claim. |
+| AeroFlow AI Engine | **v2 added** | [`extensions/aeroflow_v2.py`](../extensions/aeroflow_v2.py): official 2026 BTS data, temporal split, leakage-safe schedule-time features, baselines, conformal intervals, operational policy, artifact/reload checks. |
+| Aviation Strategy PostgreSQL Optimisation | Advanced | Make schema setup reproducible and retain `EXPLAIN (ANALYZE, BUFFERS)` before/after evidence with an index/query-design rationale. |
+| CineIntelligence NoSQL Data Engineering | **v2 added** | [`extensions/cine_nosql_v2.py`](../extensions/cine_nosql_v2.py): defensive parsing, quarantine, explicit document model, quality checks, index-style query path and benchmark. |
+| Clustering Models | Advanced | Add decision framing, stability/resampling analysis, multiple validation indices and interpretable segment profiles. |
+| KDD Cup Analysis | **v2 added** | [`extensions/kdd_intrusion_v2.py`](../extensions/kdd_intrusion_v2.py): maintained loader, historical warning, baseline, held-out imbalance-aware metrics, attack-type errors and reload test. |
+| LLM Mastery — Alignment | **evaluation v2 added** | [`extensions/llm_eval_v2.py`](../extensions/llm_eval_v2.py): frozen prompt manifest, base-vs-aligned comparison, transparent checks and optional blinded human pairwise labels. Clean environment/model rerun still required. |
+| LLM Mastery — Core | **evaluation v2 added** | Use the same harness for fixed held-out generations; retain training config/checkpoint provenance and held-out loss/perplexity from a clean model run. |
+| Logistic Regression with PySpark | Advanced | Add clear source contract, leakage rationale, imbalance-aware test metrics and serialized Spark pipeline reload check. |
+| Hybrid DL Movie Recommender | **v2 added** | [`extensions/recommender_v2.py`](../extensions/recommender_v2.py): per-user temporal holdout, popularity baseline, latent-factor ranking, Recall@K/NDCG@K and cold-start fallback. |
+| NYC Airbnb Market Analysis | Advanced | Refresh data if feasible; separate descriptive vs predictive claims; add geography/time-aware validation and decision-focused conclusions. |
+| Naive Bayes with PySpark | Advanced with stored-error warning | Remove retained `KeyboardInterrupt` via clean rerun; add benchmark, imbalance-aware metrics, feature-pipeline audit and saved Spark pipeline verification. |
+| Parkinson's Progression ML | Advanced | Strengthen patient/group leakage protection, non-clinical framing, uncertainty and patient-level untouched evaluation. |
+| Pathfinding | Advanced | Add benchmark grid suite, runtime/expanded-node comparison, optimality/admissibility explanation and route diagnostics. |
+| PyTorch Medical AI X-ray Diagnosis | Advanced | Make patient/group split and provenance airtight; add uncertainty/abstention, class errors, Grad-CAM limitations and strong non-clinical-use guardrails. |
+| Strategic Telecom Churn + Predictive SQL | Advanced | Consolidate data grain, leakage-safe features, capacity-aware thresholding and SQL/model reconciliation. |
+| Financial Fraud / AML Detection | **v2 added** | [`extensions/fraud_aml_v2.py`](../extensions/fraud_aml_v2.py): chronological design, past-only behavioural features, train-only pipeline, validation-only threshold, review-capacity/cost metrics, monthly slices and reload test. Synthetic methodology demo remains clearly labelled. |
 
-## Priority order
+## Priority from here
 
-The best promotion order for hiring signal is:
-
-1. **ConsultAI** — applied AI / decision engineering / app.
-2. **VisionForge** — PyTorch / computer vision / deployment.
-3. **Financial Fraud / AML** — high-value commercial classification and decision thresholds.
-4. **Movie Recommender** — ranking/recommendation signal missing from the verified seven.
-5. **LLM Mastery — Core + Alignment** — consolidate into a defensible LLM story.
-6. **AeroFlow** — current operational decision-support signal.
-7. **PyTorch Medical AI / Multi-Modal Health** — only after safety, provenance and patient-level validation are airtight.
-
-The remaining projects stay useful as breadth evidence and should be improved when they add a distinct hiring signal, not merely to increase notebook count.
+1. **Run and verify VisionForge** — it already has the strongest production-style code among the restored projects.
+2. **Run and verify ConsultAI** — strong applied-AI / decision-engineering signal.
+3. **Run Fraud/AML v2** — keep it as a methodology demo unless a defensible real dataset is introduced.
+4. **Run Recommender v2** — adds ranking/evaluation signal not covered by the verified seven.
+5. **Run LLM Core + Alignment and feed frozen outputs into the evaluation v2 harness.**
+6. **Run AeroFlow v2** on official 2026 BTS data and retain May 2026 evidence.
+7. Improve healthcare projects only with especially strict provenance/leakage/safety standards.
 
 ## Evidence discipline
 
-Do not copy a metric into the README or CV because it appears in old notebook text. A metric becomes portfolio evidence only after the current notebook version has been rerun and the output is retained without errors.
+Do not copy a metric into the README or CV because it appears in an old notebook. A metric becomes portfolio evidence only after the **current** notebook/script version has been rerun and the result is retained without errors.
+
+The goal is no longer “delete anything imperfect.” It is: **keep useful code, make the strongest projects complete, and be exact about what has actually been verified.**
