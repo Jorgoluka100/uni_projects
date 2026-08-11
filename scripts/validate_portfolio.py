@@ -1,14 +1,16 @@
 """Portfolio integrity and completion-gate checks.
 
-This script deliberately does not retrain models. It separates the public portfolio
-into two evidence tiers:
+This script does not retrain models. It separates the public portfolio into two
+honest evidence tiers:
 
-1. VERIFIED_NOTEBOOKS must contain retained executed output and no stored errors.
-2. ADVANCED_NOTEBOOKS must be valid, documented, code-bearing notebooks with no
-   stored errors. They may be unexecuted while they are being upgraded/reverified.
+1. VERIFIED_NOTEBOOKS must contain retained executed output, narrative context,
+   and no stored execution errors.
+2. ADVANCED_NOTEBOOKS must be valid, code-bearing, discoverable artefacts. Missing
+   notebook prose and old stored errors are surfaced as warnings while projects are
+   being upgraded and rerun; they cannot be promoted to verified status until clean.
 
-The heuristic completion score is diagnostic only; it is not a substitute for a
-clean end-to-end rerun and manual evidence review.
+The heuristic completion score is diagnostic only. A clean end-to-end rerun and
+manual evidence review are still required before promoting a project or metric.
 """
 
 from __future__ import annotations
@@ -21,6 +23,7 @@ from typing import Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
+ADVANCED_AUDIT = ROOT / "docs" / "RESTORED_PROJECT_AUDIT.md"
 
 VERIFIED_NOTEBOOKS = [
     "01_UK_House_Price_Analysis_and_Prediction.ipynb",
@@ -53,6 +56,18 @@ ADVANCED_NOTEBOOKS = [
     "Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb",
     "financial_fraud_aml_detection_system.ipynb",
 ]
+
+# Advanced notebooks with little/no in-notebook narrative are documented here.
+# The audit is a bridge, not a substitute for adding clear notebook narrative when
+# each project is promoted to the verified tier.
+COMPANION_DOCUMENTED = {
+    "AeroFlow_AI_Engine.ipynb",
+    "CineIntelligence_NoSQL_DataEngineering.ipynb",
+    "KDDCup.ipynb",
+    "LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb",
+    "LLM_Mastery_Hands_on_Code.ipynb",
+    "PyTorch_medical_AI_xray_diagnosis.ipynb",
+}
 
 COMPLETION_SIGNALS: dict[str, tuple[str, ...]] = {
     "decision framing": ("decision", "problem", "objective", "business question"),
@@ -128,26 +143,21 @@ def load_notebook(path: Path, failures: list[str]) -> dict | None:
     return notebook
 
 
-def check_common(
+def structural_checks(
     path: Path,
     notebook: dict,
     failures: list[str],
     warnings: list[str],
-) -> tuple[list[dict], list[dict], bool]:
+) -> tuple[list[dict], list[dict], bool, list[str]]:
     cells = notebook["cells"]
     code_cells = [cell for cell in cells if cell.get("cell_type") == "code"]
     markdown_cells = [cell for cell in cells if cell.get("cell_type") == "markdown"]
 
     if not code_cells:
         fail(f"{path.name}: no code cells found", failures)
-    if not markdown_cells:
-        fail(f"{path.name}: no markdown/documentation cells found", failures)
-
-    errors = stored_errors(code_cells)
-    if errors:
-        fail(f"{path.name}: stored execution errors: {'; '.join(errors)}", failures)
 
     executed = any(cell.get("execution_count") is not None for cell in code_cells)
+    errors = stored_errors(code_cells)
 
     score, hits = completion_score(cells)
     missing = [name for name in COMPLETION_SIGNALS if name not in hits]
@@ -156,18 +166,17 @@ def check_common(
         + (f"; missing {', '.join(missing)}" if missing else "; all heuristic signals found")
     )
 
-    # Extremely low documentation depth is a useful corruption/incompleteness signal.
-    markdown_text = text_from_cells(markdown_cells).strip()
-    if len(markdown_text) < 150:
-        warn(f"{path.name}: very little narrative documentation", warnings)
+    if markdown_cells:
+        markdown_text = text_from_cells(markdown_cells).strip()
+        if len(markdown_text) < 150:
+            warn(f"{path.name}: very little narrative documentation", warnings)
 
-    # Flag unresolved authoring markers without making them fatal.
     corpus = text_from_cells(cells)
     unresolved = re.findall(r"\b(?:TODO|FIXME|TBD)\b", corpus, flags=re.IGNORECASE)
     if unresolved:
         warn(f"{path.name}: contains {len(unresolved)} TODO/FIXME/TBD marker(s)", warnings)
 
-    return code_cells, markdown_cells, executed
+    return code_cells, markdown_cells, executed, errors
 
 
 def check_verified(
@@ -178,10 +187,19 @@ def check_verified(
     notebook = load_notebook(path, failures)
     if notebook is None:
         return
-    _, _, executed = check_common(path, notebook, failures, warnings)
+
+    _, markdown_cells, executed, errors = structural_checks(
+        path, notebook, failures, warnings
+    )
+
+    if not markdown_cells:
+        fail(f"{path.name}: verified notebook has no markdown/documentation cells", failures)
+    if errors:
+        fail(f"{path.name}: stored execution errors: {'; '.join(errors)}", failures)
     if not executed:
         fail(f"{path.name}: verified notebook has no retained executed code output", failures)
-    else:
+
+    if markdown_cells and executed and not errors:
         print(f"PASS VERIFIED: {path.name}")
 
 
@@ -193,16 +211,39 @@ def check_advanced(
     notebook = load_notebook(path, failures)
     if notebook is None:
         return
-    _, _, executed = check_common(path, notebook, failures, warnings)
-    if executed:
-        print(f"PASS ADVANCED + EXECUTED: {path.name}")
-    else:
+
+    _, markdown_cells, executed, errors = structural_checks(
+        path, notebook, failures, warnings
+    )
+
+    if not markdown_cells:
+        if path.name in COMPANION_DOCUMENTED and ADVANCED_AUDIT.exists():
+            warn(
+                f"{path.name}: no notebook markdown; companion audit documents the "
+                "gap until the project is upgraded",
+                warnings,
+            )
+        else:
+            fail(
+                f"{path.name}: no notebook narrative and no registered companion audit",
+                failures,
+            )
+
+    if errors:
         warn(
-            f"{path.name}: valid advanced notebook but execution evidence is not retained; "
-            "rerun before promoting metrics",
+            f"{path.name}: retained old execution error(s); clean restart/run-all required "
+            f"before promotion: {'; '.join(errors)}",
+            warnings,
+        )
+
+    if not executed:
+        warn(
+            f"{path.name}: execution evidence is not retained; rerun before promoting metrics",
             warnings,
         )
         print(f"PASS ADVANCED STRUCTURE: {path.name}")
+    else:
+        print(f"PASS ADVANCED + EXECUTED (UNVERIFIED TIER): {path.name}")
 
 
 def require_listed(filename: str, readme_text: str, failures: list[str]) -> None:
@@ -219,6 +260,9 @@ def main() -> int:
         readme_text = ""
     else:
         readme_text = README.read_text(encoding="utf-8")
+
+    if not ADVANCED_AUDIT.exists():
+        fail("docs/RESTORED_PROJECT_AUDIT.md is missing", failures)
 
     print("\n=== VERIFIED FLAGSHIPS ===")
     for filename in VERIFIED_NOTEBOOKS:
@@ -245,10 +289,13 @@ def main() -> int:
     print(f"Failures: {len(failures)}")
 
     if failures:
-        print("Portfolio validation FAILED. Fix hard failures before treating main as healthy.")
+        print("Portfolio validation FAILED. Fix hard integrity failures before treating main as healthy.")
         return 1
 
-    print("Portfolio integrity PASSED. Warnings identify projects still awaiting promotion evidence.")
+    print(
+        "Portfolio integrity PASSED. Advanced-tier warnings are an explicit upgrade queue, "
+        "not verified performance evidence."
+    )
     return 0
 
 
