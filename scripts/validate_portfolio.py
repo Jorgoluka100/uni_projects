@@ -8,8 +8,8 @@ honest evidence tiers:
 2. ADVANCED_NOTEBOOKS must be valid, code-bearing, discoverable artefacts. Missing
    notebook prose and old stored errors are surfaced as warnings while projects are
    being upgraded and rerun; they cannot be promoted to verified status until clean.
-3. RETAINED_VERIFICATION_FILES are fresh-process or release-gate evidence files that
-   must still report verification_pass=true after a project is promoted.
+3. RETAINED_VERIFICATION_FILES are fresh-process, release-gate, methodology or
+   engineering evidence files that must continue to report verification_pass=true.
 
 The heuristic completion score is diagnostic only. A clean end-to-end rerun and
 review of retained evidence are still required before promoting a project or metric.
@@ -63,7 +63,16 @@ RETAINED_VERIFICATION_FILES = {
     "ConsultAI": "verified/consultai/consultai_verification.json",
     "VisionForge": "verified/visionforge/verification_metrics.json",
     "Movie Recommender v2": "verified/recommender/verification.json",
+    "AeroFlow regression v2 negative result": "verified/aeroflow/verification.json",
+    "AeroFlow delay-risk v3": "verified/aeroflow_delay_risk/verification.json",
+    "NYC Airbnb 2026 v2": "verified/airbnb_nyc_2026/verification.json",
     "Fraud/AML v2 methodology": "verified/fraud_aml/verification.json",
+    "Telecom churn decision v2": "verified/telecom_churn/verification.json",
+    "Parkinsons grouped v2": "verified/parkinsons_grouped/verification.json",
+    "Clustering stability v2": "verified/clustering/verification.json",
+    "Pathfinding benchmark v2": "verified/pathfinding/verification.json",
+    "Aviation PostgreSQL v2": "verified/aviation_postgres/verification.json",
+    "Spark KDD classifiers v2": "verified/spark_kdd/verification.json",
 }
 
 # Advanced notebooks with little/no in-notebook narrative are documented here.
