@@ -63,12 +63,12 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git pull --rebase origin main
           git add '01_ConsultAI_AI_Opportunity_Engine.ipynb' verified/consultai
           if git diff --cached --quiet; then
             echo 'No generated evidence changed.'
           else
             git commit -m 'Retain verified ConsultAI execution evidence'
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
 
