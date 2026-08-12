@@ -1,0 +1,102 @@
+name: Aviation PostgreSQL evidence
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/aviation-postgres-run.yml'
+      - 'extensions/aviation_postgres_v2.sql'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-and-retain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: portfolio
+          POSTGRES_PASSWORD: portfolio
+          POSTGRES_DB: aviation
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U portfolio -d aviation"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=10
+
+    env:
+      PGHOST: localhost
+      PGPORT: '5432'
+      PGUSER: portfolio
+      PGPASSWORD: portfolio
+      PGDATABASE: aviation
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Execute PostgreSQL workload and plans
+        run: |
+          mkdir -p aviation_postgres_artifacts
+          psql -v ON_ERROR_STOP=1 -X -f extensions/aviation_postgres_v2.sql | tee aviation_postgres_artifacts/postgres_execution.txt
+
+      - name: Capture machine-readable verification
+        run: |
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          text=Path('aviation_postgres_artifacts/postgres_execution.txt').read_text()
+          assert 'INSERT 0 1000000' in text, '1M-row workload did not execute'
+          assert 'idx_flight_ops_route_date' in text, 'query plan did not reference the targeted index'
+          assert re.search(r'Index (?:Only )?Scan|Bitmap Index Scan', text), 'no index-based scan found after index creation'
+          assert re.search(r'\bt\b', text), 'semantic reconciliation did not return true'
+          explain_blocks=text.count('Planning Time:')
+          assert explain_blocks >= 2, 'expected before and after EXPLAIN ANALYZE output'
+          report={
+              'project':'Aviation PostgreSQL v2',
+              'verification_pass':True,
+              'postgresql_version':'17 service container',
+              'fact_rows':1000000,
+              'explain_analyze_plans':explain_blocks,
+              'targeted_index':'idx_flight_ops_route_date',
+              'index_plan_observed':True,
+              'semantic_reconciliation':True,
+              'evidence_policy':'Deterministic synthetic aviation workload; PostgreSQL execution/query-planning methodology evidence only.'
+          }
+          Path('aviation_postgres_artifacts/verification.json').write_text(json.dumps(report,indent=2))
+          print(json.dumps(report,indent=2))
+          PY
+
+      - name: Retain compact evidence
+        run: |
+          mkdir -p verified/aviation_postgres
+          cp aviation_postgres_artifacts/postgres_execution.txt aviation_postgres_artifacts/verification.json verified/aviation_postgres/
+
+      - name: Commit evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add verified/aviation_postgres
+          if git diff --cached --quiet; then
+            echo 'No generated evidence changed.'
+          else
+            git commit -m 'Retain verified PostgreSQL aviation evidence'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Upload PostgreSQL evidence bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: aviation-postgres-evidence
+          path: aviation_postgres_artifacts/
+          retention-days: 30
+          if-no-files-found: error
