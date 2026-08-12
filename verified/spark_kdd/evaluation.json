@@ -1,0 +1,85 @@
+{
+  "dataset": "KDD Cup 1999 10% via sklearn maintained loader",
+  "freshness_warning": "Historical benchmark only; not evidence of modern intrusion-detection performance.",
+  "deduplicated_rows": 145585,
+  "splits": {
+    "train": 101749,
+    "validation": 22003,
+    "test": 21833
+  },
+  "schema": {
+    "categorical": [
+      "protocol_type",
+      "service",
+      "flag"
+    ],
+    "numeric_feature_count": 38
+  },
+  "attack_prevalence_train": 0.3971439522747152,
+  "validation": {
+    "logistic_regression": {
+      "pr_auc": 0.9955768203105247,
+      "roc_auc": 0.9970512203079133,
+      "precision": 0.9912920687220522,
+      "recall": 0.9651695692025665,
+      "specificity": 0.9944256120527307,
+      "confusion": {
+        "tn": 13201,
+        "fp": 74,
+        "fn": 304,
+        "tp": 8424
+      }
+    },
+    "naive_bayes": {
+      "pr_auc": 0.8801648652272537,
+      "roc_auc": 0.9010814254963997,
+      "precision": 0.997546313335787,
+      "recall": 0.9315994500458296,
+      "specificity": 0.9984934086629002,
+      "confusion": {
+        "tn": 13255,
+        "fp": 20,
+        "fn": 597,
+        "tp": 8131
+      }
+    }
+  },
+  "selected_on_validation_pr_auc": "logistic_regression",
+  "untouched_test": {
+    "logistic_regression": {
+      "pr_auc": 0.9966136631807194,
+      "roc_auc": 0.9972322361841036,
+      "precision": 0.9922692673644149,
+      "recall": 0.9683147632311978,
+      "specificity": 0.9950820912461225,
+      "confusion": {
+        "tn": 13152,
+        "fp": 65,
+        "fn": 273,
+        "tp": 8343
+      }
+    },
+    "naive_bayes": {
+      "pr_auc": 0.8892616424433927,
+      "roc_auc": 0.9088691021010683,
+      "precision": 0.9988853108744117,
+      "recall": 0.9360492107706593,
+      "specificity": 0.9993190587879246,
+      "confusion": {
+        "tn": 13208,
+        "fp": 9,
+        "fn": 551,
+        "tp": 8065
+      }
+    }
+  },
+  "serialized_pipeline": "spark_kdd_artifacts/logistic_regression_pipeline",
+  "reload_prediction_match": true,
+  "methodology": [
+    "documented categorical columns decoded explicitly; all remaining predictors coerced to numeric",
+    "exact duplicates removed before split",
+    "stable row-hash train/validation/test split",
+    "categorical index/OHE and min-max scaling fitted inside Spark Pipeline on training data only",
+    "model choice made on validation PR-AUC; test opened only for final reporting"
+  ]
+}
