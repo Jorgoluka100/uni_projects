@@ -24,7 +24,7 @@ Promotion requires:
 | Project | Current status | Material upgrade |
 |---|---|---|
 | ConsultAI AI Opportunity Engine | **Strong advanced project** | Original notebook already contains substantial decision framing, Monte Carlo analysis, constrained portfolio selection, governance/testing and app engineering. Priority is clean execution evidence, not rewrite-for-rewrite's-sake. |
-| VisionForge PyTorch Visual Inspection | **Near-flagship + release gate** | Original notebook already contains real data, custom + transfer models, validation-only calibration, abstention, Grad-CAM, corruption stress tests, TorchScript/ONNX exports, latency, model-card and release-manifest logic. [`extensions/visionforge_release_gate.py`](../extensions/visionforge_release_gate.py) now blocks promotion when required evidence, hashes, benchmark rows, class metrics, robustness coverage, selective-policy columns or safety documentation are missing. Its self-test runs in CI. Only a clean GPU restart/run-all with retained real artifacts remains before verified promotion. |
+| VisionForge PyTorch Visual Inspection | **Near-flagship + independent verification + release gate** | Original notebook contains real data, scratch + transfer models, validation-only calibration, abstention, Grad-CAM, corruption stress tests, TorchScript/ONNX exports, latency, model-card and release-manifest logic. [`extensions/visionforge_verify_v2.py`](../extensions/visionforge_verify_v2.py) now reloads the saved checkpoint in a fresh process, recomputes the public test split, adds bootstrap CIs, reproduces retained claims/policy and validates TorchScript + ONNX parity. [`extensions/visionforge_release_gate.py`](../extensions/visionforge_release_gate.py) blocks promotion unless that independent verification and the full evidence bundle pass. The gate self-test runs in CI. Only a clean GPU restart/run-all with retained real artifacts remains before verified promotion. |
 | Advanced Multi-Modal Health Analytics | Advanced | Tighten provenance, patient/group leakage controls, safety framing, untouched evaluation and intended/non-intended use before any health-performance claim. |
 | AeroFlow AI Engine | **v2 added** | [`extensions/aeroflow_v2.py`](../extensions/aeroflow_v2.py): official 2026 BTS data, temporal split, leakage-safe schedule-time features, baselines, conformal intervals, operational policy, artifact/reload checks. |
 | Aviation Strategy PostgreSQL Optimisation | Advanced | Make schema setup reproducible and retain `EXPLAIN (ANALYZE, BUFFERS)` before/after evidence with an index/query-design rationale. |
@@ -45,7 +45,7 @@ Promotion requires:
 
 ## Priority from here
 
-1. **Execute VisionForge on a Colab GPU and run the release gate** — the modelling, engineering and promotion checks are now present; real retained run evidence is the final blocker.
+1. **Execute VisionForge on a Colab GPU, run the independent verifier, then run the release gate** — the modelling, engineering and promotion checks are present; real retained run evidence is the final blocker.
 2. **Run and verify ConsultAI** — strong applied-AI / decision-engineering signal.
 3. **Run Fraud/AML v2** — keep it as a methodology demo unless a defensible real dataset is introduced.
 4. **Run Recommender v2** — adds ranking/evaluation signal not covered by the verified seven.
