@@ -1,160 +1,117 @@
 # Production-Hardening Extensions
 
-This directory contains **material completion upgrades** for restored portfolio projects. The original notebooks remain visible so useful implementation work is preserved. A v2 extension is added only when it fixes a real methodological, evaluation or engineering weakness.
+The original notebooks stay visible on `main`. This directory adds **targeted completion layers** only where a restored project has a real methodological, evaluation, data-freshness or engineering gap.
 
-The extensions do **not** manufacture new performance claims. A project is promoted to the verified flagship tier only after the current version has completed a clean end-to-end run and its retained evidence has been reviewed.
+No extension is allowed to manufacture a performance claim. A result becomes verified portfolio evidence only after the current notebook/script is executed cleanly and the retained evidence is reviewed.
 
-## Completion upgrades
+## Completion map
 
-| Extension | Restored project strengthened | What the v2 adds | Evidence status |
+| Extension | Project(s) strengthened | Material addition | Status |
 |---|---|---|---|
-| [`visionforge_verify_v2.py`](visionforge_verify_v2.py) | VisionForge PyTorch Visual Inspection | Fresh-process checkpoint reload; real Makerere Beans test recomputation; 95% bootstrap CIs for accuracy/macro-F1; selective-policy reproduction; retained-claim comparison; TorchScript + ONNX parity checks | **Verifier complete; run after fresh GPU training** |
-| [`visionforge_release_gate.py`](visionforge_release_gate.py) | VisionForge PyTorch Visual Inspection | Final release gate for model card, benchmark, per-class metrics, corruption suite, abstention policy, exported models, manifest hashes, bootstrap evidence and independent export/claim reproduction; includes a CI self-test | **Engineering gate complete; clean GPU run still required for promotion** |
-| [`aeroflow_v2.py`](aeroflow_v2.py) | AeroFlow AI Engine | Official 2026 BTS data, strict temporal split, leakage-safe schedule-time features, baselines, CatBoost, conformal intervals, operational delay policy, slice analysis, saved artifacts + reload test | **Ready for fresh run** |
-| [`fraud_aml_v2.py`](fraud_aml_v2.py) | Financial Fraud / AML Detection | Time-ordered transaction stream, past-only behavioural features, chronological split, train-only preprocessing, PR-AUC/ROC-AUC, validation-only cost threshold, review-capacity metrics, monthly slices, reload test | **Methodology-complete; synthetic demo until real institution data exists** |
-| [`recommender_v2.py`](recommender_v2.py) | Hybrid DL Movie Recommender | Latest-positive holdout per user, popularity baseline, latent-factor recommender, sampled-candidate Recall@K/NDCG@K, cold-start fallback and reproducible artifacts | **Ready for fresh MovieLens run** |
-| [`llm_eval_v2.py`](llm_eval_v2.py) | LLM Mastery — Core + Alignment | Frozen prompt manifest, deterministic format/content/refusal checks, base-vs-aligned comparison, optional blinded human pairwise results, detail + summary artifacts | **Evaluation layer ready; model generations still need fresh run** |
-| [`kdd_intrusion_v2.py`](kdd_intrusion_v2.py) | KDD Cup Analysis | Maintained sklearn loader, explicit historical warning, baseline, held-out imbalance-aware metrics, attack-type error table and reload verification | **Ready for fresh run; historical benchmark only** |
-| [`cine_nosql_v2.py`](cine_nosql_v2.py) | CineIntelligence NoSQL | Defensive JSON-ish parsing, row quarantine, explicit document schema, data-quality checks, inverted-index query path, repeatable benchmark and NDJSON export | **Engineering layer ready; source file/licence must be supplied and documented** |
+| [`visionforge_verify_v2.py`](visionforge_verify_v2.py) | VisionForge | Fresh-process checkpoint reload, public test recomputation, 95% bootstrap CIs, abstention reproduction, TorchScript + ONNX parity | **Verifier complete; GPU rerun required** |
+| [`visionforge_release_gate.py`](visionforge_release_gate.py) | VisionForge | Evidence gate across model card, metrics, corruption tests, exported models, hashes and independent verification | **Gate self-tested in CI** |
+| [`consultai_verify_v2.py`](consultai_verify_v2.py) | ConsultAI | Independently reconstructs seeded Monte Carlo outcomes, exhaustive portfolio optimisation, budget frontier, stress tests and governance outputs | **Verifier self-tested in CI; clean notebook run required** |
+| [`aeroflow_v2.py`](aeroflow_v2.py) | AeroFlow | Official 2026 BTS data, temporal split, leakage-safe schedule features, baselines, conformal intervals, operational policy, artifact reload | **Ready for fresh run** |
+| [`airbnb_nyc_2026_v2.py`](airbnb_nyc_2026_v2.py) | NYC Airbnb Market Analysis | Current 14-Jun-2026 Inside Airbnb snapshot, data contract, market summary, neighbourhood-group holdout, baseline + model and source guardrails | **Current-data pipeline ready for run** |
+| [`parkinsons_grouped_v2.py`](parkinsons_grouped_v2.py) | Parkinson's Progression ML | Complete-subject train/validation/test split, removal of `motor_UPDRS` shortcut, baseline, held-out metrics and subject-level bootstrap CI | **Patient-leakage fix ready for run** |
+| [`healthcare_evidence_gate.py`](healthcare_evidence_gate.py) | Multi-Modal Health Analytics + Medical X-ray | Blocks promotion without patient/group separation, provenance, intended/non-intended use, held-out evidence, uncertainty/abstention and human oversight | **Gate self-tested in CI** |
+| [`spark_kdd_classifiers_v2.py`](spark_kdd_classifiers_v2.py) | Logistic Regression PySpark + Naive Bayes PySpark | Deduplication, stable holdout, train-only Spark feature pipeline, PR-AUC/ROC-AUC, validation model choice, serialized PipelineModel reload | **Ready for fresh Spark run; historical benchmark only** |
+| [`kdd_intrusion_v2.py`](kdd_intrusion_v2.py) | KDD Cup Analysis | Maintained loader, historical warning, baseline, imbalance-aware held-out metrics, attack-type errors and reload verification | **Ready for fresh run; historical benchmark only** |
+| [`clustering_stability_v2.py`](clustering_stability_v2.py) | Clustering Models | Silhouette + Davies-Bouldin + Calinski-Harabasz, resampling ARI stability and interpretable cluster profiles | **Ready for fresh run** |
+| [`pathfinding_benchmark_v2.py`](pathfinding_benchmark_v2.py) | Pathfinding | Seeded benchmark grids, BFS/Dijkstra/A*, path validation, optimality, expanded nodes, runtime and admissibility sanity checks | **Self-tested in CI** |
+| [`aviation_postgres_v2.sql`](aviation_postgres_v2.sql) | Aviation Strategy PostgreSQL | Genuine PostgreSQL DDL/workload, one-million-row deterministic fact table, before/after `EXPLAIN (ANALYZE, BUFFERS)`, covering index and reconciliation | **Ready for PostgreSQL execution** |
+| [`cine_nosql_v2.py`](cine_nosql_v2.py) | CineIntelligence NoSQL | Defensive parsing, malformed-row quarantine, explicit document schema, quality checks, indexed-query path and benchmark | **Engineering layer ready** |
+| [`recommender_v2.py`](recommender_v2.py) | Hybrid DL Movie Recommender | Per-user temporal holdout, popularity baseline, latent ranking, Recall@K/NDCG@K and cold-start fallback | **Ready for fresh MovieLens run** |
+| [`llm_eval_v2.py`](llm_eval_v2.py) | LLM Mastery Core + Alignment | Frozen prompt manifest, base-vs-aligned comparison, transparent automated checks and optional blinded human pairwise labels | **Evaluation layer ready; model rerun required** |
+| [`telecom_churn_decision_v2.py`](telecom_churn_decision_v2.py) | Strategic Telecom Churn + Predictive SQL | Train-only encoding, validation model selection, validation-only review-capacity threshold, untouched test and SQL/Pandas grain reconciliation | **Synthetic methodology completion ready for run** |
+| [`fraud_aml_v2.py`](fraud_aml_v2.py) | Financial Fraud / AML | Chronological design, past-only features, validation-only threshold, review-capacity/cost metrics, monthly slices and reload | **Methodology-complete synthetic demo** |
 
-## VisionForge verification and release
+## VisionForge: evidence before promotion
 
-VisionForge already contains the core model-training and deployment work: a scratch CNN benchmark, EfficientNet transfer learning, validation-only temperature scaling, abstention, corruption stress tests, Grad-CAM, TorchScript/ONNX export, latency measurement, an interactive Gradio app, a model card and a cryptographic manifest.
-
-The remaining risk is **stateful notebook evidence**: a notebook can contain excellent code and even retained outputs without proving those outputs reproduce after a clean reload. The completion path therefore uses two separate scripts.
-
-### 1. Independent verifier
-
-After a clean Colab GPU run, execute:
+After the notebook has been restarted and run end-to-end on a GPU, run:
 
 ```bash
 pip install torch torchvision datasets scikit-learn onnxruntime numpy
 python extensions/visionforge_verify_v2.py --artifact-dir visionforge_artifacts
-```
-
-The verifier starts from the saved checkpoint rather than the in-memory notebook model. It:
-
-- reloads the public Makerere Beans **test split**;
-- rebuilds the exact EfficientNet-B0 classifier and loads the saved tensors;
-- recomputes accuracy, balanced accuracy, macro-F1, negative log-likelihood and post-calibration ECE;
-- adds 95% bootstrap confidence intervals for accuracy and macro-F1;
-- reproduces the saved abstention threshold and its coverage/review behaviour;
-- compares recomputed headline metrics with the retained model-card claims;
-- reloads TorchScript in a fresh process and checks numerical parity;
-- runs the ONNX graph with ONNX Runtime and checks numerical parity;
-- writes `verification_metrics.json`.
-
-There is deliberately no target score in this script. It verifies **reproducibility**, not whether a preferred metric happened to be achieved.
-
-### 2. Final release gate
-
-Then run:
-
-```bash
 python extensions/visionforge_release_gate.py --artifact-dir visionforge_artifacts
 ```
 
-The gate fails promotion when required evidence is missing or inconsistent. It checks:
+The verifier recomputes the real test evidence from the saved checkpoint in a fresh process. The release gate then requires that the retained claims reproduce, TorchScript and ONNX agree with PyTorch, bootstrap intervals are present, robustness/selective-prediction evidence exists and the model card/manifest are complete.
 
-- headline metrics are finite and in valid ranges;
-- both the scratch CNN and EfficientNet benchmark rows exist;
-- per-class evidence covers all three classes;
-- the corruption suite covers noise, blur, darkness and occlusion;
-- the selective-prediction export contains threshold, coverage, review rate, selective accuracy and escalated-error evidence;
-- the model card states intended use, human oversight and limitations;
-- required model exports exist;
-- manifest SHA-256 hashes match the generated notebook artifacts;
-- the independent verifier reports a clean pass;
-- retained headline claims reproduce;
-- TorchScript and ONNX parity both pass;
-- 95% bootstrap intervals are present and internally valid.
+## ConsultAI: deterministic decision verification
 
-The release gate's own fixture-based test runs automatically in GitHub Actions:
+ConsultAI deliberately uses synthetic organisational cases, so its strongest evidence is not a commercial accuracy number. Its independent verifier rebuilds the six source cases, the seeded 10,000-trial Monte Carlo process, the exhaustive constrained portfolio search, the full budget frontier and stress scenarios, then checks the exported decision/governance files against those independently reproduced outputs.
 
 ```bash
-python extensions/visionforge_release_gate.py --self-test
+python extensions/consultai_verify_v2.py --artifact-dir consultai_application_artifacts
 ```
 
-Passing both scripts is **necessary but not sufficient** for promotion: the notebook itself must still be restarted, run end-to-end on the real dataset and retain the resulting evidence without stored errors. Once that happens, VisionForge can move from the advanced tier into the verified flagship list without relying on trust in a previous interactive notebook state.
+This proves reproducibility of the **decision engine** while keeping the synthetic-data limitation explicit.
 
-## AeroFlow v2 — 2026 BTS Flight Delay Intelligence
+## Current NYC Airbnb refresh
 
-The original notebook's synthetic-data and preprocessing-leakage weaknesses are addressed by a separate current-data pipeline.
-
-**Temporal design**
-- Train: January–March 2026
-- Validation / conformal calibration: April 2026
-- Untouched test: May 2026
+The restored Airbnb notebook now has a current-data route using Inside Airbnb's New York City snapshot dated **14 June 2026**. The script caches the source once, separates descriptive market summaries from predictive evaluation, removes invalid prices, documents extreme-price handling and holds out complete neighbourhoods rather than randomly mixing every neighbourhood across train/test.
 
 ```bash
-pip install pandas numpy scikit-learn catboost requests joblib
-python extensions/aeroflow_v2.py
+pip install pandas numpy scikit-learn
+python extensions/airbnb_nyc_2026_v2.py
 ```
 
-The code uses schedule-time-only features, train-only baselines, CatBoost, split-conformal 90% intervals, 15-minute operational diagnostics, carrier slices, artifact export and a reload smoke test.
+Availability is never described as confirmed bookings and anonymised listing coordinates are treated as approximate.
 
-## Fraud / AML v2
+## Patient/group-safe healthcare work
 
-This remains deliberately **synthetic** by default. That is a feature of the evidence policy, not something hidden: synthetic labels can test the pipeline and decision design, but cannot prove real financial-crime performance.
+Parkinson's now has a concrete subject-grouped modelling path:
 
 ```bash
-pip install pandas numpy scikit-learn joblib
-python extensions/fraud_aml_v2.py
+pip install pandas numpy scikit-learn
+python extensions/parkinsons_grouped_v2.py
 ```
 
-The important upgrade is the evaluation design: chronological train/validation/test, validation-only threshold selection, review-capacity and false-negative/false-positive costs, untouched test metrics, monthly slices and a serialized decision policy.
-
-## Recommender v2
-
-The old recommender demonstrated breadth, but rating RMSE alone is not enough for a recommendation decision. The v2 evaluates whether the held-out latest positive item is actually ranked near the top.
+For the multi-modal and X-ray projects, promotion requires a machine-readable evidence record that passes:
 
 ```bash
-pip install pandas numpy scipy scikit-learn requests
-python extensions/recommender_v2.py
+python extensions/healthcare_evidence_gate.py evidence.json
 ```
 
-It downloads GroupLens `ml-latest-small`, creates a per-user temporal holdout, compares a popularity baseline against latent SVD, and reports Recall@K / NDCG@K over a reproducible sampled candidate set.
+A gate pass means the portfolio evidence contract is present; it **does not establish clinical validity or safety**.
 
-## LLM evaluation v2
+## Distributed classification
 
-The LLM notebooks contain architecture/alignment work, but subjective samples should not be the evaluation. This harness scores the same frozen prompt manifest before and after alignment.
+The two restored Spark classifier notebooks are strengthened together because both use KDD Cup 1999. The new benchmark removes exact duplicates before splitting, fits categorical encoding/scaling inside the training Spark Pipeline, chooses between Logistic Regression and Naive Bayes using validation PR-AUC, opens the test split only for final reporting and proves saved `PipelineModel` reload parity.
 
 ```bash
-python extensions/llm_eval_v2.py \
-  --base base_generations.jsonl \
-  --aligned aligned_generations.jsonl \
-  --human-csv blinded_pairwise_labels.csv
+pip install pyspark scikit-learn pandas numpy
+python extensions/spark_kdd_classifiers_v2.py
 ```
 
-The rule-based checks are intentionally transparent and limited. Optional human pairwise labels remain separate so automated proxies are not presented as a complete helpfulness/safety score.
+KDD Cup 1999 remains explicitly labelled as historical methodology evidence, not modern cyber-security performance.
 
-## KDD intrusion v2
+## SQL, clustering and algorithms
 
-This project is kept because it demonstrates large-dataset / intrusion-classification methods, but **KDD Cup 1999 is historical** and must never be marketed as a modern cyber-security benchmark.
+Aviation now has a genuine PostgreSQL workload instead of relying on the phrase "PostgreSQL-compatible DuckDB":
 
 ```bash
-pip install pandas numpy scikit-learn joblib
-python extensions/kdd_intrusion_v2.py
+psql "$DATABASE_URL" -f extensions/aviation_postgres_v2.sql
 ```
 
-The v2 adds a prior baseline, imbalance-aware metrics, attack-type error diagnostics, a held-out test, artifact saving and reload verification.
+The clustering extension chooses `k` from multiple validation views plus bootstrap stability rather than one silhouette score. Pathfinding now measures optimality, expanded nodes and runtime over seeded solvable grids instead of showing algorithms without a benchmark.
 
-## CineIntelligence NoSQL v2
+## Decision-focused churn, recommendation, fraud and LLM work
 
-The old notebook's quote-replacement parsing was brittle. The v2 uses `json.loads` with `ast.literal_eval` fallback, quarantines malformed rows, defines a document contract, exports NDJSON and demonstrates an indexed query path.
+- Telecom churn now chooses a model on validation PR-AUC and selects a risk threshold from stated review capacity before opening test data.
+- The recommender evaluates ranking quality with Recall@K/NDCG@K instead of relying on rating error alone.
+- Fraud/AML uses chronological splits and operational review/cost metrics, while staying explicitly synthetic.
+- LLM work uses a frozen base-vs-aligned evaluation harness rather than subjective hand-picked generations.
 
-```bash
-python extensions/cine_nosql_v2.py /path/to/tmdb_5000_movies.csv
-```
+## Repository rule
 
-No Kaggle credentials or copied dataset are embedded. Source/licence/freshness remain part of the project evidence.
-
-## Why extensions instead of deleting or rewriting everything?
-
-Because **good code should stay**. The portfolio now follows three rules:
+The strategy is now **preserve + harden + verify**:
 
 1. Preserve useful original notebooks.
-2. Add a v2 only when it fixes a material weakness.
-3. Do not promote a metric until the current code has been rerun and the evidence is retained.
+2. Fix material gaps with targeted completion layers.
+3. Run the current version cleanly.
+4. Retain test/evaluation artifacts.
+5. Promote only claims that can be reproduced and defended in an interview.
 
-That gives the repository breadth without pretending every older notebook is equally verified.
+Good code stays. Unverified claims do not.
