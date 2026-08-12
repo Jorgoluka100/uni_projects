@@ -8,9 +8,11 @@ honest evidence tiers:
 2. ADVANCED_NOTEBOOKS must be valid, code-bearing, discoverable artefacts. Missing
    notebook prose and old stored errors are surfaced as warnings while projects are
    being upgraded and rerun; they cannot be promoted to verified status until clean.
+3. RETAINED_VERIFICATION_FILES are fresh-process or release-gate evidence files that
+   must still report verification_pass=true after a project is promoted.
 
 The heuristic completion score is diagnostic only. A clean end-to-end rerun and
-manual evidence review are still required before promoting a project or metric.
+review of retained evidence are still required before promoting a project or metric.
 """
 
 from __future__ import annotations
@@ -34,10 +36,10 @@ VERIFIED_NOTEBOOKS = [
     "06_Clickstream_Analysis_with_PySpark.ipynb",
     "07_London_Air_Quality_Analysis_with_R.ipynb",
     "01_ConsultAI_AI_Opportunity_Engine.ipynb",
+    "12_VisionForge_PyTorch_Visual_Inspection.ipynb",
 ]
 
 ADVANCED_NOTEBOOKS = [
-    "12_VisionForge_PyTorch_Visual_Inspection.ipynb",
     "Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb",
     "AeroFlow_AI_Engine.ipynb",
     "Aviation_Strategy_PostgreSQL_Optimization.ipynb",
@@ -56,6 +58,13 @@ ADVANCED_NOTEBOOKS = [
     "Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb",
     "financial_fraud_aml_detection_system.ipynb",
 ]
+
+RETAINED_VERIFICATION_FILES = {
+    "ConsultAI": "verified/consultai/consultai_verification.json",
+    "VisionForge": "verified/visionforge/verification_metrics.json",
+    "Movie Recommender v2": "verified/recommender/verification.json",
+    "Fraud/AML v2 methodology": "verified/fraud_aml/verification.json",
+}
 
 # Advanced notebooks with little/no in-notebook narrative are documented here.
 # The audit is a bridge, not a substitute for adding clear notebook narrative when
@@ -246,6 +255,22 @@ def check_advanced(
         print(f"PASS ADVANCED + EXECUTED (UNVERIFIED TIER): {path.name}")
 
 
+def check_retained_verification(name: str, relative_path: str, failures: list[str]) -> None:
+    path = ROOT / relative_path
+    if not path.is_file():
+        fail(f"{name}: missing retained verification file {relative_path}", failures)
+        return
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        fail(f"{name}: invalid verification JSON ({exc})", failures)
+        return
+    if payload.get("verification_pass") is not True:
+        fail(f"{name}: retained verification does not report verification_pass=true", failures)
+        return
+    print(f"PASS RETAINED EVIDENCE: {name} -> {relative_path}")
+
+
 def require_listed(filename: str, readme_text: str, failures: list[str]) -> None:
     if filename not in readme_text and filename.replace(" ", "%20") not in readme_text:
         fail(f"README.md does not reference {filename}", failures)
@@ -273,6 +298,10 @@ def main() -> int:
         require_listed(filename, readme_text, failures)
         check_verified(path, failures, warnings)
 
+    print("\n=== RETAINED VERIFICATION EVIDENCE ===")
+    for name, relative_path in RETAINED_VERIFICATION_FILES.items():
+        check_retained_verification(name, relative_path, failures)
+
     print("\n=== ADVANCED PROJECT LABORATORY ===")
     for filename in ADVANCED_NOTEBOOKS:
         path = ROOT / filename
@@ -284,6 +313,7 @@ def main() -> int:
 
     print("\n=== SUMMARY ===")
     print(f"Verified notebooks checked: {len(VERIFIED_NOTEBOOKS)}")
+    print(f"Retained verification files checked: {len(RETAINED_VERIFICATION_FILES)}")
     print(f"Advanced notebooks checked: {len(ADVANCED_NOTEBOOKS)}")
     print(f"Warnings: {len(warnings)}")
     print(f"Failures: {len(failures)}")
