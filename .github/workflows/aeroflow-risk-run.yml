@@ -1,0 +1,93 @@
+name: AeroFlow delay risk verified run
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/aeroflow-risk-run.yml'
+      - 'extensions/aeroflow_delay_risk_v3.py'
+      - 'extensions/aeroflow_v2.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-and-retain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas numpy scikit-learn catboost requests joblib
+
+      - name: Execute official 2026 delay-risk pipeline
+        run: |
+          rm -rf aeroflow_delay_risk_artifacts
+          PYTHONPATH=extensions python extensions/aeroflow_delay_risk_v3.py
+
+      - name: Validate retained evidence
+        run: |
+          python - <<'PY'
+          import json, math
+          from pathlib import Path
+          import pandas as pd
+          root = Path('aeroflow_delay_risk_artifacts')
+          for name in ['metrics.json','aeroflow_delay15_catboost_2026.cbm','carrier_risk_slices.csv']:
+              p=root/name; assert p.is_file() and p.stat().st_size > 0, name
+          d=json.loads((root/'metrics.json').read_text())
+          assert d['data_year']==2026 and d['test_months']==[5]
+          assert all(int(d['rows'][s])>0 for s in ['train','validation','test'])
+          m=d['classifier_test']; b=d['baseline_test']
+          assert 0 <= m['pr_auc'] <= 1 and 0 <= m['roc_auc'] <= 1
+          assert m['pr_auc'] >= m['prevalence']
+          assert 0 <= m['precision'] <= 1 and 0 <= m['recall'] <= 1
+          assert 0 <= m['flag_rate'] <= 1
+          assert math.isfinite(m['brier']) and math.isfinite(m['log_loss'])
+          assert d['ranking_lift']['top_10pct']['lift'] > 0
+          assert len(d['limitations']) >= 5
+          assert not pd.read_csv(root/'carrier_risk_slices.csv').empty
+          report={'project':'AeroFlow delay-risk v3','verification_pass':True,'rows':d['rows'],'baseline_test':b,'classifier_test':m,'ranking_lift':d['ranking_lift'],'validation_threshold':d['validation_threshold'],'evidence_policy':'Official BTS 2026; Jan-Mar train, April validation, untouched May test; schedule-time features only.'}
+          (root/'verification.json').write_text(json.dumps(report,indent=2))
+          print(json.dumps(report,indent=2))
+          PY
+
+      - name: Retain compact evidence
+        run: |
+          mkdir -p verified/aeroflow_delay_risk
+          cp aeroflow_delay_risk_artifacts/metrics.json verified/aeroflow_delay_risk/
+          cp aeroflow_delay_risk_artifacts/verification.json verified/aeroflow_delay_risk/
+          cp aeroflow_delay_risk_artifacts/carrier_risk_slices.csv verified/aeroflow_delay_risk/
+
+      - name: Commit evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add verified/aeroflow_delay_risk
+          if git diff --cached --quiet; then
+            echo 'No generated evidence changed.'
+          else
+            git commit -m 'Retain verified AeroFlow delay risk evidence'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Upload full model bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: aeroflow-delay-risk-evidence
+          path: aeroflow_delay_risk_artifacts/
+          retention-days: 30
+          if-no-files-found: error
