@@ -1,0 +1,70 @@
+name: Fraud AML verified methodology run
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fraud-aml-run.yml'
+      - 'extensions/fraud_aml_v2.py'
+      - 'extensions/fraud_aml_release_gate.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas numpy scikit-learn joblib
+
+      - name: Execute chronological screening pipeline
+        run: |
+          rm -rf fraud_aml_artifacts
+          python extensions/fraud_aml_v2.py --rows 120000 --artifact-dir fraud_aml_artifacts
+
+      - name: Validate retained methodology evidence
+        run: python extensions/fraud_aml_release_gate.py --artifact-dir fraud_aml_artifacts
+
+      - name: Retain compact evidence
+        run: |
+          mkdir -p verified/fraud_aml
+          cp fraud_aml_artifacts/metrics.json verified/fraud_aml/
+          cp fraud_aml_artifacts/verification.json verified/fraud_aml/
+          cp fraud_aml_artifacts/monthly_slices.csv verified/fraud_aml/
+
+      - name: Commit evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add verified/fraud_aml
+          if git diff --cached --quiet; then
+            echo 'No generated evidence changed.'
+          else
+            git commit -m 'Retain verified Fraud AML methodology evidence'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Upload full evidence bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: fraud-aml-evidence
+          path: fraud_aml_artifacts/
+          retention-days: 30
+          if-no-files-found: error
