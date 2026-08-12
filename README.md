@@ -79,4 +79,6 @@ The original notebook work remains available rather than being deleted during cu
 
 The separate [Data Analyst Bootcamp Portfolio](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp) contains executed Python, SQL, data-cleaning, regression, reporting and business-analysis case studies.
 
-Repository code authored by Jorgo Luka is MIT-licensed; third-party datasets/models retain their own licences and terms.
+## Licence and external assets
+
+Original repository code and documentation are MIT-licensed. Third-party datasets, pretrained model assets and external resources retain their own licences and terms; see [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
