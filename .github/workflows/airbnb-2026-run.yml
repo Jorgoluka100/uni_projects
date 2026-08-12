@@ -53,16 +53,18 @@ jobs:
           assert d['source']['provider']=='Inside Airbnb'
           assert d['source']['license']=='CC BY 4.0'
           assert len(d['source']['cached_sha256'])==64
+          assert d['target']=='snapshot listing price in USD; not realised revenue'
           assert d['split']['strategy']=='GroupShuffleSplit by neighbourhood_cleansed'
           assert all(int(d['split'][k])>0 for k in ['train_rows','validation_rows','test_rows'])
-          for split in ['validation','test']:
+          for split in ['validation','untouched_test']:
               m=d['metrics'][split]
-              assert math.isfinite(float(m['mae'])) and m['mae']>=0
-              assert math.isfinite(float(m['baseline_mae'])) and m['baseline_mae']>=0
+              assert math.isfinite(float(m['mae_usd'])) and m['mae_usd']>=0
+              assert math.isfinite(float(m['baseline_mae_usd'])) and m['baseline_mae_usd']>=0
               assert math.isfinite(float(m['r2']))
+              assert math.isfinite(float(m['mae_improvement_vs_median']))
           assert len(d['interpretation_guardrails'])>=4
           assert not pd.read_csv(root/'market_summary.csv').empty
-          report={'project':'NYC Airbnb 2026 v2','verification_pass':True,'source':d['source'],'rows':d['rows'],'split':d['split'],'metrics':d['metrics'],'price_cap_99_5pct':d['price_cap_99_5pct'],'evidence_policy':'14 June 2026 Inside Airbnb snapshot; neighbourhood-group holdout; listing prices are not transactions or booked-night revenue.'}
+          report={'project':'NYC Airbnb 2026 v2','verification_pass':True,'source':d['source'],'target':d['target'],'rows':d['rows'],'split':d['split'],'metrics':d['metrics'],'price_cap_usd_99_5pct':d['price_cap_usd_99_5pct'],'evidence_policy':'14 June 2026 Inside Airbnb snapshot; neighbourhood-group holdout; listing prices are not transactions or booked-night revenue.'}
           (root/'verification.json').write_text(json.dumps(report,indent=2))
           print(json.dumps(report,indent=2))
           PY
