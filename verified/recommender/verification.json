@@ -1,0 +1,22 @@
+{
+  "project": "Movie Recommender v2",
+  "verification_pass": true,
+  "errors": [],
+  "held_out_users": 609,
+  "k": 10,
+  "evaluation": {
+    "latent_svd": {
+      "users": 609,
+      "recall@10": 0.5008210180623974,
+      "ndcg@10": 0.3357848671314608,
+      "median_rank": 10.0
+    },
+    "popularity": {
+      "users": 609,
+      "recall@10": 0.4630541871921182,
+      "ndcg@10": 0.29325987325741837,
+      "median_rank": 13.0
+    }
+  },
+  "evidence_policy": "Offline MovieLens sampled-negative ranking benchmark; not current product traffic."
+}

@@ -1,0 +1,1219 @@
+userId,target_movieId,model,rank,recall@10,ndcg@10,candidate_count,title
+1,2492,popularity,86,0.0,0.0,101,20 Dates (1998)
+1,2492,latent_svd,100,0.0,0.0,101,20 Dates (1998)
+2,80489,popularity,7,1.0,0.3333333333333333,101,"Town, The (2010)"
+2,80489,latent_svd,2,1.0,0.6309297535714575,101,"Town, The (2010)"
+3,3024,popularity,95,0.0,0.0,101,Piranha (1978)
+3,3024,latent_svd,19,0.0,0.0,101,Piranha (1978)
+4,4246,popularity,11,0.0,0.0,101,Bridget Jones's Diary (2001)
+4,4246,latent_svd,98,0.0,0.0,101,Bridget Jones's Diary (2001)
+5,247,popularity,2,1.0,0.6309297535714575,101,Heavenly Creatures (1994)
+5,247,latent_svd,92,0.0,0.0,101,Heavenly Creatures (1994)
+6,780,popularity,80,0.0,0.0,101,Independence Day (a.k.a. ID4) (1996)
+6,780,latent_svd,1,1.0,1.0,101,Independence Day (a.k.a. ID4) (1996)
+7,49272,popularity,3,1.0,0.5,101,Casino Royale (2006)
+7,49272,latent_svd,100,0.0,0.0,101,Casino Royale (2006)
+8,186,popularity,100,0.0,0.0,101,Nine Months (1995)
+8,186,latent_svd,100,0.0,0.0,101,Nine Months (1995)
+9,2012,popularity,82,0.0,0.0,101,Back to the Future Part III (1990)
+9,2012,latent_svd,6,1.0,0.3562071871080222,101,Back to the Future Part III (1990)
+10,7149,popularity,32,0.0,0.0,101,Something's Gotta Give (2003)
+10,7149,latent_svd,74,0.0,0.0,101,Something's Gotta Give (2003)
+11,1923,popularity,11,0.0,0.0,101,There's Something About Mary (1998)
+11,1923,latent_svd,1,1.0,1.0,101,There's Something About Mary (1998)
+12,39,popularity,83,0.0,0.0,101,Clueless (1995)
+12,39,latent_svd,3,1.0,0.5,101,Clueless (1995)
+13,3863,popularity,96,0.0,0.0,101,"Cell, The (2000)"
+13,3863,latent_svd,99,0.0,0.0,101,"Cell, The (2000)"
+14,383,popularity,92,0.0,0.0,101,Wyatt Earp (1994)
+14,383,latent_svd,98,0.0,0.0,101,Wyatt Earp (1994)
+15,71057,popularity,25,0.0,0.0,101,9 (2009)
+15,71057,latent_svd,18,0.0,0.0,101,9 (2009)
+16,1222,popularity,1,1.0,1.0,101,Full Metal Jacket (1987)
+16,1222,latent_svd,2,1.0,0.6309297535714575,101,Full Metal Jacket (1987)
+17,1228,popularity,2,1.0,0.6309297535714575,101,Raging Bull (1980)
+17,1228,latent_svd,3,1.0,0.5,101,Raging Bull (1980)
+18,6787,popularity,2,1.0,0.6309297535714575,101,All the President's Men (1976)
+18,6787,latent_svd,7,1.0,0.3333333333333333,101,All the President's Men (1976)
+19,904,popularity,1,1.0,1.0,101,Rear Window (1954)
+19,904,latent_svd,12,0.0,0.0,101,Rear Window (1954)
+20,2135,popularity,18,0.0,0.0,101,Doctor Dolittle (1967)
+20,2135,latent_svd,72,0.0,0.0,101,Doctor Dolittle (1967)
+21,2717,popularity,96,0.0,0.0,101,Ghostbusters II (1989)
+21,2717,latent_svd,27,0.0,0.0,101,Ghostbusters II (1989)
+22,4903,popularity,91,0.0,0.0,101,In the Bedroom (2001)
+22,4903,latent_svd,4,1.0,0.43067655807339306,101,In the Bedroom (2001)
+23,2726,popularity,5,1.0,0.38685280723454163,101,"Killing, The (1956)"
+23,2726,latent_svd,84,0.0,0.0,101,"Killing, The (1956)"
+24,132660,popularity,42,0.0,0.0,101,Man Up (2015)
+24,132660,latent_svd,59,0.0,0.0,101,Man Up (2015)
+25,187593,popularity,13,0.0,0.0,101,Deadpool 2 (2018)
+25,187593,latent_svd,5,1.0,0.38685280723454163,101,Deadpool 2 (2018)
+26,454,popularity,33,0.0,0.0,101,"Firm, The (1993)"
+26,454,latent_svd,97,0.0,0.0,101,"Firm, The (1993)"
+27,2628,popularity,100,0.0,0.0,101,Star Wars: Episode I - The Phantom Menace (1999)
+27,2628,latent_svd,2,1.0,0.6309297535714575,101,Star Wars: Episode I - The Phantom Menace (1999)
+28,68791,popularity,84,0.0,0.0,101,Terminator Salvation (2009)
+28,68791,latent_svd,94,0.0,0.0,101,Terminator Salvation (2009)
+29,4223,popularity,54,0.0,0.0,101,Enemy at the Gates (2001)
+29,4223,latent_svd,1,1.0,1.0,101,Enemy at the Gates (2001)
+30,115617,popularity,4,1.0,0.43067655807339306,101,Big Hero 6 (2014)
+30,115617,latent_svd,2,1.0,0.6309297535714575,101,Big Hero 6 (2014)
+31,605,popularity,91,0.0,0.0,101,One Fine Day (1996)
+31,605,latent_svd,28,0.0,0.0,101,One Fine Day (1996)
+32,224,popularity,20,0.0,0.0,101,Don Juan DeMarco (1995)
+32,224,latent_svd,6,1.0,0.3562071871080222,101,Don Juan DeMarco (1995)
+33,914,popularity,2,1.0,0.6309297535714575,101,My Fair Lady (1964)
+33,914,latent_svd,2,1.0,0.6309297535714575,101,My Fair Lady (1964)
+34,4643,popularity,97,0.0,0.0,101,Planet of the Apes (2001)
+34,4643,latent_svd,97,0.0,0.0,101,Planet of the Apes (2001)
+35,252,popularity,72,0.0,0.0,101,I.Q. (1994)
+35,252,latent_svd,1,1.0,1.0,101,I.Q. (1994)
+36,318,popularity,1,1.0,1.0,101,"Shawshank Redemption, The (1994)"
+36,318,latent_svd,101,0.0,0.0,101,"Shawshank Redemption, The (1994)"
+37,1061,popularity,21,0.0,0.0,101,Sleepers (1996)
+37,1061,latent_svd,10,1.0,0.2890648263178879,101,Sleepers (1996)
+38,376,popularity,94,0.0,0.0,101,"River Wild, The (1994)"
+38,376,latent_svd,99,0.0,0.0,101,"River Wild, The (1994)"
+39,1967,popularity,5,1.0,0.38685280723454163,101,Labyrinth (1986)
+39,1967,latent_svd,8,1.0,0.31546487678572877,101,Labyrinth (1986)
+40,685,popularity,48,0.0,0.0,101,It's My Party (1996)
+40,685,latent_svd,61,0.0,0.0,101,It's My Party (1996)
+41,6287,popularity,98,0.0,0.0,101,Anger Management (2003)
+41,6287,latent_svd,95,0.0,0.0,101,Anger Management (2003)
+42,2987,popularity,15,0.0,0.0,101,Who Framed Roger Rabbit? (1988)
+42,2987,latent_svd,4,1.0,0.43067655807339306,101,Who Framed Roger Rabbit? (1988)
+43,1356,popularity,4,1.0,0.43067655807339306,101,Star Trek: First Contact (1996)
+43,1356,latent_svd,43,0.0,0.0,101,Star Trek: First Contact (1996)
+44,1639,popularity,31,0.0,0.0,101,Chasing Amy (1997)
+44,1639,latent_svd,2,1.0,0.6309297535714575,101,Chasing Amy (1997)
+45,51080,popularity,49,0.0,0.0,101,Breach (2007)
+45,51080,latent_svd,7,1.0,0.3333333333333333,101,Breach (2007)
+46,173,popularity,101,0.0,0.0,101,Judge Dredd (1995)
+46,173,latent_svd,94,0.0,0.0,101,Judge Dredd (1995)
+47,5108,popularity,89,0.0,0.0,101,John Q (2002)
+47,5108,latent_svd,81,0.0,0.0,101,John Q (2002)
+48,8371,popularity,77,0.0,0.0,101,"Chronicles of Riddick, The (2004)"
+48,8371,latent_svd,3,1.0,0.5,101,"Chronicles of Riddick, The (2004)"
+49,109487,popularity,3,1.0,0.5,101,Interstellar (2014)
+49,109487,latent_svd,1,1.0,1.0,101,Interstellar (2014)
+50,1201,popularity,1,1.0,1.0,101,"Good, the Bad and the Ugly, The (Buono, il brutto, il cattivo, Il) (1966)"
+50,1201,latent_svd,78,0.0,0.0,101,"Good, the Bad and the Ugly, The (Buono, il brutto, il cattivo, Il) (1966)"
+51,1257,popularity,11,0.0,0.0,101,Better Off Dead... (1985)
+51,1257,latent_svd,61,0.0,0.0,101,Better Off Dead... (1985)
+52,39444,popularity,70,0.0,0.0,101,"Weather Man, The (2005)"
+52,39444,latent_svd,4,1.0,0.43067655807339306,101,"Weather Man, The (2005)"
+53,381,popularity,24,0.0,0.0,101,When a Man Loves a Woman (1994)
+53,381,latent_svd,33,0.0,0.0,101,When a Man Loves a Woman (1994)
+54,356,popularity,1,1.0,1.0,101,Forrest Gump (1994)
+54,356,latent_svd,101,0.0,0.0,101,Forrest Gump (1994)
+55,3275,popularity,2,1.0,0.6309297535714575,101,"Boondock Saints, The (2000)"
+55,3275,latent_svd,2,1.0,0.6309297535714575,101,"Boondock Saints, The (2000)"
+56,69,popularity,12,0.0,0.0,101,Friday (1995)
+56,69,latent_svd,23,0.0,0.0,101,Friday (1995)
+57,2297,popularity,18,0.0,0.0,101,What Dreams May Come (1998)
+57,2297,latent_svd,91,0.0,0.0,101,What Dreams May Come (1998)
+58,1073,popularity,4,1.0,0.43067655807339306,101,Willy Wonka & the Chocolate Factory (1971)
+58,1073,latent_svd,100,0.0,0.0,101,Willy Wonka & the Chocolate Factory (1971)
+59,2352,popularity,7,1.0,0.3333333333333333,101,"Big Chill, The (1983)"
+59,2352,latent_svd,10,1.0,0.2890648263178879,101,"Big Chill, The (1983)"
+60,58559,popularity,1,1.0,1.0,101,"Dark Knight, The (2008)"
+60,58559,latent_svd,80,0.0,0.0,101,"Dark Knight, The (2008)"
+61,593,popularity,1,1.0,1.0,101,"Silence of the Lambs, The (1991)"
+61,593,latent_svd,1,1.0,1.0,101,"Silence of the Lambs, The (1991)"
+62,49530,popularity,9,1.0,0.3010299956639812,101,Blood Diamond (2006)
+62,49530,latent_svd,3,1.0,0.5,101,Blood Diamond (2006)
+63,1203,popularity,2,1.0,0.6309297535714575,101,12 Angry Men (1957)
+63,1203,latent_svd,1,1.0,1.0,101,12 Angry Men (1957)
+64,3556,popularity,8,1.0,0.31546487678572877,101,"Virgin Suicides, The (1999)"
+64,3556,latent_svd,6,1.0,0.3562071871080222,101,"Virgin Suicides, The (1999)"
+65,111759,popularity,4,1.0,0.43067655807339306,101,Edge of Tomorrow (2014)
+65,111759,latent_svd,6,1.0,0.3562071871080222,101,Edge of Tomorrow (2014)
+66,51255,popularity,3,1.0,0.5,101,Hot Fuzz (2007)
+66,51255,latent_svd,2,1.0,0.6309297535714575,101,Hot Fuzz (2007)
+67,2011,popularity,44,0.0,0.0,101,Back to the Future Part II (1989)
+67,2011,latent_svd,2,1.0,0.6309297535714575,101,Back to the Future Part II (1989)
+68,112175,popularity,9,1.0,0.3010299956639812,101,How to Train Your Dragon 2 (2014)
+68,112175,latent_svd,1,1.0,1.0,101,How to Train Your Dragon 2 (2014)
+69,4022,popularity,4,1.0,0.43067655807339306,101,Cast Away (2000)
+69,4022,latent_svd,2,1.0,0.6309297535714575,101,Cast Away (2000)
+70,1250,popularity,2,1.0,0.6309297535714575,101,"Bridge on the River Kwai, The (1957)"
+70,1250,latent_svd,3,1.0,0.5,101,"Bridge on the River Kwai, The (1957)"
+71,1240,popularity,2,1.0,0.6309297535714575,101,"Terminator, The (1984)"
+71,1240,latent_svd,2,1.0,0.6309297535714575,101,"Terminator, The (1984)"
+72,2329,popularity,1,1.0,1.0,101,American History X (1998)
+72,2329,latent_svd,1,1.0,1.0,101,American History X (1998)
+73,106072,popularity,78,0.0,0.0,101,Thor: The Dark World (2013)
+73,106072,latent_svd,80,0.0,0.0,101,Thor: The Dark World (2013)
+74,58103,popularity,63,0.0,0.0,101,Vantage Point (2008)
+74,58103,latent_svd,58,0.0,0.0,101,Vantage Point (2008)
+75,1196,popularity,1,1.0,1.0,101,Star Wars: Episode V - The Empire Strikes Back (1980)
+75,1196,latent_svd,1,1.0,1.0,101,Star Wars: Episode V - The Empire Strikes Back (1980)
+76,44195,popularity,3,1.0,0.5,101,Thank You for Smoking (2006)
+76,44195,latent_svd,10,1.0,0.2890648263178879,101,Thank You for Smoking (2006)
+77,8636,popularity,4,1.0,0.43067655807339306,101,Spider-Man 2 (2004)
+77,8636,latent_svd,4,1.0,0.43067655807339306,101,Spider-Man 2 (2004)
+78,2716,popularity,4,1.0,0.43067655807339306,101,Ghostbusters (a.k.a. Ghost Busters) (1984)
+78,2716,latent_svd,1,1.0,1.0,101,Ghostbusters (a.k.a. Ghost Busters) (1984)
+79,6,popularity,2,1.0,0.6309297535714575,101,Heat (1995)
+79,6,latent_svd,1,1.0,1.0,101,Heat (1995)
+80,1258,popularity,2,1.0,0.6309297535714575,101,"Shining, The (1980)"
+80,1258,latent_svd,2,1.0,0.6309297535714575,101,"Shining, The (1980)"
+81,32,popularity,2,1.0,0.6309297535714575,101,Twelve Monkeys (a.k.a. 12 Monkeys) (1995)
+81,32,latent_svd,93,0.0,0.0,101,Twelve Monkeys (a.k.a. 12 Monkeys) (1995)
+82,6887,popularity,16,0.0,0.0,101,Radio (2003)
+82,6887,latent_svd,16,0.0,0.0,101,Radio (2003)
+83,1282,popularity,6,1.0,0.3562071871080222,101,Fantasia (1940)
+83,1282,latent_svd,23,0.0,0.0,101,Fantasia (1940)
+84,932,popularity,11,0.0,0.0,101,"Affair to Remember, An (1957)"
+84,932,latent_svd,51,0.0,0.0,101,"Affair to Remember, An (1957)"
+85,538,popularity,38,0.0,0.0,101,Six Degrees of Separation (1993)
+85,538,latent_svd,34,0.0,0.0,101,Six Degrees of Separation (1993)
+86,4901,popularity,61,0.0,0.0,101,Spy Game (2001)
+86,4901,latent_svd,3,1.0,0.5,101,Spy Game (2001)
+87,1584,popularity,13,0.0,0.0,101,Contact (1997)
+87,1584,latent_svd,89,0.0,0.0,101,Contact (1997)
+88,4262,popularity,2,1.0,0.6309297535714575,101,Scarface (1983)
+88,4262,latent_svd,2,1.0,0.6309297535714575,101,Scarface (1983)
+89,37444,popularity,101,0.0,0.0,101,Frankenstein 90 (1984)
+89,37444,latent_svd,42,0.0,0.0,101,Frankenstein 90 (1984)
+90,984,popularity,56,0.0,0.0,101,"Pompatus of Love, The (1996)"
+90,984,latent_svd,79,0.0,0.0,101,"Pompatus of Love, The (1996)"
+91,1974,popularity,100,0.0,0.0,101,Friday the 13th (1980)
+91,1974,latent_svd,98,0.0,0.0,101,Friday the 13th (1980)
+92,54190,popularity,4,1.0,0.43067655807339306,101,Across the Universe (2007)
+92,54190,latent_svd,22,0.0,0.0,101,Across the Universe (2007)
+93,110,popularity,1,1.0,1.0,101,Braveheart (1995)
+93,110,latent_svd,1,1.0,1.0,101,Braveheart (1995)
+94,2,popularity,71,0.0,0.0,101,Jumanji (1995)
+94,2,latent_svd,100,0.0,0.0,101,Jumanji (1995)
+95,6979,popularity,83,0.0,0.0,101,WarGames (1983)
+95,6979,latent_svd,89,0.0,0.0,101,WarGames (1983)
+96,434,popularity,98,0.0,0.0,101,Cliffhanger (1993)
+96,434,latent_svd,3,1.0,0.5,101,Cliffhanger (1993)
+97,377,popularity,40,0.0,0.0,101,Speed (1994)
+97,377,latent_svd,4,1.0,0.43067655807339306,101,Speed (1994)
+98,152077,popularity,18,0.0,0.0,101,10 Cloverfield Lane (2016)
+98,152077,latent_svd,36,0.0,0.0,101,10 Cloverfield Lane (2016)
+99,333,popularity,3,1.0,0.5,101,Tommy Boy (1995)
+99,333,latent_svd,5,1.0,0.38685280723454163,101,Tommy Boy (1995)
+100,4621,popularity,99,0.0,0.0,101,Look Who's Talking (1989)
+100,4621,latent_svd,5,1.0,0.38685280723454163,101,Look Who's Talking (1989)
+101,1719,popularity,6,1.0,0.3562071871080222,101,"Sweet Hereafter, The (1997)"
+101,1719,latent_svd,3,1.0,0.5,101,"Sweet Hereafter, The (1997)"
+102,3,popularity,91,0.0,0.0,101,Grumpier Old Men (1995)
+102,3,latent_svd,9,1.0,0.3010299956639812,101,Grumpier Old Men (1995)
+103,1945,popularity,3,1.0,0.5,101,On the Waterfront (1954)
+103,1945,latent_svd,10,1.0,0.2890648263178879,101,On the Waterfront (1954)
+104,76093,popularity,4,1.0,0.43067655807339306,101,How to Train Your Dragon (2010)
+104,76093,latent_svd,3,1.0,0.5,101,How to Train Your Dragon (2010)
+105,136447,popularity,101,0.0,0.0,101,George Carlin: You Are All Diseased (1999)
+105,136447,latent_svd,50,0.0,0.0,101,George Carlin: You Are All Diseased (1999)
+106,318,popularity,1,1.0,1.0,101,"Shawshank Redemption, The (1994)"
+106,318,latent_svd,2,1.0,0.6309297535714575,101,"Shawshank Redemption, The (1994)"
+107,111,popularity,1,1.0,1.0,101,Taxi Driver (1976)
+107,111,latent_svd,1,1.0,1.0,101,Taxi Driver (1976)
+108,5011,popularity,38,0.0,0.0,101,Charlotte Gray (2001)
+108,5011,latent_svd,55,0.0,0.0,101,Charlotte Gray (2001)
+109,249,popularity,26,0.0,0.0,101,Immortal Beloved (1994)
+109,249,latent_svd,75,0.0,0.0,101,Immortal Beloved (1994)
+110,111,popularity,1,1.0,1.0,101,Taxi Driver (1976)
+110,111,latent_svd,1,1.0,1.0,101,Taxi Driver (1976)
+111,55276,popularity,6,1.0,0.3562071871080222,101,Michael Clayton (2007)
+111,55276,latent_svd,84,0.0,0.0,101,Michael Clayton (2007)
+112,91529,popularity,1,1.0,1.0,101,"Dark Knight Rises, The (2012)"
+112,91529,latent_svd,1,1.0,1.0,101,"Dark Knight Rises, The (2012)"
+113,2583,popularity,10,1.0,0.2890648263178879,101,Cookie's Fortune (1999)
+113,2583,latent_svd,16,0.0,0.0,101,Cookie's Fortune (1999)
+114,5349,popularity,28,0.0,0.0,101,Spider-Man (2002)
+114,5349,latent_svd,101,0.0,0.0,101,Spider-Man (2002)
+115,1923,popularity,9,1.0,0.3010299956639812,101,There's Something About Mary (1998)
+115,1923,latent_svd,3,1.0,0.5,101,There's Something About Mary (1998)
+116,8360,popularity,26,0.0,0.0,101,Shrek 2 (2004)
+116,8360,latent_svd,94,0.0,0.0,101,Shrek 2 (2004)
+117,799,popularity,68,0.0,0.0,101,"Frighteners, The (1996)"
+117,799,latent_svd,7,1.0,0.3333333333333333,101,"Frighteners, The (1996)"
+118,1343,popularity,8,1.0,0.31546487678572877,101,Cape Fear (1991)
+118,1343,latent_svd,7,1.0,0.3333333333333333,101,Cape Fear (1991)
+119,7458,popularity,72,0.0,0.0,101,Troy (2004)
+119,7458,latent_svd,3,1.0,0.5,101,Troy (2004)
+120,858,popularity,1,1.0,1.0,101,"Godfather, The (1972)"
+120,858,latent_svd,1,1.0,1.0,101,"Godfather, The (1972)"
+121,163,popularity,14,0.0,0.0,101,Desperado (1995)
+121,163,latent_svd,101,0.0,0.0,101,Desperado (1995)
+122,80463,popularity,2,1.0,0.6309297535714575,101,"Social Network, The (2010)"
+122,80463,latent_svd,1,1.0,1.0,101,"Social Network, The (2010)"
+123,69306,popularity,75,0.0,0.0,101,"Taking of Pelham 1 2 3, The (2009)"
+123,69306,latent_svd,16,0.0,0.0,101,"Taking of Pelham 1 2 3, The (2009)"
+124,1884,popularity,3,1.0,0.5,101,Fear and Loathing in Las Vegas (1998)
+124,1884,latent_svd,7,1.0,0.3333333333333333,101,Fear and Loathing in Las Vegas (1998)
+125,167746,popularity,8,1.0,0.31546487678572877,101,The Lego Batman Movie (2017)
+125,167746,latent_svd,17,0.0,0.0,101,The Lego Batman Movie (2017)
+126,367,popularity,95,0.0,0.0,101,"Mask, The (1994)"
+126,367,latent_svd,101,0.0,0.0,101,"Mask, The (1994)"
+127,55276,popularity,14,0.0,0.0,101,Michael Clayton (2007)
+127,55276,latent_svd,9,1.0,0.3010299956639812,101,Michael Clayton (2007)
+128,1284,popularity,2,1.0,0.6309297535714575,101,"Big Sleep, The (1946)"
+128,1284,latent_svd,9,1.0,0.3010299956639812,101,"Big Sleep, The (1946)"
+129,8665,popularity,6,1.0,0.3562071871080222,101,"Bourne Supremacy, The (2004)"
+129,8665,latent_svd,1,1.0,1.0,101,"Bourne Supremacy, The (2004)"
+130,110,popularity,3,1.0,0.5,101,Braveheart (1995)
+130,110,latent_svd,2,1.0,0.6309297535714575,101,Braveheart (1995)
+131,778,popularity,1,1.0,1.0,101,Trainspotting (1996)
+131,778,latent_svd,1,1.0,1.0,101,Trainspotting (1996)
+132,4973,popularity,1,1.0,1.0,101,"Amelie (Fabuleux destin d'Amélie Poulain, Le) (2001)"
+132,4973,latent_svd,2,1.0,0.6309297535714575,101,"Amelie (Fabuleux destin d'Amélie Poulain, Le) (2001)"
+133,471,popularity,40,0.0,0.0,101,"Hudsucker Proxy, The (1994)"
+133,471,latent_svd,80,0.0,0.0,101,"Hudsucker Proxy, The (1994)"
+134,442,popularity,94,0.0,0.0,101,Demolition Man (1993)
+134,442,latent_svd,101,0.0,0.0,101,Demolition Man (1993)
+135,2746,popularity,75,0.0,0.0,101,Little Shop of Horrors (1986)
+135,2746,latent_svd,96,0.0,0.0,101,Little Shop of Horrors (1986)
+136,188,popularity,64,0.0,0.0,101,"Prophecy, The (1995)"
+136,188,latent_svd,9,1.0,0.3010299956639812,101,"Prophecy, The (1995)"
+137,1293,popularity,12,0.0,0.0,101,Gandhi (1982)
+137,1293,latent_svd,6,1.0,0.3562071871080222,101,Gandhi (1982)
+138,59103,popularity,51,0.0,0.0,101,"Forbidden Kingdom, The (2008)"
+138,59103,latent_svd,77,0.0,0.0,101,"Forbidden Kingdom, The (2008)"
+139,106489,popularity,36,0.0,0.0,101,"Hobbit: The Desolation of Smaug, The (2013)"
+139,106489,latent_svd,2,1.0,0.6309297535714575,101,"Hobbit: The Desolation of Smaug, The (2013)"
+140,1231,popularity,5,1.0,0.38685280723454163,101,"Right Stuff, The (1983)"
+140,1231,latent_svd,3,1.0,0.5,101,"Right Stuff, The (1983)"
+141,139385,popularity,1,1.0,1.0,101,The Revenant (2015)
+141,139385,latent_svd,4,1.0,0.43067655807339306,101,The Revenant (2015)
+142,440,popularity,41,0.0,0.0,101,Dave (1993)
+142,440,latent_svd,2,1.0,0.6309297535714575,101,Dave (1993)
+143,6332,popularity,91,0.0,0.0,101,"Lizzie McGuire Movie, The (2003)"
+143,6332,latent_svd,11,0.0,0.0,101,"Lizzie McGuire Movie, The (2003)"
+144,552,popularity,95,0.0,0.0,101,"Three Musketeers, The (1993)"
+144,552,latent_svd,96,0.0,0.0,101,"Three Musketeers, The (1993)"
+145,111,popularity,1,1.0,1.0,101,Taxi Driver (1976)
+145,111,latent_svd,1,1.0,1.0,101,Taxi Driver (1976)
+146,7293,popularity,51,0.0,0.0,101,50 First Dates (2004)
+146,7293,latent_svd,6,1.0,0.3562071871080222,101,50 First Dates (2004)
+147,552,popularity,85,0.0,0.0,101,"Three Musketeers, The (1993)"
+147,552,latent_svd,87,0.0,0.0,101,"Three Musketeers, The (1993)"
+148,44191,popularity,2,1.0,0.6309297535714575,101,V for Vendetta (2006)
+148,44191,latent_svd,93,0.0,0.0,101,V for Vendetta (2006)
+149,32,popularity,1,1.0,1.0,101,Twelve Monkeys (a.k.a. 12 Monkeys) (1995)
+149,32,latent_svd,8,1.0,0.31546487678572877,101,Twelve Monkeys (a.k.a. 12 Monkeys) (1995)
+150,805,popularity,14,0.0,0.0,101,"Time to Kill, A (1996)"
+150,805,latent_svd,93,0.0,0.0,101,"Time to Kill, A (1996)"
+151,216,popularity,93,0.0,0.0,101,Billy Madison (1995)
+151,216,latent_svd,1,1.0,1.0,101,Billy Madison (1995)
+152,77455,popularity,4,1.0,0.43067655807339306,101,Exit Through the Gift Shop (2010)
+152,77455,latent_svd,3,1.0,0.5,101,Exit Through the Gift Shop (2010)
+153,7265,popularity,11,0.0,0.0,101,"Dreamers, The (2003)"
+153,7265,latent_svd,91,0.0,0.0,101,"Dreamers, The (2003)"
+154,71264,popularity,28,0.0,0.0,101,Cloudy with a Chance of Meatballs (2009)
+154,71264,latent_svd,4,1.0,0.43067655807339306,101,Cloudy with a Chance of Meatballs (2009)
+155,1580,popularity,60,0.0,0.0,101,Men in Black (a.k.a. MIB) (1997)
+155,1580,latent_svd,1,1.0,1.0,101,Men in Black (a.k.a. MIB) (1997)
+156,8228,popularity,36,0.0,0.0,101,"Maltese Falcon, The (a.k.a. Dangerous Female) (1931)"
+156,8228,latent_svd,4,1.0,0.43067655807339306,101,"Maltese Falcon, The (a.k.a. Dangerous Female) (1931)"
+157,2490,popularity,86,0.0,0.0,101,Payback (1999)
+157,2490,latent_svd,3,1.0,0.5,101,Payback (1999)
+158,53000,popularity,25,0.0,0.0,101,28 Weeks Later (2007)
+158,53000,latent_svd,26,0.0,0.0,101,28 Weeks Later (2007)
+159,5299,popularity,89,0.0,0.0,101,My Big Fat Greek Wedding (2002)
+159,5299,latent_svd,84,0.0,0.0,101,My Big Fat Greek Wedding (2002)
+160,3616,popularity,74,0.0,0.0,101,Loser (2000)
+160,3616,latent_svd,63,0.0,0.0,101,Loser (2000)
+161,3751,popularity,37,0.0,0.0,101,Chicken Run (2000)
+161,3751,latent_svd,6,1.0,0.3562071871080222,101,Chicken Run (2000)
+162,534,popularity,51,0.0,0.0,101,Shadowlands (1993)
+162,534,latent_svd,99,0.0,0.0,101,Shadowlands (1993)
+163,1588,popularity,97,0.0,0.0,101,George of the Jungle (1997)
+163,1588,latent_svd,26,0.0,0.0,101,George of the Jungle (1997)
+164,1580,popularity,65,0.0,0.0,101,Men in Black (a.k.a. MIB) (1997)
+164,1580,latent_svd,2,1.0,0.6309297535714575,101,Men in Black (a.k.a. MIB) (1997)
+165,368,popularity,39,0.0,0.0,101,Maverick (1994)
+165,368,latent_svd,9,1.0,0.3010299956639812,101,Maverick (1994)
+166,17,popularity,5,1.0,0.38685280723454163,101,Sense and Sensibility (1995)
+166,17,latent_svd,2,1.0,0.6309297535714575,101,Sense and Sensibility (1995)
+167,720,popularity,3,1.0,0.5,101,Wallace & Gromit: The Best of Aardman Animation (1996)
+167,720,latent_svd,3,1.0,0.5,101,Wallace & Gromit: The Best of Aardman Animation (1996)
+168,3788,popularity,39,0.0,0.0,101,Blow-Up (Blowup) (1966)
+168,3788,latent_svd,8,1.0,0.31546487678572877,101,Blow-Up (Blowup) (1966)
+169,8641,popularity,9,1.0,0.3010299956639812,101,Anchorman: The Legend of Ron Burgundy (2004)
+169,8641,latent_svd,8,1.0,0.31546487678572877,101,Anchorman: The Legend of Ron Burgundy (2004)
+170,48,popularity,93,0.0,0.0,101,Pocahontas (1995)
+170,48,latent_svd,101,0.0,0.0,101,Pocahontas (1995)
+171,176,popularity,7,1.0,0.3333333333333333,101,Living in Oblivion (1995)
+171,176,latent_svd,16,0.0,0.0,101,Living in Oblivion (1995)
+172,3578,popularity,2,1.0,0.6309297535714575,101,Gladiator (2000)
+172,3578,latent_svd,2,1.0,0.6309297535714575,101,Gladiator (2000)
+173,171,popularity,32,0.0,0.0,101,Jeffrey (1995)
+173,171,latent_svd,57,0.0,0.0,101,Jeffrey (1995)
+174,520,popularity,97,0.0,0.0,101,Robin Hood: Men in Tights (1993)
+174,520,latent_svd,100,0.0,0.0,101,Robin Hood: Men in Tights (1993)
+175,56949,popularity,76,0.0,0.0,101,27 Dresses (2008)
+175,56949,latent_svd,20,0.0,0.0,101,27 Dresses (2008)
+176,47,popularity,1,1.0,1.0,101,Seven (a.k.a. Se7en) (1995)
+176,47,latent_svd,1,1.0,1.0,101,Seven (a.k.a. Se7en) (1995)
+177,112175,popularity,15,0.0,0.0,101,How to Train Your Dragon 2 (2014)
+177,112175,latent_svd,9,1.0,0.3010299956639812,101,How to Train Your Dragon 2 (2014)
+178,1213,popularity,1,1.0,1.0,101,Goodfellas (1990)
+178,1213,latent_svd,1,1.0,1.0,101,Goodfellas (1990)
+179,52,popularity,57,0.0,0.0,101,Mighty Aphrodite (1995)
+179,52,latent_svd,98,0.0,0.0,101,Mighty Aphrodite (1995)
+180,4993,popularity,1,1.0,1.0,101,"Lord of the Rings: The Fellowship of the Ring, The (2001)"
+180,4993,latent_svd,1,1.0,1.0,101,"Lord of the Rings: The Fellowship of the Ring, The (2001)"
+181,86,popularity,11,0.0,0.0,101,White Squall (1996)
+181,86,latent_svd,2,1.0,0.6309297535714575,101,White Squall (1996)
+182,30749,popularity,6,1.0,0.3562071871080222,101,Hotel Rwanda (2004)
+182,30749,latent_svd,2,1.0,0.6309297535714575,101,Hotel Rwanda (2004)
+183,1370,popularity,77,0.0,0.0,101,Die Hard 2 (1990)
+183,1370,latent_svd,17,0.0,0.0,101,Die Hard 2 (1990)
+184,189333,popularity,48,0.0,0.0,101,Mission: Impossible - Fallout (2018)
+184,189333,latent_svd,58,0.0,0.0,101,Mission: Impossible - Fallout (2018)
+185,1658,popularity,87,0.0,0.0,101,"Life Less Ordinary, A (1997)"
+185,1658,latent_svd,91,0.0,0.0,101,"Life Less Ordinary, A (1997)"
+186,648,popularity,29,0.0,0.0,101,Mission: Impossible (1996)
+186,648,latent_svd,1,1.0,1.0,101,Mission: Impossible (1996)
+187,1196,popularity,1,1.0,1.0,101,Star Wars: Episode V - The Empire Strikes Back (1980)
+187,1196,latent_svd,1,1.0,1.0,101,Star Wars: Episode V - The Empire Strikes Back (1980)
+188,906,popularity,11,0.0,0.0,101,Gaslight (1944)
+188,906,latent_svd,19,0.0,0.0,101,Gaslight (1944)
+189,76093,popularity,3,1.0,0.5,101,How to Train Your Dragon (2010)
+189,76093,latent_svd,3,1.0,0.5,101,How to Train Your Dragon (2010)
+190,81834,popularity,5,1.0,0.38685280723454163,101,Harry Potter and the Deathly Hallows: Part 1 (2010)
+190,81834,latent_svd,2,1.0,0.6309297535714575,101,Harry Potter and the Deathly Hallows: Part 1 (2010)
+191,47,popularity,2,1.0,0.6309297535714575,101,Seven (a.k.a. Se7en) (1995)
+191,47,latent_svd,1,1.0,1.0,101,Seven (a.k.a. Se7en) (1995)
+192,480,popularity,8,1.0,0.31546487678572877,101,Jurassic Park (1993)
+192,480,latent_svd,1,1.0,1.0,101,Jurassic Park (1993)
+193,5618,popularity,1,1.0,1.0,101,Spirited Away (Sen to Chihiro no kamikakushi) (2001)
+193,5618,latent_svd,2,1.0,0.6309297535714575,101,Spirited Away (Sen to Chihiro no kamikakushi) (2001)
+194,7143,popularity,3,1.0,0.5,101,"Last Samurai, The (2003)"
+194,7143,latent_svd,75,0.0,0.0,101,"Last Samurai, The (2003)"
+195,908,popularity,3,1.0,0.5,101,North by Northwest (1959)
+195,908,latent_svd,99,0.0,0.0,101,North by Northwest (1959)
+196,51935,popularity,4,1.0,0.43067655807339306,101,Shooter (2007)
+196,51935,latent_svd,9,1.0,0.3010299956639812,101,Shooter (2007)
+197,318,popularity,1,1.0,1.0,101,"Shawshank Redemption, The (1994)"
+197,318,latent_svd,100,0.0,0.0,101,"Shawshank Redemption, The (1994)"
+198,4235,popularity,3,1.0,0.5,101,Amores Perros (Love's a Bitch) (2000)
+198,4235,latent_svd,99,0.0,0.0,101,Amores Perros (Love's a Bitch) (2000)
+199,3160,popularity,9,1.0,0.3010299956639812,101,Magnolia (1999)
+199,3160,latent_svd,98,0.0,0.0,101,Magnolia (1999)
+200,1020,popularity,95,0.0,0.0,101,Cool Runnings (1993)
+200,1020,latent_svd,94,0.0,0.0,101,Cool Runnings (1993)
+201,160,popularity,101,0.0,0.0,101,Congo (1995)
+201,160,latent_svd,51,0.0,0.0,101,Congo (1995)
+202,2761,popularity,3,1.0,0.5,101,"Iron Giant, The (1999)"
+202,2761,latent_svd,8,1.0,0.31546487678572877,101,"Iron Giant, The (1999)"
+203,296,popularity,1,1.0,1.0,101,Pulp Fiction (1994)
+203,296,latent_svd,98,0.0,0.0,101,Pulp Fiction (1994)
+204,91658,popularity,63,0.0,0.0,101,"Girl with the Dragon Tattoo, The (2011)"
+204,91658,latent_svd,4,1.0,0.43067655807339306,101,"Girl with the Dragon Tattoo, The (2011)"
+205,71462,popularity,16,0.0,0.0,101,"Cove, The (2009)"
+205,71462,latent_svd,44,0.0,0.0,101,"Cove, The (2009)"
+206,800,popularity,4,1.0,0.43067655807339306,101,Lone Star (1996)
+206,800,latent_svd,4,1.0,0.43067655807339306,101,Lone Star (1996)
+207,2858,popularity,2,1.0,0.6309297535714575,101,American Beauty (1999)
+207,2858,latent_svd,1,1.0,1.0,101,American Beauty (1999)
+208,1210,popularity,1,1.0,1.0,101,Star Wars: Episode VI - Return of the Jedi (1983)
+208,1210,latent_svd,1,1.0,1.0,101,Star Wars: Episode VI - Return of the Jedi (1983)
+209,88125,popularity,2,1.0,0.6309297535714575,101,Harry Potter and the Deathly Hallows: Part 2 (2011)
+209,88125,latent_svd,96,0.0,0.0,101,Harry Potter and the Deathly Hallows: Part 2 (2011)
+210,180031,popularity,27,0.0,0.0,101,The Shape of Water (2017)
+210,180031,latent_svd,65,0.0,0.0,101,The Shape of Water (2017)
+211,1198,popularity,1,1.0,1.0,101,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)
+211,1198,latent_svd,1,1.0,1.0,101,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)
+212,188751,popularity,101,0.0,0.0,101,Mamma Mia: Here We Go Again! (2018)
+212,188751,latent_svd,66,0.0,0.0,101,Mamma Mia: Here We Go Again! (2018)
+213,858,popularity,1,1.0,1.0,101,"Godfather, The (1972)"
+213,858,latent_svd,1,1.0,1.0,101,"Godfather, The (1972)"
+214,1059,popularity,7,1.0,0.3333333333333333,101,William Shakespeare's Romeo + Juliet (1996)
+214,1059,latent_svd,3,1.0,0.5,101,William Shakespeare's Romeo + Juliet (1996)
+215,6155,popularity,87,0.0,0.0,101,How to Lose a Guy in 10 Days (2003)
+215,6155,latent_svd,101,0.0,0.0,101,How to Lose a Guy in 10 Days (2003)
+216,3996,popularity,5,1.0,0.38685280723454163,101,"Crouching Tiger, Hidden Dragon (Wo hu cang long) (2000)"
+216,3996,latent_svd,5,1.0,0.38685280723454163,101,"Crouching Tiger, Hidden Dragon (Wo hu cang long) (2000)"
+217,517,popularity,80,0.0,0.0,101,Rising Sun (1993)
+217,517,latent_svd,28,0.0,0.0,101,Rising Sun (1993)
+218,8636,popularity,5,1.0,0.38685280723454163,101,Spider-Man 2 (2004)
+218,8636,latent_svd,92,0.0,0.0,101,Spider-Man 2 (2004)
+219,457,popularity,1,1.0,1.0,101,"Fugitive, The (1993)"
+219,457,latent_svd,1,1.0,1.0,101,"Fugitive, The (1993)"
+220,8961,popularity,2,1.0,0.6309297535714575,101,"Incredibles, The (2004)"
+220,8961,latent_svd,1,1.0,1.0,101,"Incredibles, The (2004)"
+221,9018,popularity,22,0.0,0.0,101,Control Room (2004)
+221,9018,latent_svd,24,0.0,0.0,101,Control Room (2004)
+222,6863,popularity,78,0.0,0.0,101,School of Rock (2003)
+222,6863,latent_svd,100,0.0,0.0,101,School of Rock (2003)
+223,48394,popularity,7,1.0,0.3333333333333333,101,"Pan's Labyrinth (Laberinto del fauno, El) (2006)"
+223,48394,latent_svd,8,1.0,0.31546487678572877,101,"Pan's Labyrinth (Laberinto del fauno, El) (2006)"
+224,3948,popularity,75,0.0,0.0,101,Meet the Parents (2000)
+224,3948,latent_svd,91,0.0,0.0,101,Meet the Parents (2000)
+225,1970,popularity,97,0.0,0.0,101,"Nightmare on Elm Street 3: Dream Warriors, A (1987)"
+225,1970,latent_svd,86,0.0,0.0,101,"Nightmare on Elm Street 3: Dream Warriors, A (1987)"
+226,56757,popularity,9,1.0,0.3010299956639812,101,Sweeney Todd: The Demon Barber of Fleet Street (2007)
+226,56757,latent_svd,9,1.0,0.3010299956639812,101,Sweeney Todd: The Demon Barber of Fleet Street (2007)
+227,36529,popularity,13,0.0,0.0,101,Lord of War (2005)
+227,36529,latent_svd,2,1.0,0.6309297535714575,101,Lord of War (2005)
+228,50,popularity,1,1.0,1.0,101,"Usual Suspects, The (1995)"
+228,50,latent_svd,1,1.0,1.0,101,"Usual Suspects, The (1995)"
+229,36,popularity,7,1.0,0.3333333333333333,101,Dead Man Walking (1995)
+229,36,latent_svd,1,1.0,1.0,101,Dead Man Walking (1995)
+230,33679,popularity,82,0.0,0.0,101,Mr. & Mrs. Smith (2005)
+230,33679,latent_svd,83,0.0,0.0,101,Mr. & Mrs. Smith (2005)
+231,54286,popularity,9,1.0,0.3010299956639812,101,"Bourne Ultimatum, The (2007)"
+231,54286,latent_svd,8,1.0,0.31546487678572877,101,"Bourne Ultimatum, The (2007)"
+232,81512,popularity,101,0.0,0.0,101,Hereafter (2010)
+232,81512,latent_svd,43,0.0,0.0,101,Hereafter (2010)
+233,5418,popularity,4,1.0,0.43067655807339306,101,"Bourne Identity, The (2002)"
+233,5418,latent_svd,2,1.0,0.6309297535714575,101,"Bourne Identity, The (2002)"
+234,2052,popularity,98,0.0,0.0,101,Hocus Pocus (1993)
+234,2052,latent_svd,94,0.0,0.0,101,Hocus Pocus (1993)
+235,780,popularity,71,0.0,0.0,101,Independence Day (a.k.a. ID4) (1996)
+235,780,latent_svd,1,1.0,1.0,101,Independence Day (a.k.a. ID4) (1996)
+236,2490,popularity,80,0.0,0.0,101,Payback (1999)
+236,2490,latent_svd,77,0.0,0.0,101,Payback (1999)
+237,1203,popularity,1,1.0,1.0,101,12 Angry Men (1957)
+237,1203,latent_svd,71,0.0,0.0,101,12 Angry Men (1957)
+238,3528,popularity,59,0.0,0.0,101,"Prince of Tides, The (1991)"
+238,3528,latent_svd,82,0.0,0.0,101,"Prince of Tides, The (1991)"
+239,8529,popularity,88,0.0,0.0,101,"Terminal, The (2004)"
+239,8529,latent_svd,88,0.0,0.0,101,"Terminal, The (2004)"
+240,810,popularity,100,0.0,0.0,101,Kazaam (1996)
+240,810,latent_svd,53,0.0,0.0,101,Kazaam (1996)
+241,47,popularity,1,1.0,1.0,101,Seven (a.k.a. Se7en) (1995)
+241,47,latent_svd,1,1.0,1.0,101,Seven (a.k.a. Se7en) (1995)
+242,111,popularity,1,1.0,1.0,101,Taxi Driver (1976)
+242,111,latent_svd,1,1.0,1.0,101,Taxi Driver (1976)
+243,112,popularity,46,0.0,0.0,101,Rumble in the Bronx (Hont faan kui) (1995)
+243,112,latent_svd,4,1.0,0.43067655807339306,101,Rumble in the Bronx (Hont faan kui) (1995)
+244,1049,popularity,61,0.0,0.0,101,"Ghost and the Darkness, The (1996)"
+244,1049,latent_svd,78,0.0,0.0,101,"Ghost and the Darkness, The (1996)"
+245,3114,popularity,6,1.0,0.3562071871080222,101,Toy Story 2 (1999)
+245,3114,latent_svd,85,0.0,0.0,101,Toy Story 2 (1999)
+246,3079,popularity,83,0.0,0.0,101,Mansfield Park (1999)
+246,3079,latent_svd,35,0.0,0.0,101,Mansfield Park (1999)
+247,3114,popularity,3,1.0,0.5,101,Toy Story 2 (1999)
+247,3114,latent_svd,1,1.0,1.0,101,Toy Story 2 (1999)
+248,147384,popularity,32,0.0,0.0,101,Doctor Who: The Runaway Bride (2007)
+248,147384,latent_svd,64,0.0,0.0,101,Doctor Who: The Runaway Bride (2007)
+249,185029,popularity,94,0.0,0.0,101,A Quiet Place (2018)
+249,185029,latent_svd,56,0.0,0.0,101,A Quiet Place (2018)
+250,3499,popularity,7,1.0,0.3333333333333333,101,Misery (1990)
+250,3499,latent_svd,92,0.0,0.0,101,Misery (1990)
+251,159817,popularity,10,1.0,0.2890648263178879,101,Planet Earth (2006)
+251,159817,latent_svd,13,0.0,0.0,101,Planet Earth (2006)
+252,1293,popularity,7,1.0,0.3333333333333333,101,Gandhi (1982)
+252,1293,latent_svd,92,0.0,0.0,101,Gandhi (1982)
+253,55442,popularity,6,1.0,0.3562071871080222,101,Persepolis (2007)
+253,55442,latent_svd,7,1.0,0.3333333333333333,101,Persepolis (2007)
+254,2542,popularity,3,1.0,0.5,101,"Lock, Stock & Two Smoking Barrels (1998)"
+254,2542,latent_svd,3,1.0,0.5,101,"Lock, Stock & Two Smoking Barrels (1998)"
+255,3552,popularity,6,1.0,0.3562071871080222,101,Caddyshack (1980)
+255,3552,latent_svd,98,0.0,0.0,101,Caddyshack (1980)
+256,106487,popularity,15,0.0,0.0,101,The Hunger Games: Catching Fire (2013)
+256,106487,latent_svd,9,1.0,0.3010299956639812,101,The Hunger Games: Catching Fire (2013)
+257,1380,popularity,92,0.0,0.0,101,Grease (1978)
+257,1380,latent_svd,86,0.0,0.0,101,Grease (1978)
+258,4995,popularity,1,1.0,1.0,101,"Beautiful Mind, A (2001)"
+258,4995,latent_svd,1,1.0,1.0,101,"Beautiful Mind, A (2001)"
+259,7149,popularity,33,0.0,0.0,101,Something's Gotta Give (2003)
+259,7149,latent_svd,95,0.0,0.0,101,Something's Gotta Give (2003)
+260,2859,popularity,9,1.0,0.3010299956639812,101,Stop Making Sense (1984)
+260,2859,latent_svd,13,0.0,0.0,101,Stop Making Sense (1984)
+261,7361,popularity,1,1.0,1.0,101,Eternal Sunshine of the Spotless Mind (2004)
+261,7361,latent_svd,1,1.0,1.0,101,Eternal Sunshine of the Spotless Mind (2004)
+262,290,popularity,6,1.0,0.3562071871080222,101,Once Were Warriors (1994)
+262,290,latent_svd,82,0.0,0.0,101,Once Were Warriors (1994)
+263,8638,popularity,17,0.0,0.0,101,Before Sunset (2004)
+263,8638,latent_svd,24,0.0,0.0,101,Before Sunset (2004)
+264,367,popularity,96,0.0,0.0,101,"Mask, The (1994)"
+264,367,latent_svd,101,0.0,0.0,101,"Mask, The (1994)"
+265,3831,popularity,10,1.0,0.2890648263178879,101,Saving Grace (2000)
+265,3831,latent_svd,82,0.0,0.0,101,Saving Grace (2000)
+266,1617,popularity,1,1.0,1.0,101,L.A. Confidential (1997)
+266,1617,latent_svd,1,1.0,1.0,101,L.A. Confidential (1997)
+267,29,popularity,2,1.0,0.6309297535714575,101,"City of Lost Children, The (Cité des enfants perdus, La) (1995)"
+267,29,latent_svd,4,1.0,0.43067655807339306,101,"City of Lost Children, The (Cité des enfants perdus, La) (1995)"
+268,1047,popularity,88,0.0,0.0,101,"Long Kiss Goodnight, The (1996)"
+268,1047,latent_svd,86,0.0,0.0,101,"Long Kiss Goodnight, The (1996)"
+269,1367,popularity,95,0.0,0.0,101,101 Dalmatians (1996)
+269,1367,latent_svd,23,0.0,0.0,101,101 Dalmatians (1996)
+270,661,popularity,59,0.0,0.0,101,James and the Giant Peach (1996)
+270,661,latent_svd,77,0.0,0.0,101,James and the Giant Peach (1996)
+271,3706,popularity,93,0.0,0.0,101,Angel Heart (1987)
+271,3706,latent_svd,1,1.0,1.0,101,Angel Heart (1987)
+272,158238,popularity,6,1.0,0.3562071871080222,101,The Nice Guys (2016)
+272,158238,latent_svd,91,0.0,0.0,101,The Nice Guys (2016)
+273,262,popularity,8,1.0,0.31546487678572877,101,"Little Princess, A (1995)"
+273,262,latent_svd,6,1.0,0.3562071871080222,101,"Little Princess, A (1995)"
+274,86911,popularity,84,0.0,0.0,101,"Hangover Part II, The (2011)"
+274,86911,latent_svd,81,0.0,0.0,101,"Hangover Part II, The (2011)"
+275,1333,popularity,21,0.0,0.0,101,"Birds, The (1963)"
+275,1333,latent_svd,81,0.0,0.0,101,"Birds, The (1963)"
+276,150,popularity,3,1.0,0.5,101,Apollo 13 (1995)
+276,150,latent_svd,1,1.0,1.0,101,Apollo 13 (1995)
+277,836,popularity,92,0.0,0.0,101,Chain Reaction (1996)
+277,836,latent_svd,91,0.0,0.0,101,Chain Reaction (1996)
+278,54272,popularity,16,0.0,0.0,101,"Simpsons Movie, The (2007)"
+278,54272,latent_svd,99,0.0,0.0,101,"Simpsons Movie, The (2007)"
+279,175303,popularity,55,0.0,0.0,101,It (2017)
+279,175303,latent_svd,64,0.0,0.0,101,It (2017)
+280,94959,popularity,8,1.0,0.31546487678572877,101,Moonrise Kingdom (2012)
+280,94959,latent_svd,5,1.0,0.38685280723454163,101,Moonrise Kingdom (2012)
+281,2329,popularity,1,1.0,1.0,101,American History X (1998)
+281,2329,latent_svd,100,0.0,0.0,101,American History X (1998)
+282,39183,popularity,30,0.0,0.0,101,Brokeback Mountain (2005)
+282,39183,latent_svd,5,1.0,0.38685280723454163,101,Brokeback Mountain (2005)
+283,788,popularity,101,0.0,0.0,101,"Nutty Professor, The (1996)"
+283,788,latent_svd,98,0.0,0.0,101,"Nutty Professor, The (1996)"
+284,637,popularity,98,0.0,0.0,101,Sgt. Bilko (1996)
+284,637,latent_svd,1,1.0,1.0,101,Sgt. Bilko (1996)
+285,1968,popularity,6,1.0,0.3562071871080222,101,"Breakfast Club, The (1985)"
+285,1968,latent_svd,25,0.0,0.0,101,"Breakfast Club, The (1985)"
+286,7438,popularity,2,1.0,0.6309297535714575,101,Kill Bill: Vol. 2 (2004)
+286,7438,latent_svd,1,1.0,1.0,101,Kill Bill: Vol. 2 (2004)
+287,29,popularity,4,1.0,0.43067655807339306,101,"City of Lost Children, The (Cité des enfants perdus, La) (1995)"
+287,29,latent_svd,2,1.0,0.6309297535714575,101,"City of Lost Children, The (Cité des enfants perdus, La) (1995)"
+288,57669,popularity,2,1.0,0.6309297535714575,101,In Bruges (2008)
+288,57669,latent_svd,6,1.0,0.3562071871080222,101,In Bruges (2008)
+289,7025,popularity,65,0.0,0.0,101,"Midnight Clear, A (1992)"
+289,7025,latent_svd,24,0.0,0.0,101,"Midnight Clear, A (1992)"
+290,2394,popularity,49,0.0,0.0,101,"Prince of Egypt, The (1998)"
+290,2394,latent_svd,99,0.0,0.0,101,"Prince of Egypt, The (1998)"
+291,122904,popularity,7,1.0,0.3333333333333333,101,Deadpool (2016)
+291,122904,latent_svd,1,1.0,1.0,101,Deadpool (2016)
+292,56775,popularity,96,0.0,0.0,101,National Treasure: Book of Secrets (2007)
+292,56775,latent_svd,13,0.0,0.0,101,National Treasure: Book of Secrets (2007)
+293,1673,popularity,2,1.0,0.6309297535714575,101,Boogie Nights (1997)
+293,1673,latent_svd,17,0.0,0.0,101,Boogie Nights (1997)
+294,1371,popularity,97,0.0,0.0,101,Star Trek: The Motion Picture (1979)
+294,1371,latent_svd,83,0.0,0.0,101,Star Trek: The Motion Picture (1979)
+295,2329,popularity,1,1.0,1.0,101,American History X (1998)
+295,2329,latent_svd,1,1.0,1.0,101,American History X (1998)
+296,4144,popularity,7,1.0,0.3333333333333333,101,In the Mood For Love (Fa yeung nin wa) (2000)
+296,4144,latent_svd,7,1.0,0.3333333333333333,101,In the Mood For Love (Fa yeung nin wa) (2000)
+297,288,popularity,95,0.0,0.0,101,Natural Born Killers (1994)
+297,288,latent_svd,72,0.0,0.0,101,Natural Born Killers (1994)
+298,6283,popularity,3,1.0,0.5,101,Cowboy Bebop: The Movie (Cowboy Bebop: Tengoku no Tobira) (2001)
+298,6283,latent_svd,13,0.0,0.0,101,Cowboy Bebop: The Movie (Cowboy Bebop: Tengoku no Tobira) (2001)
+299,1994,popularity,74,0.0,0.0,101,Poltergeist (1982)
+299,1994,latent_svd,74,0.0,0.0,101,Poltergeist (1982)
+300,4848,popularity,5,1.0,0.38685280723454163,101,Mulholland Drive (2001)
+300,4848,latent_svd,3,1.0,0.5,101,Mulholland Drive (2001)
+301,56788,popularity,58,0.0,0.0,101,Charlie Wilson's War (2007)
+301,56788,latent_svd,89,0.0,0.0,101,Charlie Wilson's War (2007)
+302,1198,popularity,2,1.0,0.6309297535714575,101,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)
+302,1198,latent_svd,2,1.0,0.6309297535714575,101,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)
+303,3702,popularity,56,0.0,0.0,101,Mad Max (1979)
+303,3702,latent_svd,3,1.0,0.5,101,Mad Max (1979)
+304,597,popularity,51,0.0,0.0,101,Pretty Woman (1990)
+304,597,latent_svd,14,0.0,0.0,101,Pretty Woman (1990)
+305,148671,popularity,23,0.0,0.0,101,Saw (2003)
+305,148671,latent_svd,31,0.0,0.0,101,Saw (2003)
+306,136016,popularity,41,0.0,0.0,101,The Good Dinosaur (2015)
+306,136016,latent_svd,72,0.0,0.0,101,The Good Dinosaur (2015)
+307,68952,popularity,48,0.0,0.0,101,Drag Me to Hell (2009)
+307,68952,latent_svd,33,0.0,0.0,101,Drag Me to Hell (2009)
+308,1028,popularity,3,1.0,0.5,101,Mary Poppins (1964)
+308,1028,latent_svd,18,0.0,0.0,101,Mary Poppins (1964)
+309,4432,popularity,10,1.0,0.2890648263178879,101,Sweet Smell of Success (1957)
+309,4432,latent_svd,19,0.0,0.0,101,Sweet Smell of Success (1957)
+310,2944,popularity,3,1.0,0.5,101,"Dirty Dozen, The (1967)"
+310,2944,latent_svd,6,1.0,0.3562071871080222,101,"Dirty Dozen, The (1967)"
+311,6461,popularity,17,0.0,0.0,101,"Unforgiven, The (1960)"
+311,6461,latent_svd,88,0.0,0.0,101,"Unforgiven, The (1960)"
+312,5881,popularity,94,0.0,0.0,101,Solaris (2002)
+312,5881,latent_svd,11,0.0,0.0,101,Solaris (2002)
+313,1513,popularity,100,0.0,0.0,101,Romy and Michele's High School Reunion (1997)
+313,1513,latent_svd,51,0.0,0.0,101,Romy and Michele's High School Reunion (1997)
+314,260,popularity,1,1.0,1.0,101,Star Wars: Episode IV - A New Hope (1977)
+314,260,latent_svd,101,0.0,0.0,101,Star Wars: Episode IV - A New Hope (1977)
+315,902,popularity,4,1.0,0.43067655807339306,101,Breakfast at Tiffany's (1961)
+315,902,latent_svd,97,0.0,0.0,101,Breakfast at Tiffany's (1961)
+316,5679,popularity,87,0.0,0.0,101,"Ring, The (2002)"
+316,5679,latent_svd,91,0.0,0.0,101,"Ring, The (2002)"
+317,133115,popularity,101,0.0,0.0,101,We Could Be King (2014)
+317,133115,latent_svd,51,0.0,0.0,101,We Could Be King (2014)
+318,26713,popularity,101,0.0,0.0,101,Days of Being Wild (A Fei jingjyuhn) (1990)
+318,26713,latent_svd,56,0.0,0.0,101,Days of Being Wild (A Fei jingjyuhn) (1990)
+319,136864,popularity,99,0.0,0.0,101,Batman v Superman: Dawn of Justice (2016)
+319,136864,latent_svd,21,0.0,0.0,101,Batman v Superman: Dawn of Justice (2016)
+320,72998,popularity,10,1.0,0.2890648263178879,101,Avatar (2009)
+320,72998,latent_svd,1,1.0,1.0,101,Avatar (2009)
+321,24,popularity,92,0.0,0.0,101,Powder (1995)
+321,24,latent_svd,8,1.0,0.31546487678572877,101,Powder (1995)
+322,30749,popularity,11,0.0,0.0,101,Hotel Rwanda (2004)
+322,30749,latent_svd,91,0.0,0.0,101,Hotel Rwanda (2004)
+323,111659,popularity,100,0.0,0.0,101,Maleficent (2014)
+323,111659,latent_svd,19,0.0,0.0,101,Maleficent (2014)
+324,3864,popularity,98,0.0,0.0,101,Godzilla 2000 (Gojira ni-sen mireniamu) (1999)
+324,3864,latent_svd,92,0.0,0.0,101,Godzilla 2000 (Gojira ni-sen mireniamu) (1999)
+325,1248,popularity,2,1.0,0.6309297535714575,101,Touch of Evil (1958)
+325,1248,latent_svd,2,1.0,0.6309297535714575,101,Touch of Evil (1958)
+326,8665,popularity,7,1.0,0.3333333333333333,101,"Bourne Supremacy, The (2004)"
+326,8665,latent_svd,1,1.0,1.0,101,"Bourne Supremacy, The (2004)"
+327,1288,popularity,2,1.0,0.6309297535714575,101,This Is Spinal Tap (1984)
+327,1288,latent_svd,1,1.0,1.0,101,This Is Spinal Tap (1984)
+328,1035,popularity,1,1.0,1.0,101,"Sound of Music, The (1965)"
+328,1035,latent_svd,95,0.0,0.0,101,"Sound of Music, The (1965)"
+329,778,popularity,1,1.0,1.0,101,Trainspotting (1996)
+329,778,latent_svd,101,0.0,0.0,101,Trainspotting (1996)
+330,4902,popularity,77,0.0,0.0,101,"Devil's Backbone, The (Espinazo del diablo, El) (2001)"
+330,4902,latent_svd,1,1.0,1.0,101,"Devil's Backbone, The (Espinazo del diablo, El) (2001)"
+331,187593,popularity,10,1.0,0.2890648263178879,101,Deadpool 2 (2018)
+331,187593,latent_svd,11,0.0,0.0,101,Deadpool 2 (2018)
+332,2420,popularity,21,0.0,0.0,101,"Karate Kid, The (1984)"
+332,2420,latent_svd,15,0.0,0.0,101,"Karate Kid, The (1984)"
+333,3616,popularity,72,0.0,0.0,101,Loser (2000)
+333,3616,latent_svd,78,0.0,0.0,101,Loser (2000)
+334,1755,popularity,12,0.0,0.0,101,Shooting Fish (1997)
+334,1755,latent_svd,79,0.0,0.0,101,Shooting Fish (1997)
+335,380,popularity,73,0.0,0.0,101,True Lies (1994)
+335,380,latent_svd,3,1.0,0.5,101,True Lies (1994)
+336,34162,popularity,48,0.0,0.0,101,Wedding Crashers (2005)
+336,34162,latent_svd,100,0.0,0.0,101,Wedding Crashers (2005)
+337,27,popularity,73,0.0,0.0,101,Now and Then (1995)
+337,27,latent_svd,17,0.0,0.0,101,Now and Then (1995)
+338,190209,popularity,101,0.0,0.0,101,Jeff Ross Roasts the Border (2017)
+338,190209,latent_svd,55,0.0,0.0,101,Jeff Ross Roasts the Border (2017)
+339,166643,popularity,7,1.0,0.3333333333333333,101,Hidden Figures (2016)
+339,166643,latent_svd,15,0.0,0.0,101,Hidden Figures (2016)
+340,253,popularity,58,0.0,0.0,101,Interview with the Vampire: The Vampire Chronicles (1994)
+340,253,latent_svd,101,0.0,0.0,101,Interview with the Vampire: The Vampire Chronicles (1994)
+341,136020,popularity,88,0.0,0.0,101,Spectre (2015)
+341,136020,latent_svd,83,0.0,0.0,101,Spectre (2015)
+342,3219,popularity,85,0.0,0.0,101,Pacific Heights (1990)
+342,3219,latent_svd,35,0.0,0.0,101,Pacific Heights (1990)
+343,527,popularity,1,1.0,1.0,101,Schindler's List (1993)
+343,527,latent_svd,1,1.0,1.0,101,Schindler's List (1993)
+344,1265,popularity,2,1.0,0.6309297535714575,101,Groundhog Day (1993)
+344,1265,latent_svd,1,1.0,1.0,101,Groundhog Day (1993)
+345,3801,popularity,19,0.0,0.0,101,Anatomy of a Murder (1959)
+345,3801,latent_svd,24,0.0,0.0,101,Anatomy of a Murder (1959)
+346,357,popularity,47,0.0,0.0,101,Four Weddings and a Funeral (1994)
+346,357,latent_svd,95,0.0,0.0,101,Four Weddings and a Funeral (1994)
+347,1,popularity,1,1.0,1.0,101,Toy Story (1995)
+347,1,latent_svd,1,1.0,1.0,101,Toy Story (1995)
+348,590,popularity,2,1.0,0.6309297535714575,101,Dances with Wolves (1990)
+348,590,latent_svd,1,1.0,1.0,101,Dances with Wolves (1990)
+349,145,popularity,95,0.0,0.0,101,Bad Boys (1995)
+349,145,latent_svd,4,1.0,0.43067655807339306,101,Bad Boys (1995)
+350,671,popularity,56,0.0,0.0,101,Mystery Science Theater 3000: The Movie (1996)
+350,671,latent_svd,67,0.0,0.0,101,Mystery Science Theater 3000: The Movie (1996)
+351,55820,popularity,7,1.0,0.3333333333333333,101,No Country for Old Men (2007)
+351,55820,latent_svd,4,1.0,0.43067655807339306,101,No Country for Old Men (2007)
+352,4011,popularity,1,1.0,1.0,101,Snatch (2000)
+352,4011,latent_svd,2,1.0,0.6309297535714575,101,Snatch (2000)
+353,180,popularity,75,0.0,0.0,101,Mallrats (1995)
+353,180,latent_svd,97,0.0,0.0,101,Mallrats (1995)
+354,70,popularity,41,0.0,0.0,101,From Dusk Till Dawn (1996)
+354,70,latent_svd,2,1.0,0.6309297535714575,101,From Dusk Till Dawn (1996)
+355,901,popularity,91,0.0,0.0,101,Funny Face (1957)
+355,901,latent_svd,98,0.0,0.0,101,Funny Face (1957)
+356,3809,popularity,86,0.0,0.0,101,What About Bob? (1991)
+356,3809,latent_svd,10,1.0,0.2890648263178879,101,What About Bob? (1991)
+357,4370,popularity,88,0.0,0.0,101,A.I. Artificial Intelligence (2001)
+357,4370,latent_svd,100,0.0,0.0,101,A.I. Artificial Intelligence (2001)
+358,66203,popularity,94,0.0,0.0,101,He's Just Not That Into You (2009)
+358,66203,latent_svd,1,1.0,1.0,101,He's Just Not That Into You (2009)
+359,1172,popularity,2,1.0,0.6309297535714575,101,Cinema Paradiso (Nuovo cinema Paradiso) (1989)
+359,1172,latent_svd,1,1.0,1.0,101,Cinema Paradiso (Nuovo cinema Paradiso) (1989)
+360,1620,popularity,90,0.0,0.0,101,Kiss the Girls (1997)
+360,1620,latent_svd,20,0.0,0.0,101,Kiss the Girls (1997)
+361,49272,popularity,7,1.0,0.3333333333333333,101,Casino Royale (2006)
+361,49272,latent_svd,90,0.0,0.0,101,Casino Royale (2006)
+362,90345,popularity,49,0.0,0.0,101,"Thing, The (2011)"
+362,90345,latent_svd,42,0.0,0.0,101,"Thing, The (2011)"
+363,122918,popularity,4,1.0,0.43067655807339306,101,Guardians of the Galaxy 2 (2017)
+363,122918,latent_svd,88,0.0,0.0,101,Guardians of the Galaxy 2 (2017)
+364,376,popularity,93,0.0,0.0,101,"River Wild, The (1994)"
+364,376,latent_svd,57,0.0,0.0,101,"River Wild, The (1994)"
+365,2144,popularity,27,0.0,0.0,101,Sixteen Candles (1984)
+365,2144,latent_svd,3,1.0,0.5,101,Sixteen Candles (1984)
+366,68157,popularity,1,1.0,1.0,101,Inglourious Basterds (2009)
+366,68157,latent_svd,2,1.0,0.6309297535714575,101,Inglourious Basterds (2009)
+367,3797,popularity,59,0.0,0.0,101,"In Crowd, The (2000)"
+367,3797,latent_svd,23,0.0,0.0,101,"In Crowd, The (2000)"
+368,1101,popularity,92,0.0,0.0,101,Top Gun (1986)
+368,1101,latent_svd,2,1.0,0.6309297535714575,101,Top Gun (1986)
+369,2571,popularity,1,1.0,1.0,101,"Matrix, The (1999)"
+369,2571,latent_svd,90,0.0,0.0,101,"Matrix, The (1999)"
+370,7090,popularity,6,1.0,0.3562071871080222,101,Hero (Ying xiong) (2002)
+370,7090,latent_svd,30,0.0,0.0,101,Hero (Ying xiong) (2002)
+371,1884,popularity,1,1.0,1.0,101,Fear and Loathing in Las Vegas (1998)
+371,1884,latent_svd,2,1.0,0.6309297535714575,101,Fear and Loathing in Las Vegas (1998)
+372,1270,popularity,3,1.0,0.5,101,Back to the Future (1985)
+372,1270,latent_svd,2,1.0,0.6309297535714575,101,Back to the Future (1985)
+373,249,popularity,20,0.0,0.0,101,Immortal Beloved (1994)
+373,249,latent_svd,18,0.0,0.0,101,Immortal Beloved (1994)
+374,1215,popularity,1,1.0,1.0,101,Army of Darkness (1993)
+374,1215,latent_svd,2,1.0,0.6309297535714575,101,Army of Darkness (1993)
+375,3256,popularity,44,0.0,0.0,101,Patriot Games (1992)
+375,3256,latent_svd,101,0.0,0.0,101,Patriot Games (1992)
+376,96079,popularity,5,1.0,0.38685280723454163,101,Skyfall (2012)
+376,96079,latent_svd,4,1.0,0.43067655807339306,101,Skyfall (2012)
+377,2384,popularity,96,0.0,0.0,101,Babe: Pig in the City (1998)
+377,2384,latent_svd,2,1.0,0.6309297535714575,101,Babe: Pig in the City (1998)
+378,8961,popularity,8,1.0,0.31546487678572877,101,"Incredibles, The (2004)"
+378,8961,latent_svd,2,1.0,0.6309297535714575,101,"Incredibles, The (2004)"
+379,539,popularity,64,0.0,0.0,101,Sleepless in Seattle (1993)
+379,539,latent_svd,1,1.0,1.0,101,Sleepless in Seattle (1993)
+380,151763,popularity,24,0.0,0.0,101,Death Note Rewrite: Genshisuru Kami (2007)
+380,151763,latent_svd,37,0.0,0.0,101,Death Note Rewrite: Genshisuru Kami (2007)
+381,1046,popularity,14,0.0,0.0,101,Beautiful Thing (1996)
+381,1046,latent_svd,83,0.0,0.0,101,Beautiful Thing (1996)
+382,55247,popularity,3,1.0,0.5,101,Into the Wild (2007)
+382,55247,latent_svd,93,0.0,0.0,101,Into the Wild (2007)
+383,903,popularity,2,1.0,0.6309297535714575,101,Vertigo (1958)
+383,903,latent_svd,12,0.0,0.0,101,Vertigo (1958)
+384,1036,popularity,2,1.0,0.6309297535714575,101,Die Hard (1988)
+384,1036,latent_svd,100,0.0,0.0,101,Die Hard (1988)
+385,750,popularity,1,1.0,1.0,101,Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1964)
+385,750,latent_svd,1,1.0,1.0,101,Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1964)
+386,112,popularity,41,0.0,0.0,101,Rumble in the Bronx (Hont faan kui) (1995)
+386,112,latent_svd,95,0.0,0.0,101,Rumble in the Bronx (Hont faan kui) (1995)
+387,44555,popularity,1,1.0,1.0,101,"Lives of Others, The (Das leben der Anderen) (2006)"
+387,44555,latent_svd,90,0.0,0.0,101,"Lives of Others, The (Das leben der Anderen) (2006)"
+388,5218,popularity,13,0.0,0.0,101,Ice Age (2002)
+388,5218,latent_svd,1,1.0,1.0,101,Ice Age (2002)
+389,65,popularity,100,0.0,0.0,101,Bio-Dome (1996)
+389,65,latent_svd,85,0.0,0.0,101,Bio-Dome (1996)
+390,8970,popularity,22,0.0,0.0,101,Finding Neverland (2004)
+390,8970,latent_svd,40,0.0,0.0,101,Finding Neverland (2004)
+391,1201,popularity,1,1.0,1.0,101,"Good, the Bad and the Ugly, The (Buono, il brutto, il cattivo, Il) (1966)"
+391,1201,latent_svd,1,1.0,1.0,101,"Good, the Bad and the Ugly, The (Buono, il brutto, il cattivo, Il) (1966)"
+392,2694,popularity,90,0.0,0.0,101,Big Daddy (1999)
+392,2694,latent_svd,8,1.0,0.31546487678572877,101,Big Daddy (1999)
+393,31696,popularity,65,0.0,0.0,101,Constantine (2005)
+393,31696,latent_svd,85,0.0,0.0,101,Constantine (2005)
+394,50,popularity,1,1.0,1.0,101,"Usual Suspects, The (1995)"
+394,50,latent_svd,1,1.0,1.0,101,"Usual Suspects, The (1995)"
+395,519,popularity,101,0.0,0.0,101,RoboCop 3 (1993)
+395,519,latent_svd,100,0.0,0.0,101,RoboCop 3 (1993)
+396,3114,popularity,4,1.0,0.43067655807339306,101,Toy Story 2 (1999)
+396,3114,latent_svd,1,1.0,1.0,101,Toy Story 2 (1999)
+397,8645,popularity,12,0.0,0.0,101,"Maria Full of Grace (Maria, Llena eres de gracia) (2004)"
+397,8645,latent_svd,71,0.0,0.0,101,"Maria Full of Grace (Maria, Llena eres de gracia) (2004)"
+398,910,popularity,1,1.0,1.0,101,Some Like It Hot (1959)
+398,910,latent_svd,1,1.0,1.0,101,Some Like It Hot (1959)
+399,6333,popularity,7,1.0,0.3333333333333333,101,X2: X-Men United (2003)
+399,6333,latent_svd,100,0.0,0.0,101,X2: X-Men United (2003)
+400,4878,popularity,1,1.0,1.0,101,Donnie Darko (2001)
+400,4878,latent_svd,3,1.0,0.5,101,Donnie Darko (2001)
+401,1136,popularity,1,1.0,1.0,101,Monty Python and the Holy Grail (1975)
+401,1136,latent_svd,96,0.0,0.0,101,Monty Python and the Holy Grail (1975)
+402,780,popularity,74,0.0,0.0,101,Independence Day (a.k.a. ID4) (1996)
+402,780,latent_svd,1,1.0,1.0,101,Independence Day (a.k.a. ID4) (1996)
+403,58998,popularity,10,1.0,0.2890648263178879,101,Forgetting Sarah Marshall (2008)
+403,58998,latent_svd,9,1.0,0.3010299956639812,101,Forgetting Sarah Marshall (2008)
+404,527,popularity,1,1.0,1.0,101,Schindler's List (1993)
+404,527,latent_svd,1,1.0,1.0,101,Schindler's List (1993)
+405,27266,popularity,11,0.0,0.0,101,2046 (2004)
+405,27266,latent_svd,10,1.0,0.2890648263178879,101,2046 (2004)
+406,33669,popularity,95,0.0,0.0,101,"Sisterhood of the Traveling Pants, The (2005)"
+406,33669,latent_svd,88,0.0,0.0,101,"Sisterhood of the Traveling Pants, The (2005)"
+407,59315,popularity,7,1.0,0.3333333333333333,101,Iron Man (2008)
+407,59315,latent_svd,1,1.0,1.0,101,Iron Man (2008)
+408,109487,popularity,2,1.0,0.6309297535714575,101,Interstellar (2014)
+408,109487,latent_svd,1,1.0,1.0,101,Interstellar (2014)
+409,2492,popularity,87,0.0,0.0,101,20 Dates (1998)
+409,2492,latent_svd,85,0.0,0.0,101,20 Dates (1998)
+410,3,popularity,91,0.0,0.0,101,Grumpier Old Men (1995)
+410,3,latent_svd,5,1.0,0.38685280723454163,101,Grumpier Old Men (1995)
+411,448,popularity,31,0.0,0.0,101,Fearless (1993)
+411,448,latent_svd,70,0.0,0.0,101,Fearless (1993)
+412,858,popularity,1,1.0,1.0,101,"Godfather, The (1972)"
+412,858,latent_svd,2,1.0,0.6309297535714575,101,"Godfather, The (1972)"
+413,4022,popularity,7,1.0,0.3333333333333333,101,Cast Away (2000)
+413,4022,latent_svd,1,1.0,1.0,101,Cast Away (2000)
+414,122906,popularity,16,0.0,0.0,101,Black Panther (2017)
+414,122906,latent_svd,32,0.0,0.0,101,Black Panther (2017)
+415,1198,popularity,1,1.0,1.0,101,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)
+415,1198,latent_svd,2,1.0,0.6309297535714575,101,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)
+416,3677,popularity,11,0.0,0.0,101,Baraka (1992)
+416,3677,latent_svd,5,1.0,0.38685280723454163,101,Baraka (1992)
+417,106489,popularity,36,0.0,0.0,101,"Hobbit: The Desolation of Smaug, The (2013)"
+417,106489,latent_svd,1,1.0,1.0,101,"Hobbit: The Desolation of Smaug, The (2013)"
+418,527,popularity,1,1.0,1.0,101,Schindler's List (1993)
+418,527,latent_svd,1,1.0,1.0,101,Schindler's List (1993)
+419,90943,popularity,101,0.0,0.0,101,Into the Abyss (2011)
+419,90943,latent_svd,43,0.0,0.0,101,Into the Abyss (2011)
+420,1175,popularity,10,1.0,0.2890648263178879,101,Delicatessen (1991)
+420,1175,latent_svd,9,1.0,0.3010299956639812,101,Delicatessen (1991)
+421,2324,popularity,1,1.0,1.0,101,Life Is Beautiful (La Vita è bella) (1997)
+421,2324,latent_svd,1,1.0,1.0,101,Life Is Beautiful (La Vita è bella) (1997)
+422,2070,popularity,62,0.0,0.0,101,Tender Mercies (1983)
+422,2070,latent_svd,63,0.0,0.0,101,Tender Mercies (1983)
+423,589,popularity,7,1.0,0.3333333333333333,101,Terminator 2: Judgment Day (1991)
+423,589,latent_svd,1,1.0,1.0,101,Terminator 2: Judgment Day (1991)
+424,115713,popularity,4,1.0,0.43067655807339306,101,Ex Machina (2015)
+424,115713,latent_svd,82,0.0,0.0,101,Ex Machina (2015)
+425,43921,popularity,73,0.0,0.0,101,Running Scared (2006)
+425,43921,latent_svd,39,0.0,0.0,101,Running Scared (2006)
+426,597,popularity,44,0.0,0.0,101,Pretty Woman (1990)
+426,597,latent_svd,2,1.0,0.6309297535714575,101,Pretty Woman (1990)
+427,2329,popularity,1,1.0,1.0,101,American History X (1998)
+427,2329,latent_svd,1,1.0,1.0,101,American History X (1998)
+428,7439,popularity,50,0.0,0.0,101,"Punisher, The (2004)"
+428,7439,latent_svd,42,0.0,0.0,101,"Punisher, The (2004)"
+429,48,popularity,95,0.0,0.0,101,Pocahontas (1995)
+429,48,latent_svd,1,1.0,1.0,101,Pocahontas (1995)
+430,60684,popularity,2,1.0,0.6309297535714575,101,Watchmen (2009)
+430,60684,latent_svd,14,0.0,0.0,101,Watchmen (2009)
+431,1233,popularity,2,1.0,0.6309297535714575,101,"Boot, Das (Boat, The) (1981)"
+431,1233,latent_svd,78,0.0,0.0,101,"Boot, Das (Boat, The) (1981)"
+432,8919,popularity,31,0.0,0.0,101,P.S. (2004)
+432,8919,latent_svd,77,0.0,0.0,101,P.S. (2004)
+433,80463,popularity,5,1.0,0.38685280723454163,101,"Social Network, The (2010)"
+433,80463,latent_svd,97,0.0,0.0,101,"Social Network, The (2010)"
+434,589,popularity,1,1.0,1.0,101,Terminator 2: Judgment Day (1991)
+434,589,latent_svd,2,1.0,0.6309297535714575,101,Terminator 2: Judgment Day (1991)
+435,4011,popularity,2,1.0,0.6309297535714575,101,Snatch (2000)
+435,4011,latent_svd,2,1.0,0.6309297535714575,101,Snatch (2000)
+436,568,popularity,50,0.0,0.0,101,Bhaji on the Beach (1993)
+436,568,latent_svd,53,0.0,0.0,101,Bhaji on the Beach (1993)
+437,1120,popularity,47,0.0,0.0,101,"People vs. Larry Flynt, The (1996)"
+437,1120,latent_svd,18,0.0,0.0,101,"People vs. Larry Flynt, The (1996)"
+438,40815,popularity,5,1.0,0.38685280723454163,101,Harry Potter and the Goblet of Fire (2005)
+438,40815,latent_svd,19,0.0,0.0,101,Harry Potter and the Goblet of Fire (2005)
+439,5952,popularity,1,1.0,1.0,101,"Lord of the Rings: The Two Towers, The (2002)"
+439,5952,latent_svd,1,1.0,1.0,101,"Lord of the Rings: The Two Towers, The (2002)"
+440,3471,popularity,7,1.0,0.3333333333333333,101,Close Encounters of the Third Kind (1977)
+440,3471,latent_svd,4,1.0,0.43067655807339306,101,Close Encounters of the Third Kind (1977)
+441,8917,popularity,60,0.0,0.0,101,Team America: World Police (2004)
+441,8917,latent_svd,40,0.0,0.0,101,Team America: World Police (2004)
+443,106918,popularity,9,1.0,0.3010299956639812,101,"Secret Life of Walter Mitty, The (2013)"
+443,106918,latent_svd,6,1.0,0.3562071871080222,101,"Secret Life of Walter Mitty, The (2013)"
+444,357,popularity,52,0.0,0.0,101,Four Weddings and a Funeral (1994)
+444,357,latent_svd,6,1.0,0.3562071871080222,101,Four Weddings and a Funeral (1994)
+445,541,popularity,2,1.0,0.6309297535714575,101,Blade Runner (1982)
+445,541,latent_svd,1,1.0,1.0,101,Blade Runner (1982)
+446,223,popularity,4,1.0,0.43067655807339306,101,Clerks (1994)
+446,223,latent_svd,25,0.0,0.0,101,Clerks (1994)
+447,445,popularity,91,0.0,0.0,101,Fatal Instinct (1993)
+447,445,latent_svd,99,0.0,0.0,101,Fatal Instinct (1993)
+448,158872,popularity,61,0.0,0.0,101,Sausage Party (2016)
+448,158872,latent_svd,8,1.0,0.31546487678572877,101,Sausage Party (2016)
+449,3950,popularity,52,0.0,0.0,101,Tigerland (2000)
+449,3950,latent_svd,8,1.0,0.31546487678572877,101,Tigerland (2000)
+450,1073,popularity,3,1.0,0.5,101,Willy Wonka & the Chocolate Factory (1971)
+450,1073,latent_svd,1,1.0,1.0,101,Willy Wonka & the Chocolate Factory (1971)
+451,457,popularity,1,1.0,1.0,101,"Fugitive, The (1993)"
+451,457,latent_svd,3,1.0,0.5,101,"Fugitive, The (1993)"
+452,6537,popularity,97,0.0,0.0,101,Terminator 3: Rise of the Machines (2003)
+452,6537,latent_svd,1,1.0,1.0,101,Terminator 3: Rise of the Machines (2003)
+453,5788,popularity,48,0.0,0.0,101,All or Nothing (2002)
+453,5788,latent_svd,33,0.0,0.0,101,All or Nothing (2002)
+454,904,popularity,1,1.0,1.0,101,Rear Window (1954)
+454,904,latent_svd,4,1.0,0.43067655807339306,101,Rear Window (1954)
+455,62,popularity,14,0.0,0.0,101,Mr. Holland's Opus (1995)
+455,62,latent_svd,1,1.0,1.0,101,Mr. Holland's Opus (1995)
+456,1167,popularity,101,0.0,0.0,101,Dear God (1996)
+456,1167,latent_svd,52,0.0,0.0,101,Dear God (1996)
+457,2762,popularity,3,1.0,0.5,101,"Sixth Sense, The (1999)"
+457,2762,latent_svd,80,0.0,0.0,101,"Sixth Sense, The (1999)"
+458,2,popularity,71,0.0,0.0,101,Jumanji (1995)
+458,2,latent_svd,1,1.0,1.0,101,Jumanji (1995)
+459,74458,popularity,4,1.0,0.43067655807339306,101,Shutter Island (2010)
+459,74458,latent_svd,3,1.0,0.5,101,Shutter Island (2010)
+460,1584,popularity,8,1.0,0.31546487678572877,101,Contact (1997)
+460,1584,latent_svd,5,1.0,0.38685280723454163,101,Contact (1997)
+461,1213,popularity,1,1.0,1.0,101,Goodfellas (1990)
+461,1213,latent_svd,2,1.0,0.6309297535714575,101,Goodfellas (1990)
+462,179813,popularity,101,0.0,0.0,101,LBJ (2017)
+462,179813,latent_svd,32,0.0,0.0,101,LBJ (2017)
+463,2019,popularity,1,1.0,1.0,101,Seven Samurai (Shichinin no samurai) (1954)
+463,2019,latent_svd,4,1.0,0.43067655807339306,101,Seven Samurai (Shichinin no samurai) (1954)
+464,1552,popularity,101,0.0,0.0,101,Con Air (1997)
+464,1552,latent_svd,99,0.0,0.0,101,Con Air (1997)
+465,3448,popularity,11,0.0,0.0,101,"Good Morning, Vietnam (1987)"
+465,3448,latent_svd,8,1.0,0.31546487678572877,101,"Good Morning, Vietnam (1987)"
+466,112175,popularity,18,0.0,0.0,101,How to Train Your Dragon 2 (2014)
+466,112175,latent_svd,5,1.0,0.38685280723454163,101,How to Train Your Dragon 2 (2014)
+467,389,popularity,14,0.0,0.0,101,"Colonel Chabert, Le (1994)"
+467,389,latent_svd,33,0.0,0.0,101,"Colonel Chabert, Le (1994)"
+468,47,popularity,3,1.0,0.5,101,Seven (a.k.a. Se7en) (1995)
+468,47,latent_svd,101,0.0,0.0,101,Seven (a.k.a. Se7en) (1995)
+469,1333,popularity,27,0.0,0.0,101,"Birds, The (1963)"
+469,1333,latent_svd,97,0.0,0.0,101,"Birds, The (1963)"
+470,14,popularity,11,0.0,0.0,101,Nixon (1995)
+470,14,latent_svd,10,1.0,0.2890648263178879,101,Nixon (1995)
+471,68157,popularity,1,1.0,1.0,101,Inglourious Basterds (2009)
+471,68157,latent_svd,2,1.0,0.6309297535714575,101,Inglourious Basterds (2009)
+472,95510,popularity,87,0.0,0.0,101,"Amazing Spider-Man, The (2012)"
+472,95510,latent_svd,80,0.0,0.0,101,"Amazing Spider-Man, The (2012)"
+473,7147,popularity,3,1.0,0.5,101,Big Fish (2003)
+473,7147,latent_svd,3,1.0,0.5,101,Big Fish (2003)
+474,1423,popularity,101,0.0,0.0,101,Hearts and Minds (1996)
+474,1423,latent_svd,55,0.0,0.0,101,Hearts and Minds (1996)
+475,784,popularity,101,0.0,0.0,101,"Cable Guy, The (1996)"
+475,784,latent_svd,5,1.0,0.38685280723454163,101,"Cable Guy, The (1996)"
+476,313,popularity,59,0.0,0.0,101,"Swan Princess, The (1994)"
+476,313,latent_svd,90,0.0,0.0,101,"Swan Princess, The (1994)"
+477,71535,popularity,2,1.0,0.6309297535714575,101,Zombieland (2009)
+477,71535,latent_svd,12,0.0,0.0,101,Zombieland (2009)
+478,1073,popularity,4,1.0,0.43067655807339306,101,Willy Wonka & the Chocolate Factory (1971)
+478,1073,latent_svd,7,1.0,0.3333333333333333,101,Willy Wonka & the Chocolate Factory (1971)
+479,1302,popularity,17,0.0,0.0,101,Field of Dreams (1989)
+479,1302,latent_svd,3,1.0,0.5,101,Field of Dreams (1989)
+480,5782,popularity,6,1.0,0.3562071871080222,101,"Professional, The (Le professionnel) (1981)"
+480,5782,latent_svd,36,0.0,0.0,101,"Professional, The (Le professionnel) (1981)"
+481,1608,popularity,83,0.0,0.0,101,Air Force One (1997)
+481,1608,latent_svd,66,0.0,0.0,101,Air Force One (1997)
+482,8985,popularity,94,0.0,0.0,101,Blade: Trinity (2004)
+482,8985,latent_svd,87,0.0,0.0,101,Blade: Trinity (2004)
+483,109487,popularity,1,1.0,1.0,101,Interstellar (2014)
+483,109487,latent_svd,4,1.0,0.43067655807339306,101,Interstellar (2014)
+484,5786,popularity,101,0.0,0.0,101,Paid in Full (2002)
+484,5786,latent_svd,59,0.0,0.0,101,Paid in Full (2002)
+485,356,popularity,1,1.0,1.0,101,Forrest Gump (1994)
+485,356,latent_svd,1,1.0,1.0,101,Forrest Gump (1994)
+486,293,popularity,2,1.0,0.6309297535714575,101,Léon: The Professional (a.k.a. The Professional) (Léon) (1994)
+486,293,latent_svd,1,1.0,1.0,101,Léon: The Professional (a.k.a. The Professional) (Léon) (1994)
+487,116797,popularity,1,1.0,1.0,101,The Imitation Game (2014)
+487,116797,latent_svd,91,0.0,0.0,101,The Imitation Game (2014)
+488,2918,popularity,2,1.0,0.6309297535714575,101,Ferris Bueller's Day Off (1986)
+488,2918,latent_svd,4,1.0,0.43067655807339306,101,Ferris Bueller's Day Off (1986)
+489,2529,popularity,3,1.0,0.5,101,Planet of the Apes (1968)
+489,2529,latent_svd,5,1.0,0.38685280723454163,101,Planet of the Apes (1968)
+490,7361,popularity,1,1.0,1.0,101,Eternal Sunshine of the Spotless Mind (2004)
+490,7361,latent_svd,2,1.0,0.6309297535714575,101,Eternal Sunshine of the Spotless Mind (2004)
+491,27808,popularity,64,0.0,0.0,101,Spanglish (2004)
+491,27808,latent_svd,28,0.0,0.0,101,Spanglish (2004)
+492,990,popularity,88,0.0,0.0,101,Maximum Risk (1996)
+492,990,latent_svd,5,1.0,0.38685280723454163,101,Maximum Risk (1996)
+493,163,popularity,22,0.0,0.0,101,Desperado (1995)
+493,163,latent_svd,1,1.0,1.0,101,Desperado (1995)
+494,589,popularity,1,1.0,1.0,101,Terminator 2: Judgment Day (1991)
+494,589,latent_svd,1,1.0,1.0,101,Terminator 2: Judgment Day (1991)
+495,5957,popularity,67,0.0,0.0,101,Two Weeks Notice (2002)
+495,5957,latent_svd,50,0.0,0.0,101,Two Weeks Notice (2002)
+496,109374,popularity,5,1.0,0.38685280723454163,101,"Grand Budapest Hotel, The (2014)"
+496,109374,latent_svd,3,1.0,0.5,101,"Grand Budapest Hotel, The (2014)"
+497,608,popularity,1,1.0,1.0,101,Fargo (1996)
+497,608,latent_svd,1,1.0,1.0,101,Fargo (1996)
+498,62,popularity,7,1.0,0.3333333333333333,101,Mr. Holland's Opus (1995)
+498,62,latent_svd,1,1.0,1.0,101,Mr. Holland's Opus (1995)
+499,3727,popularity,12,0.0,0.0,101,Near Dark (1987)
+499,3727,latent_svd,95,0.0,0.0,101,Near Dark (1987)
+500,4306,popularity,1,1.0,1.0,101,Shrek (2001)
+500,4306,latent_svd,1,1.0,1.0,101,Shrek (2001)
+501,707,popularity,100,0.0,0.0,101,Mulholland Falls (1996)
+501,707,latent_svd,89,0.0,0.0,101,Mulholland Falls (1996)
+502,520,popularity,94,0.0,0.0,101,Robin Hood: Men in Tights (1993)
+502,520,latent_svd,100,0.0,0.0,101,Robin Hood: Men in Tights (1993)
+503,93840,popularity,2,1.0,0.6309297535714575,101,"Cabin in the Woods, The (2012)"
+503,93840,latent_svd,16,0.0,0.0,101,"Cabin in the Woods, The (2012)"
+504,6953,popularity,76,0.0,0.0,101,21 Grams (2003)
+504,6953,latent_svd,4,1.0,0.43067655807339306,101,21 Grams (2003)
+505,47,popularity,3,1.0,0.5,101,Seven (a.k.a. Se7en) (1995)
+505,47,latent_svd,1,1.0,1.0,101,Seven (a.k.a. Se7en) (1995)
+506,56367,popularity,14,0.0,0.0,101,Juno (2007)
+506,56367,latent_svd,7,1.0,0.3333333333333333,101,Juno (2007)
+507,377,popularity,37,0.0,0.0,101,Speed (1994)
+507,377,latent_svd,98,0.0,0.0,101,Speed (1994)
+508,1222,popularity,3,1.0,0.5,101,Full Metal Jacket (1987)
+508,1222,latent_svd,101,0.0,0.0,101,Full Metal Jacket (1987)
+509,106696,popularity,8,1.0,0.31546487678572877,101,Frozen (2013)
+509,106696,latent_svd,86,0.0,0.0,101,Frozen (2013)
+510,858,popularity,1,1.0,1.0,101,"Godfather, The (1972)"
+510,858,latent_svd,1,1.0,1.0,101,"Godfather, The (1972)"
+511,115149,popularity,6,1.0,0.3562071871080222,101,John Wick (2014)
+511,115149,latent_svd,1,1.0,1.0,101,John Wick (2014)
+512,151,popularity,46,0.0,0.0,101,Rob Roy (1995)
+512,151,latent_svd,2,1.0,0.6309297535714575,101,Rob Roy (1995)
+513,6787,popularity,5,1.0,0.38685280723454163,101,All the President's Men (1976)
+513,6787,latent_svd,9,1.0,0.3010299956639812,101,All the President's Men (1976)
+514,162,popularity,2,1.0,0.6309297535714575,101,Crumb (1994)
+514,162,latent_svd,97,0.0,0.0,101,Crumb (1994)
+515,175569,popularity,63,0.0,0.0,101,Wind River (2017)
+515,175569,latent_svd,12,0.0,0.0,101,Wind River (2017)
+516,4429,popularity,28,0.0,0.0,101,Moby Dick (1956)
+516,4429,latent_svd,37,0.0,0.0,101,Moby Dick (1956)
+517,116797,popularity,3,1.0,0.5,101,The Imitation Game (2014)
+517,116797,latent_svd,14,0.0,0.0,101,The Imitation Game (2014)
+518,6323,popularity,18,0.0,0.0,101,Identity (2003)
+518,6323,latent_svd,79,0.0,0.0,101,Identity (2003)
+519,7445,popularity,19,0.0,0.0,101,Man on Fire (2004)
+519,7445,latent_svd,4,1.0,0.43067655807339306,101,Man on Fire (2004)
+520,3529,popularity,57,0.0,0.0,101,"Postman Always Rings Twice, The (1981)"
+520,3529,latent_svd,89,0.0,0.0,101,"Postman Always Rings Twice, The (1981)"
+521,837,popularity,85,0.0,0.0,101,Matilda (1996)
+521,837,latent_svd,86,0.0,0.0,101,Matilda (1996)
+522,1214,popularity,2,1.0,0.6309297535714575,101,Alien (1979)
+522,1214,latent_svd,15,0.0,0.0,101,Alien (1979)
+523,58559,popularity,1,1.0,1.0,101,"Dark Knight, The (2008)"
+523,58559,latent_svd,1,1.0,1.0,101,"Dark Knight, The (2008)"
+524,1049,popularity,61,0.0,0.0,101,"Ghost and the Darkness, The (1996)"
+524,1049,latent_svd,93,0.0,0.0,101,"Ghost and the Darkness, The (1996)"
+525,120807,popularity,101,0.0,0.0,101,John Mulaney: New In Town (2012)
+525,120807,latent_svd,50,0.0,0.0,101,John Mulaney: New In Town (2012)
+526,128620,popularity,43,0.0,0.0,101,Victoria (2015)
+526,128620,latent_svd,69,0.0,0.0,101,Victoria (2015)
+527,3016,popularity,87,0.0,0.0,101,Creepshow (1982)
+527,3016,latent_svd,21,0.0,0.0,101,Creepshow (1982)
+528,150,popularity,5,1.0,0.38685280723454163,101,Apollo 13 (1995)
+528,150,latent_svd,1,1.0,1.0,101,Apollo 13 (1995)
+529,135,popularity,97,0.0,0.0,101,Down Periscope (1996)
+529,135,latent_svd,21,0.0,0.0,101,Down Periscope (1996)
+530,592,popularity,78,0.0,0.0,101,Batman (1989)
+530,592,latent_svd,101,0.0,0.0,101,Batman (1989)
+531,733,popularity,11,0.0,0.0,101,"Rock, The (1996)"
+531,733,latent_svd,2,1.0,0.6309297535714575,101,"Rock, The (1996)"
+532,3147,popularity,2,1.0,0.6309297535714575,101,"Green Mile, The (1999)"
+532,3147,latent_svd,1,1.0,1.0,101,"Green Mile, The (1999)"
+533,3727,popularity,11,0.0,0.0,101,Near Dark (1987)
+533,3727,latent_svd,7,1.0,0.3333333333333333,101,Near Dark (1987)
+534,164367,popularity,101,0.0,0.0,101,The Girl with All the Gifts (2016)
+534,164367,latent_svd,52,0.0,0.0,101,The Girl with All the Gifts (2016)
+535,2702,popularity,58,0.0,0.0,101,Summer of Sam (1999)
+535,2702,latent_svd,4,1.0,0.43067655807339306,101,Summer of Sam (1999)
+536,516,popularity,96,0.0,0.0,101,Renaissance Man (1994)
+536,516,latent_svd,94,0.0,0.0,101,Renaissance Man (1994)
+537,55946,popularity,51,0.0,0.0,101,Lions For Lambs (2007)
+537,55946,latent_svd,22,0.0,0.0,101,Lions For Lambs (2007)
+538,4616,popularity,56,0.0,0.0,101,Lean on Me (1989)
+538,4616,latent_svd,76,0.0,0.0,101,Lean on Me (1989)
+539,59784,popularity,63,0.0,0.0,101,Kung Fu Panda (2008)
+539,59784,latent_svd,1,1.0,1.0,101,Kung Fu Panda (2008)
+540,48516,popularity,1,1.0,1.0,101,"Departed, The (2006)"
+540,48516,latent_svd,1,1.0,1.0,101,"Departed, The (2006)"
+541,745,popularity,6,1.0,0.3562071871080222,101,Wallace & Gromit: A Close Shave (1995)
+541,745,latent_svd,3,1.0,0.5,101,Wallace & Gromit: A Close Shave (1995)
+542,4344,popularity,99,0.0,0.0,101,Swordfish (2001)
+542,4344,latent_svd,93,0.0,0.0,101,Swordfish (2001)
+543,88163,popularity,4,1.0,0.43067655807339306,101,"Crazy, Stupid, Love. (2011)"
+543,88163,latent_svd,2,1.0,0.6309297535714575,101,"Crazy, Stupid, Love. (2011)"
+544,40,popularity,101,0.0,0.0,101,"Cry, the Beloved Country (1995)"
+544,40,latent_svd,48,0.0,0.0,101,"Cry, the Beloved Country (1995)"
+545,1438,popularity,99,0.0,0.0,101,Dante's Peak (1997)
+545,1438,latent_svd,2,1.0,0.6309297535714575,101,Dante's Peak (1997)
+546,1976,popularity,99,0.0,0.0,101,Friday the 13th Part 3: 3D (1982)
+546,1976,latent_svd,16,0.0,0.0,101,Friday the 13th Part 3: 3D (1982)
+547,541,popularity,2,1.0,0.6309297535714575,101,Blade Runner (1982)
+547,541,latent_svd,1,1.0,1.0,101,Blade Runner (1982)
+548,49910,popularity,60,0.0,0.0,101,Freedom Writers (2007)
+548,49910,latent_svd,13,0.0,0.0,101,Freedom Writers (2007)
+549,4226,popularity,1,1.0,1.0,101,Memento (2000)
+549,4226,latent_svd,1,1.0,1.0,101,Memento (2000)
+550,60069,popularity,1,1.0,1.0,101,WALL·E (2008)
+550,60069,latent_svd,1,1.0,1.0,101,WALL·E (2008)
+551,5445,popularity,9,1.0,0.3010299956639812,101,Minority Report (2002)
+551,5445,latent_svd,1,1.0,1.0,101,Minority Report (2002)
+552,5747,popularity,7,1.0,0.3333333333333333,101,Gallipoli (1981)
+552,5747,latent_svd,34,0.0,0.0,101,Gallipoli (1981)
+553,3949,popularity,2,1.0,0.6309297535714575,101,Requiem for a Dream (2000)
+553,3949,latent_svd,1,1.0,1.0,101,Requiem for a Dream (2000)
+554,718,popularity,18,0.0,0.0,101,"Visitors, The (Visiteurs, Les) (1993)"
+554,718,latent_svd,68,0.0,0.0,101,"Visitors, The (Visiteurs, Les) (1993)"
+555,3671,popularity,1,1.0,1.0,101,Blazing Saddles (1974)
+555,3671,latent_svd,18,0.0,0.0,101,Blazing Saddles (1974)
+556,112852,popularity,1,1.0,1.0,101,Guardians of the Galaxy (2014)
+556,112852,latent_svd,1,1.0,1.0,101,Guardians of the Galaxy (2014)
+557,60069,popularity,1,1.0,1.0,101,WALL·E (2008)
+557,60069,latent_svd,99,0.0,0.0,101,WALL·E (2008)
+558,1923,popularity,1,1.0,1.0,101,There's Something About Mary (1998)
+558,1923,latent_svd,1,1.0,1.0,101,There's Something About Mary (1998)
+559,1580,popularity,58,0.0,0.0,101,Men in Black (a.k.a. MIB) (1997)
+559,1580,latent_svd,7,1.0,0.3333333333333333,101,Men in Black (a.k.a. MIB) (1997)
+560,102194,popularity,14,0.0,0.0,101,Mud (2012)
+560,102194,latent_svd,23,0.0,0.0,101,Mud (2012)
+561,316,popularity,73,0.0,0.0,101,Stargate (1994)
+561,316,latent_svd,99,0.0,0.0,101,Stargate (1994)
+562,2580,popularity,2,1.0,0.6309297535714575,101,Go (1999)
+562,2580,latent_svd,2,1.0,0.6309297535714575,101,Go (1999)
+563,81591,popularity,8,1.0,0.31546487678572877,101,Black Swan (2010)
+563,81591,latent_svd,4,1.0,0.43067655807339306,101,Black Swan (2010)
+564,128520,popularity,47,0.0,0.0,101,The Wedding Ringer (2015)
+564,128520,latent_svd,10,1.0,0.2890648263178879,101,The Wedding Ringer (2015)
+565,474,popularity,11,0.0,0.0,101,In the Line of Fire (1993)
+565,474,latent_svd,3,1.0,0.5,101,In the Line of Fire (1993)
+566,541,popularity,1,1.0,1.0,101,Blade Runner (1982)
+566,541,latent_svd,8,1.0,0.31546487678572877,101,Blade Runner (1982)
+567,1260,popularity,8,1.0,0.31546487678572877,101,M (1931)
+567,1260,latent_svd,2,1.0,0.6309297535714575,101,M (1931)
+568,593,popularity,1,1.0,1.0,101,"Silence of the Lambs, The (1991)"
+568,593,latent_svd,1,1.0,1.0,101,"Silence of the Lambs, The (1991)"
+569,185,popularity,99,0.0,0.0,101,"Net, The (1995)"
+569,185,latent_svd,1,1.0,1.0,101,"Net, The (1995)"
+570,2841,popularity,54,0.0,0.0,101,Stir of Echoes (1999)
+570,2841,latent_svd,8,1.0,0.31546487678572877,101,Stir of Echoes (1999)
+571,1924,popularity,85,0.0,0.0,101,Plan 9 from Outer Space (1959)
+571,1924,latent_svd,99,0.0,0.0,101,Plan 9 from Outer Space (1959)
+572,2724,popularity,100,0.0,0.0,101,Runaway Bride (1999)
+572,2724,latent_svd,101,0.0,0.0,101,Runaway Bride (1999)
+573,858,popularity,1,1.0,1.0,101,"Godfather, The (1972)"
+573,858,latent_svd,1,1.0,1.0,101,"Godfather, The (1972)"
+574,47,popularity,2,1.0,0.6309297535714575,101,Seven (a.k.a. Se7en) (1995)
+574,47,latent_svd,1,1.0,1.0,101,Seven (a.k.a. Se7en) (1995)
+575,296,popularity,1,1.0,1.0,101,Pulp Fiction (1994)
+575,296,latent_svd,1,1.0,1.0,101,Pulp Fiction (1994)
+576,2289,popularity,4,1.0,0.43067655807339306,101,"Player, The (1992)"
+576,2289,latent_svd,97,0.0,0.0,101,"Player, The (1992)"
+577,2950,popularity,97,0.0,0.0,101,"Blue Lagoon, The (1980)"
+577,2950,latent_svd,11,0.0,0.0,101,"Blue Lagoon, The (1980)"
+578,8533,popularity,39,0.0,0.0,101,"Notebook, The (2004)"
+578,8533,latent_svd,1,1.0,1.0,101,"Notebook, The (2004)"
+579,892,popularity,56,0.0,0.0,101,Twelfth Night (1996)
+579,892,latent_svd,78,0.0,0.0,101,Twelfth Night (1996)
+580,6502,popularity,3,1.0,0.5,101,28 Days Later (2002)
+580,6502,latent_svd,2,1.0,0.6309297535714575,101,28 Days Later (2002)
+581,8368,popularity,3,1.0,0.5,101,Harry Potter and the Prisoner of Azkaban (2004)
+581,8368,latent_svd,2,1.0,0.6309297535714575,101,Harry Potter and the Prisoner of Azkaban (2004)
+582,91658,popularity,68,0.0,0.0,101,"Girl with the Dragon Tattoo, The (2011)"
+582,91658,latent_svd,20,0.0,0.0,101,"Girl with the Dragon Tattoo, The (2011)"
+583,133419,popularity,61,0.0,0.0,101,Pitch Perfect 2 (2015)
+583,133419,latent_svd,24,0.0,0.0,101,Pitch Perfect 2 (2015)
+584,60,popularity,89,0.0,0.0,101,"Indian in the Cupboard, The (1995)"
+584,60,latent_svd,3,1.0,0.5,101,"Indian in the Cupboard, The (1995)"
+585,3362,popularity,4,1.0,0.43067655807339306,101,Dog Day Afternoon (1975)
+585,3362,latent_svd,4,1.0,0.43067655807339306,101,Dog Day Afternoon (1975)
+586,79139,popularity,59,0.0,0.0,101,"Sorcerer's Apprentice, The (2010)"
+586,79139,latent_svd,10,1.0,0.2890648263178879,101,"Sorcerer's Apprentice, The (2010)"
+587,534,popularity,52,0.0,0.0,101,Shadowlands (1993)
+587,534,latent_svd,89,0.0,0.0,101,Shadowlands (1993)
+588,175,popularity,5,1.0,0.38685280723454163,101,Kids (1995)
+588,175,latent_svd,4,1.0,0.43067655807339306,101,Kids (1995)
+589,231,popularity,97,0.0,0.0,101,Dumb & Dumber (Dumb and Dumber) (1994)
+589,231,latent_svd,101,0.0,0.0,101,Dumb & Dumber (Dumb and Dumber) (1994)
+590,54001,popularity,5,1.0,0.38685280723454163,101,Harry Potter and the Order of the Phoenix (2007)
+590,54001,latent_svd,1,1.0,1.0,101,Harry Potter and the Order of the Phoenix (2007)
+591,368,popularity,38,0.0,0.0,101,Maverick (1994)
+591,368,latent_svd,9,1.0,0.3010299956639812,101,Maverick (1994)
+592,780,popularity,76,0.0,0.0,101,Independence Day (a.k.a. ID4) (1996)
+592,780,latent_svd,1,1.0,1.0,101,Independence Day (a.k.a. ID4) (1996)
+593,892,popularity,60,0.0,0.0,101,Twelfth Night (1996)
+593,892,latent_svd,29,0.0,0.0,101,Twelfth Night (1996)
+594,1707,popularity,100,0.0,0.0,101,Home Alone 3 (1997)
+594,1707,latent_svd,74,0.0,0.0,101,Home Alone 3 (1997)
+595,2336,popularity,12,0.0,0.0,101,Elizabeth (1998)
+595,2336,latent_svd,2,1.0,0.6309297535714575,101,Elizabeth (1998)
+596,2393,popularity,97,0.0,0.0,101,Star Trek: Insurrection (1998)
+596,2393,latent_svd,100,0.0,0.0,101,Star Trek: Insurrection (1998)
+597,1198,popularity,1,1.0,1.0,101,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)
+597,1198,latent_svd,26,0.0,0.0,101,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)
+598,54001,popularity,5,1.0,0.38685280723454163,101,Harry Potter and the Order of the Phoenix (2007)
+598,54001,latent_svd,2,1.0,0.6309297535714575,101,Harry Potter and the Order of the Phoenix (2007)
+599,26453,popularity,101,0.0,0.0,101,Smiley's People (1982)
+599,26453,latent_svd,51,0.0,0.0,101,Smiley's People (1982)
+600,6874,popularity,2,1.0,0.6309297535714575,101,Kill Bill: Vol. 1 (2003)
+600,6874,latent_svd,3,1.0,0.5,101,Kill Bill: Vol. 1 (2003)
+601,47,popularity,1,1.0,1.0,101,Seven (a.k.a. Se7en) (1995)
+601,47,latent_svd,1,1.0,1.0,101,Seven (a.k.a. Se7en) (1995)
+602,494,popularity,82,0.0,0.0,101,Executive Decision (1996)
+602,494,latent_svd,58,0.0,0.0,101,Executive Decision (1996)
+603,4605,popularity,49,0.0,0.0,101,How to Get Ahead in Advertising (1989)
+603,4605,latent_svd,91,0.0,0.0,101,How to Get Ahead in Advertising (1989)
+604,442,popularity,99,0.0,0.0,101,Demolition Man (1993)
+604,442,latent_svd,99,0.0,0.0,101,Demolition Man (1993)
+605,533,popularity,99,0.0,0.0,101,"Shadow, The (1994)"
+605,533,latent_svd,49,0.0,0.0,101,"Shadow, The (1994)"
+606,76093,popularity,2,1.0,0.6309297535714575,101,How to Train Your Dragon (2010)
+606,76093,latent_svd,4,1.0,0.43067655807339306,101,How to Train Your Dragon (2010)
+607,4022,popularity,3,1.0,0.5,101,Cast Away (2000)
+607,4022,latent_svd,1,1.0,1.0,101,Cast Away (2000)
+608,51255,popularity,3,1.0,0.5,101,Hot Fuzz (2007)
+608,51255,latent_svd,78,0.0,0.0,101,Hot Fuzz (2007)
+609,1161,popularity,47,0.0,0.0,101,"Tin Drum, The (Blechtrommel, Die) (1979)"
+609,1161,latent_svd,44,0.0,0.0,101,"Tin Drum, The (Blechtrommel, Die) (1979)"
+610,3917,popularity,74,0.0,0.0,101,Hellraiser (1987)
+610,3917,latent_svd,93,0.0,0.0,101,Hellraiser (1987)

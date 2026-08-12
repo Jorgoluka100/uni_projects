@@ -1,0 +1,42 @@
+{
+  "config": {
+    "seed": 42,
+    "k": 10,
+    "n_components": 48,
+    "min_user_ratings": 5,
+    "positive_threshold": 4.0,
+    "sampled_negatives": 100,
+    "artifact_dir": "recommender_artifacts"
+  },
+  "source": "https://files.grouplens.org/datasets/movielens/ml-latest-small.zip",
+  "rows": {
+    "ratings": 100836,
+    "train": 98471,
+    "held_out_users": 609,
+    "later_user_interactions_removed": 1756
+  },
+  "split": {
+    "strategy": "latest positive per eligible user; evaluated-user history truncated strictly before target timestamp",
+    "global_time_split": false
+  },
+  "evaluation": {
+    "latent_svd": {
+      "users": 609,
+      "recall@10": 0.5008210180623974,
+      "ndcg@10": 0.3357848671314608,
+      "median_rank": 10.0
+    },
+    "popularity": {
+      "users": 609,
+      "recall@10": 0.4630541871921182,
+      "ndcg@10": 0.29325987325741837,
+      "median_rank": 13.0
+    }
+  },
+  "limitations": [
+    "MovieLens is an offline benchmark and not current product traffic.",
+    "Sampled-negative ranking is cheaper than full-catalog evaluation and must be labelled as such.",
+    "The split is past-only within each evaluated user but is not one global chronological cutoff across all users.",
+    "Latent factors do not solve new-user cold start; popularity is the explicit fallback."
+  ]
+}
