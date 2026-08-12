@@ -1,0 +1,29 @@
+{
+  "project": "ConsultAI",
+  "verification_pass": true,
+  "errors": [],
+  "reproduced_recommendation": {
+    "selected": [
+      "Support ticket copilot",
+      "Demand forecasting",
+      "Marketing content generator"
+    ],
+    "number_selected": 3,
+    "spend_gbp": 490000.0,
+    "expected_npv_gbp": 501652.49,
+    "p10_npv_gbp": 133859.66999999998,
+    "risk_adjusted_npv_gbp": 480365.40928900003,
+    "average_priority": 63.83333333333333,
+    "objective": 525668.0429556667
+  },
+  "register_rows": 6,
+  "frontier_points": 17,
+  "stress_scenarios": [
+    "strong_adoption",
+    "base",
+    "delivery_delay",
+    "weak_adoption",
+    "combined_downside"
+  ],
+  "evidence_policy": "Synthetic educational inputs; no commercial-performance claim."
+}

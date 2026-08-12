@@ -1,0 +1,19 @@
+{
+  "columns": 17,
+  "fingerprint": "73172c44229084f9",
+  "known_limitations": [
+    "Input value and cost estimates are illustrative.",
+    "Dependencies between projects are not modelled.",
+    "Probability distributions are assumptions rather than learned evidence."
+  ],
+  "name": "AI opportunity register",
+  "prohibited_uses": [
+    "Real capital allocation without validated organisational inputs",
+    "Automatic approval without accountable human review"
+  ],
+  "purpose": "Educational prioritisation and portfolio simulation",
+  "rows": 6,
+  "source": "Deterministic synthetic business cases defined in the notebook",
+  "synthetic": true,
+  "target": null
+}

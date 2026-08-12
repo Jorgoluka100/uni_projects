@@ -1,0 +1,25 @@
+{
+  "assumptions": [
+    "Benefits measured over a comparable horizon",
+    "Portfolio candidates are divisible only at project level"
+  ],
+  "created_at": "2026-08-12T13:19:54+00:00",
+  "decision": "Select an AI initiative portfolio within the illustrative budget",
+  "evidence": {
+    "budget_gbp": 600000,
+    "expected_npv_gbp": 501652.49,
+    "risk_adjusted_npv_gbp": 480365.40928900003,
+    "spend_gbp": 490000.0
+  },
+  "next_actions": [
+    "Validate estimates with owners",
+    "Run discovery pilots",
+    "Refresh assumptions after pilot evidence"
+  ],
+  "recommendation": "Fund: Support ticket copilot, Demand forecasting, Marketing content generator",
+  "risks": [
+    "Weak adoption",
+    "Cost overrun",
+    "Unmodelled programme dependencies"
+  ]
+}

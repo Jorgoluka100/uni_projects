@@ -1,0 +1,18 @@
+selected,number_selected,spend_gbp,expected_npv_gbp,p10_npv_gbp,risk_adjusted_npv_gbp,average_priority,objective,budget_gbp,budget_utilisation
+['Support ticket copilot'],1,160000.0,252166.66,109022.33,249871.943394,67.6,294574.176394,200000.0,0.8
+"['Support ticket copilot', 'Marketing content generator']",2,230000.0,324300.04000000004,130337.33,319985.588754,64.5,365269.32175400003,250000.0,0.92
+"['Support ticket copilot', 'Marketing content generator']",2,230000.0,324300.04000000004,130337.33,319985.588754,64.5,365269.32175400003,300000.0,0.7666666666666667
+"['Support ticket copilot', 'Invoice anomaly detection']",2,350000.0,400513.63,135541.78,389510.946255,63.0,434565.12425500003,350000.0,1.0
+"['Support ticket copilot', 'Invoice anomaly detection']",2,350000.0,400513.63,135541.78,389510.946255,63.0,434565.12425500003,400000.0,0.875
+"['Support ticket copilot', 'Marketing content generator', 'Invoice anomaly detection']",3,420000.0,472647.01,156856.78,459624.59161500004,62.46666666666667,506543.60294833337,450000.0,0.9333333333333333
+"['Support ticket copilot', 'Demand forecasting', 'Marketing content generator']",3,490000.0,501652.49,133859.66999999998,480365.40928900003,63.833333333333336,525668.0429556667,500000.0,0.98
+"['Support ticket copilot', 'Demand forecasting', 'Marketing content generator']",3,490000.0,501652.49,133859.66999999998,480365.40928900003,63.833333333333336,525668.0429556667,550000.0,0.8909090909090909
+"['Support ticket copilot', 'Demand forecasting', 'Marketing content generator']",3,490000.0,501652.49,133859.66999999998,480365.40928900003,63.833333333333336,525668.0429556667,600000.0,0.8166666666666667
+"['Support ticket copilot', 'Demand forecasting', 'Invoice anomaly detection']",3,610000.0,577866.08,139064.12,549890.76679,62.833333333333336,595213.8454566667,650000.0,0.9384615384615385
+"['Support ticket copilot', 'Demand forecasting', 'Marketing content generator', 'Invoice anomaly detection']",4,680000.0,649999.46,160379.12,620004.41215,62.475,667279.82415,700000.0,0.9714285714285714
+"['Support ticket copilot', 'Demand forecasting', 'Marketing content generator', 'Invoice anomaly detection']",4,680000.0,649999.46,160379.12,620004.41215,62.475,667279.82415,750000.0,0.9066666666666666
+"['Support ticket copilot', 'Demand forecasting', 'Marketing content generator', 'Invoice anomaly detection']",4,680000.0,649999.46,160379.12,620004.41215,62.475,667279.82415,800000.0,0.85
+"['Support ticket copilot', 'Demand forecasting', 'Marketing content generator', 'Invoice anomaly detection']",4,680000.0,649999.46,160379.12,620004.41215,62.475,667279.82415,850000.0,0.8
+"['Support ticket copilot', 'Demand forecasting', 'Marketing content generator', 'Invoice anomaly detection']",4,680000.0,649999.46,160379.12,620004.41215,62.475,667279.82415,900000.0,0.7555555555555555
+"['Support ticket copilot', 'Demand forecasting', 'Marketing content generator', 'Invoice anomaly detection']",4,680000.0,649999.46,160379.12,620004.41215,62.475,667279.82415,950000.0,0.7157894736842105
+"['Support ticket copilot', 'Demand forecasting', 'Marketing content generator', 'Invoice anomaly detection']",4,680000.0,649999.46,160379.12,620004.41215,62.475,667279.82415,1000000.0,0.68

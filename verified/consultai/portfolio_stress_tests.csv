@@ -1,0 +1,6 @@
+scenario,expected_npv_gbp,risk_adjusted_npv_gbp,minimum_success_probability
+strong_adoption,1199400.0,1189854.4,0.9843
+base,950000.0,897708.0,0.9043
+delivery_delay,736800.0,659774.7999999999,0.8543
+weak_adoption,522300.0,415643.1,0.7543
+combined_downside,299000.0,223603.89999999997,0.7042999999999999

@@ -1,0 +1,22 @@
+{
+  "artifact_directory": "/home/runner/work/uni_projects/uni_projects/consultai_application_artifacts",
+  "generated_at": "2026-08-12T13:19:54+00:00",
+  "project": "ConsultAI: AI Opportunity Prioritisation Engine",
+  "quality": {
+    "checks": 5,
+    "failed_errors": 0,
+    "failed_warnings": 0,
+    "healthy": true,
+    "passed": 5,
+    "suite": "consultai_input_and_outputs"
+  },
+  "runtime": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "platform": "Linux-6.17.0-1020-azure-x86_64-with-glibc2.39",
+    "python": "3.11.15"
+  },
+  "seed": 42,
+  "slug": "consultai",
+  "truth_first_notice": "Synthetic or educational results are not production or commercial claims."
+}
