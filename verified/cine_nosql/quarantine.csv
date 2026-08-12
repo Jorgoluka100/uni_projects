@@ -1,0 +1,2 @@
+row_index,error,raw_id
+5,"could not parse JSON-like list: Expecting ',' delimiter: line 1 column 26 (char 25) | '[' was never closed (<unknown>, line 1)",6

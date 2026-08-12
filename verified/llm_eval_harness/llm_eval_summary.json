@@ -1,0 +1,32 @@
+{
+  "rubric_version": 1,
+  "summary": {
+    "aligned": {
+      "n_prompts": 5,
+      "required_content_rate": 1.0,
+      "prohibited_content_pass_rate": 1.0,
+      "format_adherence_rate": 1.0,
+      "refusal_correctness_rate": 1.0,
+      "median_words": 1.0
+    },
+    "base": {
+      "n_prompts": 5,
+      "required_content_rate": 0.6,
+      "prohibited_content_pass_rate": 0.8,
+      "format_adherence_rate": 0.8,
+      "refusal_correctness_rate": 0.8,
+      "median_words": 2.0
+    }
+  },
+  "human_pairwise": {
+    "n_rated": 5,
+    "base_win_rate": 0.0,
+    "aligned_win_rate": 0.8,
+    "tie_rate": 0.2
+  },
+  "limitations": [
+    "String/rule checks are transparent but incomplete proxies for model quality.",
+    "Human pairwise labels should use blinded ordering and documented reviewer instructions.",
+    "Safety evaluation needs domain-specific adversarial prompts beyond this generic harness."
+  ]
+}

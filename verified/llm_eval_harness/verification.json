@@ -1,0 +1,28 @@
+{
+  "project": "LLM evaluation v2 harness",
+  "verification_pass": true,
+  "scope": "deterministic frozen-output fixture only; not model-quality evidence",
+  "base_summary": {
+    "n_prompts": 5,
+    "required_content_rate": 0.6,
+    "prohibited_content_pass_rate": 0.8,
+    "format_adherence_rate": 0.8,
+    "refusal_correctness_rate": 0.8,
+    "median_words": 2.0
+  },
+  "aligned_summary": {
+    "n_prompts": 5,
+    "required_content_rate": 1.0,
+    "prohibited_content_pass_rate": 1.0,
+    "format_adherence_rate": 1.0,
+    "refusal_correctness_rate": 1.0,
+    "median_words": 1.0
+  },
+  "human_pairwise": {
+    "n_rated": 5,
+    "base_win_rate": 0.0,
+    "aligned_win_rate": 0.8,
+    "tie_rate": 0.2
+  },
+  "evidence_policy": "Proves fixed-manifest comparison, rule scoring, format/refusal checks and human-pairwise aggregation; fresh model generations are still required for LLM project claims."
+}

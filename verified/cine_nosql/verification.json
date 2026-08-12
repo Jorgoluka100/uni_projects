@@ -1,0 +1,19 @@
+{
+  "project": "CineIntelligence NoSQL v2 engineering harness",
+  "verification_pass": true,
+  "scope": "deterministic fixture only; not TMDB freshness/performance evidence",
+  "raw_rows": 6,
+  "quality": {
+    "documents": 5,
+    "unique_ids": 5,
+    "documents_with_genres": 4
+  },
+  "quarantined_rows": 1,
+  "genre_query_benchmark": {
+    "genre": "drama",
+    "scan_median_ms": 0.0018650000015441037,
+    "index_median_ms": 0.00015999999902760464,
+    "matching_movies": 3
+  },
+  "evidence_policy": "Proves defensive JSON/literal parsing, malformed-row quarantine, document contract and scan/index agreement on a deterministic fixture."
+}

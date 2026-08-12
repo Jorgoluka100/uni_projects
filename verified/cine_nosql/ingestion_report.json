@@ -1,0 +1,30 @@
+{
+  "config": {
+    "benchmark_repeats": 20,
+    "artifact_dir": "cine_fixture_artifacts"
+  },
+  "source_file": "verification_fixtures/cine_fixture.csv",
+  "raw_rows": 6,
+  "quality": {
+    "documents": 5,
+    "unique_ids": 5,
+    "documents_with_genres": 4
+  },
+  "quarantined_rows": 1,
+  "genre_query_benchmark": {
+    "genre": "drama",
+    "scan_median_ms": 0.0018650000015441037,
+    "index_median_ms": 0.00015999999902760464,
+    "matching_movies": 3
+  },
+  "document_schema": {
+    "_id": "unique integer movie id",
+    "title": "non-empty string",
+    "genres/keywords/production_*": "normalised arrays of names",
+    "budget/revenue/runtime": "nullable numeric values"
+  },
+  "limitations": [
+    "This benchmark is an in-memory index demonstration, not a production MongoDB benchmark.",
+    "TMDB source/licensing and freshness must be documented separately for any public release of derived data."
+  ]
+}
