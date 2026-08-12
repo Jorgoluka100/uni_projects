@@ -1,0 +1,70 @@
+name: Recommender verified run
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/recommender-run.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install recommender runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas numpy scipy scikit-learn requests
+
+      - name: Execute temporal MovieLens ranking pipeline
+        run: |
+          rm -rf recommender_artifacts movielens_data
+          python extensions/recommender_v2.py \
+            --data-dir movielens_data \
+            --artifact-dir recommender_artifacts
+
+      - name: Validate ranking evidence
+        run: python extensions/recommender_release_gate.py --artifact-dir recommender_artifacts
+
+      - name: Retain compact evidence
+        run: |
+          mkdir -p verified/recommender
+          cp recommender_artifacts/metrics.json verified/recommender/
+          cp recommender_artifacts/ranking_evaluation.csv verified/recommender/
+          cp recommender_artifacts/verification.json verified/recommender/
+
+      - name: Commit verified evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add verified/recommender
+          if git diff --cached --quiet; then
+            echo 'No generated evidence changed.'
+          else
+            git commit -m 'Retain verified recommender ranking evidence'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Upload ranking evidence bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: recommender-evidence
+          path: recommender_artifacts/
+          retention-days: 30
+          if-no-files-found: error
