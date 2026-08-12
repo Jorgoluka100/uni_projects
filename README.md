@@ -4,7 +4,9 @@
 
 I build end-to-end data and AI systems around a real decision: source and audit the data, prevent leakage, establish a baseline, evaluate on genuinely held-out evidence, retain reproducible artifacts, and state limitations instead of hiding them.
 
-This repository keeps the original work visible while distinguishing **verified results** from **advanced work still awaiting project-specific evidence**.
+This repository keeps the original work visible while distinguishing **verified results**, **verified methodology/engineering evidence**, and **advanced work still awaiting project-specific evidence**.
+
+**Recruiter / interview shortcut:** [How to read this portfolio by target role](docs/HIRING_PLAYBOOK.md)
 
 ## Featured verified projects
 
@@ -31,6 +33,9 @@ These projects have clean retained evidence, but their dataset/scope means they 
 |---|---|---|
 | **Aviation PostgreSQL Optimisation** | Genuine PostgreSQL 17 execution on a deterministic **1,000,000-row** fact table; two `EXPLAIN (ANALYZE, BUFFERS)` plans retained, targeted index observed after creation, semantic financial reconciliation passed. | [Original notebook](Aviation_Strategy_PostgreSQL_Optimization.ipynb) · [SQL v2](extensions/aviation_postgres_v2.sql) · [Evidence](verified/aviation_postgres/verification.json) |
 | **PySpark Logistic Regression + Naive Bayes** | **145,585** deduplicated historical KDD rows; train-only Spark pipeline; validation selection and untouched test; serialized pipeline reload matched. Logistic Regression test PR-AUC **0.9966** / ROC-AUC **0.9972**; explicitly historical, not modern cybersecurity evidence. | [Logistic notebook](Logistic_Regression_PySpark.ipynb) · [Naive Bayes notebook](Naive_Bayes_PySpark.ipynb) · [Spark v2](extensions/spark_kdd_classifiers_v2.py) · [Evidence](verified/spark_kdd/verification.json) |
+| **Standalone KDD Intrusion Benchmark** | The maintained sklearn KDD path now enforces the documented 3-field categorical / 38-field numeric schema and removes **348,435 exact duplicates** before splitting (**494,021 → 145,586 rows**). Held-out evaluation and joblib reload parity passed. Near-perfect scores are explicitly treated as a property of an obsolete historical benchmark, not modern cyber performance. | [Original notebook](KDDCup.ipynb) · [v2](extensions/kdd_intrusion_v2.py) · [Evidence](verified/kdd_intrusion/verification.json) |
+| **CineIntelligence NoSQL Engineering Harness** | A deterministic fixture proves JSON parsing plus `ast.literal_eval` fallback, malformed-row quarantine, document-schema validation and full-scan/index query agreement. One intentionally malformed row is quarantined. This is engineering evidence only, not TMDB freshness or MongoDB-scale performance. | [Original notebook](CineIntelligence_NoSQL_DataEngineering.ipynb) · [v2](extensions/cine_nosql_v2.py) · [Evidence](verified/cine_nosql/verification.json) |
+| **LLM Evaluation Harness** | A frozen five-prompt fixture verifies fixed-manifest base-vs-aligned scoring, required/prohibited-content checks, JSON/short-format adherence, refusal correctness and human pairwise aggregation. The aligned fixture passes all four automated rates and receives 80% pairwise wins. This proves the evaluator, **not the restored model quality**. | [Core notebook](LLM_Mastery_Hands_on_Code.ipynb) · [Alignment notebook](LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb) · [Harness](extensions/llm_eval_v2.py) · [Evidence](verified/llm_eval_harness/verification.json) |
 | **Financial Fraud / AML Decision Pipeline** | Chronological synthetic transaction stream, past-only behavioural features, validation-only threshold, review-capacity/cost metrics and model reload all verified. Test PR-AUC **0.102** vs **0.0375** prevalence; explicitly synthetic. | [Original notebook](financial_fraud_aml_detection_system.ipynb) · [v2](extensions/fraud_aml_v2.py) · [Evidence](verified/fraud_aml/verification.json) |
 | **Strategic Telecom Churn + Predictive SQL** | Train-only preprocessing, validation-selected model/threshold, untouched test and SQL↔Pandas reconciliation verified. Synthetic test PR-AUC **0.314**, ROC-AUC **0.715**; 14.8% review rate. | [Original notebook](Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb) · [v2](extensions/telecom_churn_decision_v2.py) · [Evidence](verified/telecom_churn/verification.json) |
 | **Parkinson's Progression — Grouped Evaluation** | Corrected the original row-level leakage by holding out complete subjects and bootstrapping by subject. The honest result is negative: RF MAE **10.70** vs median baseline **8.13**, R² **-1.09** on 9 unseen subjects. This is retained because it shows the model does not generalise under the stricter design. | [Original notebook](Parkinsons_Progression_ML.ipynb) · [Grouped v2](extensions/parkinsons_grouped_v2.py) · [Evidence](verified/parkinsons_grouped/verification.json) |
@@ -39,15 +44,13 @@ These projects have clean retained evidence, but their dataset/scope means they 
 
 ## Advanced project laboratory
 
-The remaining notebooks stay visible because their code is useful, but they do **not** receive promoted performance claims until their project-specific evidence contract is satisfied.
+Only projects that still need genuinely project-specific model/data evidence remain here.
 
 | Project | Current completion state | Open |
 |---|---|---|
 | **Advanced Multi-Modal Health Analytics Suite** | Safety/evidence gate exists; still requires a clean patient/group-safe project run and defensible provenance. | [Notebook](Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb) · [Healthcare gate](extensions/healthcare_evidence_gate.py) |
-| **CineIntelligence NoSQL Data Engineering** | Defensive parsing, quarantine, explicit document schema and indexed-query v2 are ready; fresh source/licence evidence is still required. | [Notebook](CineIntelligence_NoSQL_DataEngineering.ipynb) · [v2](extensions/cine_nosql_v2.py) |
-| **KDD Cup Analysis** | Separate sklearn historical benchmark v2 exists; the Spark classifier path above is already verified, but this original KDD analysis remains an unpromoted historical experiment. | [Notebook](KDDCup.ipynb) · [v2](extensions/kdd_intrusion_v2.py) |
-| **LLM Mastery — Core** | Transformer implementation preserved; frozen evaluation harness exists, but current checkpoint generations/loss evidence still require a fresh model run. | [Notebook](LLM_Mastery_Hands_on_Code.ipynb) · [Evaluation harness](extensions/llm_eval_v2.py) |
-| **LLM Mastery — Alignment** | Alignment implementation preserved; base-vs-aligned frozen-prompt evaluation is ready, but fresh model generations are still required. | [Notebook](LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb) · [Evaluation harness](extensions/llm_eval_v2.py) |
+| **LLM Mastery — Core** | Transformer implementation preserved and the evaluation harness is now verified; current checkpoint generations/loss evidence still require a fresh model run before model-quality claims are promoted. | [Notebook](LLM_Mastery_Hands_on_Code.ipynb) · [Evaluation harness](extensions/llm_eval_v2.py) |
+| **LLM Mastery — Alignment** | Alignment implementation preserved and the evaluator is verified; fresh base-vs-aligned generations from the current checkpoints are still required. | [Notebook](LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb) · [Evaluation harness](extensions/llm_eval_v2.py) |
 | **PyTorch Medical AI — X-ray Diagnosis** | Safety gate blocks promotion without patient/group independence, provenance, uncertainty/abstention and explicit non-clinical guardrails. | [Notebook](PyTorch_medical_AI_xray_diagnosis.ipynb) · [Healthcare gate](extensions/healthcare_evidence_gate.py) |
 
 ## Evidence standard
@@ -73,13 +76,15 @@ The rules are:
 - **NYC Airbnb v2** uses the 14 June 2026 Inside Airbnb snapshot; listing prices/availability are not transactions or confirmed bookings.
 - **Customer Churn** uses the historical UCI Iranian Churn dataset.
 - **Energy Demand** uses official Open Power System Data from 2006–2017.
-- **Spark KDD** uses KDD Cup 1999 strictly as a historical distributed-ML benchmark.
+- **Spark KDD + standalone KDD v2** use KDD Cup 1999 strictly as historical methodology benchmarks.
+- **CineIntelligence verification** uses a deterministic engineering fixture; a real TMDB-derived public claim would still need source/licence/freshness documentation.
+- **LLM harness verification** uses frozen deterministic outputs; it proves evaluator behaviour, not model quality.
 - **ConsultAI, Fraud/AML and Telecom decision v2** use synthetic data and are labelled accordingly.
 - **Parkinson's** is historical, educational and non-clinical; stricter grouped evaluation exposed poor generalisation and that result is retained.
 
 ## Skills evidenced
 
-Python · SQL · R · PySpark · Pandas · NumPy · scikit-learn · CatBoost · TensorFlow/Keras · PyTorch · PostgreSQL · DuckDB · Spark SQL · computer vision · recommendation systems · time-series modelling · classification · regression · clustering · calibration · uncertainty · leakage-safe validation · data cleaning/preprocessing · model persistence · CI/evidence gates · decision engineering
+Python · SQL · R · PySpark · Pandas · NumPy · scikit-learn · CatBoost · TensorFlow/Keras · PyTorch · PostgreSQL · DuckDB · Spark SQL · computer vision · recommendation systems · time-series modelling · classification · regression · clustering · NoSQL/document ingestion · LLM evaluation · calibration · uncertainty · leakage-safe validation · data cleaning/preprocessing · model persistence · CI/evidence gates · decision engineering
 
 ## Additional analytics work
 
@@ -87,6 +92,8 @@ The separate [Data Analyst Bootcamp Portfolio](https://github.com/Jorgoluka100/p
 
 ## Portfolio status
 
-The main project-content phase is now **evidence-first rather than notebook-count-first**. Strong original code has been preserved; the highest-value projects have been rerun and verified; negative results are retained; and the remaining laboratory items have explicit evidence gates instead of vague "finish later" notes.
+The main project-content phase is now **evidence-first rather than notebook-count-first**. Strong original code has been preserved; the highest-value projects have been rerun and verified; negative results are retained; engineering harnesses are tested; and the few remaining laboratory items have explicit evidence gates instead of vague "finish later" notes.
+
+For a role-specific route through the repository, see [`docs/HIRING_PLAYBOOK.md`](docs/HIRING_PLAYBOOK.md).
 
 For opportunities in data science, machine learning, applied AI or analytics, contact me through my [GitHub profile](https://github.com/Jorgoluka100).
