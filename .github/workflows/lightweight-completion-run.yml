@@ -1,0 +1,132 @@
+name: Lightweight completion evidence
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/lightweight-completion-run.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-and-retain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install analytical runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas numpy scikit-learn
+
+      - name: Run patient-grouped Parkinsons evaluation
+        run: |
+          rm -rf parkinsons_grouped_artifacts
+          python extensions/parkinsons_grouped_v2.py --output-dir parkinsons_grouped_artifacts --bootstrap-rounds 2000
+
+      - name: Run clustering stability benchmark
+        run: |
+          rm -rf clustering_artifacts
+          python extensions/clustering_stability_v2.py --output-dir clustering_artifacts --bootstraps 40
+
+      - name: Run telecom decision pipeline
+        run: |
+          rm -rf telecom_churn_artifacts
+          python extensions/telecom_churn_decision_v2.py --output-dir telecom_churn_artifacts --review-capacity 0.15
+
+      - name: Run pathfinding benchmark
+        run: |
+          rm -rf pathfinding_artifacts
+          python extensions/pathfinding_benchmark_v2.py --self-test
+          python extensions/pathfinding_benchmark_v2.py --output-dir pathfinding_artifacts
+
+      - name: Validate and package evidence
+        run: |
+          python - <<'PY'
+          import json, math
+          from pathlib import Path
+          import pandas as pd
+
+          # Parkinsons: complete-subject separation and subject-bootstrap uncertainty.
+          p=Path('parkinsons_grouped_artifacts'); d=json.loads((p/'evaluation.json').read_text())
+          assert d['split']=='complete-subject train/validation/test holdout'
+          assert set(d['split_subjects'])=={'train','validation','test'} and all(int(v)>0 for v in d['split_subjects'].values())
+          m=d['untouched_test']; assert m['rows']>0 and m['subjects']>0
+          for key in ['mae','rmse','r2','baseline_median_mae','mae_improvement_vs_baseline']:
+              assert math.isfinite(float(m[key]))
+          ci=m['subject_bootstrap_mae_ci95']; assert ci['rounds']==2000 and 0 <= ci['low'] <= ci['high']
+          assert 'motor_UPDRS' in d['excluded_predictors'] and len(d['guardrails'])>=4
+          parkinson_report={'project':'Parkinsons grouped v2','verification_pass':True,'dataset':d['dataset'],'rows':d['rows'],'subjects':d['subjects'],'split_subjects':d['split_subjects'],'untouched_test':m,'evidence_policy':'Historical UCI research cohort; complete-subject holdout; educational/non-clinical only.'}
+          (p/'verification.json').write_text(json.dumps(parkinson_report,indent=2))
+
+          # Clustering: multiple indices + resampling stability; no ground-truth claim.
+          p=Path('clustering_artifacts'); d=json.loads((p/'summary.json').read_text()); scores=pd.read_csv(p/'candidate_scores.csv')
+          assert d['rows']>=50 and 2 <= int(d['chosen_k']) <= 8 and len(d['limitations'])>=3
+          required={'k','silhouette','davies_bouldin','calinski_harabasz','stability_ari_mean','stability_ari_p10','rank_sum'}; assert required.issubset(scores.columns)
+          assert scores['silhouette'].between(-1,1).all() and scores['stability_ari_mean'].between(-1,1).all()
+          chosen=scores.loc[scores['k'].eq(d['chosen_k'])].iloc[0].to_dict()
+          cluster_report={'project':'Clustering stability v2','verification_pass':True,'source':d['source'],'rows':d['rows'],'chosen_k':d['chosen_k'],'chosen_metrics':chosen,'evidence_policy':'Methodology demo; clusters are descriptive and require domain validation.'}
+          (p/'verification.json').write_text(json.dumps(cluster_report,indent=2))
+
+          # Telecom: synthetic methodology, validation-only model/threshold choice and SQL reconciliation.
+          p=Path('telecom_churn_artifacts'); d=json.loads((p/'evaluation.json').read_text()); m=d['untouched_test']
+          assert d['data']=='deterministic synthetic telecom methodology demo' and d['sql_pandas_reconciled'] is True
+          assert all(int(d['split'][s])>0 for s in ['train','validation','test'])
+          for key in ['pr_auc','roc_auc','threshold_from_validation','review_rate','precision_at_capacity','recall_at_capacity','positive_prevalence']:
+              assert math.isfinite(float(m[key]))
+          assert 0 <= m['pr_auc'] <= 1 and 0 <= m['roc_auc'] <= 1 and len(d['limitations'])>=3
+          telecom_report={'project':'Telecom churn decision v2','verification_pass':True,'scope':d['data'],'split':d['split'],'selected_model':d['selected_model'],'validation_model_selection':d['validation_model_selection'],'untouched_test':m,'sql_pandas_reconciled':True,'evidence_policy':'Synthetic methodology demo; not real telecom-market performance.'}
+          (p/'verification.json').write_text(json.dumps(telecom_report,indent=2))
+
+          # Pathfinding: shared contract, valid optimal paths on all seeded cases.
+          p=Path('pathfinding_artifacts'); d=json.loads((p/'summary.json').read_text()); bench=pd.read_csv(p/'benchmark.csv')
+          assert set(d)=={'BFS','Dijkstra','A*'} and all(d[a]['all_optimal'] for a in d)
+          assert len(bench)==15 and bench['found'].all() and bench['optimal'].all() and (bench['expanded']>0).all()
+          path_report={'project':'Pathfinding benchmark v2','verification_pass':True,'cases':5,'algorithms':['BFS','Dijkstra','A*'],'summary':d,'evidence_policy':'Seeded unit-cost grids; timing is environment-dependent, optimality/path validity are the primary evidence.'}
+          (p/'verification.json').write_text(json.dumps(path_report,indent=2))
+          PY
+
+      - name: Retain compact evidence
+        run: |
+          mkdir -p verified/parkinsons_grouped verified/clustering verified/telecom_churn verified/pathfinding
+          cp parkinsons_grouped_artifacts/evaluation.json parkinsons_grouped_artifacts/verification.json verified/parkinsons_grouped/
+          cp clustering_artifacts/summary.json clustering_artifacts/candidate_scores.csv clustering_artifacts/verification.json verified/clustering/
+          cp telecom_churn_artifacts/evaluation.json telecom_churn_artifacts/verification.json verified/telecom_churn/
+          cp pathfinding_artifacts/summary.json pathfinding_artifacts/benchmark.csv pathfinding_artifacts/verification.json verified/pathfinding/
+
+      - name: Commit evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add verified/parkinsons_grouped verified/clustering verified/telecom_churn verified/pathfinding
+          if git diff --cached --quiet; then
+            echo 'No generated evidence changed.'
+          else
+            git commit -m 'Retain lightweight project completion evidence'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Upload evidence bundles
+        uses: actions/upload-artifact@v4
+        with:
+          name: lightweight-completion-evidence
+          path: |
+            parkinsons_grouped_artifacts/
+            clustering_artifacts/
+            telecom_churn_artifacts/
+            pathfinding_artifacts/
+          retention-days: 30
+          if-no-files-found: error
