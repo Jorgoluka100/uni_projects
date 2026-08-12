@@ -1,0 +1,102 @@
+name: KDD intrusion historical verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/kdd-intrusion-run.yml'
+      - 'extensions/kdd_intrusion_v2.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-and-retain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas numpy scikit-learn joblib
+
+      - name: Execute deduplicated historical benchmark
+        run: |
+          rm -rf kdd_intrusion_artifacts
+          python extensions/kdd_intrusion_v2.py --artifact-dir kdd_intrusion_artifacts
+
+      - name: Validate evidence
+        run: |
+          python - <<'PY'
+          import json, math
+          from pathlib import Path
+          root=Path('kdd_intrusion_artifacts')
+          metrics=root/'metrics.json'
+          report=root/'attack_type_vs_binary_prediction.csv'
+          assert metrics.is_file() and metrics.stat().st_size>0
+          assert report.is_file() and report.stat().st_size>0
+          d=json.loads(metrics.read_text())
+          assert 'obsolete' in d['historical_warning'].lower()
+          assert d['rows']['raw'] > d['rows']['deduplicated'] > 0
+          assert d['rows']['duplicates_removed'] > 0
+          assert d['schema']['categorical'] == ['flag','protocol_type','service']
+          assert d['schema']['numeric_count'] > 30
+          assert d['reload_prediction_match'] is True
+          for name in ['baseline_test','model_test']:
+              for key in ['pr_auc','roc_auc','precision','recall','f1','prevalence']:
+                  assert math.isfinite(float(d[name][key]))
+          assert d['model_test']['pr_auc'] > d['baseline_test']['pr_auc']
+          verification={
+              'project':'KDD intrusion v2',
+              'verification_pass':True,
+              'dataset':d['dataset'],
+              'historical_warning':d['historical_warning'],
+              'rows':d['rows'],
+              'schema':d['schema'],
+              'baseline_test':d['baseline_test'],
+              'model_test':d['model_test'],
+              'reload_prediction_match':d['reload_prediction_match'],
+              'evidence_policy':'Historical KDD Cup 1999 methodology benchmark only; exact duplicates removed; not modern cyber-security performance.'
+          }
+          (root/'verification.json').write_text(json.dumps(verification,indent=2))
+          print(json.dumps(verification,indent=2))
+          PY
+
+      - name: Retain compact evidence
+        run: |
+          mkdir -p verified/kdd_intrusion
+          cp kdd_intrusion_artifacts/metrics.json verified/kdd_intrusion/
+          cp kdd_intrusion_artifacts/verification.json verified/kdd_intrusion/
+          cp kdd_intrusion_artifacts/attack_type_vs_binary_prediction.csv verified/kdd_intrusion/
+
+      - name: Commit evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add verified/kdd_intrusion
+          if git diff --cached --quiet; then
+            echo 'No generated evidence changed.'
+          else
+            git commit -m 'Retain verified standalone KDD evidence'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Upload evidence bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: kdd-intrusion-evidence
+          path: kdd_intrusion_artifacts/
+          retention-days: 30
+          if-no-files-found: error
