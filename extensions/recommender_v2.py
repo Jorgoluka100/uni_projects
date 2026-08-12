@@ -3,8 +3,9 @@
 This extension keeps the restored MovieLens work but makes the evaluation closer to
 an actual recommendation decision. Rather than relying mainly on random rating RMSE,
 it uses each eligible user's latest positive interaction as a held-out target,
-compares a popularity baseline with a latent-factor recommender, and reports
-Recall@K / NDCG@K over a reproducible candidate set.
+removes that user's later interactions from training, compares a popularity baseline
+with a latent-factor recommender, and reports Recall@K / NDCG@K over a reproducible
+candidate set.
 
 The script can download GroupLens ml-latest-small or use an existing extracted
 directory. It does not claim that MovieLens behaviour represents a current streaming
@@ -82,7 +83,15 @@ def leave_latest_positive_out(
     ratings: pd.DataFrame,
     min_user_ratings: int,
     positive_threshold: float,
-) -> tuple[pd.DataFrame, pd.DataFrame]:
+) -> tuple[pd.DataFrame, pd.DataFrame, int]:
+    """Hold out each eligible user's latest positive and enforce a past-only user history.
+
+    A user may have rated something *after* their latest >=threshold rating. Those later
+    interactions must not remain in that user's training history. We therefore select
+    the latest positive target, then cut the evaluated user's training rows strictly
+    before that target timestamp. This is a per-user temporal holdout, not a global
+    chronological split across all users.
+    """
     ordered = ratings.sort_values(["userId", "timestamp", "movieId"]).copy()
     counts = ordered.groupby("userId").size()
     eligible = counts[counts >= min_user_ratings].index
@@ -92,15 +101,30 @@ def leave_latest_positive_out(
     ].copy()
     if positive.empty:
         raise ValueError("no eligible positive interactions")
+
     test_idx = positive.groupby("userId")["timestamp"].idxmax()
     test = ordered.loc[test_idx].copy()
-    train = ordered.drop(index=test_idx).copy()
+    cutoff = test.set_index("userId")["timestamp"]
 
-    latest_train = train.groupby("userId")["timestamp"].max()
+    evaluated = ordered["userId"].isin(cutoff.index)
+    cutoff_for_row = ordered.loc[evaluated, "userId"].map(cutoff)
+    keep_evaluated = ordered.loc[evaluated, "timestamp"].lt(cutoff_for_row)
+
+    keep = pd.Series(True, index=ordered.index)
+    keep.loc[evaluated] = keep_evaluated.to_numpy()
+    train = ordered.loc[keep].copy()
+    dropped_future_rows = int(len(ordered) - len(train) - len(test))
+
+    latest_train = train.loc[train["userId"].isin(test["userId"])].groupby("userId")["timestamp"].max()
     merged = test.join(latest_train.rename("latest_train"), on="userId")
+    if merged["latest_train"].isna().any():
+        raise AssertionError("an evaluated user has no past-only training history")
     if not (merged["latest_train"] < merged["timestamp"]).all():
         raise AssertionError("temporal user leakage detected")
-    return train.reset_index(drop=True), test.reset_index(drop=True)
+    if train.index.intersection(test.index).size:
+        raise AssertionError("held-out target leaked into training rows")
+
+    return train.reset_index(drop=True), test.reset_index(drop=True), dropped_future_rows
 
 
 def popularity_scores(train: pd.DataFrame) -> pd.Series:
@@ -226,7 +250,7 @@ def evaluate(
 def run(data_dir: Path, config: Config = Config()) -> dict[str, object]:
     config.artifact_dir.mkdir(parents=True, exist_ok=True)
     ratings, movies = load_data(data_dir)
-    train, test = leave_latest_positive_out(
+    train, test, dropped_future_rows = leave_latest_positive_out(
         ratings,
         config.min_user_ratings,
         config.positive_threshold,
@@ -242,11 +266,21 @@ def run(data_dir: Path, config: Config = Config()) -> dict[str, object]:
     payload = {
         "config": {**asdict(config), "artifact_dir": str(config.artifact_dir)},
         "source": MOVIELENS_URL,
-        "rows": {"ratings": len(ratings), "train": len(train), "held_out_users": len(test)},
+        "rows": {
+            "ratings": len(ratings),
+            "train": len(train),
+            "held_out_users": len(test),
+            "later_user_interactions_removed": dropped_future_rows,
+        },
+        "split": {
+            "strategy": "latest positive per eligible user; evaluated-user history truncated strictly before target timestamp",
+            "global_time_split": False,
+        },
         "evaluation": summary,
         "limitations": [
             "MovieLens is an offline benchmark and not current product traffic.",
             "Sampled-negative ranking is cheaper than full-catalog evaluation and must be labelled as such.",
+            "The split is past-only within each evaluated user but is not one global chronological cutoff across all users.",
             "Latent factors do not solve new-user cold start; popularity is the explicit fallback.",
         ],
     }
