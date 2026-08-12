@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/recommender-run.yml'
+      - 'extensions/recommender_v2.py'
+      - 'extensions/recommender_release_gate.py'
   workflow_dispatch:
 
 permissions:
