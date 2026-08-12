@@ -1,10 +1,12 @@
 """VisionForge release-evidence gate.
 
 This script does not train the model or invent performance claims. It validates the
-artifact bundle produced by 12_VisionForge_PyTorch_Visual_Inspection.ipynb before
-results are promoted into the verified portfolio tier.
+artifact bundle produced by 12_VisionForge_PyTorch_Visual_Inspection.ipynb plus the
+fresh-process report produced by ``visionforge_verify_v2.py`` before results are
+promoted into the verified portfolio tier.
 
 Usage:
+    python extensions/visionforge_verify_v2.py --artifact-dir visionforge_artifacts
     python extensions/visionforge_release_gate.py --artifact-dir visionforge_artifacts
     python extensions/visionforge_release_gate.py --self-test
 """
@@ -30,6 +32,7 @@ REQUIRED_FILES = {
     "visionforge_scratch_cnn_state_dict.pt",
     "visionforge_efficientnet.ts",
     "visionforge_efficientnet.onnx",
+    "verification_metrics.json",
 }
 
 REQUIRED_HEADLINE = {
@@ -82,6 +85,7 @@ def validate(bundle: Path) -> tuple[list[str], list[str], dict[str, Any]]:
 
     manifest = load_json(bundle / "manifest.json")
     card = load_json(bundle / "model_card.json")
+    verification = load_json(bundle / "verification_metrics.json")
     metrics = manifest.get("metrics", {})
     if not isinstance(metrics, dict):
         errors.append("manifest.metrics must be an object")
@@ -106,7 +110,9 @@ def validate(bundle: Path) -> tuple[list[str], list[str], dict[str, Any]]:
         if float(metrics["ece_after"]) > float(metrics["ece_before"]) + 1e-12:
             warnings.append("temperature scaling increased ECE; inspect calibration before promotion")
 
-    # Verify every artifact recorded by the notebook manifest.
+    # Verify every artifact recorded by the notebook manifest. The independent
+    # verification report is intentionally produced after the notebook manifest and
+    # therefore is checked separately below.
     manifest_files = manifest.get("artifacts", [])
     if not isinstance(manifest_files, list) or not manifest_files:
         errors.append("manifest.artifacts is empty")
@@ -157,12 +163,57 @@ def validate(bundle: Path) -> tuple[list[str], list[str], dict[str, Any]]:
     if not oversight:
         errors.append("model card missing human_oversight")
 
+    # Independent fresh-process verification gate.
+    if verification.get("verification_pass") is not True:
+        errors.append("independent verifier did not report verification_pass=true")
+    export_parity = verification.get("export_parity", {})
+    if not isinstance(export_parity, dict):
+        errors.append("verification export_parity must be an object")
+    else:
+        if export_parity.get("torchscript_pass") is not True:
+            errors.append("TorchScript parity did not pass independent verification")
+        if export_parity.get("onnx_pass") is not True:
+            errors.append("ONNX parity did not pass independent verification")
+
+    reproduced = verification.get("retained_claim_reproduction", {})
+    if not isinstance(reproduced, dict) or not reproduced:
+        errors.append("independent verification has no retained-claim reproduction checks")
+    else:
+        required_claims = {"accuracy", "balanced_accuracy", "macro_f1", "negative_log_likelihood"}
+        missing_claims = sorted(required_claims - set(reproduced))
+        if missing_claims:
+            errors.append("independent verification missing claim checks: " + ", ".join(missing_claims))
+        for name, item in reproduced.items():
+            if not isinstance(item, dict) or item.get("match") is not True:
+                errors.append(f"retained claim did not reproduce: {name}")
+
+    verification_metrics = verification.get("metrics", {})
+    for ci_name in ("accuracy_ci95", "macro_f1_ci95"):
+        interval = verification_metrics.get(ci_name, {}) if isinstance(verification_metrics, dict) else {}
+        if not isinstance(interval, dict):
+            errors.append(f"{ci_name} missing from independent verification")
+            continue
+        try:
+            estimate = float(interval["estimate"])
+            low = float(interval["ci95_low"])
+            high = float(interval["ci95_high"])
+        except (KeyError, TypeError, ValueError):
+            errors.append(f"{ci_name} is incomplete")
+            continue
+        if not (0.0 <= low <= estimate <= high <= 1.0):
+            errors.append(f"{ci_name} has invalid bounds")
+
     report = {
         "project": "VisionForge",
         "status": "PASS" if not errors else "FAIL",
         "errors": errors,
         "warnings": warnings,
         "headline_metrics": metrics,
+        "independent_verification": {
+            "verification_pass": verification.get("verification_pass"),
+            "export_parity": export_parity,
+            "claim_checks": reproduced,
+        },
         "artifact_count": len(manifest_files) if isinstance(manifest_files, list) else 0,
     }
     return errors, warnings, report
@@ -171,9 +222,16 @@ def validate(bundle: Path) -> tuple[list[str], list[str], dict[str, Any]]:
 def self_test() -> None:
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
-        # Minimal valid fixtures. Binary model files are placeholders because this gate
-        # validates evidence packaging, while notebook runtime tests validate inference.
-        for name in REQUIRED_FILES - {"manifest.json", "model_card.json", "model_benchmark.csv", "class_metrics.csv", "corruption_report.csv", "selective_policy.csv"}:
+        binary_files = REQUIRED_FILES - {
+            "manifest.json",
+            "model_card.json",
+            "model_benchmark.csv",
+            "class_metrics.csv",
+            "corruption_report.csv",
+            "selective_policy.csv",
+            "verification_metrics.json",
+        }
+        for name in binary_files:
             (root / name).write_bytes((name + "\n").encode())
         (root / "model_benchmark.csv").write_text(
             "model,accuracy,balanced_accuracy,macro_f1,negative_log_likelihood\n"
@@ -197,9 +255,30 @@ def self_test() -> None:
             "human_oversight": "Low-confidence cases require agronomist review",
         }
         (root / "model_card.json").write_text(json.dumps(card), encoding="utf-8")
+        verification = {
+            "verification_pass": True,
+            "metrics": {
+                "accuracy_ci95": {"estimate": 0.80, "ci95_low": 0.72, "ci95_high": 0.87, "rounds": 2000},
+                "macro_f1_ci95": {"estimate": 0.78, "ci95_low": 0.70, "ci95_high": 0.85, "rounds": 2000},
+            },
+            "retained_claim_reproduction": {
+                "accuracy": {"retained": 0.80, "reproduced": 0.80, "abs_delta": 0.0, "match": True},
+                "balanced_accuracy": {"retained": 0.79, "reproduced": 0.79, "abs_delta": 0.0, "match": True},
+                "macro_f1": {"retained": 0.78, "reproduced": 0.78, "abs_delta": 0.0, "match": True},
+                "negative_log_likelihood": {"retained": 0.50, "reproduced": 0.50, "abs_delta": 0.0, "match": True},
+            },
+            "export_parity": {
+                "torchscript_pass": True,
+                "torchscript_max_abs_error": 1e-6,
+                "onnx_pass": True,
+                "onnx_max_abs_error": 1e-6,
+                "onnx_error": None,
+            },
+        }
+        (root / "verification_metrics.json").write_text(json.dumps(verification), encoding="utf-8")
         tracked = []
         for path in root.iterdir():
-            if path.name not in {"manifest.json"}:
+            if path.name not in {"manifest.json", "verification_metrics.json"}:
                 tracked.append({"path": str(path), "bytes": path.stat().st_size, "sha256": sha256(path)})
         manifest = {
             "project": "VisionForge",
