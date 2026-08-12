@@ -25,7 +25,7 @@ jobs:
           python-version: '3.12'
 
       - name: Compile-check portfolio Python code
-        run: python -m compileall -q scripts extensions
+        run: python -m compileall -q scripts extensions projects
 
       - name: Self-test VisionForge release evidence gate
         run: python extensions/visionforge_release_gate.py --self-test
@@ -38,6 +38,9 @@ jobs:
 
       - name: Self-test healthcare evidence gate
         run: python extensions/healthcare_evidence_gate.py --self-test
+
+      - name: Validate new production project evidence
+        run: python scripts/validate_new_projects.py
 
       - name: Validate portfolio structure and stored notebook evidence
         run: python scripts/validate_portfolio.py
