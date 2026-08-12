@@ -33,10 +33,10 @@ VERIFIED_NOTEBOOKS = [
     "05_Energy_Demand_Forecasting_with_TensorFlow.ipynb",
     "06_Clickstream_Analysis_with_PySpark.ipynb",
     "07_London_Air_Quality_Analysis_with_R.ipynb",
+    "01_ConsultAI_AI_Opportunity_Engine.ipynb",
 ]
 
 ADVANCED_NOTEBOOKS = [
-    "01_ConsultAI_AI_Opportunity_Engine.ipynb",
     "12_VisionForge_PyTorch_Visual_Inspection.ipynb",
     "Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb",
     "AeroFlow_AI_Engine.ipynb",
