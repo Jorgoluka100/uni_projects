@@ -27,5 +27,8 @@ jobs:
       - name: Compile-check portfolio Python code
         run: python -m compileall -q scripts extensions
 
+      - name: Self-test VisionForge release evidence gate
+        run: python extensions/visionforge_release_gate.py --self-test
+
       - name: Validate portfolio structure and stored notebook evidence
         run: python scripts/validate_portfolio.py
