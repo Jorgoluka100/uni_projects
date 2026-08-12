@@ -1,0 +1,96 @@
+name: NYC Airbnb 2026 verified run
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/airbnb-2026-run.yml'
+      - 'extensions/airbnb_nyc_2026_v2.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-and-retain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas numpy scikit-learn
+
+      - name: Execute June 2026 market pipeline
+        run: |
+          rm -rf airbnb_nyc_2026_artifacts data_cache
+          python extensions/airbnb_nyc_2026_v2.py \
+            --data-dir data_cache \
+            --output-dir airbnb_nyc_2026_artifacts
+
+      - name: Validate evidence
+        run: |
+          python - <<'PY'
+          import json, math
+          from pathlib import Path
+          import pandas as pd
+          root=Path('airbnb_nyc_2026_artifacts')
+          for name in ['evaluation.json','market_summary.csv']:
+              p=root/name; assert p.is_file() and p.stat().st_size>0, name
+          d=json.loads((root/'evaluation.json').read_text())
+          assert d['source']['snapshot_date']=='2026-06-14'
+          assert d['source']['provider']=='Inside Airbnb'
+          assert d['source']['license']=='CC BY 4.0'
+          assert len(d['source']['cached_sha256'])==64
+          assert d['split']['strategy']=='GroupShuffleSplit by neighbourhood_cleansed'
+          assert all(int(d['split'][k])>0 for k in ['train_rows','validation_rows','test_rows'])
+          for split in ['validation','test']:
+              m=d['metrics'][split]
+              assert math.isfinite(float(m['mae'])) and m['mae']>=0
+              assert math.isfinite(float(m['baseline_mae'])) and m['baseline_mae']>=0
+              assert math.isfinite(float(m['r2']))
+          assert len(d['interpretation_guardrails'])>=4
+          assert not pd.read_csv(root/'market_summary.csv').empty
+          report={'project':'NYC Airbnb 2026 v2','verification_pass':True,'source':d['source'],'rows':d['rows'],'split':d['split'],'metrics':d['metrics'],'price_cap_99_5pct':d['price_cap_99_5pct'],'evidence_policy':'14 June 2026 Inside Airbnb snapshot; neighbourhood-group holdout; listing prices are not transactions or booked-night revenue.'}
+          (root/'verification.json').write_text(json.dumps(report,indent=2))
+          print(json.dumps(report,indent=2))
+          PY
+
+      - name: Retain compact evidence
+        run: |
+          mkdir -p verified/airbnb_nyc_2026
+          cp airbnb_nyc_2026_artifacts/evaluation.json verified/airbnb_nyc_2026/
+          cp airbnb_nyc_2026_artifacts/verification.json verified/airbnb_nyc_2026/
+          cp airbnb_nyc_2026_artifacts/market_summary.csv verified/airbnb_nyc_2026/
+
+      - name: Commit evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add verified/airbnb_nyc_2026
+          if git diff --cached --quiet; then
+            echo 'No generated evidence changed.'
+          else
+            git commit -m 'Retain verified NYC Airbnb 2026 evidence'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Upload evidence bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: airbnb-nyc-2026-evidence
+          path: airbnb_nyc_2026_artifacts/
+          retention-days: 30
+          if-no-files-found: error
