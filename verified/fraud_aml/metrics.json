@@ -1,0 +1,56 @@
+{
+  "scope": "synthetic methodology demonstration only",
+  "config": {
+    "seed": 42,
+    "n_transactions": 120000,
+    "review_capacity": 0.02,
+    "false_positive_cost": 8.0,
+    "false_negative_cost": 500.0,
+    "artifact_dir": "fraud_aml_artifacts"
+  },
+  "rows": {
+    "train": 72000,
+    "valid": 24000,
+    "test": 24000
+  },
+  "date_ranges": {
+    "train": [
+      "2025-01-01 00:00:00+00:00",
+      "2025-07-19 23:56:00+00:00"
+    ],
+    "valid": [
+      "2025-07-20 00:00:00+00:00",
+      "2025-09-24 15:56:00+00:00"
+    ],
+    "test": [
+      "2025-09-24 16:00:00+00:00",
+      "2025-11-30 07:56:00+00:00"
+    ]
+  },
+  "validation_threshold_choice": {
+    "threshold": 0.09745215418909933,
+    "cost": 368968.0,
+    "flag_rate": 0.0245
+  },
+  "baseline_test": {
+    "pr_auc": 0.0375,
+    "roc_auc": 0.5,
+    "precision": 0.0,
+    "recall": 0.0,
+    "flag_rate": 0.0,
+    "prevalence": 0.0375
+  },
+  "model_test": {
+    "pr_auc": 0.10157786306522859,
+    "roc_auc": 0.6851111351611352,
+    "precision": 0.18608695652173912,
+    "recall": 0.11888888888888889,
+    "flag_rate": 0.023958333333333335,
+    "prevalence": 0.0375
+  },
+  "limitations": [
+    "Synthetic labels do not establish real-world fraud or AML performance.",
+    "Fraud screening and AML investigation are different operational/regulatory problems.",
+    "A production system needs institution-specific data, typologies, fairness analysis, investigator feedback and monitoring."
+  ]
+}

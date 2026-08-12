@@ -1,0 +1,32 @@
+{
+  "project": "Fraud/AML v2",
+  "verification_pass": true,
+  "errors": [],
+  "scope": "synthetic methodology demonstration only",
+  "model_test": {
+    "pr_auc": 0.10157786306522859,
+    "roc_auc": 0.6851111351611352,
+    "precision": 0.18608695652173912,
+    "recall": 0.11888888888888889,
+    "flag_rate": 0.023958333333333335,
+    "prevalence": 0.0375
+  },
+  "baseline_test": {
+    "pr_auc": 0.0375,
+    "roc_auc": 0.5,
+    "precision": 0.0,
+    "recall": 0.0,
+    "flag_rate": 0.0,
+    "prevalence": 0.0375
+  },
+  "validation_threshold_choice": {
+    "threshold": 0.09745215418909933,
+    "cost": 368968.0,
+    "flag_rate": 0.0245
+  },
+  "rows": {
+    "train": 72000,
+    "valid": 24000,
+    "test": 24000
+  }
+}
