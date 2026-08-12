@@ -1,0 +1,46 @@
+{
+  "project": "AeroFlow delay-risk v3",
+  "verification_pass": true,
+  "rows": {
+    "train": 360000,
+    "validation": 120000,
+    "test": 180000
+  },
+  "baseline_test": {
+    "pr_auc": 0.21521666666666667,
+    "roc_auc": 0.5,
+    "log_loss": 0.5207978560919474,
+    "brier": 0.16890219083333333,
+    "train_prevalence_score": 0.21715,
+    "test_prevalence": 0.21521666666666667
+  },
+  "classifier_test": {
+    "pr_auc": 0.29129729857935194,
+    "roc_auc": 0.6180415718011278,
+    "log_loss": 0.5134152520395071,
+    "brier": 0.16739878969454416,
+    "precision": 0.3201088725185645,
+    "recall": 0.27930509305867474,
+    "flag_rate": 0.18778333333333333,
+    "prevalence": 0.21521666666666667,
+    "precision_lift_vs_prevalence": 1.4873795671891792
+  },
+  "ranking_lift": {
+    "top_10pct": {
+      "fraction": 0.1,
+      "rows": 18000,
+      "delay_rate": 0.34094444444444444,
+      "population_prevalence": 0.21521666666666667,
+      "lift": 1.5841916414982318
+    },
+    "top_20pct": {
+      "fraction": 0.2,
+      "rows": 36000,
+      "delay_rate": 0.31672222222222224,
+      "population_prevalence": 0.21521666666666667,
+      "lift": 1.4716435633341078
+    }
+  },
+  "validation_threshold": 0.34390037149288283,
+  "evidence_policy": "Official BTS 2026; Jan-Mar train, April validation, untouched May test; schedule-time features only."
+}
