@@ -1,0 +1,47 @@
+{
+  "source": {
+    "provider": "Inside Airbnb",
+    "snapshot_date": "2026-06-14",
+    "url": "https://data.insideairbnb.com/united-states/ny/new-york-city/2026-06-14/data/listings.csv.gz",
+    "license": "CC BY 4.0",
+    "cached_sha256": "10eb56b21ec71a838b30ef47b836f3d375269baeed5ff9e5c35ff3c6a98d3ca7"
+  },
+  "target": "snapshot listing price in USD; not realised revenue",
+  "rows": {
+    "raw": 30259,
+    "positive_price": 21515,
+    "model_after_99_5pct_cap": 21407
+  },
+  "price_cap_usd_99_5pct": 2565.526000000014,
+  "split": {
+    "strategy": "GroupShuffleSplit by neighbourhood_cleansed",
+    "train_rows": 12425,
+    "validation_rows": 5195,
+    "test_rows": 3787,
+    "test_neighbourhoods": 45
+  },
+  "metrics": {
+    "validation": {
+      "rows": 5195,
+      "mae_usd": 82.02302089551773,
+      "median_ae_usd": 37.316542189663735,
+      "r2": 0.5105338592569031,
+      "baseline_mae_usd": 139.87101058710297,
+      "mae_improvement_vs_median": 0.41358098042453983
+    },
+    "untouched_test": {
+      "rows": 3787,
+      "mae_usd": 68.96736923794309,
+      "median_ae_usd": 31.177883825008763,
+      "r2": 0.48322511489527253,
+      "baseline_mae_usd": 121.89617903353579,
+      "mae_improvement_vs_median": 0.43421221415833755
+    }
+  },
+  "interpretation_guardrails": [
+    "descriptive listing snapshot is not a transaction dataset",
+    "availability_365 does not distinguish booked nights from host-blocked nights",
+    "listing coordinates are anonymised/offset by Airbnb",
+    "predictive test measures price estimation transfer to unseen neighbourhoods, not future price changes or revenue"
+  ]
+}

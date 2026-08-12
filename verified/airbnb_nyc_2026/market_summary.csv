@@ -1,0 +1,19 @@
+neighbourhood_group_cleansed,room_type,listings,median_price_usd,median_minimum_nights,median_availability_365,median_reviews_per_month
+Bronx,Entire home/apt,322,137.535,30.0,318.0,0.415
+Bronx,Private room,502,78.125,30.0,307.0,0.415
+Bronx,Shared room,2,53.415,30.0,172.5,
+Brooklyn,Entire home/apt,3582,198.31,30.0,251.0,0.48
+Brooklyn,Hotel room,43,399.0,1.0,317.0,0.33499999999999996
+Brooklyn,Private room,3520,92.47999999999999,30.0,269.0,0.56
+Brooklyn,Shared room,94,51.33,30.0,322.0,0.74
+Manhattan,Entire home/apt,6138,262.0,30.0,288.0,0.25
+Manhattan,Hotel room,346,473.76,1.0,331.5,0.25
+Manhattan,Private room,3004,154.08499999999998,30.0,264.0,0.55
+Manhattan,Shared room,51,61.24,30.0,297.0,0.76
+Queens,Entire home/apt,1361,160.84,30.0,280.0,0.49
+Queens,Hotel room,91,408.0,1.0,280.0,0.895
+Queens,Private room,2121,83.82,30.0,282.0,0.51
+Queens,Shared room,42,99.815,30.0,267.0,1.0
+Staten Island,Entire home/apt,134,117.135,30.0,275.0,0.54
+Staten Island,Private room,159,94.76,30.0,292.0,0.545
+Staten Island,Shared room,3,94.3,2.0,342.0,0.965
