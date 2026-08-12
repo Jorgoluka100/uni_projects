@@ -1,0 +1,52 @@
+{
+  "model_name": "VisionForge EfficientNet-B0",
+  "dataset": "AI-Lab-Makerere/beans",
+  "task": "Three-class bean-leaf image classification with abstention",
+  "metrics": {
+    "accuracy": 0.859375,
+    "balanced_accuracy": 0.8602805463270579,
+    "macro_f1": 0.8575217885562713,
+    "negative_log_likelihood": 0.31121551990509033,
+    "ece_before": 0.05778269236907364,
+    "ece_after": 0.0554346682038158,
+    "temperature": 0.7658530473709106,
+    "policy_threshold": 0.6759136319160461,
+    "policy_coverage": 0.890625,
+    "policy_review_rate": 0.109375,
+    "policy_selective_accuracy": 0.9035087719298246,
+    "policy_errors_escalated": 0.3888888888888889
+  },
+  "controlled_benchmark": [
+    {
+      "model": "EfficientNet-B0",
+      "initialisation": "ImageNet transfer",
+      "parameters": 4336255,
+      "accuracy": 0.859375,
+      "balanced_accuracy": 0.8602805463270579,
+      "macro_f1": 0.8575217885562713,
+      "negative_log_likelihood": 0.31121551990509033
+    },
+    {
+      "model": "ScratchResidualCNN",
+      "initialisation": "random",
+      "parameters": 523267,
+      "accuracy": 0.71875,
+      "balanced_accuracy": 0.7196382428940568,
+      "macro_f1": 0.7072811447811448,
+      "negative_log_likelihood": 0.6065375208854675
+    }
+  ],
+  "intended_use": "Educational field-image triage prototype",
+  "not_for": [
+    "autonomous pesticide decisions",
+    "medical use",
+    "species outside the dataset"
+  ],
+  "known_limitations": [
+    "Small dataset and limited geography can create domain shift.",
+    "Confidence calibration may drift under new cameras or seasons.",
+    "Grad-CAM is a sensitivity visualisation, not a causal explanation.",
+    "Corruption tests are proxies and do not cover every field condition."
+  ],
+  "human_oversight": "Low-confidence images and treatment decisions require an agronomist."
+}

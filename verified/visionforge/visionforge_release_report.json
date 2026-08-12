@@ -1,0 +1,52 @@
+{
+  "project": "VisionForge",
+  "status": "PASS",
+  "errors": [],
+  "warnings": [],
+  "headline_metrics": {
+    "accuracy": 0.859375,
+    "balanced_accuracy": 0.8602805463270579,
+    "macro_f1": 0.8575217885562713,
+    "negative_log_likelihood": 0.31121551990509033,
+    "ece_before": 0.05778269236907364,
+    "ece_after": 0.0554346682038158,
+    "temperature": 0.7658530473709106
+  },
+  "independent_verification": {
+    "verification_pass": true,
+    "export_parity": {
+      "torchscript_pass": true,
+      "torchscript_max_abs_error": 0.0,
+      "onnx_pass": true,
+      "onnx_max_abs_error": 4.76837158203125e-06,
+      "onnx_error": null
+    },
+    "claim_checks": {
+      "accuracy": {
+        "retained": 0.859375,
+        "reproduced": 0.859375,
+        "abs_delta": 0.0,
+        "match": true
+      },
+      "balanced_accuracy": {
+        "retained": 0.8602805463270579,
+        "reproduced": 0.8602805463270579,
+        "abs_delta": 0.0,
+        "match": true
+      },
+      "macro_f1": {
+        "retained": 0.8575217885562713,
+        "reproduced": 0.8575217885562713,
+        "abs_delta": 0.0,
+        "match": true
+      },
+      "negative_log_likelihood": {
+        "retained": 0.31121551990509033,
+        "reproduced": 0.31121551990509033,
+        "abs_delta": 0.0,
+        "match": true
+      }
+    }
+  },
+  "artifact_count": 16
+}

@@ -1,0 +1,72 @@
+{
+  "project": "VisionForge",
+  "dataset": "AI-Lab-Makerere/beans",
+  "test_rows": 128,
+  "class_names": [
+    "angular_leaf_spot",
+    "bean_rust",
+    "healthy"
+  ],
+  "checkpoint_sha256": "aabdf7f94e82407b38da6d555c91e0cb0833641693fbb67a4e281f2eb83d6975",
+  "device": "cpu",
+  "metrics": {
+    "accuracy": 0.859375,
+    "balanced_accuracy": 0.8602805463270579,
+    "macro_f1": 0.8575217885562713,
+    "negative_log_likelihood": 0.31121551990509033,
+    "ece_after": 0.05627847160212695,
+    "accuracy_ci95": {
+      "estimate": 0.859375,
+      "ci95_low": 0.796875,
+      "ci95_high": 0.9140625,
+      "rounds": 2000
+    },
+    "macro_f1_ci95": {
+      "estimate": 0.8575217885562713,
+      "ci95_low": 0.7921509902637996,
+      "ci95_high": 0.9129292376880982,
+      "rounds": 2000
+    }
+  },
+  "selective_policy": {
+    "threshold": 0.6759136319160461,
+    "coverage": 0.890625,
+    "review_rate": 0.109375,
+    "selective_accuracy": 0.9035087719298246,
+    "errors_escalated": 0.3888888888888889
+  },
+  "retained_claim_reproduction": {
+    "accuracy": {
+      "retained": 0.859375,
+      "reproduced": 0.859375,
+      "abs_delta": 0.0,
+      "match": true
+    },
+    "balanced_accuracy": {
+      "retained": 0.8602805463270579,
+      "reproduced": 0.8602805463270579,
+      "abs_delta": 0.0,
+      "match": true
+    },
+    "macro_f1": {
+      "retained": 0.8575217885562713,
+      "reproduced": 0.8575217885562713,
+      "abs_delta": 0.0,
+      "match": true
+    },
+    "negative_log_likelihood": {
+      "retained": 0.31121551990509033,
+      "reproduced": 0.31121551990509033,
+      "abs_delta": 0.0,
+      "match": true
+    }
+  },
+  "export_parity": {
+    "torchscript_pass": true,
+    "torchscript_max_abs_error": 0.0,
+    "onnx_pass": true,
+    "onnx_max_abs_error": 4.76837158203125e-06,
+    "onnx_error": null
+  },
+  "verification_pass": true
+}

@@ -1,0 +1,3 @@
+model,initialisation,parameters,accuracy,balanced_accuracy,macro_f1,negative_log_likelihood
+EfficientNet-B0,ImageNet transfer,4336255,0.859375,0.8602805463270579,0.8575217885562713,0.31121551990509033
+ScratchResidualCNN,random,523267,0.71875,0.7196382428940568,0.7072811447811448,0.6065375208854675
