@@ -1,0 +1,43 @@
+{
+  "project": "AeroFlow v2",
+  "verification_pass": true,
+  "data_year": 2026,
+  "rows": {
+    "train": 360000,
+    "validation": 120000,
+    "test": 180000
+  },
+  "baseline_metrics": {
+    "global_median": {
+      "mae": 15.558877777777777,
+      "rmse": 54.660735247321526,
+      "median_absolute_error": 0.0,
+      "r2": -0.08816591485849878
+    },
+    "train_only_route_carrier_mean": {
+      "mae": 23.11516251559823,
+      "rmse": 52.41558175879713,
+      "median_absolute_error": 15.300367762128325,
+      "r2": -0.0006103727572939199
+    }
+  },
+  "catboost_test_metrics": {
+    "mae": 23.384581747066886,
+    "rmse": 52.388747678969565,
+    "median_absolute_error": 17.07802565361917,
+    "r2": 0.00041388700256250743
+  },
+  "conformal": {
+    "nominal_coverage": 0.9,
+    "radius_minutes": 22.199808731604133,
+    "test_coverage": 0.8921444444444444,
+    "mean_width_minutes": 39.443869045005286
+  },
+  "decision_metrics": {
+    "precision_at_15_minutes": 0.21521666666666667,
+    "recall_at_15_minutes": 1.0,
+    "actual_delay15_rate": 0.21521666666666667,
+    "predicted_delay15_rate": 1.0
+  },
+  "evidence_policy": "Official BTS 2026 data; May 2026 untouched temporal test; schedule-time features only."
+}

@@ -1,0 +1,80 @@
+{
+  "data_source": "US DOT Bureau of Transportation Statistics \u2014 On-Time Reporting Carrier Performance",
+  "data_year": 2026,
+  "train_months": [
+    1,
+    2,
+    3
+  ],
+  "validation_months": [
+    4
+  ],
+  "test_months": [
+    5
+  ],
+  "rows": {
+    "train": 360000,
+    "validation": 120000,
+    "test": 180000
+  },
+  "features": [
+    "month",
+    "day_of_week",
+    "carrier",
+    "origin",
+    "dest",
+    "route",
+    "crs_dep_minutes",
+    "crs_arr_minutes",
+    "crs_elapsed_minutes",
+    "distance_miles",
+    "dep_sin",
+    "dep_cos"
+  ],
+  "categorical_features": [
+    "carrier",
+    "origin",
+    "dest",
+    "route"
+  ],
+  "target": "delay_minutes",
+  "baseline_metrics": {
+    "global_median": {
+      "mae": 15.558877777777777,
+      "rmse": 54.660735247321526,
+      "median_absolute_error": 0.0,
+      "r2": -0.08816591485849878
+    },
+    "train_only_route_carrier_mean": {
+      "mae": 23.11516251559823,
+      "rmse": 52.41558175879713,
+      "median_absolute_error": 15.300367762128325,
+      "r2": -0.0006103727572939199
+    }
+  },
+  "catboost_test_metrics": {
+    "mae": 23.384581747066886,
+    "rmse": 52.388747678969565,
+    "median_absolute_error": 17.07802565361917,
+    "r2": 0.00041388700256250743
+  },
+  "conformal": {
+    "nominal_coverage": 0.9,
+    "radius_minutes": 22.199808731604133,
+    "test_coverage": 0.8921444444444444,
+    "mean_width_minutes": 39.443869045005286
+  },
+  "decision_metrics": {
+    "precision_at_15_minutes": 0.21521666666666667,
+    "recall_at_15_minutes": 1.0,
+    "actual_delay15_rate": 0.21521666666666667,
+    "predicted_delay15_rate": 1.0
+  },
+  "median_planning_buffer_minutes": 40.0,
+  "limitations": [
+    "Completed non-diverted flights only; cancellation/diversion require separate risk models.",
+    "Schedule-time model: no actual departure, taxi, arrival or delay-cause leakage features.",
+    "May 2026 is a temporal test month, but future network/weather regimes can drift.",
+    "The conformal interval uses a global April residual distribution and can under-cover subgroups."
+  ]
+}
