@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  validate-notebooks:
+  validate-portfolio:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -25,7 +25,7 @@ jobs:
           python-version: '3.12'
 
       - name: Compile-check portfolio Python code
-        run: python -m py_compile scripts/validate_portfolio.py extensions/aeroflow_v2.py
+        run: python -m compileall -q scripts extensions
 
       - name: Validate portfolio structure and stored notebook evidence
         run: python scripts/validate_portfolio.py
