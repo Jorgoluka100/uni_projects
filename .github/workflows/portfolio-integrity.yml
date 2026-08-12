@@ -33,5 +33,11 @@ jobs:
       - name: Self-test ConsultAI deterministic verifier
         run: python extensions/consultai_verify_v2.py --self-test
 
+      - name: Self-test pathfinding benchmark
+        run: python extensions/pathfinding_benchmark_v2.py --self-test
+
+      - name: Self-test healthcare evidence gate
+        run: python extensions/healthcare_evidence_gate.py --self-test
+
       - name: Validate portfolio structure and stored notebook evidence
         run: python scripts/validate_portfolio.py
