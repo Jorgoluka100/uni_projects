@@ -8,12 +8,42 @@ The extensions do **not** manufacture new performance claims. A project is promo
 
 | Extension | Restored project strengthened | What the v2 adds | Evidence status |
 |---|---|---|---|
+| [`visionforge_release_gate.py`](visionforge_release_gate.py) | VisionForge PyTorch Visual Inspection | Release-evidence gate for model card, benchmark, per-class metrics, corruption suite, abstention policy, exported models, manifest hashes and calibration evidence; includes a CI self-test | **Engineering gate complete; clean GPU run still required for promotion** |
 | [`aeroflow_v2.py`](aeroflow_v2.py) | AeroFlow AI Engine | Official 2026 BTS data, strict temporal split, leakage-safe schedule-time features, baselines, CatBoost, conformal intervals, operational delay policy, slice analysis, saved artifacts + reload test | **Ready for fresh run** |
 | [`fraud_aml_v2.py`](fraud_aml_v2.py) | Financial Fraud / AML Detection | Time-ordered transaction stream, past-only behavioural features, chronological split, train-only preprocessing, PR-AUC/ROC-AUC, validation-only cost threshold, review-capacity metrics, monthly slices, reload test | **Methodology-complete; synthetic demo until real institution data exists** |
 | [`recommender_v2.py`](recommender_v2.py) | Hybrid DL Movie Recommender | Latest-positive holdout per user, popularity baseline, latent-factor recommender, sampled-candidate Recall@K/NDCG@K, cold-start fallback and reproducible artifacts | **Ready for fresh MovieLens run** |
 | [`llm_eval_v2.py`](llm_eval_v2.py) | LLM Mastery — Core + Alignment | Frozen prompt manifest, deterministic format/content/refusal checks, base-vs-aligned comparison, optional blinded human pairwise results, detail + summary artifacts | **Evaluation layer ready; model generations still need fresh run** |
 | [`kdd_intrusion_v2.py`](kdd_intrusion_v2.py) | KDD Cup Analysis | Maintained sklearn loader, explicit historical warning, baseline, held-out imbalance-aware metrics, attack-type error table and reload verification | **Ready for fresh run; historical benchmark only** |
 | [`cine_nosql_v2.py`](cine_nosql_v2.py) | CineIntelligence NoSQL | Defensive JSON-ish parsing, row quarantine, explicit document schema, data-quality checks, inverted-index query path, repeatable benchmark and NDJSON export | **Engineering layer ready; source file/licence must be supplied and documented** |
+
+## VisionForge release gate
+
+VisionForge already contains the core model-training and deployment work: a scratch CNN benchmark, EfficientNet transfer learning, validation-only temperature scaling, abstention, corruption stress tests, Grad-CAM, TorchScript/ONNX export, latency measurement, an interactive Gradio app, a model card and a cryptographic manifest. The remaining risk is **evidence promotion**: a notebook can contain excellent code while still lacking a retained clean run.
+
+After a clean Colab GPU run, point the gate at the notebook's artifact directory:
+
+```bash
+python extensions/visionforge_release_gate.py --artifact-dir visionforge_artifacts
+```
+
+The gate fails promotion when required evidence is missing or inconsistent. It checks:
+
+- headline metrics are finite and in valid ranges;
+- both the scratch CNN and EfficientNet benchmark rows exist;
+- per-class evidence covers all three classes;
+- the corruption suite covers noise, blur, darkness and occlusion;
+- the selective-prediction export contains threshold, coverage, review rate, selective accuracy and escalated-error evidence;
+- the model card states intended use, human oversight and limitations;
+- required model exports exist;
+- manifest SHA-256 hashes match the generated artifacts.
+
+Its own fixture-based test runs in GitHub Actions:
+
+```bash
+python extensions/visionforge_release_gate.py --self-test
+```
+
+Passing the gate is **necessary but not sufficient** for promotion: the notebook itself must still be restarted, run end-to-end on the real Makerere Beans dataset and retain the resulting evidence without stored errors.
 
 ## AeroFlow v2 — 2026 BTS Flight Delay Intelligence
 
