@@ -1,0 +1,99 @@
+name: VisionForge verified run
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/visionforge-run.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      MPLBACKEND: Agg
+      PYTHONUNBUFFERED: '1'
+      OMP_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install CPU computer-vision runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision
+          python -m pip install \
+            'datasets>=3.0' 'evaluate>=0.4' 'gradio>=5,<7' \
+            'onnx>=1.16' 'onnxruntime>=1.19' 'onnxscript>=0.1' 'torchmetrics>=1.4' \
+            scikit-learn pandas numpy matplotlib seaborn pillow \
+            jupyter nbconvert ipykernel
+
+      - name: Execute VisionForge from a clean process
+        run: |
+          rm -rf visionforge_artifacts
+          jupyter nbconvert \
+            --to notebook \
+            --execute '12_VisionForge_PyTorch_Visual_Inspection.ipynb' \
+            --output '/tmp/visionforge_executed.ipynb' \
+            --ExecutePreprocessor.timeout=2400 \
+            --ExecutePreprocessor.kernel_name=python3
+
+      - name: Independently reproduce saved model evidence
+        run: |
+          python extensions/visionforge_verify_v2.py \
+            --artifact-dir visionforge_artifacts \
+            --device cpu \
+            --bootstrap-rounds 2000
+
+      - name: Apply final release evidence gate
+        run: python extensions/visionforge_release_gate.py --artifact-dir visionforge_artifacts
+
+      - name: Retain interview-defensible evidence in repository
+        run: |
+          mkdir -p verified/visionforge
+          cp /tmp/visionforge_executed.ipynb '12_VisionForge_PyTorch_Visual_Inspection.ipynb'
+          cp visionforge_artifacts/verification_metrics.json verified/visionforge/
+          cp visionforge_artifacts/visionforge_release_report.json verified/visionforge/
+          cp visionforge_artifacts/model_card.json verified/visionforge/
+          cp visionforge_artifacts/model_benchmark.csv verified/visionforge/
+          cp visionforge_artifacts/class_metrics.csv verified/visionforge/
+          cp visionforge_artifacts/corruption_report.csv verified/visionforge/
+          cp visionforge_artifacts/selective_policy.csv verified/visionforge/
+          cp visionforge_artifacts/training_history.csv verified/visionforge/
+          cp visionforge_artifacts/model_diagnostics.png verified/visionforge/
+          cp visionforge_artifacts/selective_policy.png verified/visionforge/
+          cp visionforge_artifacts/corruption_stress.png verified/visionforge/
+          cp visionforge_artifacts/gradcam_example.png verified/visionforge/
+
+      - name: Commit verified notebook and compact evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add '12_VisionForge_PyTorch_Visual_Inspection.ipynb' verified/visionforge
+          if git diff --cached --quiet; then
+            echo 'No generated evidence changed.'
+          else
+            git commit -m 'Retain verified VisionForge execution evidence'
+            git push origin HEAD:main
+          fi
+
+      - name: Upload full model release bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: visionforge-full-release
+          path: visionforge_artifacts/
+          retention-days: 30
+          if-no-files-found: error
