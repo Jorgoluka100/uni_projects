@@ -1,0 +1,81 @@
+name: ConsultAI verified run
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/consultai-run.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      MPLBACKEND: Agg
+      PYTHONUNBUFFERED: '1'
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install analytical runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas numpy scikit-learn matplotlib seaborn 'gradio>=5,<7' jupyter nbconvert ipykernel
+
+      - name: Execute ConsultAI from a clean process
+        run: |
+          rm -rf consultai_application_artifacts artifacts_python
+          jupyter nbconvert \
+            --to notebook \
+            --execute '01_ConsultAI_AI_Opportunity_Engine.ipynb' \
+            --output '/tmp/consultai_executed.ipynb' \
+            --ExecutePreprocessor.timeout=900 \
+            --ExecutePreprocessor.kernel_name=python3
+
+      - name: Independently reproduce deterministic decision evidence
+        run: python extensions/consultai_verify_v2.py --artifact-dir consultai_application_artifacts
+
+      - name: Retain verified evidence
+        run: |
+          mkdir -p verified/consultai
+          cp /tmp/consultai_executed.ipynb '01_ConsultAI_AI_Opportunity_Engine.ipynb'
+          cp consultai_application_artifacts/opportunity_register.csv verified/consultai/
+          cp consultai_application_artifacts/budget_frontier.csv verified/consultai/
+          cp consultai_application_artifacts/portfolio_stress_tests.csv verified/consultai/
+          cp consultai_application_artifacts/data_card.json verified/consultai/
+          cp consultai_application_artifacts/decision_record.json verified/consultai/
+          cp consultai_application_artifacts/project_manifest.json verified/consultai/
+          cp consultai_application_artifacts/consultai_verification.json verified/consultai/
+
+      - name: Commit verified notebook and evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git pull --rebase origin main
+          git add '01_ConsultAI_AI_Opportunity_Engine.ipynb' verified/consultai
+          if git diff --cached --quiet; then
+            echo 'No generated evidence changed.'
+          else
+            git commit -m 'Retain verified ConsultAI execution evidence'
+            git push origin HEAD:main
+          fi
+
+      - name: Upload ConsultAI evidence bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: consultai-evidence
+          path: consultai_application_artifacts/
+          retention-days: 30
+          if-no-files-found: error
