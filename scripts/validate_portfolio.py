@@ -73,6 +73,9 @@ RETAINED_VERIFICATION_FILES = {
     "Pathfinding benchmark v2": "verified/pathfinding/verification.json",
     "Aviation PostgreSQL v2": "verified/aviation_postgres/verification.json",
     "Spark KDD classifiers v2": "verified/spark_kdd/verification.json",
+    "Standalone KDD intrusion v2": "verified/kdd_intrusion/verification.json",
+    "CineIntelligence engineering harness": "verified/cine_nosql/verification.json",
+    "LLM evaluation harness": "verified/llm_eval_harness/verification.json",
 }
 
 # Advanced notebooks with little/no in-notebook narrative are documented here.
