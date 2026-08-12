@@ -47,28 +47,29 @@ def main() -> int:
     if missing: raise KeyError(f"missing required columns: {missing}")
     if frame["id"].duplicated().any(): raise ValueError("duplicate listing IDs")
     raw_rows=len(frame)
-    frame["price_gbp_or_usd_numeric"]=pd.to_numeric(frame["price"].astype(str).str.replace(r"[$,]","",regex=True),errors="coerce")
-    # Price modelling excludes impossible/missing values and extreme top 0.5% tail; descriptive exports retain counts of exclusions.
-    valid=frame[frame["price_gbp_or_usd_numeric"].gt(0)].copy()
-    cap=float(valid["price_gbp_or_usd_numeric"].quantile(.995)); model_df=valid[valid["price_gbp_or_usd_numeric"].le(cap)].copy()
-    descriptive=(valid.groupby(["neighbourhood_group_cleansed","room_type"],dropna=False).agg(listings=("id","count"),median_price=("price_gbp_or_usd_numeric","median"),median_minimum_nights=("minimum_nights","median"),median_availability_365=("availability_365","median"),median_reviews_per_month=("reviews_per_month","median")).reset_index())
+    frame["price_usd"]=pd.to_numeric(frame["price"].astype(str).str.replace(r"[$,]","",regex=True),errors="coerce")
+    # Price modelling excludes impossible/missing values and the extreme top 0.5% tail; exclusion counts are retained.
+    valid=frame[frame["price_usd"].gt(0)].copy()
+    cap=float(valid["price_usd"].quantile(.995)); model_df=valid[valid["price_usd"].le(cap)].copy()
+    descriptive=(valid.groupby(["neighbourhood_group_cleansed","room_type"],dropna=False).agg(listings=("id","count"),median_price_usd=("price_usd","median"),median_minimum_nights=("minimum_nights","median"),median_availability_365=("availability_365","median"),median_reviews_per_month=("reviews_per_month","median")).reset_index())
     descriptive.to_csv(args.output_dir/"market_summary.csv",index=False)
 
     numeric=["latitude","longitude","accommodates","bedrooms","beds","minimum_nights","number_of_reviews","reviews_per_month","availability_365","host_listings_count"]
     categorical=["room_type","neighbourhood_group_cleansed"]
-    X=model_df[numeric+categorical]; y=np.log1p(model_df["price_gbp_or_usd_numeric"].to_numpy()); groups=model_df["neighbourhood_cleansed"].astype(str).to_numpy()
-    outer=GroupShuffleSplit(n_splits=1,test_size=.20,random_state=args.seed); trainval_idx,test_idx=next(outer.split(X,y,groups));
+    X=model_df[numeric+categorical]; y=np.log1p(model_df["price_usd"].to_numpy()); groups=model_df["neighbourhood_cleansed"].astype(str).to_numpy()
+    outer=GroupShuffleSplit(n_splits=1,test_size=.20,random_state=args.seed); trainval_idx,test_idx=next(outer.split(X,y,groups))
     inner=GroupShuffleSplit(n_splits=1,test_size=.20,random_state=args.seed+1); tr_rel,val_rel=next(inner.split(X.iloc[trainval_idx],y[trainval_idx],groups[trainval_idx])); train_idx=trainval_idx[tr_rel]; val_idx=trainval_idx[val_rel]
     if set(groups[train_idx]) & set(groups[test_idx]): raise AssertionError("neighbourhood leakage into test")
+    if set(groups[train_idx]) & set(groups[val_idx]): raise AssertionError("neighbourhood leakage into validation")
     pre=ColumnTransformer([("num",Pipeline([("impute",SimpleImputer(strategy="median"))]),numeric),("cat",Pipeline([("impute",SimpleImputer(strategy="most_frequent")),("onehot",OneHotEncoder(handle_unknown="ignore"))]),categorical)])
     model=Pipeline([("pre",pre),("model",RandomForestRegressor(n_estimators=250,min_samples_leaf=3,n_jobs=-1,random_state=args.seed))])
-    model.fit(X.iloc[train_idx],y[train_idx])
-    baseline=float(np.median(y[train_idx]))
+    model.fit(X.iloc[train_idx],y[train_idx]); baseline=float(np.median(y[train_idx]))
     def evaluate(indices):
-        truth=np.expm1(y[indices]); pred=np.expm1(model.predict(X.iloc[indices])); base=np.full(len(indices),np.expm1(baseline));
-        return {"rows":len(indices),"mae":mean_absolute_error(truth,pred),"median_ae":median_absolute_error(truth,pred),"r2":r2_score(truth,pred),"baseline_mae":mean_absolute_error(truth,base),"mae_improvement_vs_median":1-mean_absolute_error(truth,pred)/mean_absolute_error(truth,base)}
-    metrics={"validation":evaluate(val_idx),"test":evaluate(test_idx)}
-    report={"source":{"provider":"Inside Airbnb","snapshot_date":SNAPSHOT_DATE,"url":DATA_URL,"license":"CC BY 4.0","cached_sha256":sha256(cached)},"rows":{"raw":raw_rows,"positive_price":len(valid),"model_after_99_5pct_cap":len(model_df)},"price_cap_99_5pct":cap,"split":{"strategy":"GroupShuffleSplit by neighbourhood_cleansed","train_rows":len(train_idx),"validation_rows":len(val_idx),"test_rows":len(test_idx),"test_neighbourhoods":len(set(groups[test_idx]))},"metrics":metrics,"interpretation_guardrails":["descriptive listing snapshot is not a transaction dataset","availability_365 does not distinguish booked nights from host-blocked nights","listing coordinates are anonymised/offset by Airbnb","predictive test measures transfer to unseen neighbourhood groups, not future price changes"]}
+        truth=np.expm1(y[indices]); pred=np.expm1(model.predict(X.iloc[indices])); base=np.full(len(indices),np.expm1(baseline))
+        mae=mean_absolute_error(truth,pred); base_mae=mean_absolute_error(truth,base)
+        return {"rows":len(indices),"mae_usd":mae,"median_ae_usd":median_absolute_error(truth,pred),"r2":r2_score(truth,pred),"baseline_mae_usd":base_mae,"mae_improvement_vs_median":1-mae/base_mae}
+    metrics={"validation":evaluate(val_idx),"untouched_test":evaluate(test_idx)}
+    report={"source":{"provider":"Inside Airbnb","snapshot_date":SNAPSHOT_DATE,"url":DATA_URL,"license":"CC BY 4.0","cached_sha256":sha256(cached)},"target":"snapshot listing price in USD; not realised revenue","rows":{"raw":raw_rows,"positive_price":len(valid),"model_after_99_5pct_cap":len(model_df)},"price_cap_usd_99_5pct":cap,"split":{"strategy":"GroupShuffleSplit by neighbourhood_cleansed","train_rows":len(train_idx),"validation_rows":len(val_idx),"test_rows":len(test_idx),"test_neighbourhoods":len(set(groups[test_idx]))},"metrics":metrics,"interpretation_guardrails":["descriptive listing snapshot is not a transaction dataset","availability_365 does not distinguish booked nights from host-blocked nights","listing coordinates are anonymised/offset by Airbnb","predictive test measures price estimation transfer to unseen neighbourhoods, not future price changes or revenue"]}
     (args.output_dir/"evaluation.json").write_text(json.dumps(report,indent=2),encoding="utf-8"); print(json.dumps(report,indent=2)); return 0
 
 if __name__=="__main__": raise SystemExit(main())
