@@ -30,7 +30,7 @@ These notebooks are intentionally visible because the code adds useful hiring si
 | Project | Capability demonstrated | Open |
 |---|---|---|
 | **ConsultAI — AI Opportunity Prioritisation Engine** | Decision science, Monte Carlo uncertainty, constrained portfolio optimisation, governance artefacts and application engineering | [Notebook](01_ConsultAI_AI_Opportunity_Engine.ipynb) · [Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/01_ConsultAI_AI_Opportunity_Engine.ipynb) |
-| **VisionForge — PyTorch Visual Inspection** | Computer vision, PyTorch, industrial-style visual inspection workflow | [Notebook](12_VisionForge_PyTorch_Visual_Inspection.ipynb) |
+| **VisionForge — PyTorch Visual Inspection** | Production-style computer vision: scratch-vs-transfer benchmark, calibration, abstention, Grad-CAM, corruption testing, deployable exports, fresh-process verification and evidence gating | [Notebook](12_VisionForge_PyTorch_Visual_Inspection.ipynb) · [Verifier](extensions/visionforge_verify_v2.py) · [Release gate](extensions/visionforge_release_gate.py) |
 | **Advanced Multi-Modal Health Analytics Suite** | Multi-modal health analytics and model integration | [Notebook](Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb) |
 | **AeroFlow AI Engine** | Aviation intelligence, predictive modelling and decision support | [Notebook](AeroFlow_AI_Engine.ipynb) |
 | **Aviation Strategy PostgreSQL Optimisation** | PostgreSQL analytics, query optimisation and aviation strategy | [Notebook](Aviation_Strategy_PostgreSQL_Optimization.ipynb) |
@@ -48,6 +48,12 @@ These notebooks are intentionally visible because the code adds useful hiring si
 | **PyTorch Medical AI — X-ray Diagnosis** | Medical imaging, deep learning and explainability-oriented workflow | [Notebook](PyTorch_medical_AI_xray_diagnosis.ipynb) |
 | **Strategic Telecom Churn + Predictive SQL** | Churn analytics, SQL and commercial decision support | [Notebook](Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb) |
 | **Financial Fraud / AML Detection System** | Imbalanced classification, fraud risk and AML-oriented analytics | [Notebook](financial_fraud_aml_detection_system.ipynb) |
+
+## Production-hardening extensions
+
+The original notebooks remain the primary artefacts. The [`extensions/`](extensions/) directory adds targeted completion layers only where a real methodological or engineering gap exists. Current examples include current-data temporal modelling for AeroFlow, ranking evaluation for the recommender, reproducible LLM evaluation, fraud decision-policy design, defensive NoSQL ingestion, historical intrusion benchmarking, and VisionForge's independent checkpoint/export verifier plus release gate.
+
+These extensions are deliberately separated from the original notebooks so useful code is preserved while stronger validation can be added without pretending old results have already been rerun.
 
 ## Completion standard
 
