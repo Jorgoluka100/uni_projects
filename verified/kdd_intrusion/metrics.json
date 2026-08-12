@@ -1,0 +1,47 @@
+{
+  "dataset": "KDD Cup 1999 via sklearn.datasets.fetch_kddcup99",
+  "historical_warning": "This dataset is obsolete as a proxy for modern cyber threats.",
+  "config": {
+    "seed": 42,
+    "test_size": 0.2,
+    "percent10": true,
+    "artifact_dir": "kdd_intrusion_artifacts"
+  },
+  "rows": {
+    "raw": 494021,
+    "deduplicated": 145586,
+    "duplicates_removed": 348435,
+    "train": 116468,
+    "test": 29118
+  },
+  "schema": {
+    "categorical": [
+      "flag",
+      "protocol_type",
+      "service"
+    ],
+    "numeric_count": 38
+  },
+  "baseline_test": {
+    "pr_auc": 0.3966962016622021,
+    "roc_auc": 0.5,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "prevalence": 0.3966962016622021
+  },
+  "model_test": {
+    "pr_auc": 0.9999888579418539,
+    "roc_auc": 0.9999921051237564,
+    "precision": 0.999566837044096,
+    "recall": 0.9988745563154705,
+    "f1": 0.9992205767731879,
+    "prevalence": 0.3966962016622021
+  },
+  "reload_prediction_match": true,
+  "limitations": [
+    "Random stratified splitting is a benchmark convenience, not a deployment simulation.",
+    "KDD Cup 1999 contains dated attack and network characteristics even after exact deduplication.",
+    "Modern evaluation should use contemporary traffic, temporal splits and operational false-positive costs."
+  ]
+}
