@@ -7,9 +7,9 @@ I build end-to-end data and AI projects that start with a real decision, audit a
 This repository deliberately contains **two levels of work**:
 
 - **Verified flagships** — executed end to end with retained outputs and defensible measured results.
-- **Advanced project laboratory** — substantial AI, ML, data-engineering and optimisation notebooks that are useful evidence of breadth. These projects are kept on `main`, quality-checked as notebook/code artefacts, and are being promoted to verified status only after a clean full rerun and evidence review.
+- **Advanced project laboratory** — substantial AI, ML, data-engineering and optimisation notebooks that are useful evidence of breadth. These projects stay visible on `main` and are promoted only after a clean full rerun and evidence review.
 
-That distinction lets the portfolio keep good code without presenting unverified outputs as proven results.
+That distinction keeps good code without presenting unverified outputs as proven results.
 
 ## Start here — verified flagships
 
@@ -22,6 +22,7 @@ That distinction lets the portfolio keep good code without presenting unverified
 | **Energy Demand Forecasting with TensorFlow** | Forecast a chronological 14-day electricity-demand window and test whether the neural model actually beats honest seasonal baselines. | LSTM test MAE **43.51** versus **53.18** for the 7-day seasonal baseline — an **18.2%** improvement — with prediction intervals and saved-model verification. | TensorFlow, Keras, LSTM, time-series validation | [Notebook](05_Energy_Demand_Forecasting_with_TensorFlow.ipynb) · [Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/05_Energy_Demand_Forecasting_with_TensorFlow.ipynb) |
 | **Clickstream Analysis with PySpark** | Measure engagement drop-off at Spark scale and identify higher-intent shopping sessions without using post-purchase leakage. | 165,474 real click events across 24,026 sessions; separate 12,330-session conversion dataset; test PR-AUC **0.351** versus **0.155** prevalence and ROC-AUC **0.763**. | PySpark, Spark SQL, Spark ML | [Notebook](06_Clickstream_Analysis_with_PySpark.ipynb) · [Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/06_Clickstream_Analysis_with_PySpark.ipynb) |
 | **London Air Quality Analysis with R** | Turn messy, daily-updated government files into an auditable monitoring panel and test whether past-only features improve hourly NO₂ estimates. | Official 2025–2026 data; 143,102 observed station-hours; untouched 2026 MAE **10.48** and R² **0.056**; 90% interval coverage **88.2%**. | R, data.table, ggplot2, mgcv | [Notebook](07_London_Air_Quality_Analysis_with_R.ipynb) · [Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/07_London_Air_Quality_Analysis_with_R.ipynb) |
+| **ConsultAI — AI Opportunity Prioritisation Engine** | Select an AI initiative portfolio when value, delivery uncertainty, readiness, risk and budget all matter. | Clean rerun + fresh-process verifier passed. Six deterministic educational use cases, **10,000 Monte Carlo trials per case**, **17** budget-frontier points and **5** stress scenarios; independently reproduced portfolio selects 3 initiatives for **£490k** illustrative spend, **£501,652** expected NPV and **£480,365** risk-adjusted NPV. Inputs are explicitly synthetic and are not commercial-performance claims. | Python, Pandas, NumPy, Monte Carlo simulation, exhaustive optimisation, Gradio, governance artefacts | [Notebook](01_ConsultAI_AI_Opportunity_Engine.ipynb) · [Evidence](verified/consultai/consultai_verification.json) · [Verifier](extensions/consultai_verify_v2.py) |
 
 ## Advanced project laboratory
 
@@ -29,7 +30,6 @@ These notebooks are intentionally visible because the code adds useful hiring si
 
 | Project | Capability demonstrated | Open |
 |---|---|---|
-| **ConsultAI — AI Opportunity Prioritisation Engine** | Decision science, Monte Carlo uncertainty, constrained portfolio optimisation, governance artefacts and application engineering | [Notebook](01_ConsultAI_AI_Opportunity_Engine.ipynb) · [Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/01_ConsultAI_AI_Opportunity_Engine.ipynb) |
 | **VisionForge — PyTorch Visual Inspection** | Production-style computer vision: scratch-vs-transfer benchmark, calibration, abstention, Grad-CAM, corruption testing, deployable exports, fresh-process verification and evidence gating | [Notebook](12_VisionForge_PyTorch_Visual_Inspection.ipynb) · [Verifier](extensions/visionforge_verify_v2.py) · [Release gate](extensions/visionforge_release_gate.py) |
 | **Advanced Multi-Modal Health Analytics Suite** | Multi-modal health analytics and model integration | [Notebook](Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb) |
 | **AeroFlow AI Engine** | Aviation intelligence, predictive modelling and decision support | [Notebook](AeroFlow_AI_Engine.ipynb) |
@@ -51,7 +51,7 @@ These notebooks are intentionally visible because the code adds useful hiring si
 
 ## Production-hardening extensions
 
-The original notebooks remain the primary artefacts. The [`extensions/`](extensions/) directory adds targeted completion layers only where a real methodological or engineering gap exists. Current examples include current-data temporal modelling for AeroFlow, ranking evaluation for the recommender, reproducible LLM evaluation, fraud decision-policy design, defensive NoSQL ingestion, historical intrusion benchmarking, and VisionForge's independent checkpoint/export verifier plus release gate.
+The original notebooks remain the primary artefacts. The [`extensions/`](extensions/) directory adds targeted completion layers only where a real methodological or engineering gap exists. Current examples include current-data temporal modelling for AeroFlow, ranking evaluation for the recommender, reproducible LLM evaluation, fraud decision-policy design, defensive NoSQL ingestion, historical intrusion benchmarking, grouped healthcare evaluation, true PostgreSQL benchmarking, clustering stability, current 2026 Airbnb analysis, and independent VisionForge/ConsultAI verification.
 
 These extensions are deliberately separated from the original notebooks so useful code is preserved while stronger validation can be added without pretending old results have already been rerun.
 
@@ -64,7 +64,7 @@ A notebook is promoted from the advanced laboratory to **verified flagship** onl
 3. **Data quality** — schema, missingness, duplicates, invalid ranges and join integrity checked.
 4. **Leakage control** — preprocessing fitted on training data only; temporal/group leakage addressed where relevant.
 5. **Baseline** — complex models must beat or materially complement a simple benchmark.
-6. **Untouched evaluation** — a genuine held-out test set with decision-relevant metrics.
+6. **Untouched evaluation** — a genuine held-out test set with decision-relevant metrics where the task supports it.
 7. **Uncertainty/error analysis** — calibration, intervals, slices, confidence, failure modes or human-review policy where appropriate.
 8. **Reproducibility** — deterministic seeds/config, dependency/setup guidance and clean restart/run-all behaviour.
 9. **Engineering evidence** — tests, saved artefacts, reload/smoke check, or an API/app where it adds value.
@@ -76,7 +76,8 @@ The repository validator in [`scripts/validate_portfolio.py`](scripts/validate_p
 
 - **Customer Churn Prediction** uses the historical UCI Iranian Churn dataset. It demonstrates rigorous classification and decision design, not current telecom-market behaviour.
 - **Energy Demand Forecasting** uses the official Open Power System Data series from 2006–2017. It is a time-series methodology project, not a description of today's German electricity market.
-- Current official data are preferred where the problem supports them; older datasets are labelled rather than presented as current evidence.
+- **ConsultAI** uses deterministic synthetic educational business cases so the decision logic can be independently reproduced; its NPV outputs are not real-company forecasts.
+- Current official data are preferred where the problem supports them; older or synthetic datasets are labelled rather than presented as current real-world evidence.
 
 ## How I build a project
 
@@ -85,9 +86,9 @@ The repository validator in [`scripts/validate_portfolio.py`](scripts/validate_p
 3. Audit missingness, duplicates, invalid values, ranges, types, and join integrity.
 4. Fit preprocessing on training data only and prevent temporal, group, or target leakage.
 5. Compare against a simple baseline before selecting a more complex model.
-6. Reserve an untouched test set and report metrics that match the decision.
+6. Reserve an untouched test set where applicable and report metrics that match the decision.
 7. Add uncertainty, error analysis, slices, or a human-review policy where appropriate.
-8. Reload the saved artifact and run automated acceptance checks.
+8. Reload or independently reconstruct the saved evidence and run automated acceptance checks.
 9. State what the result does **not** prove.
 
 ## Skills evidenced
@@ -102,6 +103,7 @@ The repository validator in [`scripts/validate_portfolio.py`](scripts/validate_p
 | Big-data processing | PySpark DataFrames, windows, sessionisation, Spark SQL and Spark ML |
 | Statistics and R | Time-aware modelling, GAMs, conformal intervals, data.table and ggplot2 |
 | Decision / governance engineering | Monte Carlo analysis, constrained optimisation, uncertainty, human escalation, audit artefacts and limitations |
+| Reproducible delivery | Fresh-process verifiers, saved artefacts, CI integrity gates and retained execution evidence |
 
 ## Additional analytics work
 
@@ -109,14 +111,15 @@ My separate [Data Analyst Bootcamp Portfolio](https://github.com/Jorgoluka100/pr
 
 ## Evidence policy
 
-- A result is called **verified** only when the notebook has been run end to end, retains the produced outputs, contains no stored error, and passes its documented checks.
+- A result is called **verified** only when the current project version has completed a clean run, retains the relevant evidence, contains no stored error, and passes its documented checks.
+- Deterministic decision systems can be independently reconstructed rather than pretending a synthetic business simulation is a real-world predictive benchmark.
 - Advanced notebooks stay visible because breadth and code quality matter, but they do not receive unverified metric claims.
-- A complicated model is not automatically better. Every model must earn its place against a relevant baseline.
+- A complicated model is not automatically better. Every model must earn its place against a relevant baseline or decision requirement.
 - Archive branches remain as safety snapshots of earlier portfolio states.
 - A project is promoted only when its claims are defensible in a technical interview.
 
 ## Current focus
 
-The next upgrades are **depth, execution evidence and production hardening**, not deleting useful work or adding random notebook count. The strongest advanced projects will be rerun, audited against the completion standard above, and then promoted with verified results.
+**VisionForge is the next promotion target.** Its clean execution, independent checkpoint/test reproduction, export parity and release gate are automated in GitHub Actions. After that, the strongest current-data and ranking projects will be promoted in the same evidence-first way.
 
 For opportunities in data science, machine learning, applied AI, or analytics, contact me through my [GitHub profile](https://github.com/Jorgoluka100).
