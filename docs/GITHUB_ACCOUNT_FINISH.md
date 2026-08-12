@@ -1,45 +1,65 @@
 # Final GitHub Account Setup
 
-Repository content is already curated and verified. These account-level items require the GitHub web UI because the connected capability can read the profile but cannot create repositories, edit profile fields, set repository descriptions/topics, or pin repositories.
+Repository content is curated and verified. The remaining items are account-level GitHub settings that the connected capability cannot mutate: profile fields, repository rename/visibility, repository descriptions/topics, and profile pins.
 
-## Public profile
+## 1. Turn the prepared placeholder into the profile README repository
 
-Use:
+The existing private repository `Jorgoluka100/Jorgo100` now already contains the finished `README.md`.
+
+In GitHub:
+
+1. Open `Jorgoluka100/Jorgo100` → **Settings** → **General**.
+2. Rename the repository from `Jorgo100` to exactly `Jorgoluka100`.
+3. In **Danger Zone**, change repository visibility from **Private** to **Public**.
+
+After both changes, the repository will be `Jorgoluka100/Jorgoluka100`. GitHub will automatically render its `README.md` on the public profile because the repository name exactly matches the username.
+
+## 2. Public profile fields
+
+Set:
 
 - **Name:** `Jorgo Luka`
 - **Bio:** `MSc AI & Data Science (Distinction) | Machine Learning · Applied AI · Data Science · Analytics`
-- **Profile README repository:** create a **public** repository named exactly `Jorgoluka100` under the `Jorgoluka100` account, so the full repository is `Jorgoluka100/Jorgoluka100`.
-- Copy [`docs/GITHUB_PROFILE_README.md`](GITHUB_PROFILE_README.md) into that repository as `README.md`.
+- **Location:** `London, UK`
 
-The existing private repository `Jorgoluka100/Jorgo100` is not the special profile repository because the repository name does not exactly match the username and it is private.
+## 3. Repository descriptions and topics
 
-## Repository descriptions
+### `uni_projects`
 
-**uni_projects**
+Description:
 
 `Evidence-first AI & Data Science portfolio | PyTorch, TensorFlow, NLP, MLOps, SQL, R, PySpark, experimentation and verified ML projects`
 
-Suggested topics:
+Topics:
 
 `data-science`, `machine-learning`, `artificial-intelligence`, `pytorch`, `tensorflow`, `pyspark`, `sql`, `mlops`, `nlp`, `portfolio`
 
-**primed-talent-data-analyst-bootcamp**
+### `primed-talent-data-analyst-bootcamp`
+
+Description:
 
 `Executed Data Analyst portfolio | Python, SQL, data cleaning, regression, reporting and business analysis`
 
-Suggested topics:
+Topics:
 
 `data-analysis`, `python`, `sql`, `pandas`, `scikit-learn`, `data-cleaning`, `portfolio`
 
-## Pins
+## 4. Pins
 
-Pin in this order:
+On the public profile choose **Customize your pins** and pin in this order:
 
 1. `uni_projects`
 2. `primed-talent-data-analyst-bootcamp`
 
-Do not pin the empty private `Jorgo100` repository.
+The renamed `Jorgoluka100` profile repository does not need to be pinned because its README already renders above the pinned repositories.
 
-## Final check
+## 5. Final account check
 
-The public profile should immediately answer three recruiter questions: who you are, what roles you target, and where your strongest verified evidence lives. The AI portfolio should be the first click; the bootcamp repository should support it as evidence of analytical foundations.
+The public profile should immediately answer:
+
+- who Jorgo Luka is;
+- which graduate/junior roles are being targeted;
+- where the strongest verified AI/ML evidence lives;
+- where the analytical foundations are demonstrated.
+
+The AI portfolio should be the first pinned project and the bootcamp portfolio should support it as a second evidence layer.
