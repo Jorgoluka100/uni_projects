@@ -1,0 +1,27 @@
+{
+  "project": "Parkinsons grouped v2",
+  "verification_pass": true,
+  "dataset": "UCI Parkinsons Telemonitoring",
+  "rows": 5875,
+  "subjects": 42,
+  "split_subjects": {
+    "train": 26,
+    "validation": 7,
+    "test": 9
+  },
+  "untouched_test": {
+    "rows": 1235,
+    "subjects": 9,
+    "mae": 10.696638709068594,
+    "rmse": 13.155544412047684,
+    "r2": -1.0886455298547544,
+    "baseline_median_mae": 8.128794331983807,
+    "mae_improvement_vs_baseline": -0.31589486364309494,
+    "subject_bootstrap_mae_ci95": {
+      "low": 6.1888322493067465,
+      "high": 15.456386405903526,
+      "rounds": 2000
+    }
+  },
+  "evidence_policy": "Historical UCI research cohort; complete-subject holdout; educational/non-clinical only."
+}

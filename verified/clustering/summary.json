@@ -1,0 +1,26 @@
+{
+  "source": "sklearn Wine dataset (methodology demo)",
+  "rows": 178,
+  "features": [
+    "alcohol",
+    "malic_acid",
+    "ash",
+    "alcalinity_of_ash",
+    "magnesium",
+    "total_phenols",
+    "flavanoids",
+    "nonflavanoid_phenols",
+    "proanthocyanins",
+    "color_intensity",
+    "hue",
+    "od280/od315_of_diluted_wines",
+    "proline"
+  ],
+  "chosen_k": 3,
+  "selection_rule": "lowest aggregate rank across silhouette, Davies-Bouldin, Calinski-Harabasz and resampling ARI",
+  "limitations": [
+    "clusters are descriptive, not ground-truth classes",
+    "stability does not prove business usefulness",
+    "profiles require domain review before operational use"
+  ]
+}

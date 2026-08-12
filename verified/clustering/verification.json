@@ -1,0 +1,17 @@
+{
+  "project": "Clustering stability v2",
+  "verification_pass": true,
+  "source": "sklearn Wine dataset (methodology demo)",
+  "rows": 178,
+  "chosen_k": 3,
+  "chosen_metrics": {
+    "k": 3.0,
+    "silhouette": 0.2848589191898987,
+    "davies_bouldin": 1.3891879777181646,
+    "calinski_harabasz": 70.9400080031512,
+    "stability_ari_mean": 0.9744735521041736,
+    "stability_ari_p10": 0.9370921926759136,
+    "rank_sum": 4.0
+  },
+  "evidence_policy": "Methodology demo; clusters are descriptive and require domain validation."
+}

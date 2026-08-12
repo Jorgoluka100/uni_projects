@@ -1,0 +1,32 @@
+{
+  "project": "Telecom churn decision v2",
+  "verification_pass": true,
+  "scope": "deterministic synthetic telecom methodology demo",
+  "split": {
+    "train": 7200,
+    "validation": 2400,
+    "test": 2400
+  },
+  "selected_model": "logistic",
+  "validation_model_selection": {
+    "logistic": {
+      "pr_auc": 0.35326152860204363,
+      "roc_auc": 0.7207751433038041
+    },
+    "random_forest": {
+      "pr_auc": 0.29236236658556997,
+      "roc_auc": 0.6797713652944242
+    }
+  },
+  "untouched_test": {
+    "pr_auc": 0.31393924696889086,
+    "roc_auc": 0.7151457479404971,
+    "threshold_from_validation": 0.6682670263051343,
+    "review_rate": 0.14791666666666667,
+    "precision_at_capacity": 0.37746478873239436,
+    "recall_at_capacity": 0.35170603674540685,
+    "positive_prevalence": 0.15875
+  },
+  "sql_pandas_reconciled": true,
+  "evidence_policy": "Synthetic methodology demo; not real telecom-market performance."
+}

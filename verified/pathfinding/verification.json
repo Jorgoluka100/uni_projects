@@ -1,0 +1,28 @@
+{
+  "project": "Pathfinding benchmark v2",
+  "verification_pass": true,
+  "cases": 5,
+  "algorithms": [
+    "BFS",
+    "Dijkstra",
+    "A*"
+  ],
+  "summary": {
+    "BFS": {
+      "all_optimal": true,
+      "median_expanded": 1145.0,
+      "median_runtime_ms": 1.445262000004277
+    },
+    "Dijkstra": {
+      "all_optimal": true,
+      "median_expanded": 1145.0,
+      "median_runtime_ms": 2.2760959999956754
+    },
+    "A*": {
+      "all_optimal": true,
+      "median_expanded": 483.0,
+      "median_runtime_ms": 1.0832959999973468
+    }
+  },
+  "evidence_policy": "Seeded unit-cost grids; timing is environment-dependent, optimality/path validity are the primary evidence."
+}

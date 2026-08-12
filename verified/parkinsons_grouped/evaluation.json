@@ -1,0 +1,46 @@
+{
+  "dataset": "UCI Parkinsons Telemonitoring",
+  "source": "https://archive.ics.uci.edu/ml/machine-learning-databases/parkinsons/telemonitoring/parkinsons_updrs.data",
+  "rows": 5875,
+  "subjects": 42,
+  "target": "total_UPDRS",
+  "excluded_predictors": [
+    "subject#",
+    "motor_UPDRS"
+  ],
+  "split": "complete-subject train/validation/test holdout",
+  "split_subjects": {
+    "train": 26,
+    "validation": 7,
+    "test": 9
+  },
+  "validation": {
+    "rows": 932,
+    "subjects": 7,
+    "mae": 11.74920532528973,
+    "rmse": 14.353138227814549,
+    "r2": -0.7715260622755835,
+    "baseline_median_mae": 9.398465557939915,
+    "mae_improvement_vs_baseline": -0.2501195277950332
+  },
+  "untouched_test": {
+    "rows": 1235,
+    "subjects": 9,
+    "mae": 10.696638709068594,
+    "rmse": 13.155544412047684,
+    "r2": -1.0886455298547544,
+    "baseline_median_mae": 8.128794331983807,
+    "mae_improvement_vs_baseline": -0.31589486364309494,
+    "subject_bootstrap_mae_ci95": {
+      "low": 6.1888322493067465,
+      "high": 15.456386405903526,
+      "rounds": 2000
+    }
+  },
+  "guardrails": [
+    "educational/non-clinical model only",
+    "historical research cohort; external validity is not established",
+    "motor_UPDRS excluded to avoid using a closely related clinical outcome as a shortcut",
+    "uncertainty is bootstrapped by subject rather than treating repeated rows as independent"
+  ]
+}
