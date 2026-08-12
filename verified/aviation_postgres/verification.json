@@ -1,0 +1,11 @@
+{
+  "project": "Aviation PostgreSQL v2",
+  "verification_pass": true,
+  "postgresql_version": "17 service container",
+  "fact_rows": 1000000,
+  "explain_analyze_plans": 2,
+  "targeted_index": "idx_flight_ops_route_date",
+  "index_plan_observed": true,
+  "semantic_reconciliation": true,
+  "evidence_policy": "Deterministic synthetic aviation workload; PostgreSQL execution/query-planning methodology evidence only."
+}

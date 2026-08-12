@@ -1,0 +1,107 @@
+BEGIN
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 3
+INSERT 0 1000000
+ANALYZE
+ANALYZE
+DO
+                                                                                      QUERY PLAN                                                                                       
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=18287.35..18287.40 rows=18 width=160) (actual time=52.163..56.472 rows=2 loops=1)
+   Sort Key: (round(sum(((f.ticket_revenue + f.ancillary_revenue) - f.operating_cost)), 2)) DESC
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=9475
+   ->  Finalize GroupAggregate  (cost=18281.20..18286.98 rows=18 width=160) (actual time=52.129..56.466 rows=2 loops=1)
+         Group Key: f.route_name, a.model_name
+         Buffers: shared hit=9475
+         ->  Gather Merge  (cost=18281.20..18285.40 rows=36 width=160) (actual time=52.108..56.439 rows=6 loops=1)
+               Workers Planned: 2
+               Workers Launched: 2
+               Buffers: shared hit=9475
+               ->  Sort  (cost=17281.18..17281.22 rows=18 width=160) (actual time=49.333..49.335 rows=2 loops=3)
+                     Sort Key: f.route_name, a.model_name
+                     Sort Method: quicksort  Memory: 25kB
+                     Buffers: shared hit=9475
+                     Worker 0:  Sort Method: quicksort  Memory: 25kB
+                     Worker 1:  Sort Method: quicksort  Memory: 25kB
+                     ->  Partial HashAggregate  (cost=17280.44..17280.80 rows=18 width=160) (actual time=49.304..49.307 rows=2 loops=3)
+                           Group Key: f.route_name, a.model_name
+                           Batches: 1  Memory Usage: 24kB
+                           Buffers: shared hit=9459
+                           Worker 0:  Batches: 1  Memory Usage: 24kB
+                           Worker 1:  Batches: 1  Memory Usage: 24kB
+                           ->  Hash Join  (cost=1.07..16851.42 rows=17161 width=45) (actual time=0.054..39.256 rows=13700 loops=3)
+                                 Hash Cond: (f.aircraft_id = a.aircraft_id)
+                                 Buffers: shared hit=9459
+                                 ->  Parallel Seq Scan on flight_operations f  (cost=0.00..16741.67 rows=17161 width=34) (actual time=0.022..35.195 rows=13700 loops=3)
+                                       Filter: ((departure_date >= '2026-01-01'::date) AND (departure_date < '2026-04-01'::date) AND (route_name = ANY ('{DUB-STN,STN-BCN}'::text[])))
+                                       Rows Removed by Filter: 319633
+                                       Buffers: shared hit=9450
+                                 ->  Hash  (cost=1.03..1.03 rows=3 width=21) (actual time=0.016..0.017 rows=3 loops=3)
+                                       Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                       Buffers: shared hit=3
+                                       ->  Seq Scan on aircraft_assets a  (cost=0.00..1.03 rows=3 width=21) (actual time=0.010..0.011 rows=3 loops=3)
+                                             Buffers: shared hit=3
+ Planning:
+   Buffers: shared hit=55 read=4
+ Planning Time: 0.335 ms
+ Execution Time: 56.518 ms
+(39 rows)
+
+CREATE INDEX
+ANALYZE
+                                                                                           QUERY PLAN                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=12979.86..12979.90 rows=18 width=160) (actual time=23.602..27.368 rows=2 loops=1)
+   Sort Key: (round(sum(((f.ticket_revenue + f.ancillary_revenue) - f.operating_cost)), 2)) DESC
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=2511 read=302
+   ->  Finalize GroupAggregate  (cost=12973.71..12979.48 rows=18 width=160) (actual time=23.593..27.363 rows=2 loops=1)
+         Group Key: f.route_name, a.model_name
+         Buffers: shared hit=2511 read=302
+         ->  Gather Merge  (cost=12973.71..12977.91 rows=36 width=160) (actual time=23.579..27.346 rows=6 loops=1)
+               Workers Planned: 2
+               Workers Launched: 2
+               Buffers: shared hit=2511 read=302
+               ->  Sort  (cost=11973.69..11973.73 rows=18 width=160) (actual time=20.397..20.399 rows=2 loops=3)
+                     Sort Key: f.route_name, a.model_name
+                     Sort Method: quicksort  Memory: 25kB
+                     Buffers: shared hit=2511 read=302
+                     Worker 0:  Sort Method: quicksort  Memory: 25kB
+                     Worker 1:  Sort Method: quicksort  Memory: 25kB
+                     ->  Partial HashAggregate  (cost=11972.95..11973.31 rows=18 width=160) (actual time=20.364..20.370 rows=2 loops=3)
+                           Group Key: f.route_name, a.model_name
+                           Batches: 1  Memory Usage: 24kB
+                           Buffers: shared hit=2495 read=302
+                           Worker 0:  Batches: 1  Memory Usage: 24kB
+                           Worker 1:  Batches: 1  Memory Usage: 24kB
+                           ->  Hash Join  (cost=1693.61..11548.37 rows=16983 width=45) (actual time=2.332..11.158 rows=13700 loops=3)
+                                 Hash Cond: (f.aircraft_id = a.aircraft_id)
+                                 Buffers: shared hit=2495 read=302
+                                 ->  Parallel Bitmap Heap Scan on flight_operations f  (cost=1692.54..11439.75 rows=16983 width=34) (actual time=2.293..6.890 rows=13700 loops=3)
+                                       Recheck Cond: ((route_name = ANY ('{DUB-STN,STN-BCN}'::text[])) AND (departure_date >= '2026-01-01'::date) AND (departure_date < '2026-04-01'::date))
+                                       Heap Blocks: exact=1150
+                                       Buffers: shared hit=2486 read=302
+                                       ->  Bitmap Index Scan on idx_flight_ops_route_date  (cost=0.00..1682.35 rows=40760 width=0) (actual time=4.849..4.849 rows=41100 loops=1)
+                                             Index Cond: ((route_name = ANY ('{DUB-STN,STN-BCN}'::text[])) AND (departure_date >= '2026-01-01'::date) AND (departure_date < '2026-04-01'::date))
+                                             Buffers: shared hit=1 read=302
+                                 ->  Hash  (cost=1.03..1.03 rows=3 width=21) (actual time=0.021..0.021 rows=3 loops=3)
+                                       Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                       Buffers: shared hit=3
+                                       ->  Seq Scan on aircraft_assets a  (cost=0.00..1.03 rows=3 width=21) (actual time=0.015..0.015 rows=3 loops=3)
+                                             Buffers: shared hit=3
+ Planning:
+   Buffers: shared hit=43 read=1
+ Planning Time: 0.307 ms
+ Execution Time: 27.414 ms
+(42 rows)
+
+ detailed_net | grouped_net  | reconciled 
+--------------+--------------+------------
+ 301842950.00 | 301842950.00 | t
+(1 row)
+
+COMMIT
