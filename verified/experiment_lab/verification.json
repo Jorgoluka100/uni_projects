@@ -1,0 +1,48 @@
+{
+  "project": "ExperimentLab",
+  "verification_pass": true,
+  "scope": "deterministic synthetic randomized-experiment methodology demo",
+  "rows": 20000,
+  "known_simulated_effect": 2.5,
+  "raw_effect": {
+    "estimate": 2.990948141547534,
+    "ci95": [
+      2.5074164163097006,
+      3.4744798667853676
+    ]
+  },
+  "cuped_effect": {
+    "estimate": 2.773058949958056,
+    "ci95": [
+      2.434551302464434,
+      3.111566597451678
+    ],
+    "bootstrap_ci95": [
+      2.4099832460323887,
+      3.1145203038283644
+    ],
+    "theta": 0.6205164226614858
+  },
+  "variance_reduction": 0.5072136269063153,
+  "guardrail_effect": {
+    "estimate": 0.02971410990151746,
+    "ci95": [
+      -0.0009571193295649892,
+      0.06038533913259991
+    ],
+    "non_inferiority_margin": -0.2
+  },
+  "power": {
+    "alpha": 0.05,
+    "target_power": 0.8,
+    "mde_outcome_units": 0.48695128885583666
+  },
+  "decision": "ship",
+  "rules": [
+    "random assignment",
+    "fixed-horizon inference",
+    "CUPED uses a pre-treatment covariate",
+    "bootstrap resamples within treatment arms",
+    "guardrail must not cross the pre-declared harm margin"
+  ]
+}

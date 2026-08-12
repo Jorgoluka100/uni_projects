@@ -1,0 +1,34 @@
+{
+  "project": "CareerLens AI",
+  "verification_pass": true,
+  "scope": "deterministic information-retrieval methodology demo; demo jobs are synthetic unless --jobs-csv is supplied",
+  "benchmark": {
+    "mrr": 1.0,
+    "recall@5": 1.0,
+    "ndcg@5": 0.9837339917445846,
+    "queries": 4
+  },
+  "top_recommendation": {
+    "job_id": "ML1",
+    "title": "Junior Machine Learning Engineer",
+    "semantic_score": 0.32656081629170497,
+    "skill_score": 0.4166666666666667,
+    "final_score": 0.35179045439669426,
+    "matched_skills": [
+      "fastapi",
+      "mlops",
+      "python",
+      "pytorch",
+      "scikit-learn"
+    ],
+    "missing_skills": [
+      "docker"
+    ]
+  },
+  "design": [
+    "hybrid word/character TF-IDF similarity plus explicit skill overlap",
+    "transparent inspectable skill aliases",
+    "ranking evaluated with MRR, Recall@5 and NDCG@5",
+    "missing-skill output is descriptive; it is not a hiring guarantee"
+  ]
+}

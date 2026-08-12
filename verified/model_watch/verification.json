@@ -1,0 +1,226 @@
+{
+  "project": "ModelWatch",
+  "verification_pass": true,
+  "scope": "deterministic production-monitoring simulation; not a live production system",
+  "reference": {
+    "rows": 7000,
+    "roc_auc": 0.6697528813729932,
+    "pr_auc": 0.24418669872322513,
+    "brier": 0.10635642127564841,
+    "ece": 0.009095099710573358
+  },
+  "batches": [
+    {
+      "batch": "stable",
+      "rows": 7000,
+      "drift": {
+        "age": {
+          "psi": 0.0007601940430601393,
+          "ks_stat": 0.006285714285714286,
+          "ks_pvalue": 0.9991017937932959
+        },
+        "income": {
+          "psi": 0.0012153138769120605,
+          "ks_stat": 0.007142857142857143,
+          "ks_pvalue": 0.9940805996658763
+        },
+        "tenure_months": {
+          "psi": 0.0032565221461449572,
+          "ks_stat": 0.02057142857142857,
+          "ks_pvalue": 0.10338723966957557
+        },
+        "usage": {
+          "psi": 0.002627704840497066,
+          "ks_stat": 0.011285714285714286,
+          "ks_pvalue": 0.7641930759786209
+        }
+      },
+      "max_psi": 0.0032565221461449572,
+      "performance": {
+        "roc_auc": 0.6389640575266804,
+        "pr_auc": 0.22744176714099634,
+        "brier": 0.10769629187362358,
+        "ece": 0.008401057473945168,
+        "auc_drop_vs_reference": 0.030788823846312763
+      },
+      "subgroups": {
+        "A": {
+          "rows": 4855,
+          "prevalence": 0.10710607621009269,
+          "brier": 0.09338034757494776,
+          "mean_score": 0.1331152589782058
+        },
+        "B": {
+          "rows": 2145,
+          "prevalence": 0.17529137529137528,
+          "brier": 0.14009904691794572,
+          "mean_score": 0.13391597162476104
+        }
+      },
+      "alert": "green",
+      "reasons": []
+    },
+    {
+      "batch": "mild_shift",
+      "rows": 7000,
+      "drift": {
+        "age": {
+          "psi": 0.036432960996592885,
+          "ks_stat": 0.07771428571428571,
+          "ks_pvalue": 8.381804141665635e-19
+        },
+        "income": {
+          "psi": 0.02389398071802709,
+          "ks_stat": 0.06971428571428571,
+          "ks_pvalue": 3.2745392041243024e-15
+        },
+        "tenure_months": {
+          "psi": 0.006584140919642983,
+          "ks_stat": 0.030857142857142857,
+          "ks_pvalue": 0.0025476663051171695
+        },
+        "usage": {
+          "psi": 0.05554649152151495,
+          "ks_stat": 0.09557142857142857,
+          "ks_pvalue": 3.111614270395575e-28
+        }
+      },
+      "max_psi": 0.05554649152151495,
+      "performance": {
+        "roc_auc": 0.6580134713745259,
+        "pr_auc": 0.2439598277923977,
+        "brier": 0.1101374225850612,
+        "ece": 0.004697756273163304,
+        "auc_drop_vs_reference": 0.011739409998467232
+      },
+      "subgroups": {
+        "A": {
+          "rows": 4483,
+          "prevalence": 0.10751728753067143,
+          "brier": 0.09302670860869053,
+          "mean_score": 0.12891445907491422
+        },
+        "B": {
+          "rows": 2517,
+          "prevalence": 0.17759237187127533,
+          "brier": 0.14061312014408775,
+          "mean_score": 0.13004563226483282
+        }
+      },
+      "alert": "green",
+      "reasons": []
+    },
+    {
+      "batch": "feature_shift",
+      "rows": 7000,
+      "drift": {
+        "age": {
+          "psi": 0.17392267344421783,
+          "ks_stat": 0.17314285714285715,
+          "ks_pvalue": 5.133460733193428e-92
+        },
+        "income": {
+          "psi": 0.08381852677932825,
+          "ks_stat": 0.11614285714285714,
+          "ks_pvalue": 1.5973495996943966e-41
+        },
+        "tenure_months": {
+          "psi": 0.021905402127848736,
+          "ks_stat": 0.05828571428571429,
+          "ks_pvalue": 9.292709898485786e-11
+        },
+        "usage": {
+          "psi": 0.26415668366836453,
+          "ks_stat": 0.2077142857142857,
+          "ks_pvalue": 1.536836241897084e-132
+        }
+      },
+      "max_psi": 0.26415668366836453,
+      "performance": {
+        "roc_auc": 0.6508583366777616,
+        "pr_auc": 0.2488119573771008,
+        "brier": 0.11800308814188364,
+        "ece": 0.0180438203341292,
+        "auc_drop_vs_reference": 0.018894544695231552
+      },
+      "subgroups": {
+        "A": {
+          "rows": 4050,
+          "prevalence": 0.1145679012345679,
+          "brier": 0.09784475769192592,
+          "mean_score": 0.1250522753229681
+        },
+        "B": {
+          "rows": 2950,
+          "prevalence": 0.18237288135593221,
+          "brier": 0.14567808418335104,
+          "mean_score": 0.1251632347807033
+        }
+      },
+      "alert": "red",
+      "reasons": [
+        "feature drift PSI=0.264"
+      ]
+    },
+    {
+      "batch": "concept_shift",
+      "rows": 7000,
+      "drift": {
+        "age": {
+          "psi": 0.2857532154043775,
+          "ks_stat": 0.21685714285714286,
+          "ks_pvalue": 1.60066010275817e-144
+        },
+        "income": {
+          "psi": 0.16307839945066271,
+          "ks_stat": 0.15857142857142856,
+          "ks_pvalue": 3.474609042569147e-77
+        },
+        "tenure_months": {
+          "psi": 0.03605155122633838,
+          "ks_stat": 0.07714285714285714,
+          "ks_pvalue": 1.5590934072504467e-18
+        },
+        "usage": {
+          "psi": 0.46575423643815345,
+          "ks_stat": 0.2824285714285714,
+          "ks_pvalue": 3.1231135178250796e-246
+        }
+      },
+      "max_psi": 0.46575423643815345,
+      "performance": {
+        "roc_auc": 0.620395732668581,
+        "pr_auc": 0.27018357881528876,
+        "brier": 0.14709127825618898,
+        "ece": 0.0583125231765327,
+        "auc_drop_vs_reference": 0.04935714870441221
+      },
+      "subgroups": {
+        "A": {
+          "rows": 3694,
+          "prevalence": 0.1497022198159177,
+          "brier": 0.12483116789674459,
+          "mean_score": 0.12288945821053558
+        },
+        "B": {
+          "rows": 3306,
+          "prevalence": 0.21566848154869933,
+          "brier": 0.17196388795606418,
+          "mean_score": 0.12222670846039724
+        }
+      },
+      "alert": "red",
+      "reasons": [
+        "feature drift PSI=0.466",
+        "ROC-AUC drop=0.049",
+        "ECE=0.058"
+      ]
+    }
+  ],
+  "model_reload_parity": true,
+  "policy": {
+    "amber": "PSI>=0.10 or AUC drop>=0.04 or ECE>=0.05",
+    "red": "PSI>=0.25 or AUC drop>=0.08 or ECE>=0.08",
+    "action": "red recommends investigation/retraining; this demo never auto-deploys a replacement model"
+  }
+}
