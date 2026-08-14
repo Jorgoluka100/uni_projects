@@ -1,12 +1,12 @@
 # Jorgo Luka — AI & Data Science Portfolio
 
 **MSc Artificial Intelligence & Data Science (Distinction)**  
-**Target roles:** Junior / Graduate Data Scientist · Machine Learning Engineer · AI Engineer · Data Analyst
+**Application focus:** Entry-level · Internships · Graduate schemes · Junior roles in Data Science, Machine Learning, Applied AI and Analytics
 
 [![Portfolio integrity](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
 [![Production project evidence](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml)
 
-I build data and AI systems that can be **checked rather than merely presented**: data quality first, leakage-safe validation, explicit baselines, held-out evidence, uncertainty or abstention where appropriate, reproducible artifacts, and limitations that stay visible when a model fails.
+I build data and AI systems that can be **checked rather than merely presented**: data quality first, leakage-safe validation, explicit baselines, held-out evidence, uncertainty or abstention where appropriate, reproducible artifacts, and limitations that stay visible when a model fails. I am currently seeking a first commercial opportunity where I can contribute, learn quickly and develop through real data and AI work.
 
 **Recruiter shortcuts:** [Hiring playbook](docs/HIRING_PLAYBOOK.md) · [Production-style projects](projects/) · [Verification evidence](verified/) · [Full project catalog](docs/PROJECT_CATALOG.md) · [Data Analyst bootcamp](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)
 
