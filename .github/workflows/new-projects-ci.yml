@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'projects/**'
+      - 'verified/**'
+      - 'scripts/validate_new_projects.py'
       - '.github/workflows/new-projects-ci.yml'
   workflow_dispatch:
 
@@ -27,55 +29,77 @@ jobs:
       - name: Install runtime
         run: |
           python -m pip install --upgrade pip
-          python -m pip install numpy pandas scipy scikit-learn joblib
+          python -m pip install numpy pandas scipy scikit-learn joblib fastapi uvicorn
       - name: Run self-tests
         run: |
           python projects/careerlens_ai/run.py --self-test
           python projects/experiment_lab/run.py --self-test
           python projects/model_watch/run.py --self-test
+          python projects/grounded_rag/run.py --self-test
+      - name: Smoke-test GroundedRAG API
+        run: |
+          cd projects/grounded_rag
+          python - <<'PY'
+          import api
+          assert api.app.title == 'GroundedRAG'
+          assert api.health()['status'] == 'ok'
+          print('GroundedRAG API import/health smoke test passed.')
+          PY
       - name: Execute clean evidence runs
         run: |
-          rm -rf careerlens_artifacts experimentlab_artifacts modelwatch_artifacts
+          rm -rf careerlens_artifacts experimentlab_artifacts modelwatch_artifacts groundedrag_artifacts
           python projects/careerlens_ai/run.py --output-dir careerlens_artifacts
           python projects/experiment_lab/run.py --output-dir experimentlab_artifacts
           python projects/model_watch/run.py --output-dir modelwatch_artifacts
+          python projects/grounded_rag/run.py --output-dir groundedrag_artifacts
       - name: Validate evidence contract
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          for path in [Path('careerlens_artifacts/verification.json'), Path('experimentlab_artifacts/verification.json'), Path('modelwatch_artifacts/verification.json')]:
-              payload=json.loads(path.read_text())
+          paths = [
+              Path('careerlens_artifacts/verification.json'),
+              Path('experimentlab_artifacts/verification.json'),
+              Path('modelwatch_artifacts/verification.json'),
+              Path('groundedrag_artifacts/verification.json'),
+          ]
+          for path in paths:
+              payload = json.loads(path.read_text())
               assert payload.get('verification_pass') is True, path
-          print('All new project verification records passed.')
+          print('All production-project verification records passed.')
           PY
+      - name: Validate retained evidence
+        run: python scripts/validate_new_projects.py
       - name: Retain compact evidence
         run: |
-          mkdir -p verified/careerlens_ai verified/experiment_lab verified/model_watch
+          mkdir -p verified/careerlens_ai verified/experiment_lab verified/model_watch verified/grounded_rag
           cp careerlens_artifacts/verification.json verified/careerlens_ai/
           cp careerlens_artifacts/ranking.csv verified/careerlens_ai/
           cp experimentlab_artifacts/verification.json verified/experiment_lab/
           cp modelwatch_artifacts/verification.json verified/model_watch/
           cp modelwatch_artifacts/batch_summary.csv verified/model_watch/
+          cp groundedrag_artifacts/verification.json verified/grounded_rag/
+          cp groundedrag_artifacts/retrieval_eval.csv verified/grounded_rag/
       - name: Commit evidence
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add verified/careerlens_ai verified/experiment_lab verified/model_watch
+          git add verified/careerlens_ai verified/experiment_lab verified/model_watch verified/grounded_rag
           if git diff --cached --quiet; then
             echo 'No generated evidence changed.'
           else
-            git commit -m 'Retain verified new project evidence'
+            git commit -m 'Retain verified production project evidence'
             git pull --rebase origin main
             git push origin HEAD:main
           fi
       - name: Upload full evidence bundles
         uses: actions/upload-artifact@v4
         with:
-          name: new-production-project-evidence
+          name: production-project-evidence
           path: |
             careerlens_artifacts/
             experimentlab_artifacts/
             modelwatch_artifacts/
+            groundedrag_artifacts/
           retention-days: 30
           if-no-files-found: error

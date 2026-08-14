@@ -1,0 +1,13 @@
+query,answerable,relevant,retrieved,evidence_strength,abstained,citations
+How often is privileged access reviewed?,True,SEC-001,"SEC-001,OPS-001,AI-003",9.00832789560738,False,SEC-001
+What happens during a Severity 1 incident?,True,SEC-002,"SEC-002,OPS-001,ENG-001",9.653589515295344,False,SEC-002
+How long are support transcripts kept after a case closes?,True,DATA-001,"DATA-001,FIN-001,DATA-002",9.313203042526371,False,DATA-001
+Can personal data be sent to an AI model?,True,DATA-002,"DATA-002,OPS-001,AI-001",15.637023540412844,False,DATA-002
+What is required before a customer-facing generative AI feature goes live?,True,AI-001,"AI-001,ENG-001,OPS-001",13.796507450076675,False,AI-001
+What should a RAG system do when it cannot find evidence?,True,AI-002,"AI-002,AI-003,DATA-002",11.195509965820587,False,AI-002
+How should prompt injection in retrieved content be handled?,True,AI-003,"AI-003,AI-002,DATA-001",11.572375455742897,False,AI-003
+What controls are required for production changes?,True,ENG-001,"ENG-001,DATA-001,SEC-001",6.182915828344509,False,ENG-001
+Who approves a 500 pound refund?,True,FIN-001,"FIN-001,SEC-002,OPS-001",3.1112681846646026,False,FIN-001
+What checks are needed before a supplier gets access to systems?,True,OPS-001,"OPS-001,SEC-001,DATA-001",14.150212386666336,False,OPS-001
+What is the office dress code?,False,,"SEC-001,OPS-001,FIN-001",2.314993395860007,True,
+How many annual volunteering days do employees receive?,False,,"HR-001,SEC-001,DATA-001",2.3972639059144973,True,
