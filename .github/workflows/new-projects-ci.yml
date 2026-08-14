@@ -41,9 +41,13 @@ jobs:
           cd projects/grounded_rag
           python - <<'PY'
           import api
+          health = api.health()
           assert api.app.title == 'GroundedRAG'
-          assert api.health()['status'] == 'ok'
-          print('GroundedRAG API import/health smoke test passed.')
+          assert api.app.version == '2.0.0'
+          assert health['status'] == 'ok'
+          assert health['dense_embedding_dimensions'] >= 2
+          assert 'ticket_analytics' in health['tools']
+          print('GroundedRAG v2 API import/health smoke test passed.')
           PY
       - name: Execute clean evidence runs
         run: |
@@ -66,6 +70,10 @@ jobs:
           for path in paths:
               payload = json.loads(path.read_text())
               assert payload.get('verification_pass') is True, path
+          grounded = json.loads(Path('groundedrag_artifacts/verification.json').read_text())
+          assert grounded['tool_route_accuracy'] == 1.0
+          assert grounded['tool_result_accuracy'] == 1.0
+          assert grounded['tool_execution_on_attack_rate'] == 0.0
           print('All production-project verification records passed.')
           PY
       - name: Validate retained evidence
@@ -80,6 +88,7 @@ jobs:
           cp modelwatch_artifacts/batch_summary.csv verified/model_watch/
           cp groundedrag_artifacts/verification.json verified/grounded_rag/
           cp groundedrag_artifacts/retrieval_eval.csv verified/grounded_rag/
+          cp groundedrag_artifacts/tool_eval.csv verified/grounded_rag/
       - name: Commit evidence
         run: |
           git config user.name 'github-actions[bot]'
