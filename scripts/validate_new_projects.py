@@ -9,6 +9,7 @@ EVIDENCE = {
     "CareerLens AI": ROOT / "verified" / "careerlens_ai" / "verification.json",
     "ExperimentLab": ROOT / "verified" / "experiment_lab" / "verification.json",
     "ModelWatch": ROOT / "verified" / "model_watch" / "verification.json",
+    "GroundedRAG": ROOT / "verified" / "grounded_rag" / "verification.json",
 }
 
 
