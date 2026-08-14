@@ -14,7 +14,7 @@ I build data and AI systems that can be **checked rather than merely presented**
 
 | Project | What it demonstrates | Verified evidence | Stack |
 |---|---|---|---|
-| **GroundedRAG — Retrieval, Citations & Safety** | Applied-AI engineering: hybrid retrieval, grounded citations, abstention, prompt-injection handling, API packaging and Docker delivery. | Frozen **12-query synthetic fixture**: Recall@3 / MRR@3 / NDCG@3 **1.000**; citation-or-correct-abstention accuracy **1.000**; prompt-injection block rate **1.000**. These scores prove the deterministic test contract, **not real-world LLM generalisation**. [Code](projects/grounded_rag/run.py) · [Evidence](verified/grounded_rag/verification.json) | Python, BM25, TF-IDF, FastAPI, Docker, RAG evaluation |
+| **GroundedRAG v2 — Retrieval, Vector Search, Tool Routing & Safety** | Applied-AI engineering: sparse+dense retrieval, deterministic vector indexing, grounded citations, abstention, allow-listed read-only tool routing, prompt-injection blocking, API and Docker packaging. | Frozen synthetic fixture: Recall@3 / MRR@3 / NDCG@3 **1.000**; citation-or-correct-abstention **1.000**; tool-route **1.000**; tool-result **1.000**; injection block rate **1.000**; tool execution on attack fixture **0.000**. These are deterministic contract tests, **not production generalisation claims**. [Code](projects/grounded_rag/run.py) · [Evidence](verified/grounded_rag/verification.json) | Python, BM25, TF-IDF, LSA embeddings, dense vector index, FastAPI, Docker, RAG/tool evaluation |
 | **VisionForge — Trustworthy Visual Inspection** | Computer vision plus calibration, explainability and deployment evidence. | Makerere Beans test accuracy **85.9%**, macro-F1 **85.8%**; selective accuracy **90.4%** at **89.1%** coverage; TorchScript and ONNX parity passed. [Notebook](12_VisionForge_PyTorch_Visual_Inspection.ipynb) · [Evidence](verified/visionforge/verification_metrics.json) | PyTorch, EfficientNet, Grad-CAM, calibration, ONNX |
 | **AeroFlow — 2026 Flight Delay Risk** | Current-data temporal modelling and honest problem reframing after a failed regression baseline. | Official BTS 2026: **360k** train / **120k** validation / **180k** untouched May test; PR-AUC **0.291** vs **0.215** prevalence; top-risk decile **1.58× lift**. [Code](extensions/aeroflow_delay_risk_v3.py) · [Evidence](verified/aeroflow_delay_risk/verification.json) | Python, CatBoost, temporal validation, ranking |
 | **ExperimentLab** | Product experimentation and decision science rather than prediction alone. | **20,000** deterministic simulated observations; CUPED estimate **2.773** for known +2.5 effect, 95% CI **2.435–3.112**; **50.7% variance reduction**; guardrail and power checks passed. [Code](projects/experiment_lab/run.py) · [Evidence](verified/experiment_lab/verification.json) | Python, CUPED, bootstrap, power/MDE |
@@ -24,7 +24,7 @@ I build data and AI systems that can be **checked rather than merely presented**
 ## Capabilities by role
 
 ### Applied AI / ML Engineering
-- GroundedRAG: retrieval, source attribution, abstention, prompt-injection handling, FastAPI and Docker.
+- GroundedRAG v2: sparse+dense retrieval, deterministic LSA embeddings/vector indexing, source attribution, abstention, constrained tool routing, prompt-injection blocking, FastAPI and Docker.
 - VisionForge: PyTorch transfer learning, calibration, Grad-CAM, TorchScript and ONNX parity.
 - ModelWatch: drift, calibration, performance monitoring, alert policy and model reload checks.
 - LLM evaluation harness retained separately; model-quality claims remain unpromoted until fresh checkpoint evidence exists.
@@ -47,7 +47,7 @@ I build data and AI systems that can be **checked rather than merely presented**
 
 [`projects/`](projects/) contains the smaller package-like projects added to close specific hiring gaps:
 
-1. **GroundedRAG** — applied-AI / RAG evaluation and safe retrieval.
+1. **GroundedRAG v2** — applied-AI retrieval, dense vector indexing, safe tool routing and evaluation.
 2. **CareerLens AI** — NLP / information retrieval and inspectable skill matching.
 3. **ExperimentLab** — A/B testing, CUPED, uncertainty, guardrails and power.
 4. **ModelWatch** — model drift, performance, calibration and retraining policy.
@@ -73,7 +73,7 @@ Examples of negative evidence deliberately retained: the first AeroFlow regressi
 
 ## Technology evidenced
 
-**Python · SQL · R · PySpark · Pandas · NumPy · SciPy · scikit-learn · CatBoost · TensorFlow/Keras · PyTorch · PostgreSQL · DuckDB · Spark SQL · FastAPI · Docker · NLP/information retrieval · RAG evaluation · computer vision · experimentation/CUPED · MLOps monitoring · recommendation systems · time series · calibration · uncertainty · model persistence · CI/evidence gates · data cleaning/preprocessing**
+**Python · SQL · R · PySpark · Pandas · NumPy · SciPy · scikit-learn · CatBoost · TensorFlow/Keras · PyTorch · PostgreSQL · DuckDB · Spark SQL · FastAPI · Docker · NLP/information retrieval · BM25 · dense vector retrieval · LSA embeddings · RAG evaluation · safe tool routing · computer vision · experimentation/CUPED · MLOps monitoring · recommendation systems · time series · calibration · uncertainty · model persistence · CI/evidence gates · data cleaning/preprocessing**
 
 ## Repository map
 
