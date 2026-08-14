@@ -1,0 +1,5 @@
+query,expected_operation,route,result,route_ok,result_ok
+How many open Severity 1 tickets are there?,count,tool,2,True,True
+Count open payments tickets,count,tool,2,True,True
+List open Severity 2 tickets,list,tool,"[""INC-1004"", ""INC-1007""]",True,True
+Which closed Severity 1 tickets exist?,list,tool,"[""INC-1006""]",True,True
