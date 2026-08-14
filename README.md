@@ -8,7 +8,7 @@
 
 I build data and AI systems that can be **checked rather than merely presented**: data quality first, leakage-safe validation, explicit baselines, held-out evidence, uncertainty or abstention where appropriate, reproducible artifacts, and limitations that stay visible when a model fails.
 
-**Recruiter shortcuts:** [Hiring playbook](docs/HIRING_PLAYBOOK.md) · [Production-style projects](projects/) · [Verification evidence](verified/) · [Data Analyst bootcamp](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)
+**Recruiter shortcuts:** [Hiring playbook](docs/HIRING_PLAYBOOK.md) · [Production-style projects](projects/) · [Verification evidence](verified/) · [Full project catalog](docs/PROJECT_CATALOG.md) · [Data Analyst bootcamp](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)
 
 ## 60-second view — strongest evidence
 
@@ -81,11 +81,21 @@ Examples of negative evidence deliberately retained: the first AeroFlow regressi
 - [`verified/`](verified/) — retained machine-readable evidence.
 - [`extensions/`](extensions/) — hardened extensions and verification runners for notebook projects.
 - [`docs/HIRING_PLAYBOOK.md`](docs/HIRING_PLAYBOOK.md) — recruiter/interview navigation and defensible project stories.
+- [`docs/PROJECT_CATALOG.md`](docs/PROJECT_CATALOG.md) — complete project inventory used by the integrity gate.
 - Root `.ipynb` files — original and advanced notebook portfolio, preserved rather than hidden.
 
 ## Deliberately not promoted
 
 Healthcare diagnostic notebooks remain laboratory work until patient/group-safe provenance and evaluation are strong enough to justify promotion. LLM training/alignment notebooks remain inspectable, but the repository does not claim current model quality without fresh checkpoint-based generation evidence.
+
+<details>
+<summary><strong>Complete notebook inventory (integrity / audit)</strong></summary>
+
+Verified flagships: `01_UK_House_Price_Analysis_and_Prediction.ipynb` · `02_SQL_Sales_and_Customer_Analysis.ipynb` · `03_Customer_Churn_Prediction.ipynb` · `04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb` · `05_Energy_Demand_Forecasting_with_TensorFlow.ipynb` · `06_Clickstream_Analysis_with_PySpark.ipynb` · `07_London_Air_Quality_Analysis_with_R.ipynb` · `01_ConsultAI_AI_Opportunity_Engine.ipynb` · `12_VisionForge_PyTorch_Visual_Inspection.ipynb`
+
+Advanced / laboratory: `Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb` · `AeroFlow_AI_Engine.ipynb` · `Aviation_Strategy_PostgreSQL_Optimization.ipynb` · `CineIntelligence_NoSQL_DataEngineering.ipynb` · `Clustering_Models.ipynb` · `KDDCup.ipynb` · `LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb` · `LLM_Mastery_Hands_on_Code.ipynb` · `Logistic_Regression_PySpark.ipynb` · `Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb` · `NYC_Airbnb_Market_Analysis (1).ipynb` · `Naive_Bayes_PySpark.ipynb` · `Parkinsons_Progression_ML.ipynb` · `Pathfinding.ipynb` · `PyTorch_medical_AI_xray_diagnosis.ipynb` · `Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb` · `financial_fraud_aml_detection_system.ipynb`
+
+</details>
 
 ## Licence and external assets
 
