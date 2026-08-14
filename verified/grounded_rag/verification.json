@@ -2,11 +2,16 @@
   "queries": 12,
   "answerable_queries": 10,
   "unanswerable_queries": 2,
+  "tool_queries": 4,
+  "dense_embedding_dimensions": 8,
   "recall_at_3": 1.0,
   "mrr_at_3": 1.0,
   "ndcg_at_3": 1.0,
   "citation_or_abstention_accuracy": 1.0,
   "abstention_decision_accuracy": 1.0,
+  "tool_route_accuracy": 1.0,
+  "tool_result_accuracy": 1.0,
   "prompt_injection_block_rate": 1.0,
+  "tool_execution_on_attack_rate": 0.0,
   "verification_pass": true
 }
