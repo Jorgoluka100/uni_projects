@@ -1,24 +1,34 @@
-# GroundedRAG — Retrieval, Citations & Safety Evaluation
+# GroundedRAG v2 — Retrieval, Vector Search, Tool Routing & Safety
 
-A compact, testable RAG engineering project focused on the parts that should be measurable before an LLM is trusted: **hybrid retrieval, reranking, citations, abstention, prompt-injection handling, API integration and automated evidence gates**.
+A compact, testable applied-AI project focused on the parts of a RAG/agent system that can be measured before a hosted LLM is trusted: **hybrid retrieval, dense vector indexing, citations, abstention, safe read-only tool routing, prompt-injection blocking, API packaging and automated evidence gates**.
 
 ## Why this project exists
 
-Many AI roles now expect more than prompt demos. They expect retrieval quality to be measured, unsupported questions to be handled safely, sources to be traceable, and AI behaviour to be testable in CI. GroundedRAG demonstrates that engineering layer without requiring a paid model API.
+Modern AI-engineering roles increasingly expect more than prompt demos. They expect retrieval quality to be measured, unsupported questions to be handled safely, sources to be traceable, tool use to be constrained, and AI behaviour to be testable in CI.
+
+GroundedRAG v2 demonstrates that engineering contract without requiring a paid model API.
 
 ## Architecture
 
-`query → transparent query expansion → BM25 + word/character TF-IDF retrieval → hybrid reranking → evidence threshold → extractive grounded response → source citation`
+Retrieval path:
+
+`query → transparent expansion → BM25 + word TF-IDF + char TF-IDF + dense LSA vector index → hybrid reranking → evidence threshold → grounded extractive response → citation`
+
+Tool path:
+
+`query → injection check → deterministic router → allow-listed read-only ticket analytics tool → structured result + tool audit payload`
 
 Safety path:
 
-`user input → prompt-injection pattern check → block privileged instruction attempts → abstain when evidence is weak`
+`user input → injection check → block suspicious instruction override attempts before any tool execution → abstain when retrieval evidence is weak`
 
-The project deliberately keeps the answer layer extractive and deterministic. A hosted or open-weight LLM can be placed behind the same retrieval contract later, but this repository does **not** claim LLM-generation quality that has not been evaluated.
+The dense store uses deterministic **Latent Semantic Analysis (TF-IDF + TruncatedSVD)** embeddings so the project remains local and reproducible. It is a real dense vector retrieval layer, but it is **not** presented as a production vector database or transformer embedding service.
 
 ## Verified evidence
 
-The built-in evaluation uses a **small synthetic enterprise-policy knowledge base**, designed for deterministic methodology testing rather than real-world accuracy claims.
+The evaluation uses a deliberately small synthetic enterprise-policy corpus and frozen incident dataset. It is a methodology/evaluation fixture, not a claim about real enterprise traffic.
+
+Retrieval fixture:
 
 - 12 golden queries: 10 answerable + 2 deliberately unanswerable
 - Recall@3: **1.000**
@@ -26,9 +36,16 @@ The built-in evaluation uses a **small synthetic enterprise-policy knowledge bas
 - NDCG@3: **1.000**
 - citation-or-correct-abstention accuracy: **1.000**
 - abstention decision accuracy: **1.000**
-- prompt-injection block rate: **1.000** across the deterministic attack fixture
 
-These perfect scores are intentionally **not presented as generalisation evidence**. They show that the implementation satisfies its frozen test fixture and that the evaluation contract is executable in CI.
+Tool/safety fixture:
+
+- 4 frozen ticket-analytics questions
+- tool-route accuracy: **1.000**
+- tool-result accuracy: **1.000**
+- prompt-injection block rate: **1.000**
+- tool execution on attack fixture: **0.000**
+
+Perfect fixture scores mean the deterministic implementation satisfies its frozen test contract. They **do not** prove production generalisation.
 
 ## Run locally
 
@@ -37,6 +54,7 @@ python -m pip install -r requirements.txt
 python run.py --self-test
 python run.py --output-dir artifacts
 python run.py --query "What should a RAG system do when it cannot find evidence?"
+python run.py --query "How many open Severity 1 tickets are there?"
 ```
 
 ## API
@@ -50,6 +68,8 @@ Endpoints:
 - `GET /health`
 - `POST /query` with `{"query": "...", "top_k": 3}`
 
+`/health` exposes the document count, dense embedding dimensionality and available read-only tool names.
+
 ## Docker
 
 ```bash
@@ -59,20 +79,23 @@ docker run -p 8000:8000 grounded-rag
 
 ## What this proves
 
-- retrieval and ranking fundamentals rather than opaque prompt-only demos
-- source-grounded answers and explicit citations
-- abstention when retrieval evidence is insufficient
-- prompt-injection handling before tool execution
-- deterministic golden-set evaluation
-- API-ready packaging and Docker deployment pattern
+- sparse + dense retrieval fundamentals
+- deterministic dense vector indexing with LSA embeddings
+- source-grounded responses and explicit citations
+- abstention when evidence is insufficient
+- constrained tool routing with an allow-listed read-only analytics tool
+- prompt-injection blocking before tool execution
+- golden-set retrieval, tool and safety evaluation
+- FastAPI and Docker packaging
 - CI-friendly machine-readable evidence
 
 ## What this does **not** prove
 
-- production deployment or production traffic
-- real enterprise-document generalisation
-- semantic-embedding model quality
+- production deployment or real production traffic
+- transformer-embedding quality
+- a managed vector database such as Qdrant/Pinecone/Weaviate
 - hosted-LLM answer quality
-- complete prompt-injection defence against adversarial attacks
+- autonomous multi-step agent reasoning
+- complete prompt-injection defence against adaptive adversaries
 
-Those limitations are intentional. The project is designed so stronger embedding models, a vector database, an LLM provider and production observability can be introduced later without changing the evidence-first evaluation contract.
+Those limitations stay explicit. The important portfolio signal is that retrieval, tool use and safety have measurable contracts rather than being hidden inside a prompt demo.
