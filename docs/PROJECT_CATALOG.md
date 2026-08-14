@@ -1,6 +1,6 @@
 # Project Catalog
 
-This file is the complete inventory used by the portfolio integrity gate. The root README is intentionally recruiter-first and does not list every historical notebook.
+This file is the complete inventory used by the portfolio integrity gate. The root README is intentionally recruiter-first and does not list every historical notebook in detail.
 
 ## Verified notebook flagships
 
@@ -38,7 +38,7 @@ These are retained for inspection and learning but are not automatically promote
 
 ## Production-style projects
 
-- `projects/grounded_rag/` — applied-AI retrieval, citations, abstention, prompt-injection tests, FastAPI and Docker.
+- `projects/grounded_rag/` — hybrid sparse+dense retrieval, deterministic LSA vector indexing, grounded citations, abstention, allow-listed read-only tool routing, prompt-injection blocking, FastAPI and Docker.
 - `projects/careerlens_ai/` — NLP / information retrieval and skill-gap ranking.
 - `projects/experiment_lab/` — experimentation, CUPED, bootstrap uncertainty, guardrails and power.
 - `projects/model_watch/` — drift, calibration, performance monitoring and retraining policy.
