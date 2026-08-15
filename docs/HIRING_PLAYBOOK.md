@@ -1,6 +1,6 @@
 # Hiring Playbook — How to Read This Portfolio
 
-This file maps the strongest verified evidence to common junior/graduate roles and turns the repository into an interview tool rather than a notebook archive.
+This file maps the strongest verified evidence to **entry-level, internship, graduate-scheme and junior** Data / AI opportunities and turns the repository into an interview tool rather than a notebook archive.
 
 ## 90-second recruiter route
 
@@ -14,13 +14,14 @@ If you only open five things:
 
 ## Best evidence by target role
 
-| Target role | Lead with | Supporting evidence |
+| Target opportunity | Lead with | Supporting evidence |
 |---|---|---|
-| **Junior / Graduate Data Scientist** | AeroFlow, ExperimentLab, UK House Prices | Customer Churn, NYC Airbnb 2026, Recommender, grouped Parkinson's negative result |
-| **Junior Machine Learning Engineer** | VisionForge, ModelWatch, GroundedRAG | TensorFlow Energy, Recommender v2, Spark KDD, model reload/export and CI evidence |
-| **Applied AI / AI Engineer** | GroundedRAG, VisionForge, ModelWatch | CareerLens AI, LLM evaluation harness, FastAPI/Docker/export/reproducibility evidence |
-| **Data Analyst / Analytics** | SQL Sales, ExperimentLab, NYC Airbnb 2026 | Clickstream, London Air Quality R, bootcamp portfolio |
-| **Data / ML platform-oriented** | PySpark Clickstream, PostgreSQL aviation, ModelWatch | Spark KDD, SQL Sales, CI/evidence gates |
+| **Entry-Level / Graduate Data Scientist** | AeroFlow, ExperimentLab, UK House Prices | Customer Churn, NYC Airbnb 2026, Recommender, grouped Parkinson's negative result |
+| **Entry-Level / Graduate ML Engineer** | VisionForge, ModelWatch, GroundedRAG | TensorFlow Energy, Recommender v2, Spark KDD, model reload/export and CI evidence |
+| **AI / Applied-AI Internship or Junior AI Engineer** | GroundedRAG, VisionForge, ModelWatch | CareerLens AI, LLM evaluation harness, FastAPI/Docker/export/reproducibility evidence |
+| **Entry-Level / Graduate Data Analyst / Analytics** | SQL Sales, ExperimentLab, NYC Airbnb 2026 | Clickstream, London Air Quality R, bootcamp portfolio |
+| **Data / AI Graduate Scheme** | AeroFlow, SQL Sales, GroundedRAG | ExperimentLab, VisionForge, PySpark Clickstream, ModelWatch |
+| **Data / ML platform-oriented entry role** | PySpark Clickstream, PostgreSQL aviation, ModelWatch | Spark KDD, SQL Sales, CI/evidence gates |
 
 ## Interview stories worth learning
 
