@@ -1,16 +1,25 @@
-# Production-Style Projects
+# Smaller Python Projects
 
-This directory contains compact, package-like projects added after the original notebook portfolio. Each project has a clear decision, reproducible command, machine-readable evidence and a self-test; API/container packaging is added where it strengthens the engineering case rather than as decoration.
+These are the projects I built as normal Python applications rather than large notebooks. I use them to practise the engineering side of data and AI work: running from the command line, saving results, writing tests and, where it makes sense, exposing an API.
 
-## Projects
+## GroundedRAG v2
 
-1. **GroundedRAG v2** — hybrid sparse+dense retrieval, deterministic LSA embeddings, dense vector indexing, grounded citations, abstention, allow-listed read-only tool routing, prompt-injection blocking, FastAPI and Docker packaging.
-2. **CareerLens AI** — hybrid job matching and skill-gap ranking for NLP / information retrieval.
-3. **ExperimentLab** — experiment decision engine with CUPED variance reduction, bootstrap uncertainty, guardrails and power diagnostics.
-4. **ModelWatch** — production ML monitoring with drift, performance, calibration, subgroup and retraining-policy checks.
+A local RAG demo for a small set of policy and incident documents. It combines BM25/TF-IDF with an LSA-based dense representation, returns the source documents used for an answer, refuses low-confidence questions and can route a read-only ticket analytics tool. I also added prompt-injection test cases so the tool is not called on the attack examples.
 
-Together these projects cover gaps that the original notebook portfolio did not demonstrate strongly: **applied-AI/RAG engineering, structured tool orchestration, NLP retrieval, experimentation/causal decision science and MLOps monitoring**.
+The perfect scores in its frozen test fixture are there to check that the code behaves as expected. They are not a claim that the system would score 100% on real company data or with a production LLM.
 
-All demo datasets and fixtures are explicitly labelled. Metrics are promoted to the root README only after the GitHub Actions verification run succeeds and retained evidence is committed. Perfect scores on small deterministic fixtures are treated as test-contract evidence, not as generalisation claims.
+## CareerLens AI
 
-GroundedRAG v2 intentionally keeps its dense embedding layer local and deterministic (TF-IDF + TruncatedSVD) rather than claiming transformer embeddings, a managed vector database or hosted-LLM quality that has not been evaluated.
+A small information-retrieval project that ranks jobs against a candidate profile and shows the main skill matches and gaps. The fixture is synthetic and is mainly used to demonstrate ranking and evaluation code.
+
+## ExperimentLab
+
+An A/B-testing project covering a treatment-effect estimate, CUPED, bootstrap confidence intervals, a guardrail check and a power/MDE calculation. The dataset is simulated so I can test the analysis against a known effect.
+
+## ModelWatch
+
+A model-monitoring demo that compares new batches with a reference dataset and checks drift, discrimination and calibration. The data shifts are deliberately created so I can test whether the monitoring rules respond in the expected direction.
+
+## Running the projects
+
+Each folder has its own README with the command needed to run it. The GitHub Actions workflow in `.github/workflows/new-projects-ci.yml` reruns the project self-tests and result checks.
