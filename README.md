@@ -1,102 +1,73 @@
-# Jorgo Luka — AI & Data Science Portfolio
+# AI & Data Science Projects
 
-**MSc Artificial Intelligence & Data Science (Distinction)**  
-**Application focus:** Entry-level · Internships · Graduate schemes · Junior roles in Data Science, Machine Learning, Applied AI and Analytics
+Hi, I'm Jorgo. I completed an MSc in Artificial Intelligence & Data Science with Distinction, and I'm looking for my first role in data science, machine learning, AI or analytics.
 
-[![Portfolio integrity](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
-[![Production project evidence](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml)
+This repo is where I keep the projects I would be comfortable talking through in an interview. I have gone back over a lot of my earlier work to fix things such as data leakage, weak train/test splits and missing baselines. I also keep failed approaches when they taught me something useful instead of hiding them.
 
-I build data and AI systems that can be **checked rather than merely presented**: data quality first, leakage-safe validation, explicit baselines, held-out evidence, uncertainty or abstention where appropriate, reproducible artifacts, and limitations that stay visible when a model fails. I am currently seeking a first commercial opportunity where I can contribute, learn quickly and develop through real data and AI work.
+[![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
+[![Python project checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml)
 
-**Recruiter shortcuts:** [Hiring playbook](docs/HIRING_PLAYBOOK.md) · [Production-style projects](projects/) · [Verification evidence](verified/) · [Full project catalog](docs/PROJECT_CATALOG.md) · [Data Analyst bootcamp](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)
+## Projects I would start with
 
-## 60-second view — strongest evidence
-
-| Project | What it demonstrates | Verified evidence | Stack |
+| Project | What I did | Result | Tools |
 |---|---|---|---|
-| **GroundedRAG v2 — Retrieval, Vector Search, Tool Routing & Safety** | Applied-AI engineering: sparse+dense retrieval, deterministic vector indexing, grounded citations, abstention, allow-listed read-only tool routing, prompt-injection blocking, API and Docker packaging. | Frozen synthetic fixture: Recall@3 / MRR@3 / NDCG@3 **1.000**; citation-or-correct-abstention **1.000**; tool-route **1.000**; tool-result **1.000**; injection block rate **1.000**; tool execution on attack fixture **0.000**. These are deterministic contract tests, **not production generalisation claims**. [Code](projects/grounded_rag/run.py) · [Evidence](verified/grounded_rag/verification.json) | Python, BM25, TF-IDF, LSA embeddings, dense vector index, FastAPI, Docker, RAG/tool evaluation |
-| **VisionForge — Trustworthy Visual Inspection** | Computer vision plus calibration, explainability and deployment evidence. | Makerere Beans test accuracy **85.9%**, macro-F1 **85.8%**; selective accuracy **90.4%** at **89.1%** coverage; TorchScript and ONNX parity passed. [Notebook](12_VisionForge_PyTorch_Visual_Inspection.ipynb) · [Evidence](verified/visionforge/verification_metrics.json) | PyTorch, EfficientNet, Grad-CAM, calibration, ONNX |
-| **AeroFlow — 2026 Flight Delay Risk** | Current-data temporal modelling and honest problem reframing after a failed regression baseline. | Official BTS 2026: **360k** train / **120k** validation / **180k** untouched May test; PR-AUC **0.291** vs **0.215** prevalence; top-risk decile **1.58× lift**. [Code](extensions/aeroflow_delay_risk_v3.py) · [Evidence](verified/aeroflow_delay_risk/verification.json) | Python, CatBoost, temporal validation, ranking |
-| **ExperimentLab** | Product experimentation and decision science rather than prediction alone. | **20,000** deterministic simulated observations; CUPED estimate **2.773** for known +2.5 effect, 95% CI **2.435–3.112**; **50.7% variance reduction**; guardrail and power checks passed. [Code](projects/experiment_lab/run.py) · [Evidence](verified/experiment_lab/verification.json) | Python, CUPED, bootstrap, power/MDE |
-| **ModelWatch** | MLOps monitoring with explicit operational policy. | Stable batch max PSI **0.003 → green**; feature shift **0.264 → red**; concept shift **0.466 → red**; performance/calibration metrics and saved-model reload parity retained. [Code](projects/model_watch/run.py) · [Evidence](verified/model_watch/verification.json) | Python, PSI/KS, ROC/PR, Brier, ECE, MLOps |
-| **SQL Sales & Customer Analysis** | Relational grain control, KPI reconciliation and commercial analytics. | **98,199** commercial orders, **94,983** customers, **R$13.49M** merchandise value; source/key/semantic-layer and artifact checks passed. [Notebook](02_SQL_Sales_and_Customer_Analysis.ipynb) | SQL, DuckDB, Pandas, Parquet |
+| **[GroundedRAG v2](projects/grounded_rag/)** | Built a small RAG system that searches policy documents, returns sources, refuses weak answers and can route a read-only ticket analytics tool. I also added tests for prompt-injection attempts. | All retrieval, routing and safety checks pass on the small frozen test set. I treat these as software tests, not as proof of real-world LLM performance. | Python, BM25, TF-IDF, LSA, FastAPI, Docker |
+| **[AeroFlow — Flight Delay Risk](extensions/aeroflow_delay_risk_v3.py)** | Used official 2026 US flight data to predict which flights are most likely to arrive 15+ minutes late. My first regression version did not beat its baseline, so I changed the problem to classification/ranking. | PR-AUC **0.291** vs **0.215** delay rate; the highest-risk 10% of flights had **1.58x** the normal delay rate on the untouched May test set. | Python, CatBoost, Pandas |
+| **[VisionForge](12_VisionForge_PyTorch_Visual_Inspection.ipynb)** | Fine-tuned an EfficientNet model for bean-leaf image classification, then added confidence checks, Grad-CAM and model export tests. | **85.9%** test accuracy, **85.8%** macro-F1; **90.4%** accuracy on the predictions the model accepted at the chosen confidence threshold. | PyTorch, EfficientNet, Grad-CAM, ONNX |
+| **[SQL Sales & Customer Analysis](02_SQL_Sales_and_Customer_Analysis.ipynb)** | Cleaned and modelled an e-commerce dataset, checked keys and joins, and built customer and sales reporting queries. | **98,199** orders, **94,983** customers and **R$13.49M** merchandise value after reconciliation checks. | SQL, DuckDB, Pandas |
+| **[ExperimentLab](projects/experiment_lab/)** | Built a small A/B-test analysis project with CUPED, confidence intervals, guardrails and power calculations. | On the simulated 20,000-row experiment, CUPED reduced outcome variance by **50.7%**. | Python, statistics, bootstrap, CUPED |
+| **[ModelWatch](projects/model_watch/)** | Built a monitoring demo for drift, model performance and calibration. | Stable data stays green while the deliberately shifted batches trigger the expected alerts. | Python, PSI, KS, ROC/PR, Brier, ECE |
 
-## Capabilities by role
+## More data science work
 
-### Applied AI / ML Engineering
-- GroundedRAG v2: sparse+dense retrieval, deterministic LSA embeddings/vector indexing, source attribution, abstention, constrained tool routing, prompt-injection blocking, FastAPI and Docker.
-- VisionForge: PyTorch transfer learning, calibration, Grad-CAM, TorchScript and ONNX parity.
-- ModelWatch: drift, calibration, performance monitoring, alert policy and model reload checks.
-- LLM evaluation harness retained separately; model-quality claims remain unpromoted until fresh checkpoint evidence exists.
+- **UK house prices:** 995,059 modelling transactions with an untouched 2026 test set of 216,564 sales. CatBoost reached MAE **£81,805** and R² **0.604**.
+- **Customer churn:** PR-AUC **0.955** and ROC-AUC **0.990** on the retained test results.
+- **NYC Airbnb 2026:** MAE **$68.97** compared with a **$121.90** median baseline on unseen neighbourhoods.
+- **Movie recommender:** found and removed future-interaction leakage before rerunning the ranking evaluation; Recall@10 **0.501** vs **0.463** popularity baseline.
+- **Energy forecasting:** TensorFlow model MAE **43.51** vs **53.18** seasonal baseline.
+- **PySpark clickstream:** **165,474** events across **24,026** sessions; PR-AUC **0.351** vs **0.155** positive rate.
+- **London air quality:** R analysis using official 2025–2026 monitoring data.
 
-### Data Science
-- AeroFlow: official 2026 temporal data, classification/ranking, calibration and business targeting.
-- Customer churn: PR-AUC **0.955** (95% bootstrap **0.927–0.980**), ROC-AUC **0.990**.
-- NYC Airbnb 2026: unseen-neighbourhood test MAE **$68.97** vs **$121.90** baseline, **43.4% improvement**.
-- Movie recommender: temporal leakage fix; Recall@10 **0.501** vs **0.463** popularity baseline.
-- TensorFlow energy forecasting: MAE **43.51** vs **53.18** seasonal baseline, **18.2% improvement**.
+My separate [Data Analyst Bootcamp repository](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp) has three smaller projects focused on cleaning, EDA, regression, SQL and business reporting.
 
-### Analytics / Data
-- SQL sales: trustworthy commercial KPI modelling and reconciliation.
-- PySpark clickstream: **165,474** events / **24,026** sessions; PR-AUC **0.351** vs **0.155** prevalence.
-- PostgreSQL optimisation: deterministic **1,000,000-row** workload with before/after `EXPLAIN (ANALYZE, BUFFERS)` evidence.
-- R air-quality analysis: official 2025–2026 data with limitations retained.
-- Separate [Data Analyst Bootcamp Portfolio](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp) demonstrates cleaning, EDA, SQL, regression, reporting and business communication foundations.
+## How I work on projects
 
-## Production-style project layer
+I try to keep the process simple:
 
-[`projects/`](projects/) contains the smaller package-like projects added to close specific hiring gaps:
+1. Check the data before modelling.
+2. Keep training and test data separate in a way that matches the real problem.
+3. Compare against a simple baseline.
+4. Save the actual results rather than quoting numbers I cannot reproduce.
+5. Look at errors and limitations, not only the best metric.
+6. Keep the code understandable enough that I can explain it without relying on the notebook output.
 
-1. **GroundedRAG v2** — applied-AI retrieval, dense vector indexing, safe tool routing and evaluation.
-2. **CareerLens AI** — NLP / information retrieval and inspectable skill matching.
-3. **ExperimentLab** — A/B testing, CUPED, uncertainty, guardrails and power.
-4. **ModelWatch** — model drift, performance, calibration and retraining policy.
+The `verified/` folder contains saved result files for projects that have separate checks, and the GitHub Actions workflows rerun the main repository and Python-project checks.
 
-Each project has a runnable implementation and machine-readable evidence. [`new-projects-ci.yml`](.github/workflows/new-projects-ci.yml) reruns self-tests and clean evidence generation before retained metrics are trusted.
+## Main tools used in this repo
 
-## Evidence standard
+Python, SQL, R, PySpark, Pandas, NumPy, scikit-learn, CatBoost, TensorFlow/Keras, PyTorch, PostgreSQL, DuckDB, Spark SQL, FastAPI, Docker, GitHub Actions, NLP / information retrieval, computer vision, recommendation systems, time series, experimentation and model monitoring.
 
-A project is promoted only when it can answer these questions:
+## Repository layout
 
-1. **What decision is being supported?**
-2. **Where did the data come from and what are its usage limits?**
-3. **What data-quality checks were performed?**
-4. **How was target, temporal or group leakage prevented?**
-5. **What simple baseline had to be beaten?**
-6. **What evidence was genuinely held out?**
-7. **How are uncertainty, calibration, ranking, abstention or human review handled?**
-8. **Can the important artifact be reconstructed or reloaded?**
-9. **What failed, and was the failure preserved?**
-10. **Can every CV metric be defended in an interview?**
+- [`projects/`](projects/) — smaller Python projects.
+- [`verified/`](verified/) — saved result and test files.
+- [`extensions/`](extensions/) — rerun / verification code added to some notebook projects.
+- [`docs/PROJECT_CATALOG.md`](docs/PROJECT_CATALOG.md) — full project list.
+- Root `.ipynb` files — the original notebook projects.
 
-Examples of negative evidence deliberately retained: the first AeroFlow regression formulation failed its seasonal-style baseline and was reframed; grouped Parkinson's validation underperformed a median baseline; temporal leakage was found and removed from the recommender evaluation.
+## Older / laboratory notebooks
 
-## Technology evidenced
-
-**Python · SQL · R · PySpark · Pandas · NumPy · SciPy · scikit-learn · CatBoost · TensorFlow/Keras · PyTorch · PostgreSQL · DuckDB · Spark SQL · FastAPI · Docker · NLP/information retrieval · BM25 · dense vector retrieval · LSA embeddings · RAG evaluation · safe tool routing · computer vision · experimentation/CUPED · MLOps monitoring · recommendation systems · time series · calibration · uncertainty · model persistence · CI/evidence gates · data cleaning/preprocessing**
-
-## Repository map
-
-- [`projects/`](projects/) — production-style Python projects and engineering demos.
-- [`verified/`](verified/) — retained machine-readable evidence.
-- [`extensions/`](extensions/) — hardened extensions and verification runners for notebook projects.
-- [`docs/HIRING_PLAYBOOK.md`](docs/HIRING_PLAYBOOK.md) — recruiter/interview navigation and defensible project stories.
-- [`docs/PROJECT_CATALOG.md`](docs/PROJECT_CATALOG.md) — complete project inventory used by the integrity gate.
-- Root `.ipynb` files — original and advanced notebook portfolio, preserved rather than hidden.
-
-## Deliberately not promoted
-
-Healthcare diagnostic notebooks remain laboratory work until patient/group-safe provenance and evaluation are strong enough to justify promotion. LLM training/alignment notebooks remain inspectable, but the repository does not claim current model quality without fresh checkpoint-based generation evidence.
+Some older notebooks are kept because they show what I was learning at the time. I do not use their results on my CV unless I have gone back and checked the evaluation properly. In particular, the medical-imaging and older LLM-training notebooks should be treated as learning projects rather than clinical or production claims.
 
 <details>
-<summary><strong>Complete notebook inventory (integrity / audit)</strong></summary>
+<summary><strong>Complete notebook list used by the repository checks</strong></summary>
 
-Verified flagships: `01_UK_House_Price_Analysis_and_Prediction.ipynb` · `02_SQL_Sales_and_Customer_Analysis.ipynb` · `03_Customer_Churn_Prediction.ipynb` · `04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb` · `05_Energy_Demand_Forecasting_with_TensorFlow.ipynb` · `06_Clickstream_Analysis_with_PySpark.ipynb` · `07_London_Air_Quality_Analysis_with_R.ipynb` · `01_ConsultAI_AI_Opportunity_Engine.ipynb` · `12_VisionForge_PyTorch_Visual_Inspection.ipynb`
+Verified notebooks: `01_UK_House_Price_Analysis_and_Prediction.ipynb` · `02_SQL_Sales_and_Customer_Analysis.ipynb` · `03_Customer_Churn_Prediction.ipynb` · `04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb` · `05_Energy_Demand_Forecasting_with_TensorFlow.ipynb` · `06_Clickstream_Analysis_with_PySpark.ipynb` · `07_London_Air_Quality_Analysis_with_R.ipynb` · `01_ConsultAI_AI_Opportunity_Engine.ipynb` · `12_VisionForge_PyTorch_Visual_Inspection.ipynb`
 
-Advanced / laboratory: `Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb` · `AeroFlow_AI_Engine.ipynb` · `Aviation_Strategy_PostgreSQL_Optimization.ipynb` · `CineIntelligence_NoSQL_DataEngineering.ipynb` · `Clustering_Models.ipynb` · `KDDCup.ipynb` · `LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb` · `LLM_Mastery_Hands_on_Code.ipynb` · `Logistic_Regression_PySpark.ipynb` · `Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb` · `NYC_Airbnb_Market_Analysis (1).ipynb` · `Naive_Bayes_PySpark.ipynb` · `Parkinsons_Progression_ML.ipynb` · `Pathfinding.ipynb` · `PyTorch_medical_AI_xray_diagnosis.ipynb` · `Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb` · `financial_fraud_aml_detection_system.ipynb`
+Other notebooks: `Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb` · `AeroFlow_AI_Engine.ipynb` · `Aviation_Strategy_PostgreSQL_Optimization.ipynb` · `CineIntelligence_NoSQL_DataEngineering.ipynb` · `Clustering_Models.ipynb` · `KDDCup.ipynb` · `LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb` · `LLM_Mastery_Hands_on_Code.ipynb` · `Logistic_Regression_PySpark.ipynb` · `Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb` · `NYC_Airbnb_Market_Analysis (1).ipynb` · `Naive_Bayes_PySpark.ipynb` · `Parkinsons_Progression_ML.ipynb` · `Pathfinding.ipynb` · `PyTorch_medical_AI_xray_diagnosis.ipynb` · `Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb` · `financial_fraud_aml_detection_system.ipynb`
 
 </details>
 
-## Licence and external assets
+## Licence
 
-Original repository code and documentation are MIT-licensed. Third-party datasets, pretrained model assets and external resources retain their own licences and terms; see [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+My own code and documentation in this repository are MIT-licensed. External datasets and pretrained models keep their original licences and terms; see [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
