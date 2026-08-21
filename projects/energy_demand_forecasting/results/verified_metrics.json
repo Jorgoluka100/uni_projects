@@ -1,0 +1,44 @@
+{
+  "project": "German electricity demand forecasting",
+  "dataset": "Open Power System Data Germany daily time series",
+  "source_rows": 4383,
+  "source_start": "2006-01-01",
+  "source_end": "2017-12-31",
+  "lookback_days": 60,
+  "forecast_horizon_days": 14,
+  "train_windows": 2995,
+  "validation_windows": 644,
+  "test_windows": 645,
+  "training_period_end": "2014-05-26",
+  "test_start": "2016-03-14",
+  "test_end": "2017-12-31",
+  "test_metrics": {
+    "last_value": {
+      "mae_gwh": 146.62,
+      "rmse_gwh": 197.13,
+      "mape_pct": 11.23
+    },
+    "weekly_seasonal": {
+      "mae_gwh": 53.18,
+      "rmse_gwh": 93.39,
+      "mape_pct": 3.96
+    },
+    "tensorflow_lstm": {
+      "mae_gwh": 43.51,
+      "rmse_gwh": 71.31,
+      "mape_pct": 3.26
+    }
+  },
+  "mae_improvement_vs_best_baseline_pct": 18.169923097169104,
+  "uncertainty": {
+    "nominal_coverage": 0.9,
+    "empirical_test_coverage": 0.8837209302325582,
+    "average_interval_width_gwh": 169.7863006591797
+  },
+  "artifact": {
+    "format": "keras",
+    "size_mb": 0.262159,
+    "max_reload_prediction_delta": 0.0
+  },
+  "verification_pass": true
+}
