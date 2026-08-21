@@ -3,7 +3,7 @@
 **MSc Artificial Intelligence & Data Science (Distinction), University of East London**  
 Python · SQL · machine learning · applied AI · analytics
 
-I moved into AI and data science from a non-STEM background, so I care about being able to explain the work clearly as well as build it. This repository contains the projects I would be comfortable opening in an interview and walking through from the data checks to the final result. My strongest work is listed first; older coursework and experiments remain available for inspection, but I do not present every notebook as portfolio-grade evidence.
+I moved into AI and data science from a non-STEM background, so I care about being able to explain the work clearly as well as build it. This repository contains projects I would be comfortable opening in an interview and walking through from the data checks to the final result. The front page is deliberately selective; older coursework and experiments remain available in the full inventory below.
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
 [![Python project checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml)
@@ -12,92 +12,89 @@ I moved into AI and data science from a non-STEM background, so I care about bei
 
 ### Flight delay prediction and risk analysis
 
-Used official 2026 US flight data to predict flights likely to arrive at least 15 minutes late. An earlier regression version did not beat its baseline, so I reframed the problem as classification and ranking rather than keeping a weak result. I then rebuilt it as a standalone, leakage-safe project with data checks, temporal validation, calibration diagnostics, capacity analysis, tests and reproducible evidence.
+Used official 2026 US flight data to predict flights likely to arrive at least 15 minutes late. An earlier regression approach did not beat its baseline, so I reframed the task as classification and ranking instead of keeping a weak result.
 
 - Untouched May test set: **180,000 flights**
 - PR-AUC: **0.291** vs **0.215** delay rate
-- Highest-risk 10% of flights: **1.58x** the normal delay rate
-- Tools: Python, Pandas, CatBoost, scikit-learn, temporal validation
+- Highest-risk 10%: **1.58x** the normal delay rate
+- Temporal validation, leakage checks, calibration, capacity analysis and CI
 
-[Project](projects/flight_delay_risk/) · [Model card](projects/flight_delay_risk/MODEL_CARD.md) · [Saved evidence](projects/flight_delay_risk/results/verified_test_metrics.json)
+[Project](projects/flight_delay_risk/) · [Model card](projects/flight_delay_risk/MODEL_CARD.md) · [Evidence](projects/flight_delay_risk/results/verified_test_metrics.json)
 
 ### E-commerce sales and customer analysis
 
-Built a DuckDB analytics project around the Olist marketplace data, with a deliberate focus on **grain, join safety and trustworthy KPIs**. Items, payments and reviews are resolved before the order-level mart is built, avoiding the classic many-to-many revenue-inflation error.
+Built a DuckDB analytics project around the Olist marketplace data. The main engineering problem was keeping order, item, payment and review grains separate so joins could not silently inflate revenue.
 
 - **98,199** commercial orders and **94,983** customers
 - **R$13.49M** merchandise value after cross-grain reconciliation
-- Only **3.03%** of customers placed at least two commercial orders
-- Late deliveries averaged **2.55/5** reviews vs **4.28/5** for on-time/early deliveries — reported as association, not causation
-- Tools: SQL, DuckDB, Pandas, window functions, cohort analysis, data-quality tests
+- Repeat-customer rate: **3.03%**
+- SQL marts, window functions, cohorts, reconciliation and synthetic join-safety tests
 
-[Project](projects/ecommerce_sql_analytics/) · [SQL](projects/ecommerce_sql_analytics/sql/) · [Data model](projects/ecommerce_sql_analytics/DATA_MODEL.md) · [Saved evidence](projects/ecommerce_sql_analytics/results/verified_summary.json)
+[Project](projects/ecommerce_sql_analytics/) · [SQL](projects/ecommerce_sql_analytics/sql/) · [Data model](projects/ecommerce_sql_analytics/DATA_MODEL.md) · [Evidence](projects/ecommerce_sql_analytics/results/verified_summary.json)
+
+### Customer churn prediction and retention screening
+
+Built a churn-screening system where the final model, calibration and intervention threshold are fixed before the protected holdout is scored. Duplicate predictor profiles are grouped across the split, while proxy-risk fields are kept out of the operational model.
+
+- Protected holdout: **628 customers**
+- PR-AUC: **0.955**; ROC-AUC: **0.990**
+- Training-selected threshold: **0.15**
+- Recall **94.9%**, precision **73.2%**, review rate **20.2%**
+- Grouped validation, out-of-fold calibration, bootstrap uncertainty and cost-aware thresholding
+
+[Project](projects/customer_churn_prediction/) · [Model card](projects/customer_churn_prediction/MODEL_CARD.md) · [Evidence](projects/customer_churn_prediction/results/verified_metrics.json)
 
 ### Image classification with confidence checks
 
-Fine-tuned EfficientNet-B0 for bean-leaf classification, then treated **confidence and deployment reliability as part of the model**, not an afterthought. The project now exposes calibration, bootstrap uncertainty, confidence-based human review, Grad-CAM and numerical export-parity checks as reusable code.
+Fine-tuned EfficientNet-B0 for bean-leaf classification and treated confidence and deployment reliability as part of the project rather than stopping at test accuracy.
 
 - Test accuracy: **85.9%**; macro-F1: **85.8%**
 - Accuracy 95% bootstrap interval: **79.7%–91.4%**
 - **90.4%** accuracy on accepted predictions while routing **10.9%** to review
-- TorchScript and ONNX parity independently verified
-- Tools: PyTorch, EfficientNet, scikit-learn, Grad-CAM, TorchScript, ONNX
+- Grad-CAM plus verified TorchScript and ONNX parity
 
-[Project](projects/image_classification_confidence/) · [Model card](projects/image_classification_confidence/MODEL_CARD.md) · [Saved evidence](projects/image_classification_confidence/results/verified_metrics.json)
+[Project](projects/image_classification_confidence/) · [Model card](projects/image_classification_confidence/MODEL_CARD.md) · [Evidence](projects/image_classification_confidence/results/verified_metrics.json)
 
 ### Retrieval-augmented support assistant
 
-Built a small local retrieval application over a frozen set of policy and incident documents. It returns sources, abstains on weak matches, exposes a read-only ticket analytics route through FastAPI and includes prompt-injection test cases.
+Built a local retrieval application over a frozen set of policy and incident documents. It returns sources, abstains on weak matches, exposes a read-only ticket-analytics route through FastAPI and includes prompt-injection checks.
 
-The perfect scores in the small frozen fixture are software/evaluation checks, not a claim that the system would achieve 100% performance on real company data.
+The perfect scores in the small frozen fixture are software/evaluation checks, not a claim of perfect performance on real company data.
 
-- Tools: Python, BM25, TF-IDF/LSA, FastAPI, Docker
+[Project](projects/grounded_rag/) · [Evidence](verified/grounded_rag/verification.json)
 
-[Project](projects/grounded_rag/) · [Saved evidence](verified/grounded_rag/verification.json)
+## More verified work
 
-### A/B test analysis
-
-Built a reproducible experiment-analysis project covering treatment-effect estimation, confidence intervals, CUPED, guardrails and power calculations. The dataset is simulated so the implementation can be checked against a known effect.
-
-- **20,000** simulated observations
-- CUPED reduced outcome variance by **50.7%** in the retained run
-- Tools: Python, statistics, bootstrap, CUPED
-
-[Project](projects/experiment_lab/) · [Saved evidence](verified/experiment_lab/verification.json)
-
-### Model monitoring and drift detection
-
-Built a monitoring demo that compares incoming batches with a reference set and checks feature drift, discrimination and calibration. The shifted batches are deliberate so I can verify that the alert rules move in the expected direction.
-
-- Stable batch remains green
-- Deliberate feature and concept shifts trigger red alerts
-- Tools: Python, PSI, KS, ROC/PR, Brier score, calibration metrics
-
-[Project](projects/model_watch/) · [Saved evidence](verified/model_watch/verification.json)
-
-## Other checked work
-
-- **UK house prices:** 995,059 modelling transactions with an untouched 2026 test set of 216,564 sales; CatBoost MAE **£81,805**, R² **0.604**.
-- **Customer churn:** retained test PR-AUC **0.955**, ROC-AUC **0.990**.
+- **[UK house price prediction](projects/uk_house_price_prediction/):** 995,059 modelling transactions and an untouched 216,564-sale 2026 test set; CatBoost MAE **£81,805** vs **£82,804** for a strong postcode/property baseline. The gain is deliberately reported as modest.
+- **[Energy demand forecasting](projects/energy_demand_forecasting/):** 14-day TensorFlow forecast with MAE **43.51 GWh** vs **53.18 GWh** for the 7-day seasonal baseline, an **18.2%** improvement; includes validation-calibrated uncertainty and model reload checks.
+- **[PySpark clickstream analytics](projects/pyspark_clickstream_analytics/):** **165,474** real events across **24,026** sessions plus a separately labelled replicated one-million-row load test; conversion model PR-AUC **0.351** vs **0.155** prevalence.
+- **[A/B test analysis](projects/experiment_lab/):** reproducible treatment-effect estimation, confidence intervals, CUPED, guardrails and power calculations on a known simulated effect; CUPED reduced retained-run variance by **50.7%**.
+- **[Model monitoring and drift detection](projects/model_watch/):** feature drift, discrimination and calibration checks with deliberately shifted batches so alert behaviour can be verified.
 - **NYC Airbnb 2026:** MAE **$68.97** vs **$121.90** median baseline on unseen neighbourhoods.
-- **Movie recommendation:** after removing future-interaction leakage, Recall@10 **0.501** vs **0.463** popularity baseline.
-- **Energy forecasting:** TensorFlow MAE **43.51** vs **53.18** seasonal baseline.
-- **PySpark clickstream:** **165,474** events across **24,026** sessions; PR-AUC **0.351** vs **0.155** positive rate.
-- **London air quality:** analysis using official 2025–2026 monitoring data in R.
+- **Movie recommendation:** Recall@10 **0.501** vs **0.463** popularity baseline after removing future-interaction leakage.
+- **London air quality:** R analysis using official 2025–2026 monitoring data.
 
-For smaller data-analysis exercises, see my [Data Analyst Bootcamp repository](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp).
+For smaller analysis exercises, see my [Data Analyst Bootcamp repository](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp).
 
-## How I approach a project
+## What I check before calling a result finished
 
-I normally start by checking data quality and deciding what a realistic train/test split should look like. I compare against a simple baseline, keep the final test evidence separate, and look at errors and limitations rather than only reporting the best metric. Where a project is packaged as a Python application, I also keep small self-tests or reproducible result files so the claims can be checked later.
+- Source provenance and basic data-quality checks
+- A split that reflects how the model would actually be used
+- Leakage and duplicate-profile checks where relevant
+- A sensible baseline rather than an easy straw man
+- Threshold or policy selection before opening the final holdout
+- Error, uncertainty and limitation analysis
+- Retained machine-readable evidence
+- Tests or self-checks for packaged projects
+- GitHub Actions for the main production-style projects
 
 ## Repository guide
 
-- [`projects/`](projects/) — production-style Python applications and engineering-focused portfolio projects.
-- [`verified/`](verified/) — retained result files and verification outputs.
-- [`extensions/`](extensions/) — later verification or rerun code for some historical notebook projects.
-- [`docs/PROJECT_CATALOG.md`](docs/PROJECT_CATALOG.md) — fuller catalogue of the repository.
-- Root `.ipynb` files — a mixture of current portfolio work, university work and older learning notebooks.
+- [`projects/`](projects/) — recruiter-facing, production-style projects.
+- [`verified/`](verified/) — retained result files and verification outputs from earlier project versions.
+- [`extensions/`](extensions/) — later rerun or verification code for historical notebooks.
+- [`docs/PROJECT_CATALOG.md`](docs/PROJECT_CATALOG.md) — complete repository catalogue.
+- Root `.ipynb` files — executed notebooks, university work and older learning projects.
 
 Some older medical-imaging, LLM and coursework notebooks remain because they show what I was learning at the time. I do **not** use unverified results from those notebooks as production or clinical claims.
 
