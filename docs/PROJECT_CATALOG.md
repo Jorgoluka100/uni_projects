@@ -6,7 +6,7 @@ This file is the complete inventory used by the portfolio integrity gate. The ro
 
 - `01_UK_House_Price_Analysis_and_Prediction.ipynb` — original executed market analysis and training record retained alongside `projects/uk_house_price_prediction/`.
 - `02_SQL_Sales_and_Customer_Analysis.ipynb` — original executed exploration retained alongside the production-style `projects/ecommerce_sql_analytics/` package.
-- `03_Customer_Churn_Prediction.ipynb`
+- `03_Customer_Churn_Prediction.ipynb` — original executed modelling/evaluation retained alongside `projects/customer_churn_prediction/`.
 - `04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb`
 - `05_Energy_Demand_Forecasting_with_TensorFlow.ipynb`
 - `06_Clickstream_Analysis_with_PySpark.ipynb`
@@ -42,6 +42,7 @@ These are retained for inspection and learning but are not automatically promote
 - `projects/ecommerce_sql_analytics/` — pinned Olist v7 source, explicit order/item semantic grains, DuckDB marts, financial reconciliation, cohorts, window functions, marketplace operations, tests and retained evidence.
 - `projects/image_classification_confidence/` — EfficientNet-B0 evaluation, bootstrap uncertainty, calibration, selective prediction, Grad-CAM, export-parity checks, tests, model card and retained evidence.
 - `projects/uk_house_price_prediction/` — official HM Land Registry 2025–2026 data, strict temporal holdout, strong geographical/property baseline, CatBoost, residual uncertainty intervals, tests, model card and retained evidence.
+- `projects/customer_churn_prediction/` — pinned UCI source, duplicate-profile grouped holdout, proxy-feature exclusion, histogram gradient boosting, grouped OOF calibration, cost-aware retention threshold, bootstrap uncertainty, tests, model card and retained evidence.
 - `projects/grounded_rag/` — hybrid sparse+dense retrieval, deterministic LSA vector indexing, grounded citations, abstention, allow-listed read-only tool routing, prompt-injection blocking, FastAPI and Docker.
 - `projects/careerlens_ai/` — NLP / information retrieval and skill-gap ranking.
 - `projects/experiment_lab/` — experimentation, CUPED, bootstrap uncertainty, guardrails and power.
