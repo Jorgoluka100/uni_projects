@@ -69,6 +69,8 @@ SELECT
     (
         COALESCE(i.item_count, 0) > 0
         AND LOWER(COALESCE(o.order_status, '')) NOT IN ('canceled', 'unavailable')
+        AND TRY_CAST(o.order_purchase_timestamp AS TIMESTAMP) >= TIMESTAMP '2017-01-01 00:00:00'
+        AND TRY_CAST(o.order_purchase_timestamp AS TIMESTAMP) < TIMESTAMP '2018-09-01 00:00:00'
     ) AS commercial_order,
     CASE
         WHEN TRY_CAST(o.order_delivered_customer_date AS TIMESTAMP) IS NULL
