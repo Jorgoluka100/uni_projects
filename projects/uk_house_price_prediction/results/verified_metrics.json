@@ -1,0 +1,40 @@
+{
+  "project": "UK house price analysis and prediction",
+  "source": "HM Land Registry Price Paid Data",
+  "source_snapshot": "2025 and January-June 2026 files",
+  "raw_transactions": 1184740,
+  "model_population": 995059,
+  "train_rows": 595617,
+  "validation_rows": 182878,
+  "untouched_2026_test_rows": 216564,
+  "test_metrics": {
+    "global_median": {
+      "mae": 152553.2633494025,
+      "rmse": 249557.9949089,
+      "r2": -0.03467939189598157,
+      "mape_pct": 54.355630753523144,
+      "within_20pct": 0.28174119428898614
+    },
+    "area_property_baseline": {
+      "mae": 82804.35223305813,
+      "rmse": 154479.1480923281,
+      "r2": 0.6035370980580622,
+      "mape_pct": 25.340772984744458,
+      "within_20pct": 0.5601808241443638
+    },
+    "catboost": {
+      "mae": 81804.95234398868,
+      "rmse": 154441.64936952572,
+      "r2": 0.6037295518388239,
+      "mape_pct": 24.343182852556225,
+      "within_20pct": 0.5613490700208714
+    }
+  },
+  "mae_improvement_vs_strong_baseline_pct": 1.2069412562477067,
+  "nominal_interval_coverage": 0.9,
+  "test_interval_coverage": 0.9162464675569346,
+  "average_interval_width_pounds": 381679.2346557995,
+  "validation_q90_absolute_error": 199323.94805716627,
+  "model_reload_delta": 0.0,
+  "verification_pass": true
+}
