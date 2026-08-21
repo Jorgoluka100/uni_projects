@@ -1,5 +1,7 @@
 # Flight Delay Prediction & Risk Analysis
 
+[![Flight delay project](https://github.com/Jorgoluka100/uni_projects/actions/workflows/flight-delay-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/flight-delay-ci.yml)
+
 A leakage-safe machine-learning project that predicts which scheduled U.S. flights are at elevated risk of arriving **15+ minutes late** using official 2026 Bureau of Transportation Statistics data.
 
 ## Why this project exists
