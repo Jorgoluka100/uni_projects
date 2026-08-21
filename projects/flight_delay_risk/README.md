@@ -2,15 +2,15 @@
 
 [![Flight delay project](https://github.com/Jorgoluka100/uni_projects/actions/workflows/flight-delay-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/flight-delay-ci.yml)
 
-A leakage-safe machine-learning project that predicts which scheduled U.S. flights are at elevated risk of arriving **15+ minutes late** using official 2026 Bureau of Transportation Statistics data.
+This project uses official 2026 U.S. Bureau of Transportation Statistics data to identify scheduled flights that are more likely to arrive **15+ minutes late**.
 
-## Why this project exists
+## Why I changed the original approach
 
-The useful business question is not “can I guess the exact number of delay minutes from the timetable?” An earlier regression experiment showed that schedule-only features were not strong enough to beat a simple MAE baseline consistently. Rather than hide that negative result, I reframed the task around a decision an operations team could actually make: **which flights should receive limited review attention before departure?**
+I first tried to predict the exact number of delay minutes from schedule information. That regression version did not beat a simple baseline consistently, so I did not keep pushing the same idea just to produce a better-looking result.
 
-That change turned the project into a ranking and risk-classification problem with a measurable operational capacity constraint.
+I changed the question to something more useful for operations: **which flights should be looked at first if review capacity is limited?** That makes the project a classification and ranking problem rather than an exact-delay forecast.
 
-## Retained result
+## Test result
 
 | Metric | May 2026 test result |
 |---|---:|
@@ -23,39 +23,39 @@ That change turned the project into a ranking and risk-classification problem wi
 | Recall at validation-selected alert threshold | 27.9% |
 | Top-10% risk lift | 1.58x |
 
-The highest-scored 10% of flights had a **34.1%** observed delay rate versus **21.5%** across the full test population. Metrics come from the retained evidence file in `results/verified_test_metrics.json`.
+The highest-scored 10% of flights had a **34.1%** delay rate, compared with **21.5%** across the full May test set. The saved numbers are in [`results/verified_test_metrics.json`](results/verified_test_metrics.json).
 
-## Evaluation design
+## Train, validation and test setup
 
 ```text
 Jan–Mar 2026             Apr 2026                    May 2026
 TRAIN -----------------> VALIDATE -----------------> TEST
 fit model                 early stopping              final metrics
-                          choose alert threshold       never used for tuning
+                          choose alert threshold       no tuning
 ```
 
-This is deliberately temporal rather than a random split. The final test month is not used for model selection or threshold selection.
+I used a chronological split because a random split would make the evaluation less realistic. May stays out of model fitting and threshold selection.
 
-## Leakage controls
+## Leakage checks
 
-The model only sees information available from the schedule: carrier, route, origin, destination, scheduled departure/arrival time, scheduled duration, distance and calendar-derived features.
+The model only uses information that exists on the schedule, including carrier, route, airports, scheduled departure and arrival times, scheduled duration, distance and calendar features.
 
-Actual departure/arrival times, taxi information and delay-cause fields are excluded. Cancelled and diverted flights are also excluded and treated as separate modelling problems.
+I exclude actual departure and arrival times, taxi information and delay-cause fields. Cancelled and diverted flights are also left out because they are separate prediction problems.
 
-## What the code adds
+## What is in the code
 
-- official BTS monthly download with local caching
+- BTS monthly data download and local caching
 - schema and data-quality checks
 - deterministic temporal sampling
-- cyclic time features and route/time-block interactions
+- cyclical time features and route/time-block interactions
 - CatBoost categorical modelling
-- validation-only capacity threshold selection
+- validation-only alert-capacity threshold selection
 - PR-AUC, ROC-AUC, Brier score, log loss, precision and recall
-- calibration diagnostics
-- top-5/10/20/30/50% capacity-lift curve
-- carrier-level risk slices
-- saved-model reload parity check
-- fast offline self-test and unit tests
+- calibration checks
+- top-5/10/20/30/50% risk-lift analysis
+- carrier-level slices
+- saved-model reload check
+- offline self-test and unit tests
 
 ## Project structure
 
@@ -88,22 +88,8 @@ python -m unittest discover -s tests
 python run.py --output-dir artifacts/flight_delay_risk
 ```
 
-The full run downloads the requested BTS monthly archives on first use and caches them under `data/bts_cache/`.
+## Limitations
 
-## Outputs
+Schedule data on its own only explains part of flight-delay risk. Weather, aircraft rotations, crew, airport congestion and live operational information are not included here. The May 2026 holdout is useful evidence for this version of the model, but future performance can change as routes and operating conditions change.
 
-A full run writes:
-
-- `verification.json` — metrics, split policy, configuration and release checks
-- `flight_delay_catboost.cbm` — saved CatBoost model
-- `capacity_curve.csv` — risk concentration at different review capacities
-- `calibration_table.csv` — predicted vs observed risk by probability bin
-- `carrier_risk_slices.csv` — carrier-level prevalence, score and alert-rate checks
-
-## What I would improve next
-
-The clearest next gain would come from adding information that is genuinely available before or close to departure: weather forecasts, airport congestion, inbound-aircraft rotation and live network conditions. I would also monitor calibration and ranking lift over time instead of assuming the May 2026 relationship remains stable.
-
-## Evidence policy
-
-The retained metrics are evidence from a specific 2026 run, not generic claims about production airline performance. If modelling code, features, data or the evaluation window changes, the evidence should be regenerated before the README or CV is updated.
+This is decision support, not a guarantee that an individual flight will be delayed. See [`MODEL_CARD.md`](MODEL_CARD.md).
