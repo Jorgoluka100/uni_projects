@@ -40,27 +40,28 @@ ORDER BY delivery_status;
 
 CREATE OR REPLACE TABLE analytics.seller_operational_review AS
 WITH order_seller AS (
-    SELECT DISTINCT
-        i.order_id,
-        i.seller_id,
-        i.seller_state,
-        i.delivered_late,
-        i.review_score,
-        i.item_price_brl
-    FROM analytics.item_mart i
-    WHERE i.commercial_order
+    SELECT
+        order_id,
+        seller_id,
+        MAX(seller_state) AS seller_state,
+        SUM(item_price_brl) AS seller_order_value_brl,
+        MAX(CASE WHEN delivered_late THEN 1 ELSE 0 END) AS delivered_late,
+        MAX(review_score) AS review_score
+    FROM analytics.item_mart
+    WHERE commercial_order
+    GROUP BY order_id, seller_id
 ),
 seller_metrics AS (
     SELECT
         seller_id,
         seller_state,
-        COUNT(DISTINCT order_id) AS orders,
-        SUM(item_price_brl) AS merchandise_value_brl,
-        100.0 * AVG(CASE WHEN delivered_late THEN 1.0 ELSE 0.0 END) AS late_delivery_rate_pct,
+        COUNT(*) AS orders,
+        SUM(seller_order_value_brl) AS merchandise_value_brl,
+        100.0 * AVG(delivered_late) AS late_delivery_rate_pct,
         AVG(review_score) AS average_review_score
     FROM order_seller
     GROUP BY seller_id, seller_state
-    HAVING COUNT(DISTINCT order_id) >= 50
+    HAVING COUNT(*) >= 50
 ),
 benchmark AS (
     SELECT AVG(late_delivery_rate_pct) AS average_seller_late_rate
@@ -86,17 +87,35 @@ ORDER BY
     orders DESC;
 
 CREATE OR REPLACE TABLE analytics.payment_behaviour AS
+WITH commercial_orders AS (
+    SELECT order_id
+    FROM analytics.order_mart
+    WHERE commercial_order
+),
+by_method AS (
+    SELECT
+        p.payment_type,
+        COUNT(*) AS payment_rows,
+        COUNT(DISTINCT p.order_id) AS orders,
+        SUM(p.payment_value) AS payment_value_brl,
+        AVG(p.payment_installments) AS average_installments
+    FROM raw.payments p
+    JOIN commercial_orders o USING (order_id)
+    GROUP BY p.payment_type
+),
+benchmark AS (
+    SELECT COUNT(*) AS commercial_orders
+    FROM commercial_orders
+)
 SELECT
-    p.payment_type,
-    COUNT(*) AS payment_rows,
-    COUNT(DISTINCT p.order_id) AS orders,
-    ROUND(SUM(p.payment_value), 2) AS payment_value_brl,
-    ROUND(AVG(p.payment_installments), 2) AS average_installments,
-    ROUND(100.0 * COUNT(DISTINCT p.order_id) / SUM(COUNT(DISTINCT p.order_id)) OVER (), 2) AS order_share_index_pct
-FROM raw.payments p
-JOIN analytics.order_mart o USING (order_id)
-WHERE o.commercial_order
-GROUP BY p.payment_type
+    payment_type,
+    payment_rows,
+    orders,
+    ROUND(payment_value_brl, 2) AS payment_value_brl,
+    ROUND(average_installments, 2) AS average_installments,
+    ROUND(100.0 * orders / NULLIF(commercial_orders, 0), 2) AS order_penetration_pct
+FROM by_method
+CROSS JOIN benchmark
 ORDER BY payment_value_brl DESC;
 
 CREATE OR REPLACE TABLE analytics.top_categories_by_customer_state AS
