@@ -1,0 +1,34 @@
+name: Energy forecasting project
+
+on:
+  pull_request:
+    paths:
+      - 'projects/energy_demand_forecasting/**'
+      - '.github/workflows/energy-forecast-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'projects/energy_demand_forecasting/**'
+      - '.github/workflows/energy-forecast-ci.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projects/energy_demand_forecasting
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install lightweight dependencies
+        run: pip install -r requirements.txt
+      - name: Run self-test
+        run: python run.py --self-test
+      - name: Validate retained evidence
+        run: python run.py --check-evidence
+      - name: Run unit tests
+        run: pytest -q
+      - name: Compile project including TensorFlow module
+        run: python -m compileall -q run.py src tests
