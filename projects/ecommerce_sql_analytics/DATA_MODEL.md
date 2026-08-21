@@ -36,7 +36,13 @@ Exactly one row per order item. It enriches items with product category, seller 
 
 ## Commercial-order definition
 
-A record is considered a commercial order when it has at least one order item and its status is not `canceled` or `unavailable`. The definition is explicit in SQL so metrics are reproducible rather than dependent on an analyst's ad-hoc filter.
+For the retained analysis, a record is a commercial order when it:
+
+- has at least one order item;
+- is not `canceled` or `unavailable`; and
+- was purchased from **1 January 2017 up to, but not including, 1 September 2018**.
+
+That complete-month window matches the verified notebook and avoids treating the dataset's partial edge months as comparable reporting periods. The rule is defined once in `01_build_marts.sql` so downstream metrics use the same population.
 
 ## Integrity contract
 
