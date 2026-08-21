@@ -1,0 +1,46 @@
+{
+  "project": "Clickstream analytics and conversion prioritisation",
+  "clickstream_dataset": {
+    "source": "UCI Clickstream Data for Online Shopping",
+    "doi": "10.24432/C5QK7X",
+    "real_events": 165474,
+    "real_sessions": 24026,
+    "date_min": "2008-04-01",
+    "date_max": "2008-08-13",
+    "null_cells": 0,
+    "duplicate_session_order_keys": 0,
+    "engagement_funnel": {
+      "all_sessions": 24026,
+      "2+ clicks": 18984,
+      "5+ clicks": 11007,
+      "10+ clicks": 5212
+    }
+  },
+  "load_test": {
+    "rows": 1000000,
+    "replicated": true,
+    "used_for_business_metrics": false,
+    "used_for_model_training": false
+  },
+  "conversion_dataset": {
+    "source": "UCI Online Shoppers Purchasing Intention",
+    "sessions": 12330,
+    "conversions": 1908,
+    "conversion_rate": 0.15474452554744525,
+    "train_rows": 8597,
+    "validation_rows": 1932,
+    "test_rows": 1801,
+    "leakage_excluded": ["PageValues"]
+  },
+  "validation_selected_threshold": 0.25,
+  "conversion_test": {
+    "pr_auc": 0.3511953051625493,
+    "roc_auc": 0.7628958984437946,
+    "precision": 0.3433583959899749,
+    "recall": 0.47735191637630664,
+    "f1": 0.39941690962099125,
+    "alert_rate": 0.2215435868961688
+  },
+  "pipeline_reload_delta": 0.0,
+  "verification_pass": true
+}
