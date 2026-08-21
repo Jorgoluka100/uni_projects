@@ -64,6 +64,7 @@ def export_analytics(connection: duckdb.DuckDBPyConnection, output_dir: Path) ->
         "category_performance",
         "delivery_review_summary",
         "seller_operational_review",
+        "seller_concentration_summary",
         "payment_behaviour",
         "top_categories_by_customer_state",
     ]
