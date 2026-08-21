@@ -1,0 +1,48 @@
+{
+  "project": "E-commerce Sales and Customer Analysis",
+  "verification_pass": true,
+  "evidence_source": "Retained executed output from 02_SQL_Sales_and_Customer_Analysis.ipynb",
+  "dataset": {
+    "name": "Olist Brazilian E-commerce Public Dataset",
+    "kaggle_dataset_version": 7,
+    "archive_sha256": "d521eb1d4a8b6dae030aa429380787261d3b04cd95bee0f43f18cb9cb18ffebb",
+    "complete_month_start": "2017-01-01",
+    "complete_month_end_exclusive": "2018-09-01"
+  },
+  "headline_metrics": {
+    "commercial_orders": 98199,
+    "unique_customers": 94983,
+    "merchandise_value_brl": 13494400.74,
+    "repeat_customer_pct": 3.03,
+    "strongest_complete_month": "2017-11",
+    "strongest_month_merchandise_value_brl": 1003862.14
+  },
+  "category_evidence": {
+    "leading_category": "health_beauty",
+    "leading_category_merchandise_value_brl": 1251146.14
+  },
+  "delivery_review_evidence": {
+    "late_delivery_average_review_score": 2.55,
+    "on_time_or_early_average_review_score": 4.28,
+    "late_delivery_low_review_rate_pct": 54.55,
+    "on_time_or_early_low_review_rate_pct": 9.44,
+    "late_delivery_median_delivery_days": 29.0,
+    "on_time_or_early_median_delivery_days": 10.0,
+    "interpretation": "Observed association only; not a causal estimate."
+  },
+  "marketplace_evidence": {
+    "top_ten_seller_merchandise_value_share_pct": 13.24
+  },
+  "grain_contract": {
+    "order_mart": "one row per order",
+    "item_mart": "one row per order item",
+    "reason": "Prevent item x payment x review fanout from inflating monetary measures."
+  },
+  "evidence_policy": "Only figures reproduced from the pinned Olist v7 source and the complete-month commercial window are promoted to README/CV claims. Synthetic fixtures are used only for software and SQL-grain tests.",
+  "limitations": [
+    "Historical anonymised marketplace data; the results do not describe Olist's current business.",
+    "Merchandise value is not profit because product cost and operating expense are unavailable.",
+    "Delivery and review relationships are observational and should not be interpreted as causal effects.",
+    "Later acquisition cohorts have less time to mature and are right-censored."
+  ]
+}
