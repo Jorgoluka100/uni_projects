@@ -23,14 +23,15 @@ Used official 2026 US flight data to predict flights likely to arrive at least 1
 
 ### E-commerce sales and customer analysis
 
-Cleaned and checked an e-commerce dataset before building SQL reporting around orders, customers and merchandise value. I focused on key integrity, join grain and reconciling the headline totals before using them in analysis.
+Built a DuckDB analytics project around the Olist marketplace data, with a deliberate focus on **grain, join safety and trustworthy KPIs**. Items, payments and reviews are resolved before the order-level mart is built, avoiding the classic many-to-many revenue-inflation error.
 
-- **98,199** commercial orders
-- **94,983** customers
-- **R$13.49M** merchandise value after reconciliation checks
-- Tools: SQL, DuckDB, Pandas
+- **98,199** commercial orders and **94,983** customers
+- **R$13.49M** merchandise value after cross-grain reconciliation
+- Only **3.03%** of customers placed at least two commercial orders
+- Late deliveries averaged **2.55/5** reviews vs **4.28/5** for on-time/early deliveries — reported as association, not causation
+- Tools: SQL, DuckDB, Pandas, window functions, cohort analysis, data-quality tests
 
-[Notebook](02_SQL_Sales_and_Customer_Analysis.ipynb)
+[Project](projects/ecommerce_sql_analytics/) · [SQL](projects/ecommerce_sql_analytics/sql/) · [Data model](projects/ecommerce_sql_analytics/DATA_MODEL.md) · [Saved evidence](projects/ecommerce_sql_analytics/results/verified_summary.json)
 
 ### Image classification with confidence checks
 
