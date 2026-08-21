@@ -1,0 +1,34 @@
+name: UK house price project
+
+on:
+  pull_request:
+    paths:
+      - 'projects/uk_house_price_prediction/**'
+      - '.github/workflows/uk-house-price-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'projects/uk_house_price_prediction/**'
+      - '.github/workflows/uk-house-price-ci.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projects/uk_house_price_prediction
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install numpy pandas scikit-learn pytest
+      - name: Run self-test
+        run: python run.py --self-test
+      - name: Validate retained evidence
+        run: python run.py --check-evidence
+      - name: Run unit tests
+        run: pytest -q
+      - name: Compile project
+        run: python -m compileall -q run.py src tests
