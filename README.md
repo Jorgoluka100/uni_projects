@@ -1,9 +1,9 @@
 # Jorgo Luka — Data & AI Portfolio
 
-**MSc Artificial Intelligence & Data Science (Distinction)**  
+**MSc Artificial Intelligence & Data Science (Distinction), University of East London**  
 Python · SQL · machine learning · applied AI · analytics
 
-I use this repository for the projects I would be comfortable opening in an interview and explaining from the data checks through to the final result. My strongest work is listed first; older coursework and experiments are still kept in the repository, but I do not treat every notebook as portfolio-grade evidence.
+I moved into AI and data science from a non-STEM background, so I care about being able to explain the work clearly as well as build it. This repository contains the projects I would be comfortable opening in an interview and walking through from the data checks to the final result. My strongest work is listed first; older coursework and experiments remain available for inspection, but I do not present every notebook as portfolio-grade evidence.
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
 [![Python project checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml)
@@ -98,6 +98,43 @@ I normally start by checking data quality and deciding what a realistic train/te
 - Root `.ipynb` files — a mixture of current portfolio work, university work and older learning notebooks.
 
 Some older medical-imaging, LLM and coursework notebooks remain because they show what I was learning at the time. I do **not** use unverified results from those notebooks as production or clinical claims.
+
+<details>
+<summary><strong>Complete notebook inventory</strong></summary>
+
+### Verified notebook projects
+
+- [`01_UK_House_Price_Analysis_and_Prediction.ipynb`](01_UK_House_Price_Analysis_and_Prediction.ipynb)
+- [`02_SQL_Sales_and_Customer_Analysis.ipynb`](02_SQL_Sales_and_Customer_Analysis.ipynb)
+- [`03_Customer_Churn_Prediction.ipynb`](03_Customer_Churn_Prediction.ipynb)
+- [`04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb`](04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb)
+- [`05_Energy_Demand_Forecasting_with_TensorFlow.ipynb`](05_Energy_Demand_Forecasting_with_TensorFlow.ipynb)
+- [`06_Clickstream_Analysis_with_PySpark.ipynb`](06_Clickstream_Analysis_with_PySpark.ipynb)
+- [`07_London_Air_Quality_Analysis_with_R.ipynb`](07_London_Air_Quality_Analysis_with_R.ipynb)
+- [`01_ConsultAI_AI_Opportunity_Engine.ipynb`](01_ConsultAI_AI_Opportunity_Engine.ipynb)
+- [`12_VisionForge_PyTorch_Visual_Inspection.ipynb`](12_VisionForge_PyTorch_Visual_Inspection.ipynb)
+
+### Advanced / historical laboratory notebooks
+
+- [`Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb`](Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb)
+- [`AeroFlow_AI_Engine.ipynb`](AeroFlow_AI_Engine.ipynb)
+- [`Aviation_Strategy_PostgreSQL_Optimization.ipynb`](Aviation_Strategy_PostgreSQL_Optimization.ipynb)
+- [`CineIntelligence_NoSQL_DataEngineering.ipynb`](CineIntelligence_NoSQL_DataEngineering.ipynb)
+- [`Clustering_Models.ipynb`](Clustering_Models.ipynb)
+- [`KDDCup.ipynb`](KDDCup.ipynb)
+- [`LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`](LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb)
+- [`LLM_Mastery_Hands_on_Code.ipynb`](LLM_Mastery_Hands_on_Code.ipynb)
+- [`Logistic_Regression_PySpark.ipynb`](Logistic_Regression_PySpark.ipynb)
+- [`Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb`](Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb)
+- [`NYC_Airbnb_Market_Analysis (1).ipynb`](NYC_Airbnb_Market_Analysis%20%281%29.ipynb)
+- [`Naive_Bayes_PySpark.ipynb`](Naive_Bayes_PySpark.ipynb)
+- [`Parkinsons_Progression_ML.ipynb`](Parkinsons_Progression_ML.ipynb)
+- [`Pathfinding.ipynb`](Pathfinding.ipynb)
+- [`PyTorch_medical_AI_xray_diagnosis.ipynb`](PyTorch_medical_AI_xray_diagnosis.ipynb)
+- [`Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb`](Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb)
+- [`financial_fraud_aml_detection_system.ipynb`](financial_fraud_aml_detection_system.ipynb)
+
+</details>
 
 ## Main tools
 
