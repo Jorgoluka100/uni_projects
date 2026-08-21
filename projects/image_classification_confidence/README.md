@@ -1,10 +1,10 @@
 # Image Classification with Confidence Checks
 
-A PyTorch computer-vision project that goes beyond test accuracy by checking **calibration, uncertainty, human-review thresholds, Grad-CAM explanations and exported-model parity**.
+This is a PyTorch bean-leaf classifier, but I did not want the project to stop at a single accuracy number. I added calibration, confidence-based review, Grad-CAM and export checks so the project also shows what happens when the model is uncertain.
 
-The underlying task classifies bean-leaf images as `angular_leaf_spot`, `bean_rust` or `healthy` using the public Makerere Beans dataset.
+The task uses the public Makerere Beans dataset with three classes: `angular_leaf_spot`, `bean_rust` and `healthy`.
 
-## Retained result
+## Test result
 
 | Metric | Independent test result |
 |---|---:|
@@ -17,31 +17,31 @@ The underlying task classifies bean-leaf images as `angular_leaf_spot`, `bean_ru
 | Accuracy 95% bootstrap interval | **79.7%–91.4%** |
 | Macro-F1 95% bootstrap interval | **79.2%–91.3%** |
 
-The independent verifier reproduced the retained headline metrics exactly from the saved checkpoint. See [`results/verified_metrics.json`](results/verified_metrics.json).
+The saved checkpoint was checked independently against the test set and reproduced the headline metrics. See [`results/verified_metrics.json`](results/verified_metrics.json).
 
-## Why confidence matters here
+## Confidence-based review
 
-A classifier can be accurate on average and still be unreliable on individual examples. Instead of treating every prediction equally, this project saves a calibrated confidence threshold and uses it to decide when the model should **abstain and request review**.
+A model can be correct most of the time and still be unreliable on particular images. I therefore save a confidence threshold and route low-confidence predictions for review instead of treating every prediction the same way.
 
 On the retained test split:
 
 - confidence threshold: **0.676**
 - automatic coverage: **89.1%**
-- routed to review: **10.9%**
+- sent to review: **10.9%**
 - accuracy on accepted predictions: **90.4%**
 - model errors escalated for review: **38.9%**
 
-That is a more useful operational story than “the model got 86% accuracy.” It also makes the trade-off explicit: higher accepted accuracy comes at the cost of reviewing some cases.
+That trade-off is more useful to me than simply saying the classifier reached about 86% accuracy.
 
-## Engineering pieces exposed in this project
+## Project structure
 
 ```text
 image_classification_confidence/
 ├── src/
-│   ├── model.py       # exact EfficientNet-B0 classifier head
-│   ├── evaluation.py  # metrics, ECE, bootstrap intervals, selective prediction
-│   ├── gradcam.py     # reusable Grad-CAM implementation
-│   └── parity.py      # numerical export-parity checks
+│   ├── model.py
+│   ├── evaluation.py
+│   ├── gradcam.py
+│   └── parity.py
 ├── tests/
 │   └── test_evaluation.py
 ├── results/
@@ -50,11 +50,11 @@ image_classification_confidence/
 └── run.py
 ```
 
-The original executed training/evaluation notebook is retained at [`12_VisionForge_PyTorch_Visual_Inspection.ipynb`](../../12_VisionForge_PyTorch_Visual_Inspection.ipynb), but the recruiter-facing project no longer depends on the old product-style name.
+The original executed training notebook is still available at [`12_VisionForge_PyTorch_Visual_Inspection.ipynb`](../../12_VisionForge_PyTorch_Visual_Inspection.ipynb). The current project folder uses a descriptive name instead of the old product-style one.
 
-## Model architecture
+## Model
 
-The verified checkpoint uses EfficientNet-B0 with a custom head:
+The verified checkpoint uses EfficientNet-B0 with this classifier head:
 
 ```text
 Dropout(0.30)
@@ -64,32 +64,32 @@ Dropout(0.30)
 → Linear(256, 3)
 ```
 
-The architecture is exposed in [`src/model.py`](src/model.py) so a reviewer does not need to search notebook cells to understand the saved checkpoint.
+The architecture is kept in [`src/model.py`](src/model.py) so it is easy to inspect without digging through notebook cells.
 
-## Calibration and selective prediction
+## Calibration and evaluation
 
-[`src/evaluation.py`](src/evaluation.py) includes:
+[`src/evaluation.py`](src/evaluation.py) contains:
 
-- numerically stable temperature-scaled softmax;
-- accuracy, balanced accuracy, macro-F1 and negative log likelihood;
-- expected calibration error (ECE);
-- confidence-based coverage/review/error-escalation metrics; and
-- non-parametric bootstrap confidence intervals.
+- temperature-scaled softmax
+- accuracy, balanced accuracy, macro-F1 and negative log likelihood
+- expected calibration error (ECE)
+- coverage/review/error-escalation metrics
+- bootstrap confidence intervals
 
-The lightweight CI uses synthetic probabilities to test these behaviours without downloading a large deep-learning runtime.
+The lightweight CI tests these behaviours with small synthetic probability arrays rather than downloading the full deep-learning stack.
 
-## Explainability
+## Grad-CAM
 
-[`src/gradcam.py`](src/gradcam.py) provides a small reusable Grad-CAM implementation for convolutional feature maps. I use explanations as a **debugging and inspection tool**, not as proof that the network has learned a biologically correct disease mechanism.
+[`src/gradcam.py`](src/gradcam.py) contains the Grad-CAM implementation used for inspection. I treat the heatmaps as a debugging aid, not as proof that the network has learned the correct biological reason for a disease class.
 
-## Export evidence
+## Export checks
 
-The retained model was independently checked against exported inference formats:
+The saved model was also checked against exported inference formats:
 
-- **TorchScript:** parity passed; max absolute error **0.0**
-- **ONNX:** parity passed; max absolute error **4.77e-06**
+- **TorchScript:** max absolute error **0.0**
+- **ONNX:** max absolute error **4.77e-06**
 
-[`src/parity.py`](src/parity.py) exposes the numerical comparison logic. The independent verifier also checks that the retained checkpoint hash matches the expected artifact.
+[`src/parity.py`](src/parity.py) contains the comparison logic.
 
 ## Run the fast checks
 
@@ -98,20 +98,17 @@ cd projects/image_classification_confidence
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
-
 python run.py --self-test
 python -m unittest discover -s tests -v
 python run.py
 ```
 
-`python run.py` validates the compact retained evidence bundle. The heavier original checkpoint/test-set verification requires the computer-vision dependencies in `requirements-vision.txt` and is retained in the repository's hardened verifier.
+`python run.py` checks the compact saved evidence. Re-running the heavier checkpoint/test-set verification requires the computer-vision dependencies in `requirements-vision.txt`.
 
-## What I would improve next
+## What I would test next
 
-The biggest question is **domain shift**, not another decimal point of test accuracy. Before field use I would collect images from different phones, lighting conditions, cultivars, locations and disease severities; then measure class performance, calibration and the review policy again on that external data.
-
-I would also track calibration drift and review workload after deployment rather than fixing one confidence threshold permanently.
+The bigger question is domain shift. Before using a model like this outside the dataset, I would test images from different phones, lighting conditions, locations, cultivars and disease severities, then measure accuracy and calibration again.
 
 ## Limitations
 
-The public test split contains only **128 images**, so I report bootstrap uncertainty rather than presenting 85.9% as a precise population estimate. This is an educational plant-disease classifier and should not be the sole basis for agronomic treatment decisions. See [`MODEL_CARD.md`](MODEL_CARD.md) for the full intended-use and oversight notes.
+The public test split contains only **128 images**, which is why I report bootstrap intervals instead of treating 85.9% as a perfectly precise estimate. This is an educational plant-disease classifier and should not be the only basis for agronomic treatment decisions. See [`MODEL_CARD.md`](MODEL_CARD.md).

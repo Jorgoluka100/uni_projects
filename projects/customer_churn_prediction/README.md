@@ -1,12 +1,12 @@
 # Customer Churn Prediction & Retention Screening
 
-A leakage-aware churn project that treats prediction as a **decision problem**, not an accuracy leaderboard.
+I built this around a practical retention question: **which customers should a team review first?** The point is not to chase accuracy. The model has to rank customers well, produce usable probabilities and make the review threshold clear.
 
-The model ranks customers for human retention review, calibrates its probabilities from grouped out-of-fold predictions and selects an intervention threshold using explicit scenario costs. The final holdout stays untouched until those choices are fixed.
+The final holdout is only scored after the model choice, calibration and threshold are fixed.
 
 ## Holdout result
 
-The protected holdout contains **628 customers** and 98 churners.
+The holdout contains **628 customers**, including 98 churners.
 
 | Metric | Result | Bootstrap 95% interval |
 | --- | ---: | ---: |
@@ -16,63 +16,58 @@ The protected holdout contains **628 customers** and 98 churners.
 | Precision at selected threshold | **73.2%** | 66.9%–80.2% |
 | Brier score | **0.0259** | 0.0173–0.0351 |
 
-At the training-selected **0.15** threshold, **20.2%** of holdout customers are flagged for review.
+At the training-selected threshold of **0.15**, **20.2%** of holdout customers are sent for review.
 
-## What makes the evaluation safer
+## How I handled the split
 
-### 1. Grouped split instead of pretending there is a timestamp
+The UCI dataset has 3,150 records, but it does not provide a customer ID or event timestamp. The predictors describe months 1–9 and churn is measured at the end of month 12.
 
-The UCI file contains 3,150 records but no customer ID or event timestamp. Predictors describe months 1–9 and churn is measured at the end of month 12.
+Because of that, I do not pretend this is a true calendar-time split. I group identical predictor profiles with `StratifiedGroupKFold` so the same profile cannot appear on both sides of the holdout boundary.
 
-Identical operational predictor profiles are therefore grouped with `StratifiedGroupKFold` so duplicate profiles cannot appear on both sides of the holdout boundary:
+- training: 2,522 rows / 2,229 predictor profiles
+- holdout: 628 rows / 565 predictor profiles
+- churn prevalence: 15.74% train / 15.61% holdout
 
-- training: 2,522 rows / 2,229 predictor profiles;
-- holdout: 628 rows / 565 predictor profiles;
-- churn prevalence: 15.74% train / 15.61% holdout.
+## Features I chose not to use
 
-### 2. Proxy-risk fields are not used to win a metric
+`Status` improved validation average precision by **0.0219** in a sensitivity check, but I left it out of the operational feature set because its meaning creates a possible target/proxy risk.
 
-`Status` improved validation average precision by **0.0219** in a sensitivity test, but it stays out of the deployed feature set because its meaning makes it a potential target/proxy feature.
+`Age` and `Age Group` are also excluded from prediction. I keep them only for subgroup checks.
 
-`Age` and `Age Group` are also excluded from prediction and retained only for subgroup checks.
+## Probability calibration
 
-### 3. Calibration is training-only
+The selected histogram-gradient-boosting model produces grouped out-of-fold probabilities on the training data. I then fit a logistic calibration layer to those predictions before fitting the final base model on all training rows.
 
-Grouped out-of-fold predictions from the selected histogram-gradient-boosting model are passed through a logistic calibration layer. The final base model is then fitted to all training rows. The holdout does not fit the calibrator.
+The holdout is not used to fit the calibrator.
 
-### 4. The threshold has an explicit decision meaning
+## Choosing the review threshold
 
-The notebook uses an illustrative scenario:
+To make the threshold concrete, the notebook uses an illustrative cost setup:
 
-- 25 units for contacting/reviewing a flagged customer;
-- 200 units for missing a later churner.
+- 25 units for contacting or reviewing a flagged customer
+- 200 units for missing a customer who later churns
 
-The training-only optimisation selected threshold **0.15**, reducing the scenario cost from 79,400 units under no intervention to 17,800 units on the training decision exercise. These are **not currency or claimed savings**; a company would replace them with measured economics from a retention experiment.
+This selects a threshold of **0.15** on training data. In that training exercise, scenario cost falls from 79,400 units under no intervention to 17,800 units.
+
+Those numbers are not currency and they are not claimed business savings. A real company would replace them with measured contact cost and retention value.
 
 ## Model inputs
 
-Operational inputs:
+The operational model uses:
 
-- call failures and complaints;
-- subscription length and charge amount;
-- seconds/frequency of use and SMS frequency;
-- distinct called numbers;
-- tariff plan;
-- customer value.
+- call failures and complaints
+- subscription length and charge amount
+- seconds and frequency of use
+- SMS frequency
+- distinct called numbers
+- tariff plan
+- customer value
 
-Derived ratios include call-failure rate, seconds/SMS per call, contact diversity, customer value per month and usage per month.
+I also derive call-failure rate, seconds/SMS per call, contact diversity, customer value per month and usage per month.
 
 ## Reproducibility
 
-The UCI source is pinned with SHA-256 hashes for both the archive and extracted CSV. The package includes:
-
-- source download/fingerprint checks;
-- grouped holdout logic;
-- feature engineering;
-- the selected histogram-gradient-boosting configuration;
-- grouped OOF calibration;
-- cost-aware threshold/evaluation functions;
-- unit tests and retained evidence checks.
+The UCI archive and extracted CSV are both pinned with SHA-256 hashes. The project includes the source checks, grouped split, feature engineering, model configuration, out-of-fold calibration, threshold logic, unit tests and saved result file.
 
 ```bash
 python run.py --self-test
@@ -99,9 +94,9 @@ projects/customer_churn_prediction/
 └── requirements.txt
 ```
 
-The original executed notebook remains the full training and analysis record:
+The original executed notebook is still available as the full analysis record:
 [`03_Customer_Churn_Prediction.ipynb`](../../03_Customer_Churn_Prediction.ipynb)
 
 ## Scope
 
-This is a screening prototype for retention review. It does not prove why someone churned and should not automatically trigger adverse treatment. See [`MODEL_CARD.md`](MODEL_CARD.md).
+This is a screening prototype for human retention review. It does not explain why a customer churned and should not automatically trigger adverse treatment. See [`MODEL_CARD.md`](MODEL_CARD.md).
