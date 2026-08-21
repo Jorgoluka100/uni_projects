@@ -12,7 +12,7 @@ This file is the complete inventory used by the portfolio integrity gate. The ro
 - `06_Clickstream_Analysis_with_PySpark.ipynb`
 - `07_London_Air_Quality_Analysis_with_R.ipynb`
 - `01_ConsultAI_AI_Opportunity_Engine.ipynb`
-- `12_VisionForge_PyTorch_Visual_Inspection.ipynb`
+- `12_VisionForge_PyTorch_Visual_Inspection.ipynb` — original executed training/evaluation retained alongside `projects/image_classification_confidence/`.
 
 ## Advanced / laboratory notebooks
 
@@ -40,6 +40,7 @@ These are retained for inspection and learning but are not automatically promote
 
 - `projects/flight_delay_risk/` — official BTS 2026 data, temporal holdout, leakage-safe schedule-time features, CatBoost ranking, validation-selected review capacity, calibration checks, carrier slices, tests and retained evidence.
 - `projects/ecommerce_sql_analytics/` — pinned Olist v7 source, explicit order/item semantic grains, DuckDB marts, financial reconciliation, cohorts, window functions, marketplace operations, tests and retained evidence.
+- `projects/image_classification_confidence/` — EfficientNet-B0 evaluation, bootstrap uncertainty, calibration, selective prediction, Grad-CAM, export-parity checks, tests, model card and retained evidence.
 - `projects/grounded_rag/` — hybrid sparse+dense retrieval, deterministic LSA vector indexing, grounded citations, abstention, allow-listed read-only tool routing, prompt-injection blocking, FastAPI and Docker.
 - `projects/careerlens_ai/` — NLP / information retrieval and skill-gap ranking.
 - `projects/experiment_lab/` — experimentation, CUPED, bootstrap uncertainty, guardrails and power.

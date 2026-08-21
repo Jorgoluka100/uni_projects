@@ -35,14 +35,15 @@ Built a DuckDB analytics project around the Olist marketplace data, with a delib
 
 ### Image classification with confidence checks
 
-Fine-tuned EfficientNet-B0 for bean-leaf image classification, then added Grad-CAM, confidence-based rejection and model export checks rather than stopping at test accuracy.
+Fine-tuned EfficientNet-B0 for bean-leaf classification, then treated **confidence and deployment reliability as part of the model**, not an afterthought. The project now exposes calibration, bootstrap uncertainty, confidence-based human review, Grad-CAM and numerical export-parity checks as reusable code.
 
-- Test accuracy: **85.9%**
-- Macro-F1: **85.8%**
-- Accuracy on accepted predictions at the chosen threshold: **90.4%**
-- Tools: PyTorch, EfficientNet, Grad-CAM, ONNX
+- Test accuracy: **85.9%**; macro-F1: **85.8%**
+- Accuracy 95% bootstrap interval: **79.7%–91.4%**
+- **90.4%** accuracy on accepted predictions while routing **10.9%** to review
+- TorchScript and ONNX parity independently verified
+- Tools: PyTorch, EfficientNet, scikit-learn, Grad-CAM, TorchScript, ONNX
 
-[Notebook](12_VisionForge_PyTorch_Visual_Inspection.ipynb) · [Saved evidence](verified/visionforge/verification_metrics.json)
+[Project](projects/image_classification_confidence/) · [Model card](projects/image_classification_confidence/MODEL_CARD.md) · [Saved evidence](projects/image_classification_confidence/results/verified_metrics.json)
 
 ### Retrieval-augmented support assistant
 
