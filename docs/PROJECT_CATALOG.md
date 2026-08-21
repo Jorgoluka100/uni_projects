@@ -19,7 +19,7 @@ This file is the complete inventory used by the portfolio integrity gate. The ro
 These are retained for inspection and learning but are not automatically promoted as verified performance evidence.
 
 - `Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb`
-- `AeroFlow_AI_Engine.ipynb`
+- `AeroFlow_AI_Engine.ipynb` — historical predecessor to the verified `projects/flight_delay_risk/` package.
 - `Aviation_Strategy_PostgreSQL_Optimization.ipynb`
 - `CineIntelligence_NoSQL_DataEngineering.ipynb`
 - `Clustering_Models.ipynb`
@@ -38,6 +38,7 @@ These are retained for inspection and learning but are not automatically promote
 
 ## Production-style projects
 
+- `projects/flight_delay_risk/` — official BTS 2026 data, temporal holdout, leakage-safe schedule-time features, CatBoost ranking, validation-selected review capacity, calibration checks, carrier slices, tests and retained evidence.
 - `projects/grounded_rag/` — hybrid sparse+dense retrieval, deterministic LSA vector indexing, grounded citations, abstention, allow-listed read-only tool routing, prompt-injection blocking, FastAPI and Docker.
 - `projects/careerlens_ai/` — NLP / information retrieval and skill-gap ranking.
 - `projects/experiment_lab/` — experimentation, CUPED, bootstrap uncertainty, guardrails and power.
@@ -45,4 +46,4 @@ These are retained for inspection and learning but are not automatically promote
 
 ## Hardened extensions and evidence
 
-Additional hardened runners live under `extensions/`; machine-readable evidence lives under `verified/`. The integrity workflow treats `verification_pass=true` as a minimum contract, not a substitute for interpreting scope and limitations.
+Additional hardened runners live under `extensions/`; machine-readable evidence lives under `verified/` or inside an individual production project when that keeps the code and its retained evidence easier to inspect together. The integrity workflow treats `verification_pass=true` as a minimum contract, not a substitute for interpreting scope and limitations.
