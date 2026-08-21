@@ -1,12 +1,10 @@
 # UK House Price Analysis & Prediction
 
-A forward-looking residential price model built from official HM Land Registry Price Paid Data for England and Wales.
-
-The project is designed around a simple question: **does a machine-learning model add value beyond a strong local-property median when predicting future registered sale prices?**
+This project uses HM Land Registry Price Paid Data to test a straightforward question: **does a machine-learning model improve on a strong local property-price baseline when predicting later sales?**
 
 ## Result
 
-On an untouched January–June 2026 test set of **216,564 sales**:
+The final test set contains **216,564 sales** from January to June 2026.
 
 | Model | MAE | R² | Within 20% |
 | --- | ---: | ---: | ---: |
@@ -14,35 +12,34 @@ On an untouched January–June 2026 test set of **216,564 sales**:
 | Postcode-district + property-type median | £82,804 | 0.604 | 56.0% |
 | CatBoost | **£81,805** | **0.604** | **56.1%** |
 
-CatBoost improves MAE by **1.21%** over the strong baseline. That is a real but modest gain, and the project reports it as such.
+CatBoost improves MAE by **1.21%** over the postcode/property baseline. That is a small improvement, so I report it as a small improvement rather than overselling it.
 
-## Why this project is useful
+## Why I used a stronger baseline
 
-A weak portfolio project would compare a complex model only with a global average and declare success. This project instead:
+Comparing CatBoost only with a global average would make the model look much better than it really is. Property prices are heavily tied to location and property type, so the more useful comparison is a median built from postcode district and property type using training data only.
 
-- uses a genuine time-based holdout;
-- builds a postcode-district/property-type baseline using training data only;
-- avoids exact-address exposure;
-- keeps 2026 registrations explicitly labelled provisional;
-- evaluates error by property and geography;
-- adds a validation-derived residual interval rather than presenting a point estimate as certainty;
-- verifies saved-model reload parity.
+The project also uses:
+
+- a genuine time-based holdout
+- no exact-address feature
+- explicit labelling of provisional 2026 registrations
+- error breakdowns by property and geography
+- a validation-based residual interval
+- saved-model reload checks
 
 ## Data
 
 Source: **HM Land Registry Price Paid Data**.
 
-Raw snapshot:
+- 1,184,740 registered transactions in the raw snapshot
+- 995,059 rows in the modelling population
+- 595,617 training rows
+- 182,878 validation rows
+- 216,564 untouched 2026 test rows
 
-- 1,184,740 registered transactions;
-- 995,059 accepted into the modelling population;
-- 595,617 train rows;
-- 182,878 validation rows;
-- 216,564 untouched 2026 test rows.
+The modelling population keeps ordinary residential property types, Category A transactions, complete postcodes and prices between £20,000 and £5,000,000.
 
-The modelling population keeps ordinary residential types, Category A transactions, complete postcodes and prices from £20,000 to £5,000,000.
-
-## Temporal design
+## Time split
 
 ```text
 Jan 2025 ---------------- Sep 2025 | Oct 2025 ----- Dec 2025 | Jan 2026 -------- Jun 2026
@@ -55,28 +52,28 @@ The test period is not used for model fitting, early stopping, baseline construc
 
 Categorical features:
 
-- postcode district and postcode area;
-- property type;
-- old/new indicator;
-- tenure/duration;
-- town/city;
-- district;
-- county.
+- postcode district and postcode area
+- property type
+- old/new indicator
+- tenure/duration
+- town/city
+- district
+- county
 
 Calendar features:
 
-- year and month;
-- cyclical month sine/cosine.
+- year and month
+- cyclical month sine/cosine
 
 ## Model
 
-The model is CatBoost regression trained on `log1p(price)` so very high-value properties have less influence on the optimisation. CatBoost is useful here because the data contains high-cardinality categorical geography.
+The model is CatBoost regression trained on `log1p(price)`. I use the log target to reduce the influence of very high-value properties during optimisation. CatBoost is a good fit for the high-cardinality geography in this dataset.
 
 ## Uncertainty
 
-A 90th-percentile absolute validation residual is used as a simple distribution-free error radius. On the untouched test set the nominal 90% interval achieved **91.6% coverage**, with an average width of roughly **£381,679**.
+I use the 90th percentile of absolute validation residuals as a simple error radius. On the 2026 test set, the nominal 90% interval achieved **91.6% coverage**, with an average width of roughly **£381,679**.
 
-The width is itself an important finding: the available registry features are not sufficient for precise individual-property valuation.
+That width is useful information in itself: the registry fields alone are not enough for precise individual-property valuation.
 
 ## Structure
 
@@ -104,12 +101,11 @@ python run.py --check-evidence
 pytest -q
 ```
 
-The original executed notebook remains in the repository as the full exploration and training record:
-
+The original executed notebook is still in the repository as the full exploration and training record:
 [`01_UK_House_Price_Analysis_and_Prediction.ipynb`](../../01_UK_House_Price_Analysis_and_Prediction.ipynb)
 
 ## Limitations
 
-The dataset does not contain bedrooms, floor area, condition, renovation quality or many property-specific characteristics. This is therefore broad valuation support, not a surveyor valuation, mortgage decision or investment recommendation.
+The dataset does not include bedrooms, floor area, property condition, renovation quality or many other details that matter to valuation. This is broad modelling support, not a surveyor valuation, mortgage decision or investment recommendation.
 
-See [`MODEL_CARD.md`](MODEL_CARD.md) for the full scope and limitations.
+See [`MODEL_CARD.md`](MODEL_CARD.md).
