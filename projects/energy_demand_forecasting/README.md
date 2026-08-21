@@ -1,10 +1,12 @@
 # Energy Demand Forecasting with TensorFlow
 
-A 14-day German electricity-consumption forecasting project built around **chronological validation, strong seasonal baselines and uncertainty**, rather than a randomly shuffled time-series split.
+This project forecasts the next **14 days** of German electricity consumption from the previous **60 days** of demand history.
+
+I kept the time order intact, fitted preprocessing on training data only and compared the neural model with a proper 7-day seasonal baseline before accepting the result.
 
 ## Result
 
-On **645 untouched future test windows** beginning 2016-03-14:
+The final test contains **645 future windows** beginning on 14 March 2016.
 
 | Model | MAE (GWh) | RMSE (GWh) | MAPE |
 | --- | ---: | ---: | ---: |
@@ -12,18 +14,11 @@ On **645 untouched future test windows** beginning 2016-03-14:
 | 7-day seasonal baseline | 53.18 | 93.39 | 3.96% |
 | Conv1D + LSTM | **43.51** | **71.31** | **3.26%** |
 
-The TensorFlow model reduces MAE by **18.17%** relative to the strongest baseline.
+The TensorFlow model improves MAE by **18.17%** compared with the stronger seasonal baseline.
 
-## Forecasting design
+## Data and split
 
-Source: Open Power System Data Germany daily time series, **4,383 consecutive days** from 2006 through 2017.
-
-Each example uses:
-
-- previous **60 days** of consumption;
-- next **14 days** as the multi-output target.
-
-The data remains chronological:
+The source is the Open Power System Data German daily time series with **4,383 consecutive days** from 2006 to 2017.
 
 ```text
 2006 -------------------------------- 2014 | 2014 -------- 2016 | 2016 ---------------- 2017
@@ -31,7 +26,7 @@ The data remains chronological:
                2,995 windows              |   644 windows     |        645 windows
 ```
 
-The scaler is fitted on training data only. Training windows are never shuffled.
+The scaler is fitted only on the training period. Training windows are not shuffled.
 
 ## Model
 
@@ -47,27 +42,27 @@ Dense (48)
 14 daily forecasts
 ```
 
-Training uses Adam, MAE loss, early stopping and validation-driven learning-rate reduction.
+Training uses Adam, MAE loss, early stopping and validation-based learning-rate reduction.
 
-## Baselines matter
+## Why the baseline matters
 
-Electricity consumption is strongly weekly-seasonal. Comparing only with a naive global mean would make the neural model look better than it is.
+Electricity demand has a strong weekly pattern, so comparing a neural network only with a global mean would not tell me much.
 
-The project therefore requires the LSTM to beat a **7-day seasonal persistence forecast**, which already reaches 53.18 GWh test MAE.
+The 7-day seasonal forecast already gets **53.18 GWh** MAE. The LSTM only counts as an improvement because it beats that stronger reference on the untouched future period.
 
-## Uncertainty
+## Forecast intervals
 
-Absolute residuals from the validation period calibrate a separate error radius for each forecast horizon.
+I use absolute validation residuals to set a separate error radius for each forecast horizon.
 
-- nominal coverage: **90%**;
-- empirical test coverage: **88.37%**;
-- average interval width: **169.79 GWh**.
+- nominal coverage: **90%**
+- empirical test coverage: **88.37%**
+- average interval width: **169.79 GWh**
 
-The slight under-coverage is visible in the evidence rather than being rounded into a false pass.
+The test coverage is slightly below the nominal target, so I leave that visible rather than describing the interval as better calibrated than it is.
 
-## Artifact reliability
+## Saved-model check
 
-The trained model was saved in Keras format and reloaded in a fresh object. Sample predictions reproduced with maximum absolute difference **0.0**.
+The Keras model was saved and loaded again into a fresh object. Predictions on the check batch matched exactly, with maximum absolute difference **0.0**.
 
 ## Project structure
 
@@ -88,7 +83,7 @@ projects/energy_demand_forecasting/
 └── requirements-tensorflow.txt
 ```
 
-Lightweight checks do not require TensorFlow:
+The lightweight checks do not need TensorFlow:
 
 ```bash
 pip install -r requirements.txt
@@ -99,11 +94,11 @@ pytest -q
 
 To retrain the neural network, also install `requirements-tensorflow.txt`.
 
-The original executed notebook remains the full training record:
+The original executed notebook remains in the repository as the full training record:
 [`05_Energy_Demand_Forecasting_with_TensorFlow.ipynb`](../../05_Energy_Demand_Forecasting_with_TensorFlow.ipynb)
 
 ## Limitations
 
-The dataset ends in 2017, so the retained model is not presented as a current German grid forecast. A real system should use current licensed data, weather/calendar/price covariates, rolling-origin backtests, drift checks and interval-coverage monitoring.
+The data ends in 2017, so I am not presenting this model as a current German grid forecast. A real forecasting system would need current licensed data, weather and calendar inputs, rolling backtests, drift monitoring and ongoing interval-coverage checks.
 
 See [`MODEL_CARD.md`](MODEL_CARD.md).
