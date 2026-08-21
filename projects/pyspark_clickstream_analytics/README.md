@@ -1,16 +1,16 @@
 # Clickstream Analytics & Conversion Prioritisation with PySpark
 
-A Spark project that separates **behavioural analytics, scale testing and purchase modelling** so the claims stay honest.
+This project has three separate parts because I did not want to mix real customer behaviour with a scale test or pretend that an engagement event was a purchase.
 
-## Three distinct workloads
+## What the project contains
 
-1. **Real clickstream analytics:** 165,474 events across 24,026 sessions.
-2. **Spark load test:** exactly 1,000,000 clearly labelled replicated rows; never used to inflate business metrics.
-3. **Conversion modelling:** a separate UCI dataset with 12,330 sessions and a real `Revenue` label.
+1. **Real clickstream analysis:** 165,474 events across 24,026 sessions.
+2. **Spark load test:** 1,000,000 replicated rows, clearly labelled and used only to exercise the Spark pipeline at a larger scale.
+3. **Conversion model:** a different UCI dataset with 12,330 sessions and a real `Revenue` label.
 
-## Real clickstream findings
+## Clickstream findings
 
-The event source has no cart or purchase event, so the funnel measures engagement depth:
+The event dataset does not contain cart or purchase events, so the funnel below is about browsing depth only.
 
 | Stage | Sessions | Share of all sessions |
 | --- | ---: | ---: |
@@ -19,28 +19,30 @@ The event source has no cart or purchase event, so the funnel measures engagemen
 | 5+ clicks | 11,007 | 45.8% |
 | 10+ clicks | 5,212 | 21.7% |
 
-The pipeline validates zero null cells and zero duplicate `(session_id, click_order)` keys before session aggregation.
+Before creating session-level features, the pipeline checks for nulls and duplicate `(session_id, click_order)` keys. Both checks return zero on the source data used here.
 
 ## Conversion model
 
-The second dataset contains **12,330 sessions**, including **1,908 conversions** (15.47%). A deterministic content hash creates disjoint 70/15/15 train, validation and test sets:
+The purchase dataset has **12,330 sessions** and **1,908 conversions**, a positive rate of **15.47%**.
 
-- train: 8,597;
-- validation: 1,932;
-- test: 1,801.
+I use a deterministic content hash for the split:
 
-`PageValues` is excluded because it depends on completed transactions and can leak purchase outcome information into a model intended for active sessions.
+- train: 8,597
+- validation: 1,932
+- test: 1,801
 
-Spark ML uses:
+I exclude `PageValues` because it is calculated using completed transactions. Including it in a model that is supposed to score an active session would create a leakage problem.
 
-- categorical indexing + one-hot encoding;
-- vector assembly;
-- gradient-boosted trees (`maxIter=50`, `maxDepth=5`);
-- validation-only threshold selection.
+The Spark ML pipeline uses:
+
+- categorical indexing and one-hot encoding
+- vector assembly
+- gradient-boosted trees (`maxIter=50`, `maxDepth=5`)
+- threshold selection on validation data only
 
 ## Test result
 
-At the validation-selected threshold of **0.25**:
+The validation set selected a threshold of **0.25**.
 
 | Metric | Result |
 | --- | ---: |
@@ -52,13 +54,13 @@ At the validation-selected threshold of **0.25**:
 | F1 | 0.399 |
 | Alert rate | 22.2% |
 
-The PR-AUC is about **2.27×** the raw positive rate. The saved Spark pipeline reproduced scores with maximum reload delta **0.0**.
+PR-AUC is about **2.27×** the raw positive rate. I also saved and reloaded the Spark pipeline; the check scores matched with maximum difference **0.0**.
 
-## Scale test without fake scale claims
+## About the one-million-row test
 
-The real clickstream contains 165,474 events. To exercise distributed transformations at a larger row count, the notebook replicates those rows to one million and adds an explicit replica marker.
+The real clickstream has 165,474 events. To test the Spark transformations at a larger row count, the notebook repeats those events until the table reaches one million rows and adds a replica marker.
 
-Those rows are **not** used for funnel counts, customer claims or model training.
+I do not use those repeated rows for funnel counts, customer numbers or model training.
 
 ## Structure
 
@@ -83,9 +85,9 @@ python run.py --self-test
 python run.py --check-evidence
 ```
 
-The executed notebook remains the full analysis/training record:
+The executed notebook remains available as the full analysis and training record:
 [`06_Clickstream_Analysis_with_PySpark.ipynb`](../../06_Clickstream_Analysis_with_PySpark.ipynb)
 
 ## Limitations
 
-The datasets are historical and come from different e-commerce contexts. The event-level source cannot support purchase claims, and the conversion classifier does not estimate causal treatment uplift. Current production use would require consented recent data, privacy review, monitoring and an experiment.
+The two UCI datasets are historical and come from different e-commerce settings. The event source cannot support purchase claims, and the conversion model does not tell us whether an intervention would cause a customer to buy. A production version would need recent consented data, privacy review, monitoring and a controlled experiment.
