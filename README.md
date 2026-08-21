@@ -3,7 +3,7 @@
 **MSc Artificial Intelligence & Data Science (Distinction), University of East London**  
 Python · SQL · machine learning · applied AI · analytics
 
-I moved into AI and data science from a non-STEM background, so I care about being able to explain the work clearly as well as build it. This repository contains projects I would be comfortable opening in an interview and walking through from the data checks to the final result. The front page is deliberately selective; older coursework and experiments remain available in the full inventory below.
+This is the work I would actually open in an interview. I keep the code, the test setup and the final numbers together so I can explain where a result came from instead of just quoting a metric. The strongest projects are below. Older university work and experiments are still in the repository, but I keep them separate from the projects I would lead with.
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
 [![Python project checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml)
@@ -12,7 +12,7 @@ I moved into AI and data science from a non-STEM background, so I care about bei
 
 ### Flight delay prediction and risk analysis
 
-Used official 2026 US flight data to predict flights likely to arrive at least 15 minutes late. An earlier regression approach did not beat its baseline, so I reframed the task as classification and ranking instead of keeping a weak result.
+I started this as a regression problem, but the first version did not beat a simple baseline consistently. I changed the question rather than forcing a weak result: can schedule-time information identify flights that are more likely to arrive 15+ minutes late?
 
 - Untouched May test set: **180,000 flights**
 - PR-AUC: **0.291** vs **0.215** delay rate
@@ -23,18 +23,18 @@ Used official 2026 US flight data to predict flights likely to arrive at least 1
 
 ### E-commerce sales and customer analysis
 
-Built a DuckDB analytics project around the Olist marketplace data. The main engineering problem was keeping order, item, payment and review grains separate so joins could not silently inflate revenue.
+The SQL was not the difficult part here. The main issue was making sure orders, items, payments and reviews were joined at the right grain before trusting any revenue or customer KPI.
 
 - **98,199** commercial orders and **94,983** customers
 - **R$13.49M** merchandise value after cross-grain reconciliation
 - Repeat-customer rate: **3.03%**
-- SQL marts, window functions, cohorts, reconciliation and synthetic join-safety tests
+- SQL marts, window functions, cohorts, reconciliation and join-safety tests
 
 [Project](projects/ecommerce_sql_analytics/) · [SQL](projects/ecommerce_sql_analytics/sql/) · [Data model](projects/ecommerce_sql_analytics/DATA_MODEL.md) · [Evidence](projects/ecommerce_sql_analytics/results/verified_summary.json)
 
 ### Customer churn prediction and retention screening
 
-Built a churn-screening system where the final model, calibration and intervention threshold are fixed before the protected holdout is scored. Duplicate predictor profiles are grouped across the split, while proxy-risk fields are kept out of the operational model.
+This project is about deciding who should be reviewed by a retention team, not just getting a high classification score. The model choice, probability calibration and threshold are fixed before the final holdout is scored.
 
 - Protected holdout: **628 customers**
 - PR-AUC: **0.955**; ROC-AUC: **0.990**
@@ -46,7 +46,7 @@ Built a churn-screening system where the final model, calibration and interventi
 
 ### Image classification with confidence checks
 
-Fine-tuned EfficientNet-B0 for bean-leaf classification and treated confidence and deployment reliability as part of the project rather than stopping at test accuracy.
+I fine-tuned EfficientNet-B0 for bean-leaf classification, then added confidence checks because a model that is sometimes uncertain should be able to say so.
 
 - Test accuracy: **85.9%**; macro-F1: **85.8%**
 - Accuracy 95% bootstrap interval: **79.7%–91.4%**
@@ -57,42 +57,42 @@ Fine-tuned EfficientNet-B0 for bean-leaf classification and treated confidence a
 
 ### Retrieval-augmented support assistant
 
-Built a local retrieval application over a frozen set of policy and incident documents. It returns sources, abstains on weak matches, exposes a read-only ticket-analytics route through FastAPI and includes prompt-injection checks.
+A local RAG application over a fixed set of policy and incident documents. It returns sources, refuses weak matches, exposes a read-only ticket-analytics route through FastAPI and includes prompt-injection checks.
 
-The perfect scores in the small frozen fixture are software/evaluation checks, not a claim of perfect performance on real company data.
+The perfect scores in the small frozen fixture are software checks only. I do not present them as evidence of perfect real-world performance.
 
 [Project](projects/grounded_rag/) · [Evidence](verified/grounded_rag/verification.json)
 
 ## More verified work
 
-- **[UK house price prediction](projects/uk_house_price_prediction/):** 995,059 modelling transactions and an untouched 216,564-sale 2026 test set; CatBoost MAE **£81,805** vs **£82,804** for a strong postcode/property baseline. The gain is deliberately reported as modest.
-- **[Energy demand forecasting](projects/energy_demand_forecasting/):** 14-day TensorFlow forecast with MAE **43.51 GWh** vs **53.18 GWh** for the 7-day seasonal baseline, an **18.2%** improvement; includes validation-calibrated uncertainty and model reload checks.
-- **[PySpark clickstream analytics](projects/pyspark_clickstream_analytics/):** **165,474** real events across **24,026** sessions plus a separately labelled replicated one-million-row load test; conversion model PR-AUC **0.351** vs **0.155** prevalence.
-- **[A/B test analysis](projects/experiment_lab/):** reproducible treatment-effect estimation, confidence intervals, CUPED, guardrails and power calculations on a known simulated effect; CUPED reduced retained-run variance by **50.7%**.
-- **[Model monitoring and drift detection](projects/model_watch/):** feature drift, discrimination and calibration checks with deliberately shifted batches so alert behaviour can be verified.
+- **[UK house price prediction](projects/uk_house_price_prediction/):** 995,059 modelling transactions and an untouched 216,564-sale 2026 test set; CatBoost MAE **£81,805** vs **£82,804** for a strong postcode/property baseline. The improvement is small, so I report it that way.
+- **[Energy demand forecasting](projects/energy_demand_forecasting/):** 14-day TensorFlow forecast with MAE **43.51 GWh** vs **53.18 GWh** for the 7-day seasonal baseline, an **18.2%** improvement; includes validation-based uncertainty intervals and model reload checks.
+- **[PySpark clickstream analytics](projects/pyspark_clickstream_analytics/):** **165,474** real events across **24,026** sessions plus a separately labelled one-million-row replicated load test; conversion model PR-AUC **0.351** vs **0.155** prevalence.
+- **[A/B test analysis](projects/experiment_lab/):** treatment-effect estimation, confidence intervals, CUPED, guardrails and power calculations on a simulated dataset with a known effect; CUPED reduced retained-run variance by **50.7%**.
+- **[Model monitoring and drift detection](projects/model_watch/):** feature drift, discrimination and calibration checks with deliberately shifted batches so the alert logic can be tested.
 - **NYC Airbnb 2026:** MAE **$68.97** vs **$121.90** median baseline on unseen neighbourhoods.
 - **Movie recommendation:** Recall@10 **0.501** vs **0.463** popularity baseline after removing future-interaction leakage.
 - **London air quality:** R analysis using official 2025–2026 monitoring data.
 
 For smaller analysis exercises, see my [Data Analyst Bootcamp repository](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp).
 
-## What I check before calling a result finished
+## What I check before I trust a result
 
-- Source provenance and basic data-quality checks
-- A split that reflects how the model would actually be used
-- Leakage and duplicate-profile checks where relevant
-- A sensible baseline rather than an easy straw man
-- Threshold or policy selection before opening the final holdout
-- Error, uncertainty and limitation analysis
-- Retained machine-readable evidence
+- Where the data came from and whether basic quality checks pass
+- Whether the train/test split matches the way the model would be used
+- Leakage and duplicate-profile checks where they matter
+- A baseline that is genuinely worth beating
+- Threshold selection before opening the final holdout
+- Error analysis, uncertainty and limitations
+- Machine-readable result files so the headline numbers can be checked
 - Tests or self-checks for packaged projects
-- GitHub Actions for the main production-style projects
+- GitHub Actions for the main project folders
 
 ## Repository guide
 
-- [`projects/`](projects/) — recruiter-facing, production-style projects.
-- [`verified/`](verified/) — retained result files and verification outputs from earlier project versions.
-- [`extensions/`](extensions/) — later rerun or verification code for historical notebooks.
+- [`projects/`](projects/) — the projects I would lead with in an interview.
+- [`verified/`](verified/) — saved result files and verification outputs from earlier project versions.
+- [`extensions/`](extensions/) — rerun or verification code for older notebooks.
 - [`docs/PROJECT_CATALOG.md`](docs/PROJECT_CATALOG.md) — complete repository catalogue.
 - Root `.ipynb` files — executed notebooks, university work and older learning projects.
 
