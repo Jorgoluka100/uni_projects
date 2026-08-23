@@ -1,8 +1,28 @@
 # Retail Customer Data Cleaning & Segmentation
 
-This project is deliberately centred on the part of data science that comes before modelling: checking whether the source can be trusted, making the cleaning rules explicit, validating the final analytical table and only then building a customer segmentation.
+This project is deliberately centred on the part of data science that comes before modelling: checking whether the source can be trusted, making cleaning rules explicit, validating the final analytical table and only then building a customer segmentation.
 
-The source is the **UCI Online Retail** transaction dataset. The code downloads the workbook at run time; the raw data is not committed to this repository.
+The source is the **UCI Online Retail** transaction dataset. The workbook is downloaded at run time; the raw data is not committed to this repository.
+
+## Verified result
+
+The full pipeline and unit tests ran successfully in GitHub Actions.
+
+- Raw rows: **541,909**
+- Exact duplicate rows identified: **5,268**
+- Rows with missing customer ID: **135,080**
+- Rows with non-positive quantity: **10,624**
+- Rows with non-positive unit price: **2,517**
+- Clean valid purchase rows: **392,692**
+- Customers retained for segmentation: **4,338**
+- Valid invoices: **18,532**
+- Selected KMeans solution: **k = 2**
+- Silhouette score: **0.4335**
+- Initialization stability: adjusted Rand index **0.9963–0.9991** across eight additional seeds
+
+The selected solution separated **1,725 high-value active customers** from **2,613 more inactive/lower-value customers**. The first group represented **39.8% of customers** but **86.5% of retained transaction revenue**. I treat those labels as relative descriptions of this dataset, not universal customer personas.
+
+[Verification](results/verification.json) · [Raw audit](results/raw_data_audit.json) · [Cleaning report](results/cleaning_report.json) · [Cluster diagnostics](results/cluster_diagnostics.csv) · [Cluster summary](results/cluster_summary.csv)
 
 ## What this project demonstrates
 
@@ -81,7 +101,7 @@ The pipeline removes exact duplicate rows first. It then marks and removes rows 
 7. missing or non-positive quantity
 8. missing or non-positive unit price
 
-Text fields are stripped and normalized, date/numeric columns are coerced to explicit types, and `line_revenue = Quantity * UnitPrice` is created only after the row has passed the validity checks.
+Text fields are stripped and normalized, date/numeric columns are coerced to explicit types, and `line_revenue = Quantity * UnitPrice` is created only after a row has passed the validity checks.
 
 The code asserts that the cleaned dataset has no exact duplicates, no missing required modelling fields and no non-positive quantity, price or revenue.
 
@@ -97,7 +117,7 @@ The clustering stage does **not** choose a number of clusters because an elbow c
 
 A candidate with a smallest cluster below 2% is not preferred when a better-behaved alternative exists. After the final `k` is selected, the solution is refit with a larger `n_init` and compared across several random seeds using adjusted Rand index.
 
-This does not prove that natural customer groups exist. It is a disciplined way to check whether a useful and reasonably stable segmentation can be produced with KMeans.
+For this dataset, `k=2` produced the strongest silhouette score among the tested candidates. I keep that result instead of forcing a larger number of clusters merely because more segments would look more impressive.
 
 ## Run
 
@@ -107,8 +127,8 @@ From this project directory:
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
-python run.py
 pytest -q
+python run.py
 ```
 
 Generated files include:
@@ -131,6 +151,7 @@ retail_customer_segmentation/
 ├── README.md
 ├── PROJECT_CARD.md
 ├── requirements.txt
+├── pytest.ini
 ├── run.py
 ├── src/
 │   ├── data.py
@@ -141,11 +162,16 @@ retail_customer_segmentation/
 │   ├── test_cleaning.py
 │   └── test_features_and_model.py
 └── results/
+    ├── verification.json
+    ├── raw_data_audit.json
+    ├── cleaning_report.json
+    ├── cluster_diagnostics.csv
+    └── cluster_summary.csv
 ```
 
 ## Evidence policy
 
-I only promote numerical results from this project after the full pipeline has been executed and the retained `verification.json` has been checked. Until then, the repository describes the method rather than claiming a score or number of segments.
+The numerical claims above come from the retained GitHub Actions verification run. The raw workbook and full customer-assignment table are intentionally not committed; the compact audit, cleaning, diagnostic and summary evidence is retained in `results/`.
 
 ## Limitations
 
