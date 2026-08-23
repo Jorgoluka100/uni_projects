@@ -1,0 +1,22 @@
+{
+  "cancelled_invoice_rows": 9288,
+  "columns": 8,
+  "date_max": "2011-12-09 12:50:00",
+  "date_min": "2010-12-01 08:26:00",
+  "exact_duplicate_rows": 5268,
+  "missing_by_column": {
+    "Country": 0,
+    "CustomerID": 135080,
+    "Description": 1454,
+    "InvoiceDate": 0,
+    "InvoiceNo": 0,
+    "Quantity": 0,
+    "StockCode": 0,
+    "UnitPrice": 0
+  },
+  "non_positive_quantity_rows": 10624,
+  "non_positive_unit_price_rows": 2517,
+  "rows": 541909,
+  "unique_customers": 4372,
+  "unique_invoices": 25900
+}
