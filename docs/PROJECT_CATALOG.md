@@ -40,6 +40,7 @@ These are retained for inspection and learning but are not automatically promote
 
 - `projects/flight_delay_risk/` — official BTS 2026 data, temporal holdout, leakage-safe schedule-time features, CatBoost ranking, validation-selected review capacity, calibration checks, carrier slices, tests and retained evidence.
 - `projects/ecommerce_sql_analytics/` — pinned Olist v7 source, explicit order/item semantic grains, DuckDB marts, financial reconciliation, cohorts, window functions, marketplace operations, tests and retained evidence.
+- `projects/retail_customer_segmentation/` — UCI retail source, explicit data-quality audit, duplicate/cancellation/missing-ID/invalid-value handling, validated customer-level RFM features, robust scaling, KMeans selection across k=2..10, stability checks, tests, GitHub Actions and retained evidence.
 - `projects/image_classification_confidence/` — EfficientNet-B0 evaluation, bootstrap uncertainty, calibration, selective prediction, Grad-CAM, export-parity checks, tests, model card and retained evidence.
 - `projects/uk_house_price_prediction/` — official HM Land Registry 2025–2026 data, strict temporal holdout, strong geographical/property baseline, CatBoost, residual uncertainty intervals, tests, model card and retained evidence.
 - `projects/customer_churn_prediction/` — pinned UCI source, duplicate-profile grouped holdout, proxy-feature exclusion, histogram gradient boosting, grouped OOF calibration, cost-aware retention threshold, bootstrap uncertainty, tests, model card and retained evidence.
