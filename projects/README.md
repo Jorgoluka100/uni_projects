@@ -2,6 +2,14 @@
 
 These are the projects in this repository that I built as normal Python applications rather than as large notebooks. I use them to practise the parts of data and AI work that sit around the model itself: command-line runs, tests, saved outputs, APIs and basic packaging.
 
+## Retail data cleaning and customer segmentation
+
+A full data-cleaning and unsupervised-learning pipeline over the UCI Online Retail dataset. The project audits the raw source, records duplicate/missing/cancellation/invalid-value problems, applies explicit cleaning rules, validates the cleaned transaction table, builds customer-level RFM features and selects a KMeans solution using several clustering diagnostics plus stability checks.
+
+The retained evidence comes from a full GitHub Actions run over **541,909 raw rows**, producing **392,692 valid purchase rows** for **4,338 customers**.
+
+[Open project](retail_customer_segmentation/)
+
 ## Retrieval-augmented support assistant
 
 A local retrieval application over a small frozen set of policy and incident documents. It combines keyword and latent-semantic retrieval, returns the documents used for an answer, abstains on weak matches and exposes a read-only ticket analytics route through FastAPI. I also included prompt-injection cases to check that the tool is not executed on the attack examples.
@@ -30,4 +38,4 @@ A small information-retrieval project that ranks jobs against a candidate profil
 
 ## Running the projects
 
-Each folder has its own README with the commands needed to run it. The workflow in `.github/workflows/new-projects-ci.yml` reruns the project self-tests and validates the retained result files.
+Each folder has its own README with the commands needed to run it. Project-specific GitHub Actions workflows and the repository integrity checks validate tests and retained evidence.
