@@ -1,0 +1,22 @@
+{
+  "exact_duplicates_removed": 5268,
+  "final_date_max": "2011-12-09T12:50:00",
+  "final_date_min": "2010-12-01T08:26:00",
+  "final_revenue": 8887208.894000001,
+  "final_rows": 392692,
+  "final_unique_customers": 4338,
+  "final_unique_invoices": 18532,
+  "retained_share": 0.7246456508380559,
+  "rows_removed_after_deduplication": 143949,
+  "rule_counts_before_combining": {
+    "cancelled_invoice": 9251,
+    "missing_country": 0,
+    "missing_customer_id": 135037,
+    "missing_invoice_date": 0,
+    "missing_invoice_no": 0,
+    "missing_stock_code": 0,
+    "non_positive_quantity": 10587,
+    "non_positive_unit_price": 2512
+  },
+  "source_rows": 541909
+}
