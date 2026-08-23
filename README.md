@@ -7,6 +7,7 @@ This is the work I would actually open in an interview. I keep the code, the tes
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
 [![Python project checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml)
+[![Retail cleaning checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/retail-segmentation-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/retail-segmentation-ci.yml)
 
 ## Selected work
 
@@ -32,6 +33,18 @@ The SQL was not the difficult part here. The main issue was making sure orders, 
 
 [Project](projects/ecommerce_sql_analytics/) · [SQL](projects/ecommerce_sql_analytics/sql/) · [Data model](projects/ecommerce_sql_analytics/DATA_MODEL.md) · [Evidence](projects/ecommerce_sql_analytics/results/verified_summary.json)
 
+### Retail data cleaning and customer segmentation
+
+This project starts with the messy transaction table rather than the model. I audit the source, make row-removal rules explicit, validate the clean purchase table, build RFM features and then test the clustering solution rather than choosing a segment count by eye.
+
+- Raw source: **541,909 transaction rows**
+- Clean valid purchases: **392,692 rows** across **4,338 customers**
+- Explicit duplicate, missing-ID, cancellation, quantity and price checks
+- Selected KMeans: **k=2**, silhouette **0.4335**
+- Initialization stability: adjusted Rand index **0.9963–0.9991** across eight additional seeds
+
+[Project](projects/retail_customer_segmentation/) · [Project card](projects/retail_customer_segmentation/PROJECT_CARD.md) · [Evidence](projects/retail_customer_segmentation/results/verification.json)
+
 ### Customer churn prediction and retention screening
 
 This project is about deciding who should be reviewed by a retention team, not just getting a high classification score. The model choice, probability calibration and threshold are fixed before the final holdout is scored.
@@ -55,19 +68,12 @@ I fine-tuned EfficientNet-B0 for bean-leaf classification, then added confidence
 
 [Project](projects/image_classification_confidence/) · [Model card](projects/image_classification_confidence/MODEL_CARD.md) · [Evidence](projects/image_classification_confidence/results/verified_metrics.json)
 
-### Retrieval-augmented support assistant
-
-A local RAG application over a fixed set of policy and incident documents. It returns sources, refuses weak matches, exposes a read-only ticket-analytics route through FastAPI and includes prompt-injection checks.
-
-The perfect scores in the small frozen fixture are software checks only. I do not present them as evidence of perfect real-world performance.
-
-[Project](projects/grounded_rag/) · [Evidence](verified/grounded_rag/verification.json)
-
 ## More verified work
 
 - **[UK house price prediction](projects/uk_house_price_prediction/):** 995,059 modelling transactions and an untouched 216,564-sale 2026 test set; CatBoost MAE **£81,805** vs **£82,804** for a strong postcode/property baseline. The improvement is small, so I report it that way.
 - **[Energy demand forecasting](projects/energy_demand_forecasting/):** 14-day TensorFlow forecast with MAE **43.51 GWh** vs **53.18 GWh** for the 7-day seasonal baseline, an **18.2%** improvement; includes validation-based uncertainty intervals and model reload checks.
 - **[PySpark clickstream analytics](projects/pyspark_clickstream_analytics/):** **165,474** real events across **24,026** sessions plus a separately labelled one-million-row replicated load test; conversion model PR-AUC **0.351** vs **0.155** prevalence.
+- **[Retrieval-augmented support assistant](projects/grounded_rag/):** local RAG application with source attribution, weak-match abstention, read-only FastAPI tooling and prompt-injection checks. Perfect scores on the small frozen fixture are treated as software checks, not real-world LLM performance.
 - **[A/B test analysis](projects/experiment_lab/):** treatment-effect estimation, confidence intervals, CUPED, guardrails and power calculations on a simulated dataset with a known effect; CUPED reduced retained-run variance by **50.7%**.
 - **[Model monitoring and drift detection](projects/model_watch/):** feature drift, discrimination and calibration checks with deliberately shifted batches so the alert logic can be tested.
 - **NYC Airbnb 2026:** MAE **$68.97** vs **$121.90** median baseline on unseen neighbourhoods.
