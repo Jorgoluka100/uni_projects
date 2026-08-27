@@ -14,7 +14,7 @@ This is an **evidence-backed portfolio**, not a notebook dump. The strongest pro
 | Role | Best evidence | What it demonstrates |
 | --- | --- | --- |
 | **Data Scientist** | [Flight Delay Risk](projects/flight_delay_risk/) · [Customer Churn](projects/customer_churn_prediction/) · [UK House Prices](projects/uk_house_price_prediction/) | supervised ML, temporal/grouped validation, baselines, calibration, thresholding and uncertainty |
-| **Data Analyst / Technical Analyst** | [E-commerce SQL Analytics](projects/ecommerce_sql_analytics/) · [ExperimentLab](projects/experiment_lab/) · [Retail Segmentation](projects/retail_customer_segmentation/) | SQL, KPI logic, data cleaning, experimentation, segmentation and business interpretation |
+| **Data Analyst / Technical Analyst** | [Retail KPI Dashboard](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp/tree/main/dashboard) · [E-commerce SQL Analytics](projects/ecommerce_sql_analytics/) · [ExperimentLab](projects/experiment_lab/) | dashboards, SQL, KPI logic, data cleaning, experimentation and business interpretation |
 | **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [PySpark Clickstream](projects/pyspark_clickstream_analytics/) | ingestion, schema validation, deduplication, idempotency, data-quality checks and scalable transformations |
 | **ML / AI Engineer** | [Grounded RAG](projects/grounded_rag/) · [Image Classification](projects/image_classification_confidence/) · [ModelWatch](projects/model_watch/) | retrieval/evaluation, PyTorch, APIs, model export, calibration, drift monitoring and deployment-minded engineering |
 
@@ -67,7 +67,7 @@ For everything else, use the **[complete project catalogue](docs/PROJECT_CATALOG
 
 ## Supporting analyst work
 
-Smaller analyst exercises from a 220-hour bootcamp are kept separately in the **[Data Analyst Bootcamp repository](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)** so this repository stays focused.
+Smaller analyst exercises and the interactive retail dashboard are kept separately in the **[Data Analyst Bootcamp repository](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)** so this repository stays focused.
 
 ## Licence
 
