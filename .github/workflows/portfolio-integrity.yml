@@ -25,13 +25,16 @@ jobs:
           python-version: '3.12'
 
       - name: Compile-check portfolio Python code
-        run: python -m compileall -q scripts extensions projects
+        run: python -m compileall -q scripts extensions projects skills
 
       - name: Validate portfolio manifest and project paths
         run: python scripts/validate_portfolio_manifest.py
 
       - name: Validate focused skills notebooks
         run: python scripts/validate_skill_notebooks.py
+
+      - name: Validate notebook and Python coverage
+        run: python scripts/validate_notebook_coverage.py
 
       - name: Self-test VisionForge release evidence gate
         run: python extensions/visionforge_release_gate.py --self-test
