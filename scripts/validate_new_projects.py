@@ -10,6 +10,7 @@ EVIDENCE = {
     "ExperimentLab": ROOT / "verified" / "experiment_lab" / "verification.json",
     "ModelWatch": ROOT / "verified" / "model_watch" / "verification.json",
     "GroundedRAG": ROOT / "verified" / "grounded_rag" / "verification.json",
+    "Reliable Event Pipeline": ROOT / "projects" / "reliable_event_pipeline" / "results" / "verified_run.json",
 }
 
 

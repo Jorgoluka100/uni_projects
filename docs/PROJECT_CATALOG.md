@@ -38,6 +38,7 @@ These are retained for inspection and learning but are not automatically promote
 
 ## Production-style projects
 
+- `projects/reliable_event_pipeline/` — incremental CSV ingestion, schema and row validation, reject logging, duplicate/idempotency controls, event-time watermarking for late arrivals, SQLite warehouse loading, SQL quality checks, unit tests and retained run evidence.
 - `projects/flight_delay_risk/` — official BTS 2026 data, temporal holdout, leakage-safe schedule-time features, CatBoost ranking, validation-selected review capacity, calibration checks, carrier slices, tests and retained evidence.
 - `projects/ecommerce_sql_analytics/` — pinned Olist v7 source, explicit order/item semantic grains, DuckDB marts, financial reconciliation, cohorts, window functions, marketplace operations, tests and retained evidence.
 - `projects/retail_customer_segmentation/` — UCI retail source, explicit data-quality audit, duplicate/cancellation/missing-ID/invalid-value handling, validated customer-level RFM features, robust scaling, KMeans selection across k=2..10, stability checks, tests, GitHub Actions and retained evidence.

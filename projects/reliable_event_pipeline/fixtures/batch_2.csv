@@ -1,0 +1,5 @@
+event_id,customer_id,event_time,source,event_type,amount
+e002,c001,2026-08-20T10:05:00Z,web,purchase,29.99
+e006,c004,2026-08-20T14:00:00Z,app,view,0
+e007,c005,2026-08-17T08:00:00Z,partner,signup,0
+e008,c004,2026-08-20T15:00:00Z,app,purchase,49.50

@@ -1,149 +1,131 @@
-# Jorgo Luka — Data & AI Portfolio
+# Jorgo Luka — Data, ML & Applied AI Portfolio
 
 **MSc Artificial Intelligence & Data Science (Distinction), University of East London**  
-Python · SQL · machine learning · applied AI · analytics
+Python · SQL · machine learning · data engineering · applied AI
 
-This is the work I would actually open in an interview. I keep the code, the test setup and the final numbers together so I can explain where a result came from instead of just quoting a metric. The strongest projects are below. Older university work and experiments are still in the repository, but I keep them separate from the projects I would lead with.
+I use this repository as an evidence-backed portfolio rather than a notebook dump. The projects I lead with are packaged so the data checks, validation choices, baselines, tests and retained results can be inspected alongside the code.
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
-[![Python project checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml)
-[![Retail cleaning checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/retail-segmentation-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/retail-segmentation-ci.yml)
+[![Production project checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml)
+[![Reliable pipeline checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/reliable-event-pipeline-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/reliable-event-pipeline-ci.yml)
 
-## Selected work
+## Open these first
+
+| If the role needs… | Best evidence | What is demonstrated |
+| --- | --- | --- |
+| **Data engineering / pipelines** | [Reliable event pipeline](projects/reliable_event_pipeline/) · [PySpark clickstream](projects/pyspark_clickstream_analytics/) | incremental ingestion, validation, deduplication, late data, SQL checks, Spark transformations |
+| **Data science / predictive modelling** | [Flight delay risk](projects/flight_delay_risk/) · [Customer churn](projects/customer_churn_prediction/) | temporal/grouped validation, baselines, calibration, thresholding, uncertainty |
+| **SQL / analytics** | [E-commerce analytics](projects/ecommerce_sql_analytics/) · [Retail segmentation](projects/retail_customer_segmentation/) | data modelling, join safety, reconciliation, cleaning, customer analysis |
+| **Statistics / experimentation** | [ExperimentLab](projects/experiment_lab/) · [Energy forecasting](projects/energy_demand_forecasting/) | hypothesis testing, CUPED, power, time-series validation and forecasting |
+| **AI / LLM applications** | [Grounded RAG](projects/grounded_rag/) · [CareerLens AI](projects/careerlens_ai/) | retrieval, evaluation, abstention, tool routing, NLP ranking, FastAPI and Docker |
+| **Deep learning / model reliability** | [Image classification](projects/image_classification_confidence/) · [ModelWatch](projects/model_watch/) | PyTorch transfer learning, Grad-CAM, export checks, drift and calibration monitoring |
+
+## Selected evidence
+
+### Reliable event ingestion pipeline
+
+A focused data-engineering project built around the failure modes that matter before modelling begins: schema errors, duplicate IDs, null business keys, late arrivals and re-sent events.
+
+- 10 input rows across two controlled batches → **7 clean warehouse rows**
+- **0** duplicate event IDs and **0** null customer IDs in the final table
+- late-arriving data is retained and flagged rather than silently discarded
+- idempotent primary-key loading, reject logging, batch audit metrics, SQL quality checks and unit tests
+
+[Project](projects/reliable_event_pipeline/) · [Evidence](projects/reliable_event_pipeline/results/verified_run.json)
 
 ### Flight delay prediction and risk analysis
 
-I started this as a regression problem, but the first version did not beat a simple baseline consistently. I changed the question rather than forcing a weak result: can schedule-time information identify flights that are more likely to arrive 15+ minutes late?
+Official 2026 US flight data, chronological validation and leakage-safe schedule-time features.
 
-- Untouched May test set: **180,000 flights**
-- PR-AUC: **0.291** vs **0.215** delay rate
-- Highest-risk 10%: **1.58x** the normal delay rate
-- Temporal validation, leakage checks, calibration, capacity analysis and CI
+- untouched May test set: **180,000 flights**
+- PR-AUC **0.291** vs **0.215** delay prevalence
+- highest-risk 10% of flights: **1.58×** the normal delay rate
 
 [Project](projects/flight_delay_risk/) · [Model card](projects/flight_delay_risk/MODEL_CARD.md) · [Evidence](projects/flight_delay_risk/results/verified_test_metrics.json)
 
-### E-commerce sales and customer analysis
+### E-commerce SQL analytics
 
-The SQL was not the difficult part here. The main issue was making sure orders, items, payments and reviews were joined at the right grain before trusting any revenue or customer KPI.
+The emphasis is trustworthy reporting grain rather than impressive-looking queries.
 
 - **98,199** commercial orders and **94,983** customers
 - **R$13.49M** merchandise value after cross-grain reconciliation
-- Repeat-customer rate: **3.03%**
-- SQL marts, window functions, cohorts, reconciliation and join-safety tests
+- SQL marts, window functions, cohorts, data-model documentation and join-safety tests
 
-[Project](projects/ecommerce_sql_analytics/) · [SQL](projects/ecommerce_sql_analytics/sql/) · [Data model](projects/ecommerce_sql_analytics/DATA_MODEL.md) · [Evidence](projects/ecommerce_sql_analytics/results/verified_summary.json)
+[Project](projects/ecommerce_sql_analytics/) · [SQL](projects/ecommerce_sql_analytics/sql/) · [Data model](projects/ecommerce_sql_analytics/DATA_MODEL.md)
 
-### Retail data cleaning and customer segmentation
+### Retail cleaning and customer segmentation
 
-This project starts with the messy transaction table rather than the model. I audit the source, make row-removal rules explicit, validate the clean purchase table, build RFM features and then test the clustering solution rather than choosing a segment count by eye.
+A full audit-and-cleaning workflow before clustering.
 
-- Raw source: **541,909 transaction rows**
-- Clean valid purchases: **392,692 rows** across **4,338 customers**
-- Explicit duplicate, missing-ID, cancellation, quantity and price checks
-- Selected KMeans: **k=2**, silhouette **0.4335**
-- Initialization stability: adjusted Rand index **0.9963–0.9991** across eight additional seeds
+- **541,909** raw transaction rows → **392,692** validated purchases
+- explicit duplicate, cancellation, missing-ID, quantity and price rules
+- KMeans selection backed by silhouette and stability checks rather than visual choice alone
 
-[Project](projects/retail_customer_segmentation/) · [Project card](projects/retail_customer_segmentation/PROJECT_CARD.md) · [Evidence](projects/retail_customer_segmentation/results/verification.json)
+[Project](projects/retail_customer_segmentation/) · [Project card](projects/retail_customer_segmentation/PROJECT_CARD.md)
 
-### Customer churn prediction and retention screening
+### Grounded retrieval application
 
-This project is about deciding who should be reviewed by a retention team, not just getting a high classification score. The model choice, probability calibration and threshold are fixed before the final holdout is scored.
+A local RAG-style support system where retrieval and tool behaviour are measurable.
 
-- Protected holdout: **628 customers**
-- PR-AUC: **0.955**; ROC-AUC: **0.990**
-- Training-selected threshold: **0.15**
-- Recall **94.9%**, precision **73.2%**, review rate **20.2%**
-- Grouped validation, out-of-fold calibration, bootstrap uncertainty and cost-aware thresholding
+- hybrid retrieval, evidence thresholds and source attribution
+- weak-match abstention and prompt-injection checks
+- allow-listed read-only tool routing
+- FastAPI and Docker packaging with frozen evaluation fixtures
 
-[Project](projects/customer_churn_prediction/) · [Model card](projects/customer_churn_prediction/MODEL_CARD.md) · [Evidence](projects/customer_churn_prediction/results/verified_metrics.json)
+[Project](projects/grounded_rag/)
 
-### Image classification with confidence checks
+### ExperimentLab
 
-I fine-tuned EfficientNet-B0 for bean-leaf classification, then added confidence checks because a model that is sometimes uncertain should be able to say so.
+A compact experimentation package covering treatment effects, confidence intervals, CUPED, guardrails and power.
 
-- Test accuracy: **85.9%**; macro-F1: **85.8%**
-- Accuracy 95% bootstrap interval: **79.7%–91.4%**
-- **90.4%** accuracy on accepted predictions while routing **10.9%** to review
-- Grad-CAM plus verified TorchScript and ONNX parity
+- simulated data with a known effect so implementation can be checked
+- CUPED reduced retained-run variance by **50.7%**
+- machine-readable verification output
 
-[Project](projects/image_classification_confidence/) · [Model card](projects/image_classification_confidence/MODEL_CARD.md) · [Evidence](projects/image_classification_confidence/results/verified_metrics.json)
+[Project](projects/experiment_lab/)
 
-## More verified work
+## Additional strong projects
 
-- **[UK house price prediction](projects/uk_house_price_prediction/):** 995,059 modelling transactions and an untouched 216,564-sale 2026 test set; CatBoost MAE **£81,805** vs **£82,804** for a strong postcode/property baseline. The improvement is small, so I report it that way.
-- **[Energy demand forecasting](projects/energy_demand_forecasting/):** 14-day TensorFlow forecast with MAE **43.51 GWh** vs **53.18 GWh** for the 7-day seasonal baseline, an **18.2%** improvement; includes validation-based uncertainty intervals and model reload checks.
-- **[PySpark clickstream analytics](projects/pyspark_clickstream_analytics/):** **165,474** real events across **24,026** sessions plus a separately labelled one-million-row replicated load test; conversion model PR-AUC **0.351** vs **0.155** prevalence.
-- **[Retrieval-augmented support assistant](projects/grounded_rag/):** local RAG application with source attribution, weak-match abstention, read-only FastAPI tooling and prompt-injection checks. Perfect scores on the small frozen fixture are treated as software checks, not real-world LLM performance.
-- **[A/B test analysis](projects/experiment_lab/):** treatment-effect estimation, confidence intervals, CUPED, guardrails and power calculations on a simulated dataset with a known effect; CUPED reduced retained-run variance by **50.7%**.
-- **[Model monitoring and drift detection](projects/model_watch/):** feature drift, discrimination and calibration checks with deliberately shifted batches so the alert logic can be tested.
-- **NYC Airbnb 2026:** MAE **$68.97** vs **$121.90** median baseline on unseen neighbourhoods.
-- **Movie recommendation:** Recall@10 **0.501** vs **0.463** popularity baseline after removing future-interaction leakage.
-- **London air quality:** R analysis using official 2025–2026 monitoring data.
+- **[Customer churn prediction](projects/customer_churn_prediction/):** protected holdout, grouped validation, out-of-fold calibration and cost-aware thresholding; PR-AUC **0.955**.
+- **[Image classification](projects/image_classification_confidence/):** EfficientNet-B0, bootstrap uncertainty, selective prediction, Grad-CAM and verified TorchScript/ONNX parity; **85.9%** test accuracy.
+- **[Energy demand forecasting](projects/energy_demand_forecasting/):** TensorFlow 14-day forecast with MAE **43.51 GWh** vs **53.18 GWh** seasonal baseline.
+- **[PySpark clickstream analytics](projects/pyspark_clickstream_analytics/):** 165,474 real events, Spark transformations, a clearly separated one-million-row load test and leakage-aware conversion modelling.
+- **[UK house price prediction](projects/uk_house_price_prediction/):** 995,059 modelling transactions and a strict 2026 temporal test set using a strong postcode/property baseline.
+- **[ModelWatch](projects/model_watch/):** feature drift, discrimination, calibration and retraining-policy checks using deliberately shifted batches.
 
-For smaller analysis exercises, see my [Data Analyst Bootcamp repository](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp).
+## Engineering standard
 
-## What I check before I trust a result
+Before I treat a result as portfolio evidence, I try to make the following visible:
 
-- Where the data came from and whether basic quality checks pass
-- Whether the train/test split matches the way the model would be used
-- Leakage and duplicate-profile checks where they matter
-- A baseline that is genuinely worth beating
-- Threshold selection before opening the final holdout
-- Error analysis, uncertainty and limitations
-- Machine-readable result files so the headline numbers can be checked
-- Tests or self-checks for packaged projects
-- GitHub Actions for the main project folders
+- source and schema checks
+- validation or holdout design that matches intended use
+- leakage and duplicate controls where relevant
+- a meaningful baseline
+- threshold selection before final test evaluation
+- uncertainty, calibration or stability checks when they add value
+- machine-readable result files
+- tests / self-tests for packaged projects
+- GitHub Actions for the main production-style work
+- limitations stated explicitly rather than hidden behind a headline metric
 
-## Repository guide
+## Repository layout
 
-- [`projects/`](projects/) — the projects I would lead with in an interview.
-- [`verified/`](verified/) — saved result files and verification outputs from earlier project versions.
-- [`extensions/`](extensions/) — rerun or verification code for older notebooks.
-- [`docs/PROJECT_CATALOG.md`](docs/PROJECT_CATALOG.md) — complete repository catalogue.
-- Root `.ipynb` files — executed notebooks, university work and older learning projects.
+```text
+projects/     production-style projects I would discuss in interviews
+verified/     retained machine-readable evidence from earlier project versions
+extensions/   hardened rerun / verification code for older notebooks
+docs/         complete catalogue and supporting documentation
+*.ipynb       executed university, learning and historical laboratory notebooks
+```
 
-Some older medical-imaging, LLM and coursework notebooks remain because they show what I was learning at the time. I do **not** use unverified results from those notebooks as production or clinical claims.
-
-<details>
-<summary><strong>Complete notebook inventory</strong></summary>
-
-### Verified notebook projects
-
-- [`01_UK_House_Price_Analysis_and_Prediction.ipynb`](01_UK_House_Price_Analysis_and_Prediction.ipynb)
-- [`02_SQL_Sales_and_Customer_Analysis.ipynb`](02_SQL_Sales_and_Customer_Analysis.ipynb)
-- [`03_Customer_Churn_Prediction.ipynb`](03_Customer_Churn_Prediction.ipynb)
-- [`04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb`](04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb)
-- [`05_Energy_Demand_Forecasting_with_TensorFlow.ipynb`](05_Energy_Demand_Forecasting_with_TensorFlow.ipynb)
-- [`06_Clickstream_Analysis_with_PySpark.ipynb`](06_Clickstream_Analysis_with_PySpark.ipynb)
-- [`07_London_Air_Quality_Analysis_with_R.ipynb`](07_London_Air_Quality_Analysis_with_R.ipynb)
-- [`01_ConsultAI_AI_Opportunity_Engine.ipynb`](01_ConsultAI_AI_Opportunity_Engine.ipynb)
-- [`12_VisionForge_PyTorch_Visual_Inspection.ipynb`](12_VisionForge_PyTorch_Visual_Inspection.ipynb)
-
-### Advanced / historical laboratory notebooks
-
-- [`Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb`](Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb)
-- [`AeroFlow_AI_Engine.ipynb`](AeroFlow_AI_Engine.ipynb)
-- [`Aviation_Strategy_PostgreSQL_Optimization.ipynb`](Aviation_Strategy_PostgreSQL_Optimization.ipynb)
-- [`CineIntelligence_NoSQL_DataEngineering.ipynb`](CineIntelligence_NoSQL_DataEngineering.ipynb)
-- [`Clustering_Models.ipynb`](Clustering_Models.ipynb)
-- [`KDDCup.ipynb`](KDDCup.ipynb)
-- [`LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`](LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb)
-- [`LLM_Mastery_Hands_on_Code.ipynb`](LLM_Mastery_Hands_on_Code.ipynb)
-- [`Logistic_Regression_PySpark.ipynb`](Logistic_Regression_PySpark.ipynb)
-- [`Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb`](Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb)
-- [`NYC_Airbnb_Market_Analysis (1).ipynb`](NYC_Airbnb_Market_Analysis%20%281%29.ipynb)
-- [`Naive_Bayes_PySpark.ipynb`](Naive_Bayes_PySpark.ipynb)
-- [`Parkinsons_Progression_ML.ipynb`](Parkinsons_Progression_ML.ipynb)
-- [`Pathfinding.ipynb`](Pathfinding.ipynb)
-- [`PyTorch_medical_AI_xray_diagnosis.ipynb`](PyTorch_medical_AI_xray_diagnosis.ipynb)
-- [`Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb`](Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb)
-- [`financial_fraud_aml_detection_system.ipynb`](financial_fraud_aml_detection_system.ipynb)
-
-</details>
+The complete project inventory is in [`docs/PROJECT_CATALOG.md`](docs/PROJECT_CATALOG.md). Older notebooks remain available as learning history, but I do not use unverified results from them as production or clinical claims.
 
 ## Main tools
 
-Python, SQL, Pandas, NumPy, scikit-learn, PyTorch, TensorFlow/Keras, CatBoost, DuckDB, PostgreSQL, PySpark, FastAPI, Docker and GitHub Actions.
+**Data:** Python, SQL, Pandas, NumPy, PostgreSQL, DuckDB, PySpark  
+**ML:** scikit-learn, CatBoost, PyTorch, TensorFlow/Keras  
+**Applied AI:** retrieval, NLP, LLM/RAG evaluation, FastAPI  
+**Engineering:** Docker, Git, GitHub Actions, testing, model/data validation
 
 ## Licence
 

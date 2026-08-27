@@ -1,0 +1,36 @@
+{
+  "batches": [
+    {
+      "batch_name": "batch_1",
+      "input_rows": 6,
+      "valid_rows": 4,
+      "rejected_rows": 2,
+      "duplicate_rows_in_batch": 1,
+      "existing_rows_skipped": 0,
+      "late_rows": 0,
+      "inserted_rows": 4,
+      "warehouse_rows_after": 4
+    },
+    {
+      "batch_name": "batch_2",
+      "input_rows": 4,
+      "valid_rows": 4,
+      "rejected_rows": 0,
+      "duplicate_rows_in_batch": 0,
+      "existing_rows_skipped": 1,
+      "late_rows": 1,
+      "inserted_rows": 3,
+      "warehouse_rows_after": 7
+    }
+  ],
+  "quality": {
+    "warehouse_rows": 7,
+    "duplicate_event_ids": 0,
+    "null_customer_ids": 0,
+    "late_rows": 1,
+    "rejected_rows": 2,
+    "total_amount": 79.49,
+    "verification_pass": true
+  },
+  "verification_pass": true
+}
