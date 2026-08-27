@@ -34,19 +34,38 @@ This is intentionally more useful than a long list of technologies. Each skill p
 
 | Capability | Evidence |
 | --- | --- |
-| **Data cleaning & preprocessing** | [Parkinson's Progression](projects/parkinsons_progression/) · [Customer Churn](projects/customer_churn_prediction/) · [analyst portfolio](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp) |
-| **Pandas & NumPy** | [Parkinson's Progression](projects/parkinsons_progression/) · [Flight Delay Risk](projects/flight_delay_risk/) · [UK House Prices](projects/uk_house_price_prediction/) |
-| **Feature selection / feature engineering** | [Parkinson's Progression](projects/parkinsons_progression/) · [Flight Delay Risk](projects/flight_delay_risk/) · [UK House Prices](projects/uk_house_price_prediction/) |
-| **scikit-learn fundamentals** | [Parkinson's Progression](projects/parkinsons_progression/) · [Customer Churn](projects/customer_churn_prediction/) · [ExperimentLab](projects/experiment_lab/) |
+| **Data cleaning & preprocessing** | [Parkinson's Progression](projects/parkinsons_progression/) · [focused cleaning notebook](skills/01_data_cleaning_preprocessing.ipynb) · [analyst portfolio](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp) |
+| **Pandas & NumPy** | [Parkinson's Progression](projects/parkinsons_progression/) · [NumPy fundamentals](skills/02_numpy_for_machine_learning.ipynb) · [Flight Delay Risk](projects/flight_delay_risk/) |
+| **Feature selection / feature engineering** | [Parkinson's Progression](projects/parkinsons_progression/) · [UK House Prices](projects/uk_house_price_prediction/) · [Flight Delay Risk](projects/flight_delay_risk/) |
+| **scikit-learn fundamentals** | [end-to-end classification notebook](skills/03_sklearn_end_to_end_classification.ipynb) · [Parkinson's Progression](projects/parkinsons_progression/) · [Customer Churn](projects/customer_churn_prediction/) |
 | **Regression** | [Parkinson's Progression](projects/parkinsons_progression/) · [UK House Prices](projects/uk_house_price_prediction/) |
-| **Classification** | [Customer Churn](projects/customer_churn_prediction/) · [Flight Delay Risk](projects/flight_delay_risk/) |
-| **PyTorch / computer vision / CNNs** | [Image Classification](projects/image_classification_confidence/) · [original CNN notebook](04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb) |
+| **Classification** | [scikit-learn classification notebook](skills/03_sklearn_end_to_end_classification.ipynb) · [Customer Churn](projects/customer_churn_prediction/) · [Flight Delay Risk](projects/flight_delay_risk/) |
+| **PyTorch / neural-network fundamentals** | [PyTorch MLP notebook](skills/04_pytorch_neural_network_fundamentals.ipynb) · [Image Classification](projects/image_classification_confidence/) |
+| **LSTM / sequence modelling** | [LSTM fundamentals notebook](skills/05_lstm_sequence_modelling.ipynb) |
+| **Computer vision / CNNs** | [CNN fundamentals](skills/07_cnn_image_fundamentals.ipynb) · [Image Classification](projects/image_classification_confidence/) · [original CNN notebook](04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb) |
 | **TensorFlow / time series** | [Energy Demand Forecasting](projects/energy_demand_forecasting/) · [original TensorFlow notebook](05_Energy_Demand_Forecasting_with_TensorFlow.ipynb) |
 | **SQL & relational analytics** | [E-commerce SQL Analytics](projects/ecommerce_sql_analytics/) · [original SQL notebook](02_SQL_Sales_and_Customer_Analysis.ipynb) |
 | **PySpark / larger-scale data** | [PySpark Clickstream](projects/pyspark_clickstream_analytics/) · [original PySpark notebook](06_Clickstream_Analysis_with_PySpark.ipynb) |
-| **Text / LLM / retrieval** | [Grounded RAG](projects/grounded_rag/) · [complete project catalogue](docs/PROJECT_CATALOG.md) |
+| **Text classification / NLP** | [TF-IDF text classification](skills/06_text_classification_tfidf.ipynb) · [Grounded RAG](projects/grounded_rag/) |
+| **LLM / retrieval** | [Grounded RAG](projects/grounded_rag/) · [complete project catalogue](docs/PROJECT_CATALOG.md) |
 | **APIs / packaging / testing / CI** | [Grounded RAG](projects/grounded_rag/) · [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [ModelWatch](projects/model_watch/) |
 | **R / statistical analysis** | [London Air Quality notebook](07_London_Air_Quality_Analysis_with_R.ipynb) |
+
+## Focused fundamentals notebooks
+
+**[Open the Data & AI Skills Lab →](skills/README.md)**
+
+These small notebooks are there for a specific reason: they make the building blocks easy to inspect and easy for me to revise before interviews. They do **not** replace the end-to-end projects or pretend every learning exercise is a production system.
+
+1. [Data cleaning & preprocessing](skills/01_data_cleaning_preprocessing.ipynb)
+2. [NumPy for machine learning](skills/02_numpy_for_machine_learning.ipynb)
+3. [scikit-learn end-to-end classification](skills/03_sklearn_end_to_end_classification.ipynb)
+4. [PyTorch neural-network fundamentals](skills/04_pytorch_neural_network_fundamentals.ipynb)
+5. [LSTM sequence modelling](skills/05_lstm_sequence_modelling.ipynb)
+6. [Text classification with TF-IDF](skills/06_text_classification_tfidf.ipynb)
+7. [CNN image fundamentals](skills/07_cnn_image_fundamentals.ipynb)
+
+The portfolio therefore shows three levels of evidence: **focused fundamentals → original university applications → strengthened end-to-end projects**.
 
 ## Flagship production-style evidence
 
@@ -97,6 +116,7 @@ Across the strongest work I make these visible rather than leaving them implicit
 ## Repository map
 
 ```text
+skills/                   focused fundamentals notebooks for interview revision
 projects/                 strengthened / production-style projects for interviews
 verified/                 retained machine-readable evidence from earlier project versions
 extensions/               hardened rerun / verification code for older notebooks
@@ -106,7 +126,7 @@ scripts/                   integrity validators used by GitHub Actions
 *.ipynb                   executed university, learning and historical notebooks
 ```
 
-The portfolio manifest is checked automatically so listed projects cannot silently disappear or point at broken local paths. Use the **[complete project catalogue](docs/PROJECT_CATALOG.md)** for the full inventory.
+The portfolio manifest and focused skills notebooks are checked automatically so listed work cannot silently disappear or become malformed. Use the **[complete project catalogue](docs/PROJECT_CATALOG.md)** for the full inventory.
 
 ## Main tools
 
