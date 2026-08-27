@@ -25,6 +25,7 @@ from typing import Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
+PROJECT_CATALOG = ROOT / "docs" / "PROJECT_CATALOG.md"
 ADVANCED_AUDIT = ROOT / "docs" / "RESTORED_PROJECT_AUDIT.md"
 
 VERIFIED_NOTEBOOKS = [
@@ -78,9 +79,6 @@ RETAINED_VERIFICATION_FILES = {
     "LLM evaluation harness": "verified/llm_eval_harness/verification.json",
 }
 
-# Advanced notebooks with little/no in-notebook narrative are documented here.
-# The audit is a bridge, not a substitute for adding clear notebook narrative when
-# each project is promoted to the verified tier.
 COMPANION_DOCUMENTED = {
     "AeroFlow_AI_Engine.ipynb",
     "CineIntelligence_NoSQL_DataEngineering.ipynb",
@@ -283,9 +281,9 @@ def check_retained_verification(name: str, relative_path: str, failures: list[st
     print(f"PASS RETAINED EVIDENCE: {name} -> {relative_path}")
 
 
-def require_listed(filename: str, readme_text: str, failures: list[str]) -> None:
-    if filename not in readme_text and filename.replace(" ", "%20") not in readme_text:
-        fail(f"README.md does not reference {filename}", failures)
+def require_listed(filename: str, discovery_text: str, failures: list[str]) -> None:
+    if filename not in discovery_text and filename.replace(" ", "%20") not in discovery_text:
+        fail(f"Portfolio discovery docs do not reference {filename}", failures)
 
 
 def main() -> int:
@@ -298,6 +296,14 @@ def main() -> int:
     else:
         readme_text = README.read_text(encoding="utf-8")
 
+    if not PROJECT_CATALOG.exists():
+        fail("docs/PROJECT_CATALOG.md is missing", failures)
+        catalog_text = ""
+    else:
+        catalog_text = PROJECT_CATALOG.read_text(encoding="utf-8")
+
+    discovery_text = f"{readme_text}\n{catalog_text}"
+
     if not ADVANCED_AUDIT.exists():
         fail("docs/RESTORED_PROJECT_AUDIT.md is missing", failures)
 
@@ -307,7 +313,7 @@ def main() -> int:
         if not path.exists():
             fail(f"missing verified notebook: {filename}", failures)
             continue
-        require_listed(filename, readme_text, failures)
+        require_listed(filename, discovery_text, failures)
         check_verified(path, failures, warnings)
 
     print("\n=== RETAINED VERIFICATION EVIDENCE ===")
@@ -320,7 +326,7 @@ def main() -> int:
         if not path.exists():
             fail(f"missing advanced notebook: {filename}", failures)
             continue
-        require_listed(filename, readme_text, failures)
+        require_listed(filename, discovery_text, failures)
         check_advanced(path, failures, warnings)
 
     print("\n=== SUMMARY ===")
