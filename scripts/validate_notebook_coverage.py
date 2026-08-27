@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "portfolio_manifest.json"
 CATALOG = ROOT / "docs" / "PROJECT_CATALOG.md"
 NOTEBOOK_INDEX = ROOT / "docs" / "NOTEBOOK_INDEX.md"
+PROJECTS = ROOT / "projects"
 SKILLS = ROOT / "skills"
 
 
@@ -25,23 +26,49 @@ def validate_notebook(path: Path, failures: list[str]) -> None:
         return
     if payload.get("nbformat") != 4:
         failures.append(f"unexpected nbformat in {path.relative_to(ROOT)}")
-    if not isinstance(payload.get("cells"), list):
-        failures.append(f"missing cells list in {path.relative_to(ROOT)}")
+    cells = payload.get("cells")
+    if not isinstance(cells, list) or not cells:
+        failures.append(f"missing/empty cells list in {path.relative_to(ROOT)}")
+
+
+def project_directories() -> list[Path]:
+    """Return every immediate project folder that contains Python source."""
+    if not PROJECTS.is_dir():
+        return []
+    return sorted(
+        directory
+        for directory in PROJECTS.iterdir()
+        if directory.is_dir() and any(directory.rglob("*.py"))
+    )
 
 
 def main() -> int:
     failures: list[str] = []
     payload = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    index_text = NOTEBOOK_INDEX.read_text(encoding="utf-8") if NOTEBOOK_INDEX.is_file() else ""
 
-    production = payload.get("production_projects", [])
-    for project in production:
-        project_path = ROOT / project["path"]
+    # Check every Python-backed project folder, not only projects in the manifest.
+    projects = project_directories()
+    if not projects:
+        failures.append("no Python-backed project directories found")
+    for project_path in projects:
         notebook = project_path / "project_notebook.ipynb"
         validate_notebook(notebook, failures)
-        python_files = list(project_path.rglob("*.py")) if project_path.is_dir() else []
+        python_files = [path for path in project_path.rglob("*.py") if "__pycache__" not in path.parts]
         if not python_files:
-            failures.append(f"no Python source found under {project['path']}")
+            failures.append(f"no Python source found under {project_path.relative_to(ROOT)}")
+        relative_notebook = str(notebook.relative_to(ROOT))
+        if index_text and relative_notebook not in index_text:
+            failures.append(f"notebook index does not reference {relative_notebook}")
 
+    # Manifest projects must still resolve to real checked project folders.
+    checked_paths = {str(path.relative_to(ROOT)) for path in projects}
+    for project in payload.get("production_projects", []):
+        manifest_path = project.get("path")
+        if manifest_path not in checked_paths:
+            failures.append(f"manifest project not covered by notebook/Python check: {manifest_path}")
+
+    # Focused skills must keep explicit notebook/Python twins.
     skill_notebooks = sorted(SKILLS.glob("[0-9][0-9]_*.ipynb"))
     if not skill_notebooks:
         failures.append("no focused skills notebooks found")
@@ -51,6 +78,7 @@ def main() -> int:
         if not script.is_file():
             failures.append(f"missing Python twin for {notebook.relative_to(ROOT)}")
 
+    # Keep catalogue-listed historical notebooks in place.
     if not CATALOG.is_file():
         failures.append("docs/PROJECT_CATALOG.md is missing")
     else:
@@ -64,7 +92,7 @@ def main() -> int:
     if not NOTEBOOK_INDEX.is_file():
         failures.append("docs/NOTEBOOK_INDEX.md is missing")
 
-    print(f"Production projects checked: {len(production)}")
+    print(f"Python-backed projects checked: {len(projects)}")
     print(f"Focused notebook/Python pairs checked: {len(skill_notebooks)}")
     print(f"Failures: {len(failures)}")
     for failure in failures:

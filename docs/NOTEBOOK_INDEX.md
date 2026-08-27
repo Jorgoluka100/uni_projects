@@ -6,7 +6,7 @@ The repository intentionally keeps three layers:
 
 1. **Original / previously uploaded notebooks** — retained as historical and university evidence.
 2. **Focused skills notebooks + `.py` scripts** — small interview-revision examples.
-3. **Strengthened projects** — each recruiter-facing project has a `project_notebook.ipynb` companion while the full implementation remains in normal Python/SQL source files.
+3. **Strengthened projects** — each Python-backed project has a `project_notebook.ipynb` companion while the full implementation remains in normal Python/SQL source files.
 
 ## 1. Original and previously uploaded notebooks
 
@@ -44,6 +44,16 @@ These files remain at repository root. They have not been replaced by the new pr
 - [`Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb`](../Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb)
 - [`financial_fraud_aml_detection_system.ipynb`](../financial_fraud_aml_detection_system.ipynb)
 
+### Export any notebook to plain Python
+
+To create a `.py` view of **all notebooks**, including the older uploaded files, without changing the original `.ipynb` files:
+
+```bash
+python scripts/export_notebooks_to_python.py --root . --output notebook_python_exports
+```
+
+The exporter mirrors notebook paths and writes code cells in order with `# %%` markers. The originals remain untouched.
+
 ## 2. Focused skills — notebook + Python pairs
 
 | Skill | Notebook | Python script |
@@ -64,6 +74,7 @@ The notebook is the Jupyter/Colab walkthrough. The project folder contains the a
 | --- | --- | --- |
 | Parkinson's Progression | [`project_notebook.ipynb`](../projects/parkinsons_progression/project_notebook.ipynb) | [`projects/parkinsons_progression/`](../projects/parkinsons_progression/) |
 | Reliable Event Pipeline | [`project_notebook.ipynb`](../projects/reliable_event_pipeline/project_notebook.ipynb) | [`projects/reliable_event_pipeline/`](../projects/reliable_event_pipeline/) |
+| Production Data Pipeline | [`project_notebook.ipynb`](../projects/production_data_pipeline/project_notebook.ipynb) | [`projects/production_data_pipeline/`](../projects/production_data_pipeline/) |
 | Flight Delay Risk | [`project_notebook.ipynb`](../projects/flight_delay_risk/project_notebook.ipynb) | [`projects/flight_delay_risk/`](../projects/flight_delay_risk/) |
 | E-commerce SQL Analytics | [`project_notebook.ipynb`](../projects/ecommerce_sql_analytics/project_notebook.ipynb) | [`projects/ecommerce_sql_analytics/`](../projects/ecommerce_sql_analytics/) |
 | Customer Churn | [`project_notebook.ipynb`](../projects/customer_churn_prediction/project_notebook.ipynb) | [`projects/customer_churn_prediction/`](../projects/customer_churn_prediction/) |
