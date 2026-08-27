@@ -27,6 +27,9 @@ jobs:
       - name: Compile-check portfolio Python code
         run: python -m compileall -q scripts extensions projects
 
+      - name: Validate portfolio manifest and project paths
+        run: python scripts/validate_portfolio_manifest.py
+
       - name: Self-test VisionForge release evidence gate
         run: python extensions/visionforge_release_gate.py --self-test
 
