@@ -1,0 +1,73 @@
+{
+  "profile": {
+    "owner": "Jorgoluka100",
+    "main_repository": "uni_projects",
+    "analyst_repository": "primed-talent-data-analyst-bootcamp"
+  },
+  "university_projects": [
+    {
+      "id": "uk-house-price-university",
+      "title": "UK House Price Analysis & Prediction",
+      "notebook": "01_UK_House_Price_Analysis_and_Prediction.ipynb",
+      "follow_on": "projects/uk_house_price_prediction",
+      "skills": ["Python", "regression", "feature engineering", "evaluation"]
+    },
+    {
+      "id": "sql-sales-university",
+      "title": "SQL Sales & Customer Analysis",
+      "notebook": "02_SQL_Sales_and_Customer_Analysis.ipynb",
+      "follow_on": "projects/ecommerce_sql_analytics",
+      "skills": ["SQL", "customer analytics", "relational modelling", "reporting"]
+    },
+    {
+      "id": "customer-churn-university",
+      "title": "Customer Churn Prediction",
+      "notebook": "03_Customer_Churn_Prediction.ipynb",
+      "follow_on": "projects/customer_churn_prediction",
+      "skills": ["classification", "preprocessing", "model evaluation", "thresholding"]
+    },
+    {
+      "id": "image-classification-university",
+      "title": "Image Classification with CNNs & Transfer Learning",
+      "notebook": "04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb",
+      "follow_on": "projects/image_classification_confidence",
+      "skills": ["computer vision", "CNN", "transfer learning", "deep learning"]
+    },
+    {
+      "id": "energy-demand-university",
+      "title": "Energy Demand Forecasting with TensorFlow",
+      "notebook": "05_Energy_Demand_Forecasting_with_TensorFlow.ipynb",
+      "follow_on": "projects/energy_demand_forecasting",
+      "skills": ["time series", "TensorFlow", "forecasting", "temporal validation"]
+    },
+    {
+      "id": "clickstream-university",
+      "title": "Clickstream Analysis with PySpark",
+      "notebook": "06_Clickstream_Analysis_with_PySpark.ipynb",
+      "follow_on": "projects/pyspark_clickstream_analytics",
+      "skills": ["PySpark", "distributed data", "behavioural analytics", "Spark ML"]
+    },
+    {
+      "id": "london-air-quality-university",
+      "title": "London Air Quality Analysis with R",
+      "notebook": "07_London_Air_Quality_Analysis_with_R.ipynb",
+      "follow_on": null,
+      "skills": ["R", "exploratory analysis", "environmental data", "visualisation"]
+    }
+  ],
+  "production_projects": [
+    {"id": "reliable-event-pipeline", "path": "projects/reliable_event_pipeline", "role": "data_engineering"},
+    {"id": "flight-delay-risk", "path": "projects/flight_delay_risk", "role": "data_science"},
+    {"id": "ecommerce-sql-analytics", "path": "projects/ecommerce_sql_analytics", "role": "analytics"},
+    {"id": "customer-churn", "path": "projects/customer_churn_prediction", "role": "data_science"},
+    {"id": "grounded-rag", "path": "projects/grounded_rag", "role": "ai_engineering"},
+    {"id": "image-classification-confidence", "path": "projects/image_classification_confidence", "role": "ml_engineering"},
+    {"id": "experiment-lab", "path": "projects/experiment_lab", "role": "data_science"},
+    {"id": "pyspark-clickstream", "path": "projects/pyspark_clickstream_analytics", "role": "data_engineering"},
+    {"id": "uk-house-price", "path": "projects/uk_house_price_prediction", "role": "data_science"},
+    {"id": "energy-demand", "path": "projects/energy_demand_forecasting", "role": "ml_engineering"},
+    {"id": "model-watch", "path": "projects/model_watch", "role": "ml_engineering"},
+    {"id": "career-lens", "path": "projects/careerlens_ai", "role": "ai_engineering"},
+    {"id": "retail-segmentation", "path": "projects/retail_customer_segmentation", "role": "data_science"}
+  ]
+}
