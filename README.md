@@ -3,7 +3,7 @@
 **MSc Artificial Intelligence & Data Science (Distinction), University of East London**  
 Python · SQL · machine learning · data engineering · applied AI
 
-This is an **evidence-backed portfolio**, not a notebook dump. The strongest projects make the data checks, validation choices, baselines, tests, retained results and limitations visible alongside the code.
+This portfolio combines my **original university projects** with newer **production-style Data & AI work**. The university notebooks show the academic foundation; the newer packages show how I now approach the same problems with stronger validation, testing, reproducibility and engineering discipline.
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
 [![Production project checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml)
@@ -18,7 +18,7 @@ This is an **evidence-backed portfolio**, not a notebook dump. The strongest pro
 | **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [PySpark Clickstream](projects/pyspark_clickstream_analytics/) | ingestion, schema validation, deduplication, idempotency, data-quality checks and scalable transformations |
 | **ML / AI Engineer** | [Grounded RAG](projects/grounded_rag/) · [Image Classification](projects/image_classification_confidence/) · [ModelWatch](projects/model_watch/) | retrieval/evaluation, PyTorch, APIs, model export, calibration, drift monitoring and deployment-minded engineering |
 
-## Flagship evidence
+## Flagship production-style evidence
 
 | Project | Proof point |
 | --- | --- |
@@ -31,9 +31,25 @@ This is an **evidence-backed portfolio**, not a notebook dump. The strongest pro
 | **[ExperimentLab](projects/experiment_lab/)** | Treatment effects, confidence intervals, CUPED, guardrails and power; CUPED reduced retained-run variance by **50.7%**. |
 | **[PySpark Clickstream](projects/pyspark_clickstream_analytics/)** | **165,474** real events, Spark transformations, explicit data-quality logic and a separate one-million-row load test. |
 
+## MSc university projects
+
+The original executed university notebooks are kept in the repository rather than hidden or replaced. Where I later rebuilt the same problem to a higher engineering standard, both versions are linked.
+
+| University project | Original work | Follow-on project |
+| --- | --- | --- |
+| **UK House Price Analysis & Prediction** | [`01_UK_House_Price_Analysis_and_Prediction.ipynb`](01_UK_House_Price_Analysis_and_Prediction.ipynb) | [Production-style house price prediction](projects/uk_house_price_prediction/) |
+| **SQL Sales & Customer Analysis** | [`02_SQL_Sales_and_Customer_Analysis.ipynb`](02_SQL_Sales_and_Customer_Analysis.ipynb) | [E-commerce SQL Analytics](projects/ecommerce_sql_analytics/) |
+| **Customer Churn Prediction** | [`03_Customer_Churn_Prediction.ipynb`](03_Customer_Churn_Prediction.ipynb) | [Production-style churn modelling](projects/customer_churn_prediction/) |
+| **Image Classification with CNNs & Transfer Learning** | [`04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb`](04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb) | [Confidence-aware image classification](projects/image_classification_confidence/) |
+| **Energy Demand Forecasting with TensorFlow** | [`05_Energy_Demand_Forecasting_with_TensorFlow.ipynb`](05_Energy_Demand_Forecasting_with_TensorFlow.ipynb) | [Production-style energy forecasting](projects/energy_demand_forecasting/) |
+| **Clickstream Analysis with PySpark** | [`06_Clickstream_Analysis_with_PySpark.ipynb`](06_Clickstream_Analysis_with_PySpark.ipynb) | [PySpark Clickstream Analytics](projects/pyspark_clickstream_analytics/) |
+| **London Air Quality Analysis with R** | [`07_London_Air_Quality_Analysis_with_R.ipynb`](07_London_Air_Quality_Analysis_with_R.ipynb) | Original executed notebook retained as R evidence |
+
+**[View the university-project index →](docs/UNIVERSITY_PROJECTS.md)**
+
 ## Engineering standard
 
-Across the flagship work I try to make these visible rather than leaving them implicit:
+Across the strongest work I make these visible rather than leaving them implicit:
 
 - data source, schema and quality checks
 - validation or holdout design that matches intended use
@@ -49,14 +65,16 @@ Across the flagship work I try to make these visible rather than leaving them im
 ## Repository map
 
 ```text
-projects/     production-style projects I would discuss in interviews
-verified/     retained machine-readable evidence from earlier project versions
-extensions/   hardened rerun / verification code for older notebooks
-docs/         complete catalogue and supporting documentation
-*.ipynb       executed university, learning and historical notebooks
+projects/                 production-style projects I would discuss in interviews
+verified/                 retained machine-readable evidence from earlier project versions
+extensions/               hardened rerun / verification code for older notebooks
+docs/                     university index, complete catalogue and supporting documentation
+portfolio_manifest.json   machine-readable inventory of university + production projects
+scripts/                   integrity validators used by GitHub Actions
+*.ipynb                   executed university, learning and historical notebooks
 ```
 
-For everything else, use the **[complete project catalogue](docs/PROJECT_CATALOG.md)**. Older notebooks remain available as learning history, but the recruiter path above intentionally leads with the strongest verified work.
+The portfolio manifest is checked automatically so listed projects cannot silently disappear or point at broken local paths. Use the **[complete project catalogue](docs/PROJECT_CATALOG.md)** for the full inventory.
 
 ## Main tools
 
@@ -67,7 +85,7 @@ For everything else, use the **[complete project catalogue](docs/PROJECT_CATALOG
 
 ## Supporting analyst work
 
-Smaller analyst exercises and the interactive retail dashboard are kept separately in the **[Data Analyst Bootcamp repository](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)** so this repository stays focused.
+Smaller analyst exercises and the interactive retail dashboard are kept separately in the **[Data Analyst Bootcamp repository](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)** so this repository stays focused while still providing direct analyst evidence.
 
 ## Licence
 
