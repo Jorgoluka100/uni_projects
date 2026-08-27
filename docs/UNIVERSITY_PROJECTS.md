@@ -4,6 +4,7 @@ These are the executed university projects retained from my MSc Artificial Intel
 
 | University project | Original notebook | Stronger follow-on evidence | Main skills |
 | --- | --- | --- | --- |
+| **Parkinson's Progression Modelling** | [`Parkinsons_Progression_ML.ipynb`](../Parkinsons_Progression_ML.ipynb) | [`projects/parkinsons_progression/`](../projects/parkinsons_progression/) | data cleaning, feature policy, regression, scikit-learn, leakage-aware grouped validation |
 | **UK House Price Analysis & Prediction** | [`01_UK_House_Price_Analysis_and_Prediction.ipynb`](../01_UK_House_Price_Analysis_and_Prediction.ipynb) | [`projects/uk_house_price_prediction/`](../projects/uk_house_price_prediction/) | Python, regression, feature engineering, evaluation |
 | **SQL Sales & Customer Analysis** | [`02_SQL_Sales_and_Customer_Analysis.ipynb`](../02_SQL_Sales_and_Customer_Analysis.ipynb) | [`projects/ecommerce_sql_analytics/`](../projects/ecommerce_sql_analytics/) | SQL, relational analysis, customer analytics, reporting grain |
 | **Customer Churn Prediction** | [`03_Customer_Churn_Prediction.ipynb`](../03_Customer_Churn_Prediction.ipynb) | [`projects/customer_churn_prediction/`](../projects/customer_churn_prediction/) | classification, preprocessing, model evaluation, decision thresholds |
@@ -15,6 +16,8 @@ These are the executed university projects retained from my MSc Artificial Intel
 ## Why both versions are kept
 
 The university notebooks show the original learning and executed analysis. The follow-on packages show how I now approach the same kinds of problems with stronger engineering discipline: explicit data contracts, leakage controls, realistic holdouts, tests, machine-readable results, CI and documented limitations.
+
+The Parkinson's project is a particularly clear example. The original notebook contains the analysis I completed myself; the follow-on version keeps that work visible while changing the evaluation design so repeated measurements from the same subject cannot appear in both training and holdout data.
 
 That progression is intentional. I want recruiters and interviewers to be able to see both the academic foundation and the later engineering standard rather than replacing the original work with polished summaries.
 
