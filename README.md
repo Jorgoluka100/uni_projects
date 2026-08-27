@@ -120,6 +120,43 @@ docs/         complete catalogue and supporting documentation
 
 The complete project inventory is in [`docs/PROJECT_CATALOG.md`](docs/PROJECT_CATALOG.md). Older notebooks remain available as learning history, but I do not use unverified results from them as production or clinical claims.
 
+<details>
+<summary><strong>Notebook archive — retained for reproducibility and history</strong></summary>
+
+### Verified notebook records
+
+- [`01_UK_House_Price_Analysis_and_Prediction.ipynb`](01_UK_House_Price_Analysis_and_Prediction.ipynb)
+- [`02_SQL_Sales_and_Customer_Analysis.ipynb`](02_SQL_Sales_and_Customer_Analysis.ipynb)
+- [`03_Customer_Churn_Prediction.ipynb`](03_Customer_Churn_Prediction.ipynb)
+- [`04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb`](04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb)
+- [`05_Energy_Demand_Forecasting_with_TensorFlow.ipynb`](05_Energy_Demand_Forecasting_with_TensorFlow.ipynb)
+- [`06_Clickstream_Analysis_with_PySpark.ipynb`](06_Clickstream_Analysis_with_PySpark.ipynb)
+- [`07_London_Air_Quality_Analysis_with_R.ipynb`](07_London_Air_Quality_Analysis_with_R.ipynb)
+- [`01_ConsultAI_AI_Opportunity_Engine.ipynb`](01_ConsultAI_AI_Opportunity_Engine.ipynb)
+- [`12_VisionForge_PyTorch_Visual_Inspection.ipynb`](12_VisionForge_PyTorch_Visual_Inspection.ipynb)
+
+### Historical / laboratory notebooks
+
+- [`Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb`](Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb)
+- [`AeroFlow_AI_Engine.ipynb`](AeroFlow_AI_Engine.ipynb)
+- [`Aviation_Strategy_PostgreSQL_Optimization.ipynb`](Aviation_Strategy_PostgreSQL_Optimization.ipynb)
+- [`CineIntelligence_NoSQL_DataEngineering.ipynb`](CineIntelligence_NoSQL_DataEngineering.ipynb)
+- [`Clustering_Models.ipynb`](Clustering_Models.ipynb)
+- [`KDDCup.ipynb`](KDDCup.ipynb)
+- [`LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`](LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb)
+- [`LLM_Mastery_Hands_on_Code.ipynb`](LLM_Mastery_Hands_on_Code.ipynb)
+- [`Logistic_Regression_PySpark.ipynb`](Logistic_Regression_PySpark.ipynb)
+- [`Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb`](Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb)
+- [`NYC_Airbnb_Market_Analysis (1).ipynb`](NYC_Airbnb_Market_Analysis%20%281%29.ipynb)
+- [`Naive_Bayes_PySpark.ipynb`](Naive_Bayes_PySpark.ipynb)
+- [`Parkinsons_Progression_ML.ipynb`](Parkinsons_Progression_ML.ipynb)
+- [`Pathfinding.ipynb`](Pathfinding.ipynb)
+- [`PyTorch_medical_AI_xray_diagnosis.ipynb`](PyTorch_medical_AI_xray_diagnosis.ipynb)
+- [`Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb`](Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb)
+- [`financial_fraud_aml_detection_system.ipynb`](financial_fraud_aml_detection_system.ipynb)
+
+</details>
+
 ## Main tools
 
 **Data:** Python, SQL, Pandas, NumPy, PostgreSQL, DuckDB, PySpark  
