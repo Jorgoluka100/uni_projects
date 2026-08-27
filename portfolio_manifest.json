@@ -6,6 +6,13 @@
   },
   "university_projects": [
     {
+      "id": "parkinsons-progression-university",
+      "title": "Parkinson's Progression Modelling",
+      "notebook": "Parkinsons_Progression_ML.ipynb",
+      "follow_on": "projects/parkinsons_progression",
+      "skills": ["data cleaning", "regression", "scikit-learn", "feature policy", "grouped validation"]
+    },
+    {
       "id": "uk-house-price-university",
       "title": "UK House Price Analysis & Prediction",
       "notebook": "01_UK_House_Price_Analysis_and_Prediction.ipynb",
@@ -56,6 +63,7 @@
     }
   ],
   "production_projects": [
+    {"id": "parkinsons-progression", "path": "projects/parkinsons_progression", "role": "data_science"},
     {"id": "reliable-event-pipeline", "path": "projects/reliable_event_pipeline", "role": "data_engineering"},
     {"id": "flight-delay-risk", "path": "projects/flight_delay_risk", "role": "data_science"},
     {"id": "ecommerce-sql-analytics", "path": "projects/ecommerce_sql_analytics", "role": "analytics"},
