@@ -75,6 +75,7 @@ The point is not to create two unrelated dashboards. Both tools consume the **sa
 - [`KPI_DICTIONARY.md`](KPI_DICTIONARY.md) — definitions, grain and caveats.
 - [`DASHBOARD_STORY.md`](DASHBOARD_STORY.md) — page-by-page analytical and UX design.
 - [`prepare_bi_data.py`](prepare_bi_data.py) — converts verified Parquet marts into BI-friendly CSVs plus a hashed manifest.
+- [`project_notebook.ipynb`](project_notebook.ipynb) — interview-style walkthrough of the data contract, KPI layer, BI architecture and limitations.
 
 ## Reproduce the BI data
 
@@ -118,6 +119,12 @@ Outputs include:
 - automated JSON/XML/project-contract checks in GitHub Actions
 - no claim that historical marketplace revenue equals profit
 - no causal claim that late delivery *causes* poor reviews
+
+## Verification boundary
+
+The **data pipeline, retained KPI evidence, Power BI/Tableau source contracts and project structure are automated and CI-checked in this repository**. The repository does **not** claim that a binary `.pbix` file or a published Tableau workbook was generated and runtime-tested inside CI.
+
+Final interactive opening, refresh and publication should be performed in **Power BI Desktop** and **Tableau Desktop / Tableau Public** respectively. Keeping that boundary explicit makes the evidence stronger: the source and data contracts are inspectable here without pretending that desktop-only behaviour was verified where those applications are unavailable.
 
 ## What this project demonstrates
 
