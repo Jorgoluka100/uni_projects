@@ -75,7 +75,6 @@
     {"id": "uk-house-price", "path": "projects/uk_house_price_prediction", "role": "data_science"},
     {"id": "energy-demand", "path": "projects/energy_demand_forecasting", "role": "ml_engineering"},
     {"id": "model-watch", "path": "projects/model_watch", "role": "ml_engineering"},
-    {"id": "career-lens", "path": "projects/careerlens_ai", "role": "ai_engineering"},
     {"id": "retail-segmentation", "path": "projects/retail_customer_segmentation", "role": "data_science"}
   ]
 }
