@@ -74,7 +74,6 @@ The notebook is the Jupyter/Colab walkthrough. The project folder contains the a
 | --- | --- | --- |
 | Parkinson's Progression | [`project_notebook.ipynb`](../projects/parkinsons_progression/project_notebook.ipynb) | [`projects/parkinsons_progression/`](../projects/parkinsons_progression/) |
 | Reliable Event Pipeline | [`project_notebook.ipynb`](../projects/reliable_event_pipeline/project_notebook.ipynb) | [`projects/reliable_event_pipeline/`](../projects/reliable_event_pipeline/) |
-| Production Data Pipeline | [`project_notebook.ipynb`](../projects/production_data_pipeline/project_notebook.ipynb) | [`projects/production_data_pipeline/`](../projects/production_data_pipeline/) |
 | Flight Delay Risk | [`project_notebook.ipynb`](../projects/flight_delay_risk/project_notebook.ipynb) | [`projects/flight_delay_risk/`](../projects/flight_delay_risk/) |
 | E-commerce SQL Analytics | [`project_notebook.ipynb`](../projects/ecommerce_sql_analytics/project_notebook.ipynb) | [`projects/ecommerce_sql_analytics/`](../projects/ecommerce_sql_analytics/) |
 | Customer Churn | [`project_notebook.ipynb`](../projects/customer_churn_prediction/project_notebook.ipynb) | [`projects/customer_churn_prediction/`](../projects/customer_churn_prediction/) |
@@ -85,7 +84,6 @@ The notebook is the Jupyter/Colab walkthrough. The project folder contains the a
 | UK House Price Prediction | [`project_notebook.ipynb`](../projects/uk_house_price_prediction/project_notebook.ipynb) | [`projects/uk_house_price_prediction/`](../projects/uk_house_price_prediction/) |
 | Energy Demand Forecasting | [`project_notebook.ipynb`](../projects/energy_demand_forecasting/project_notebook.ipynb) | [`projects/energy_demand_forecasting/`](../projects/energy_demand_forecasting/) |
 | ModelWatch | [`project_notebook.ipynb`](../projects/model_watch/project_notebook.ipynb) | [`projects/model_watch/`](../projects/model_watch/) |
-| CareerLens AI | [`project_notebook.ipynb`](../projects/careerlens_ai/project_notebook.ipynb) | [`projects/careerlens_ai/`](../projects/careerlens_ai/) |
 | Retail Customer Segmentation | [`project_notebook.ipynb`](../projects/retail_customer_segmentation/project_notebook.ipynb) | [`projects/retail_customer_segmentation/`](../projects/retail_customer_segmentation/) |
 
 ## Why the code is not duplicated inside every notebook
