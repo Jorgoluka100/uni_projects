@@ -1,143 +1,137 @@
-# Jorgo Luka — Data & AI Portfolio
+# Jorgo Luka — Data & AI Engineering Portfolio
 
-**MSc Artificial Intelligence & Data Science (Distinction), University of East London**  
-Python · SQL · machine learning · data engineering · applied AI
+**MSc Artificial Intelligence & Data Science (Distinction)**  
+Python · SQL · Data Science · Data Engineering · Machine Learning · Applied AI
 
-This portfolio combines my **original university projects** with newer **production-style Data & AI work**. The university notebooks show the academic foundation; the newer packages show how I now approach the same problems with stronger validation, testing, reproducibility and engineering discipline.
+This portfolio is structured to answer the questions I would expect in an internship, graduate or junior technical interview: **can I work with raw data, build models, evaluate them properly and turn the stronger work into reliable software?**
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
-[![Production project checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/new-projects-ci.yml)
-[![Reliable pipeline checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/reliable-event-pipeline-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/reliable-event-pipeline-ci.yml)
+[![Flight delay project](https://github.com/Jorgoluka100/uni_projects/actions/workflows/flight-delay-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/flight-delay-ci.yml)
+[![dbt analytics engineering](https://github.com/Jorgoluka100/uni_projects/actions/workflows/dbt-analytics-engineering.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/dbt-analytics-engineering.yml)
 
-## Start here: Parkinson's progression modelling
+## Start here
 
-**[Original executed MSc notebook](Parkinsons_Progression_ML.ipynb) → [strengthened leakage-aware project](projects/parkinsons_progression/)**
+**[Foundation → Intermediate → Advanced hiring roadmap](docs/HIRING_PORTFOLIO.md)**
 
-This is the clearest example of how my work has developed. The original notebook uses the UCI Parkinson's Telemonitoring dataset and contains the analysis and regression work I completed during my studies. I have kept that notebook intact rather than replacing it.
-
-The follow-on version makes the data-science reasoning more explicit: schema checks, duplicate handling, pipeline-safe imputation, a clear feature policy, a median baseline, Ridge and Gradient Boosting, **subject-level train/holdout separation**, GroupKFold cross-validation and machine-readable evaluation output. The key change is that repeated measurements from one subject cannot appear in both training and holdout data.
-
-The project is educational portfolio work on a public research dataset, **not a diagnostic or clinical system**.
+| Level | Purpose | Evidence |
+| --- | --- | --- |
+| **Foundation** | Prove the building blocks individually | [Data & AI Foundations Lab](skills/) — cleaning, NumPy, regression, classification, clustering, SQL, PyTorch, LSTM, text and CNNs |
+| **Intermediate** | Apply those skills to real data and engineering problems | [End-to-end projects](projects/) — real datasets, SQL, PySpark, pipelines, testing, dbt, APIs, Docker and monitoring |
+| **Advanced** | Combine modelling and engineering into a releaseable system | [Flight Delay Risk Platform](projects/flight_delay_risk/) — official 2026 data → temporal ML evaluation → verified model → FastAPI → Docker → CI |
 
 ## Start with the role you are hiring for
 
 | Role | Best evidence | What it demonstrates |
 | --- | --- | --- |
-| **Data Scientist** | [Parkinson's Progression](projects/parkinsons_progression/) · [Flight Delay Risk](projects/flight_delay_risk/) · [Customer Churn](projects/customer_churn_prediction/) · [UK House Prices](projects/uk_house_price_prediction/) | cleaning, feature policy, supervised ML, realistic validation, baselines, calibration, thresholding and uncertainty |
-| **Data Analyst / Technical Analyst** | [Retail KPI Dashboard](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp/tree/main/dashboard) · [E-commerce SQL Analytics](projects/ecommerce_sql_analytics/) · [ExperimentLab](projects/experiment_lab/) | dashboards, SQL, KPI logic, data cleaning, experimentation and business interpretation |
-| **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [PySpark Clickstream](projects/pyspark_clickstream_analytics/) | ingestion, schema validation, deduplication, idempotency, data-quality checks and scalable transformations |
-| **ML / AI Engineer** | [Grounded RAG](projects/grounded_rag/) · [Image Classification](projects/image_classification_confidence/) · [ModelWatch](projects/model_watch/) | retrieval/evaluation, PyTorch, CNNs, APIs, model export, calibration, drift monitoring and deployment-minded engineering |
+| **Data Scientist** | [Flight Delay Risk](projects/flight_delay_risk/) · [Customer Churn](projects/customer_churn_prediction/) · [UK House Prices](projects/uk_house_price_prediction/) · [Parkinson's Progression](projects/parkinsons_progression/) | cleaning, feature engineering, baselines, supervised ML, leakage control, realistic validation, calibration and uncertainty |
+| **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [PySpark Clickstream](projects/pyspark_clickstream_analytics/) · [E-commerce SQL + dbt](projects/ecommerce_sql_analytics/) | ingestion, schema contracts, deduplication, idempotency, SQL grain, dbt modelling, data-quality tests and scalable transformations |
+| **ML / AI Engineer** | [Flight Delay Risk Platform](projects/flight_delay_risk/) · [Grounded RAG](projects/grounded_rag/) · [Image Classification](projects/image_classification_confidence/) · [ModelWatch](projects/model_watch/) | model serving, FastAPI, Docker, retrieval, PyTorch, model export, uncertainty, drift monitoring and CI |
+| **Data Analyst / Product Analyst** | [Retail Dashboard](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp/tree/main/dashboard) · [E-commerce SQL Analytics](projects/ecommerce_sql_analytics/) · [ExperimentLab](projects/experiment_lab/) | KPI logic, SQL, reporting, experimentation, data cleaning and business interpretation |
 
-## Capability map — where the evidence is
+## Foundation — individual skills I can explain from code
 
-This is intentionally more useful than a long list of technologies. Each skill points to code or an executed notebook that demonstrates it.
+**[Open the full Foundations Lab →](skills/README.md)**
 
-| Capability | Evidence |
+| Area | Direct evidence |
 | --- | --- |
-| **Data cleaning & preprocessing** | [Parkinson's Progression](projects/parkinsons_progression/) · [focused cleaning notebook](skills/01_data_cleaning_preprocessing.ipynb) · [analyst portfolio](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp) |
-| **Pandas & NumPy** | [Parkinson's Progression](projects/parkinsons_progression/) · [NumPy fundamentals](skills/02_numpy_for_machine_learning.ipynb) · [Flight Delay Risk](projects/flight_delay_risk/) |
-| **Feature selection / feature engineering** | [Parkinson's Progression](projects/parkinsons_progression/) · [UK House Prices](projects/uk_house_price_prediction/) · [Flight Delay Risk](projects/flight_delay_risk/) |
-| **scikit-learn fundamentals** | [end-to-end classification notebook](skills/03_sklearn_end_to_end_classification.ipynb) · [Parkinson's Progression](projects/parkinsons_progression/) · [Customer Churn](projects/customer_churn_prediction/) |
-| **Regression** | [Parkinson's Progression](projects/parkinsons_progression/) · [UK House Prices](projects/uk_house_price_prediction/) |
-| **Classification** | [scikit-learn classification notebook](skills/03_sklearn_end_to_end_classification.ipynb) · [Customer Churn](projects/customer_churn_prediction/) · [Flight Delay Risk](projects/flight_delay_risk/) |
-| **PyTorch / neural-network fundamentals** | [PyTorch MLP notebook](skills/04_pytorch_neural_network_fundamentals.ipynb) · [Image Classification](projects/image_classification_confidence/) |
-| **LSTM / sequence modelling** | [LSTM fundamentals notebook](skills/05_lstm_sequence_modelling.ipynb) |
-| **Computer vision / CNNs** | [CNN fundamentals](skills/07_cnn_image_fundamentals.ipynb) · [Image Classification](projects/image_classification_confidence/) · [original CNN notebook](04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb) |
-| **TensorFlow / time series** | [Energy Demand Forecasting](projects/energy_demand_forecasting/) · [original TensorFlow notebook](05_Energy_Demand_Forecasting_with_TensorFlow.ipynb) |
-| **SQL & relational analytics** | [E-commerce SQL Analytics](projects/ecommerce_sql_analytics/) · [original SQL notebook](02_SQL_Sales_and_Customer_Analysis.ipynb) |
-| **PySpark / larger-scale data** | [PySpark Clickstream](projects/pyspark_clickstream_analytics/) · [original PySpark notebook](06_Clickstream_Analysis_with_PySpark.ipynb) |
-| **Text classification / NLP** | [TF-IDF text classification](skills/06_text_classification_tfidf.ipynb) · [Grounded RAG](projects/grounded_rag/) |
-| **LLM / retrieval** | [Grounded RAG](projects/grounded_rag/) · [complete project catalogue](docs/PROJECT_CATALOG.md) |
-| **APIs / packaging / testing / CI** | [Grounded RAG](projects/grounded_rag/) · [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [ModelWatch](projects/model_watch/) |
-| **R / statistical analysis** | [London Air Quality notebook](07_London_Air_Quality_Analysis_with_R.ipynb) |
+| Data cleaning / preprocessing | [focused project](skills/01_data_cleaning_preprocessing.ipynb) → [541,909-row real-data follow-on](projects/retail_customer_segmentation/) |
+| NumPy | [NumPy for ML](skills/02_numpy_for_machine_learning.ipynb) |
+| Classification | [scikit-learn classification](skills/03_sklearn_end_to_end_classification.ipynb) |
+| Neural networks / PyTorch | [PyTorch fundamentals](skills/04_pytorch_neural_network_fundamentals.ipynb) |
+| Sequence modelling / LSTM | [LSTM fundamentals](skills/05_lstm_sequence_modelling.ipynb) |
+| Text data | [TF-IDF text classification](skills/06_text_classification_tfidf.ipynb) → [Grounded RAG](projects/grounded_rag/) |
+| Image data / CNNs | [CNN fundamentals](skills/07_cnn_image_fundamentals.ipynb) → [confidence-aware image classification](projects/image_classification_confidence/) |
+| Regression | [regression fundamentals](skills/08_regression_fundamentals.ipynb) → [UK House Prices](projects/uk_house_price_prediction/) |
+| Clustering | [clustering fundamentals](skills/09_clustering_fundamentals.ipynb) → [Retail Segmentation](projects/retail_customer_segmentation/) |
+| SQL | [SQL fundamentals](skills/10_sql_analytics_fundamentals.ipynb) → [SQL + dbt analytics engineering](projects/ecommerce_sql_analytics/) |
 
-## Focused fundamentals notebooks
+## Intermediate — strongest end-to-end evidence
 
-**[Open the Data & AI Skills Lab →](skills/README.md)**
+### Data work
 
-These small notebooks are there for a specific reason: they make the building blocks easy to inspect and easy for me to revise before interviews. They do **not** replace the end-to-end projects or pretend every learning exercise is a production system.
+**[Retail Customer Data Cleaning & Segmentation](projects/retail_customer_segmentation/)** starts with **541,909 raw transaction rows** and explicitly audits duplicates, missing customer IDs, cancellations and invalid quantities/prices before building validated RFM features and clustering customers.
 
-1. [Data cleaning & preprocessing](skills/01_data_cleaning_preprocessing.ipynb)
-2. [NumPy for machine learning](skills/02_numpy_for_machine_learning.ipynb)
-3. [scikit-learn end-to-end classification](skills/03_sklearn_end_to_end_classification.ipynb)
-4. [PyTorch neural-network fundamentals](skills/04_pytorch_neural_network_fundamentals.ipynb)
-5. [LSTM sequence modelling](skills/05_lstm_sequence_modelling.ipynb)
-6. [Text classification with TF-IDF](skills/06_text_classification_tfidf.ipynb)
-7. [CNN image fundamentals](skills/07_cnn_image_fundamentals.ipynb)
+### SQL + analytics engineering
 
-The portfolio therefore shows three levels of evidence: **focused fundamentals → original university applications → strengthened end-to-end projects**.
+**[E-commerce SQL Analytics](projects/ecommerce_sql_analytics/)** reconciles **98,199 commercial orders** across different relational grains rather than allowing many-to-many joins to inflate revenue. The project now also contains a **[dbt + DuckDB extension](projects/ecommerce_sql_analytics/dbt_project/)** with sources, staging/intermediate/mart models, relationship tests, custom data-quality tests and its own CI workflow.
 
-## Flagship production-style evidence
+### Data engineering
 
-| Project | Proof point |
-| --- | --- |
-| **[Parkinson's Progression](projects/parkinsons_progression/)** | Original MSc notebook preserved; strengthened runner uses patient-grouped holdout/CV, explicit feature exclusions, baseline comparison and JSON evaluation rather than relying on a random row split. |
-| **[Reliable Event Pipeline](projects/reliable_event_pipeline/)** | 10 controlled input rows → **7 clean warehouse rows**, with duplicate/null checks, late-event handling, reject logging, batch audits, SQL quality checks and tests. |
-| **[Flight Delay Risk](projects/flight_delay_risk/)** | Official 2026 US flight data; untouched **180,000-flight** May test set; PR-AUC **0.291** vs **0.215** prevalence; highest-risk decile at **1.58×** normal delay rate. |
-| **[E-commerce SQL Analytics](projects/ecommerce_sql_analytics/)** | **98,199** commercial orders, **94,983** customers and **R$13.49M** merchandise value after cross-grain reconciliation; SQL marts, windows, cohorts and join-safety tests. |
-| **[Customer Churn](projects/customer_churn_prediction/)** | Protected holdout, grouped validation, out-of-fold calibration and cost-aware thresholding; PR-AUC **0.955**. |
-| **[Grounded RAG](projects/grounded_rag/)** | Hybrid retrieval, evidence thresholds, source attribution, weak-match abstention, prompt-injection checks, allow-listed tool routing, FastAPI and Docker. |
-| **[Image Classification](projects/image_classification_confidence/)** | EfficientNet-B0 with bootstrap uncertainty, selective prediction, Grad-CAM and verified TorchScript/ONNX parity; **85.9%** test accuracy. |
-| **[ExperimentLab](projects/experiment_lab/)** | Treatment effects, confidence intervals, CUPED, guardrails and power; CUPED reduced retained-run variance by **50.7%**. |
-| **[PySpark Clickstream](projects/pyspark_clickstream_analytics/)** | **165,474** real events, Spark transformations, explicit data-quality logic and a separate one-million-row load test. |
+**[Reliable Event Pipeline](projects/reliable_event_pipeline/)** demonstrates ingestion, schema validation, reject handling, late-arriving data, idempotency, SQL reconciliation, audit metrics and automated tests. **[PySpark Clickstream](projects/pyspark_clickstream_analytics/)** adds distributed transformations over **165,474 real events** and a separate one-million-row load test.
 
-## MSc university projects
+### ML / deep learning
 
-The original executed university notebooks stay in the repository rather than being hidden or replaced. Where I later rebuilt the same problem to a higher engineering standard, both versions are linked.
+- **[Customer Churn](projects/customer_churn_prediction/)** — grouped holdout, out-of-fold calibration and cost-aware threshold selection
+- **[Energy Demand Forecasting](projects/energy_demand_forecasting/)** — TensorFlow Conv1D + LSTM against a strong seasonal baseline
+- **[Image Classification](projects/image_classification_confidence/)** — EfficientNet-B0, bootstrap uncertainty, selective prediction, Grad-CAM and export verification
+- **[Grounded RAG](projects/grounded_rag/)** — hybrid retrieval, citations, abstention, prompt-injection checks, FastAPI and Docker
+- **[ModelWatch](projects/model_watch/)** — drift, discrimination and calibration monitoring
 
-| University project | Original work | Follow-on project |
-| --- | --- | --- |
-| **Parkinson's Progression Modelling** | [`Parkinsons_Progression_ML.ipynb`](Parkinsons_Progression_ML.ipynb) | [Leakage-aware Parkinson's progression](projects/parkinsons_progression/) |
-| **UK House Price Analysis & Prediction** | [`01_UK_House_Price_Analysis_and_Prediction.ipynb`](01_UK_House_Price_Analysis_and_Prediction.ipynb) | [Production-style house price prediction](projects/uk_house_price_prediction/) |
-| **SQL Sales & Customer Analysis** | [`02_SQL_Sales_and_Customer_Analysis.ipynb`](02_SQL_Sales_and_Customer_Analysis.ipynb) | [E-commerce SQL Analytics](projects/ecommerce_sql_analytics/) |
-| **Customer Churn Prediction** | [`03_Customer_Churn_Prediction.ipynb`](03_Customer_Churn_Prediction.ipynb) | [Production-style churn modelling](projects/customer_churn_prediction/) |
-| **Image Classification with CNNs & Transfer Learning** | [`04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb`](04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb) | [Confidence-aware image classification](projects/image_classification_confidence/) |
-| **Energy Demand Forecasting with TensorFlow** | [`05_Energy_Demand_Forecasting_with_TensorFlow.ipynb`](05_Energy_Demand_Forecasting_with_TensorFlow.ipynb) | [Production-style energy forecasting](projects/energy_demand_forecasting/) |
-| **Clickstream Analysis with PySpark** | [`06_Clickstream_Analysis_with_PySpark.ipynb`](06_Clickstream_Analysis_with_PySpark.ipynb) | [PySpark Clickstream Analytics](projects/pyspark_clickstream_analytics/) |
-| **London Air Quality Analysis with R** | [`07_London_Air_Quality_Analysis_with_R.ipynb`](07_London_Air_Quality_Analysis_with_R.ipynb) | Original executed notebook retained as R evidence |
+## Advanced flagship — Flight Delay Risk Platform
 
-**[View the university-project index →](docs/UNIVERSITY_PROJECTS.md)**
+**[Open project →](projects/flight_delay_risk/)**
+
+The model uses official **2026 U.S. Bureau of Transportation Statistics** flight data and keeps May 2026 as an untouched **180,000-flight** out-of-time test set.
+
+```text
+official monthly data
+      ↓
+schema / data-quality checks
+      ↓
+leakage-safe schedule features
+      ↓
+CatBoost + chronological validation
+      ↓
+validation-selected review capacity
+      ↓
+untouched May 2026 test
+      ↓
+verified model + release metadata
+      ↓
+FastAPI single / batch inference
+      ↓
+Docker service
+      ↓
+unit tests + container-build CI
+```
+
+The serving layer reconstructs the exact training feature schema from schedule-time inputs and refuses to load a model release unless the accompanying metadata reports `verification_pass=true`.
+
+Retained test evidence: **PR-AUC 0.291 vs 0.215 prevalence baseline**, with the highest-risk 10% of flights reaching **1.58×** the normal delay rate. I leave the moderate predictive performance visible rather than overselling the model.
 
 ## Engineering standard
 
-Across the strongest work I make these visible rather than leaving them implicit:
+Across the stronger projects I make these visible rather than leaving them implicit:
 
-- data source, schema and quality checks
-- validation or holdout design that matches intended use
-- leakage, duplicate and join-grain controls where relevant
-- meaningful baselines before complex models
-- threshold, calibration, uncertainty or stability checks when useful
+- source provenance, schema and quality checks
+- missing-value, duplicate and join-grain controls
+- validation / holdout design that matches the intended use
+- leakage checks
+- meaningful baselines before more complex models
+- uncertainty, calibration, threshold or stability checks where relevant
 - machine-readable retained results
-- tests and self-tests for packaged projects
-- GitHub Actions for production-style work
-- APIs / Docker where deployment adds value
-- limitations stated explicitly
+- unit tests and self-tests
+- GitHub Actions CI
+- dbt tests / model lineage where appropriate
+- APIs and Docker where deployment adds value
+- limitations and negative results stated explicitly
 
-## Repository map
+## Original university and laboratory work
 
-```text
-skills/                   focused fundamentals notebooks for interview revision
-projects/                 strengthened / production-style projects for interviews
-verified/                 retained machine-readable evidence from earlier project versions
-extensions/               hardened rerun / verification code for older notebooks
-docs/                     university index, complete catalogue and supporting documentation
-portfolio_manifest.json   machine-readable inventory of university + production projects
-scripts/                   integrity validators used by GitHub Actions
-*.ipynb                   executed university, learning and historical notebooks
-```
+I keep the original executed notebooks rather than rewriting history. They are indexed in **[docs/UNIVERSITY_PROJECTS.md](docs/UNIVERSITY_PROJECTS.md)** and **[docs/PROJECT_CATALOG.md](docs/PROJECT_CATALOG.md)**, while the recruiter-facing path above points to the strengthened work.
 
-The portfolio manifest and focused skills notebooks are checked automatically so listed work cannot silently disappear or become malformed. Use the **[complete project catalogue](docs/PROJECT_CATALOG.md)** for the full inventory.
+This includes the original UK house-price, SQL/customer, churn, CNN, TensorFlow forecasting, PySpark and R projects, plus retained laboratory notebooks such as `Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb`, `AeroFlow_AI_Engine.ipynb`, `Aviation_Strategy_PostgreSQL_Optimization.ipynb`, `CineIntelligence_NoSQL_DataEngineering.ipynb`, `Clustering_Models.ipynb`, `KDDCup.ipynb`, `LLM_Mastery_Hands_on_Code.ipynb`, `LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`, `Logistic_Regression_PySpark.ipynb`, `Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb`, `NYC_Airbnb_Market_Analysis (1).ipynb`, `Naive_Bayes_PySpark.ipynb`, `Parkinsons_Progression_ML.ipynb`, `Pathfinding.ipynb`, `PyTorch_medical_AI_xray_diagnosis.ipynb`, `Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb` and `financial_fraud_aml_detection_system.ipynb`.
 
-## Main tools
+## Main stack
 
-**Data:** Python, SQL, Pandas, NumPy, PostgreSQL, DuckDB, PySpark  
-**ML:** scikit-learn, CatBoost, PyTorch, TensorFlow/Keras  
-**Applied AI:** retrieval, NLP, LLM/RAG evaluation, FastAPI  
-**Engineering:** Docker, Git, GitHub Actions, testing, model/data validation
+**Data:** Python · SQL · Pandas · NumPy · PostgreSQL · DuckDB · PySpark · dbt  
+**ML:** scikit-learn · CatBoost · PyTorch · TensorFlow/Keras  
+**Applied AI:** NLP · retrieval/RAG · computer vision · FastAPI  
+**Engineering:** Docker · Git · GitHub Actions · testing · data/model validation · model monitoring
 
-## Supporting analyst work
+## Supporting analyst portfolio
 
-Smaller analyst exercises and the interactive retail dashboard are kept separately in the **[Data Analyst Bootcamp repository](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)** so this repository stays focused while still providing direct analyst evidence.
+The separate **[Data Analyst Bootcamp portfolio](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)** keeps dashboard, reporting and analyst-focused work available without crowding this repository.
 
 ## Licence
 
