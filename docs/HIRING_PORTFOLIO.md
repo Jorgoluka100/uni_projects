@@ -4,6 +4,12 @@ This repository is deliberately structured as a progression rather than a flat l
 
 The target audience is **internship, graduate and junior hiring** across Data Science, Data Engineering, Analytics / BI and ML / AI Engineering.
 
+## Why the portfolio is structured this way
+
+My earlier background was outside STEM before completing an **MSc in Artificial Intelligence & Data Science with Distinction**. I therefore do not rely on the degree title alone to make the transition credible. The repository is designed so a reviewer can inspect the evidence in sequence: fundamentals first, then end-to-end projects, then stronger engineering and release controls.
+
+The aim is to make the transition measurable: **can I clean data, reason with SQL, build and evaluate models, communicate through BI, and turn selected work into tested software?** Each layer below exists to answer one of those questions directly.
+
 ## 1. Foundation — can I work with data and explain the basics?
 
 The [`skills/`](../skills/) lab contains compact notebook + Python pairs that are easy to inspect in an interview.
