@@ -1,6 +1,13 @@
-# E-commerce Sales & Customer Analysis — SQL / DuckDB
+# E-commerce Sales & Customer Analysis — SQL / DuckDB / dbt
 
-This project uses the Olist Brazilian e-commerce dataset. The main thing I wanted to get right was not the number of SQL functions I could use; it was the reporting grain. Orders, items, payments and reviews do not all live at the same level, so a careless join can make revenue look larger than it really is.
+[![dbt analytics engineering](https://github.com/Jorgoluka100/uni_projects/actions/workflows/dbt-analytics-engineering.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/dbt-analytics-engineering.yml)
+
+This project uses the Olist Brazilian e-commerce dataset. The main thing I wanted to get right was not the number of SQL functions I could use; it was the **reporting grain**. Orders, items, payments and reviews do not all live at the same level, so a careless join can make revenue look larger than it really is.
+
+The project now has two complementary layers:
+
+- **SQL / DuckDB analysis** — full-data reconciliation, KPI marts, cohorts, marketplace analysis and retained results.
+- **[dbt analytics-engineering extension](dbt_project/)** — sources, staging/intermediate/mart models, dependency lineage, relationship tests, custom data-quality tests and CI.
 
 ## Questions I looked at
 
@@ -31,14 +38,18 @@ One order can contain several items, several payment rows and more than one revi
 
 For example, an order with two items and two payment records can become four rows after a naive join.
 
-I avoid that by keeping two clear grains:
+I avoid that by keeping clear grains and aggregating child tables before order-level joins:
 
 ```text
-analytics.order_mart  -> 1 row per order
-analytics.item_mart   -> 1 row per order item
+raw tables
+   ↓
+grain-safe aggregations
+   ↓
+order-level mart     -> exactly 1 row per order
+item-level mart      -> exactly 1 row per order item
 ```
 
-Items and payments are aggregated before joining to the order level. Reviews are ranked and reduced to one record per order. The synthetic self-test includes a 2-item × 2-payment case: the naive join shows R$300 of duplicated item value, while the order mart correctly keeps R$150.
+The synthetic self-test includes a 2-item × 2-payment case: the naive join shows R$300 of duplicated item value, while the order mart correctly keeps R$150.
 
 See [`DATA_MODEL.md`](DATA_MODEL.md) for the grain rules.
 
@@ -53,6 +64,36 @@ See [`DATA_MODEL.md`](DATA_MODEL.md) for the grain rules.
 | [`05_seller_concentration.sql`](sql/05_seller_concentration.sql) | seller share, cumulative concentration and HHI-style summary |
 
 The queries use CTEs, conditional aggregation, window functions, `ROW_NUMBER`, `RANK`, `NTILE`, `LAG`, `QUALIFY`, date arithmetic and explicit grain control.
+
+## dbt analytics-engineering extension
+
+**[Open the dbt project →](dbt_project/)**
+
+The dbt layer reorganises the same core grain discipline into a warehouse-style transformation graph:
+
+```text
+raw sources
+    ↓
+staging models
+    ↓
+intermediate item / payment / review models
+    ↓
+fct_orders mart
+    ↓
+schema tests + relationship tests + custom SQL tests
+```
+
+It demonstrates:
+
+- `source()` and `ref()` dependency management
+- staging → intermediate → mart modelling
+- documented model and column contracts
+- uniqueness, not-null and relationship tests
+- custom order-grain and financial-quality tests
+- local DuckDB warehouse execution
+- GitHub Actions running `dbt debug`, `dbt build` and documentation generation
+
+A deterministic fixture keeps the dbt CI fast while the parent project remains the source of the full Olist results.
 
 ## Findings I would discuss in an interview
 
@@ -85,12 +126,24 @@ A full run fails if it finds:
 - join multiplication in the synthetic test
 - result values outside the saved evidence contract
 
+The dbt extension independently tests model grain, keys, source relationships and non-negative merchandise value.
+
 ## Run it
+
+Full SQL project:
 
 ```bash
 pip install -r requirements.txt
 python run.py --self-test
 python run.py --check-evidence
+```
+
+dbt extension:
+
+```bash
+python -m pip install -r dbt_project/requirements-dbt.txt
+python dbt_project/prepare_fixture.py
+dbt build --project-dir dbt_project --profiles-dir dbt_project
 ```
 
 The original notebook remains in the repository as the exploration record:
@@ -99,3 +152,5 @@ The original notebook remains in the repository as the exploration record:
 ## Limitations
 
 The data is historical marketplace data and does not represent current Olist performance. Customer identity is based on the identifiers available in the source. Delivery/review findings are observational, and the analysis should not be read as causal proof.
+
+The dbt layer runs locally on DuckDB; I do not claim that this repository operates a managed Snowflake/BigQuery/Redshift environment. The modelling and testing patterns are intentionally portable to those environments.
