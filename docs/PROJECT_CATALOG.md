@@ -48,7 +48,6 @@ These are retained for inspection and learning but are not automatically promote
 - `projects/energy_demand_forecasting/` — chronological 60-to-14-day forecasting, seasonal baselines, Conv1D+LSTM, validation-calibrated residual intervals, artifact reload parity, tests, model card and retained evidence.
 - `projects/pyspark_clickstream_analytics/` — 165k real events, session-depth analytics, clearly labelled one-million-row Spark load test, leakage-aware Spark ML conversion model, deterministic split, validation threshold and retained evidence.
 - `projects/grounded_rag/` — hybrid sparse+dense retrieval, deterministic LSA vector indexing, grounded citations, abstention, allow-listed read-only tool routing, prompt-injection blocking, FastAPI and Docker.
-- `projects/careerlens_ai/` — NLP / information retrieval and skill-gap ranking.
 - `projects/experiment_lab/` — experimentation, CUPED, bootstrap uncertainty, guardrails and power.
 - `projects/model_watch/` — drift, calibration, performance monitoring and retraining policy.
 
