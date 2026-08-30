@@ -58,8 +58,6 @@ A model-monitoring project that checks data drift, discrimination and calibratio
 - [Energy Demand Forecasting](energy_demand_forecasting/) — TensorFlow / time-series forecasting
 - [UK House Price Prediction](uk_house_price_prediction/) — regression and reproducible modelling
 - [Retail Customer Segmentation](retail_customer_segmentation/) — data cleaning, RFM features and clustering
-- [CareerLens AI](careerlens_ai/) — ranking, retrieval evaluation and explainable skill matching
-- [Production Data Pipeline](production_data_pipeline/) — additional pipeline and data-engineering practice
 
 ## What I want employers to be able to inspect
 
