@@ -16,6 +16,9 @@ EXPECTED = [
     "05_lstm_sequence_modelling.ipynb",
     "06_text_classification_tfidf.ipynb",
     "07_cnn_image_fundamentals.ipynb",
+    "08_regression_fundamentals.ipynb",
+    "09_clustering_fundamentals.ipynb",
+    "10_sql_analytics_fundamentals.ipynb",
 ]
 
 
