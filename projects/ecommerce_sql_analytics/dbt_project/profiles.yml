@@ -1,0 +1,7 @@
+ecommerce_analytics_engineering:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: projects/ecommerce_sql_analytics/dbt_project/artifacts/dbt_smoke.duckdb
+      threads: 4
