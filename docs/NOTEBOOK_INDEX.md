@@ -6,7 +6,7 @@ The repository intentionally keeps three layers:
 
 1. **Original / previously uploaded notebooks** — retained as historical and university evidence.
 2. **Focused skills notebooks + `.py` scripts** — small interview-revision examples.
-3. **Strengthened projects** — each Python-backed project has a `project_notebook.ipynb` companion while the full implementation remains in normal Python/SQL source files.
+3. **Strengthened projects** — each Python-backed project has a `project_notebook.ipynb` companion while the full implementation remains in normal Python/SQL/BI source files.
 
 ## 1. Original and previously uploaded notebooks
 
@@ -71,10 +71,11 @@ The exporter mirrors notebook paths and writes code cells in order with `# %%` m
 
 ## 3. Strengthened projects — notebook + implementation
 
-The notebook is the Jupyter/Colab walkthrough. The project folder contains the actual Python package, tests, SQL, API code and/or retained results.
+The notebook is the Jupyter/Colab walkthrough. The project folder contains the actual Python package, tests, SQL, BI assets, API code and/or retained results.
 
 | Project | Notebook | Python / project code |
 | --- | --- | --- |
+| Executive Commerce Intelligence — Power BI + Tableau | [`project_notebook.ipynb`](../projects/executive_commerce_bi/project_notebook.ipynb) | [`projects/executive_commerce_bi/`](../projects/executive_commerce_bi/) |
 | Parkinson's Progression | [`project_notebook.ipynb`](../projects/parkinsons_progression/project_notebook.ipynb) | [`projects/parkinsons_progression/`](../projects/parkinsons_progression/) |
 | Reliable Event Pipeline | [`project_notebook.ipynb`](../projects/reliable_event_pipeline/project_notebook.ipynb) | [`projects/reliable_event_pipeline/`](../projects/reliable_event_pipeline/) |
 | Flight Delay Risk | [`project_notebook.ipynb`](../projects/flight_delay_risk/project_notebook.ipynb) | [`projects/flight_delay_risk/`](../projects/flight_delay_risk/) |
