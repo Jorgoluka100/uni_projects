@@ -1,11 +1,12 @@
 # Jorgo Luka — Data & AI Engineering Portfolio
 
 **MSc Artificial Intelligence & Data Science (Distinction)**  
-Python · SQL · Data Science · Data Engineering · Machine Learning · Applied AI
+Python · SQL · Power BI · Tableau · Data Science · Data Engineering · Machine Learning · Applied AI
 
-This portfolio is structured to answer the questions I would expect in an internship, graduate or junior technical interview: **can I work with raw data, build models, evaluate them properly and turn the stronger work into reliable software?**
+This portfolio is structured to answer the questions I would expect in an internship, graduate or junior technical interview: **can I work with raw data, build models, evaluate them properly, communicate results to a business and turn stronger work into reliable software?**
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
+[![BI portfolio project](https://github.com/Jorgoluka100/uni_projects/actions/workflows/bi-portfolio-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/bi-portfolio-ci.yml)
 [![Flight delay project](https://github.com/Jorgoluka100/uni_projects/actions/workflows/flight-delay-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/flight-delay-ci.yml)
 [![dbt analytics engineering](https://github.com/Jorgoluka100/uni_projects/actions/workflows/dbt-analytics-engineering.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/dbt-analytics-engineering.yml)
 
@@ -16,17 +17,17 @@ This portfolio is structured to answer the questions I would expect in an intern
 | Level | Purpose | Evidence |
 | --- | --- | --- |
 | **Foundation** | Prove the building blocks individually | [Data & AI Foundations Lab](skills/) — cleaning, NumPy, regression, classification, clustering, SQL, PyTorch, LSTM, text and CNNs |
-| **Intermediate** | Apply those skills to real data and engineering problems | [End-to-end projects](projects/) — real datasets, SQL, PySpark, pipelines, testing, dbt, APIs, Docker and monitoring |
+| **Intermediate** | Apply those skills to real data and business/engineering problems | [End-to-end projects](projects/) — real datasets, Power BI, Tableau, SQL, PySpark, pipelines, testing, dbt, APIs, Docker and monitoring |
 | **Advanced** | Combine modelling and engineering into a releaseable system | [Flight Delay Risk Platform](projects/flight_delay_risk/) — official 2026 data → temporal ML evaluation → verified model → FastAPI → Docker → CI |
 
 ## Start with the role you are hiring for
 
 | Role | Best evidence | What it demonstrates |
 | --- | --- | --- |
-| **Data Scientist** | [Flight Delay Risk](projects/flight_delay_risk/) · [Customer Churn](projects/customer_churn_prediction/) · [UK House Prices](projects/uk_house_price_prediction/) · [Parkinson's Progression](projects/parkinsons_progression/) | cleaning, feature engineering, baselines, supervised ML, leakage control, realistic validation, calibration and uncertainty |
+| **Data Scientist** | [Flight Delay Risk](projects/flight_delay_risk/) · [Customer Churn](projects/customer_churn_prediction/) · [UK House Prices](projects/uk_house_price_prediction/) · [Parkinson's Progression](projects/parkinsons_progression/) | cleaning, features, baselines, supervised ML, leakage control, realistic validation, calibration and uncertainty |
 | **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [PySpark Clickstream](projects/pyspark_clickstream_analytics/) · [E-commerce SQL + dbt](projects/ecommerce_sql_analytics/) | ingestion, schema contracts, deduplication, idempotency, SQL grain, dbt modelling, data-quality tests and scalable transformations |
-| **ML / AI Engineer** | [Flight Delay Risk Platform](projects/flight_delay_risk/) · [Grounded RAG](projects/grounded_rag/) · [Image Classification](projects/image_classification_confidence/) · [ModelWatch](projects/model_watch/) | model serving, FastAPI, Docker, retrieval, PyTorch, model export, uncertainty, drift monitoring and CI |
-| **Data Analyst / Product Analyst** | [Retail Dashboard](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp/tree/main/dashboard) · [E-commerce SQL Analytics](projects/ecommerce_sql_analytics/) · [ExperimentLab](projects/experiment_lab/) | KPI logic, SQL, reporting, experimentation, data cleaning and business interpretation |
+| **ML / AI Engineer** | [Flight Delay Risk Platform](projects/flight_delay_risk/) · [Grounded RAG](projects/grounded_rag/) · [Image Classification](projects/image_classification_confidence/) · [ModelWatch](projects/model_watch/) | serving, FastAPI, Docker, retrieval, PyTorch, model export, uncertainty, drift monitoring and CI |
+| **Data Analyst / BI / Product Analyst** | [Executive Commerce Intelligence — Power BI + Tableau](projects/executive_commerce_bi/) · [E-commerce SQL + dbt](projects/ecommerce_sql_analytics/) · [ExperimentLab](projects/experiment_lab/) | dashboarding, KPI design, Power BI/TMDL, Tableau, SQL, experimentation and business interpretation |
 
 ## Foundation — individual skills I can explain from code
 
@@ -47,13 +48,28 @@ This portfolio is structured to answer the questions I would expect in an intern
 
 ## Intermediate — strongest end-to-end evidence
 
-### Data work
+### Data handling
 
-**[Retail Customer Data Cleaning & Segmentation](projects/retail_customer_segmentation/)** starts with **541,909 raw transaction rows** and explicitly audits duplicates, missing customer IDs, cancellations and invalid quantities/prices before building validated RFM features and clustering customers.
+**[Retail Customer Data Cleaning & Segmentation](projects/retail_customer_segmentation/)** starts with **541,909 raw transaction rows** and audits duplicates, missing customer IDs, cancellations and invalid quantities/prices before building validated RFM features and clustering customers.
+
+### Business intelligence — Power BI + Tableau
+
+**[Executive Commerce Intelligence](projects/executive_commerce_bi/)** closes the gap between technical analysis and business communication. Both dashboard tools consume the same governed exports from the verified e-commerce warehouse so KPI definitions stay consistent across tools.
+
+The project contains:
+
+- a Power BI **PBIP / PBIR + TMDL** semantic-model project with DAX measures and report source
+- a Tableau **`.twb` workbook source** and calculation pack
+- a shared KPI dictionary and dashboard-story contract
+- reproducible BI exports with required-column checks, hashes and row counts
+- a static GitHub dashboard preview using retained verified values
+- CI that validates the data contract, Power BI bindings and Tableau XML structure
+
+The underlying commercial evidence covers **98,199 orders**, **94,983 customers**, **R$13.49M merchandise value**, customer repeat behaviour, category performance, delivery/review quality and seller concentration.
 
 ### SQL + analytics engineering
 
-**[E-commerce SQL Analytics](projects/ecommerce_sql_analytics/)** reconciles **98,199 commercial orders** across different relational grains rather than allowing many-to-many joins to inflate revenue. The project now also contains a **[dbt + DuckDB extension](projects/ecommerce_sql_analytics/dbt_project/)** with sources, staging/intermediate/mart models, relationship tests, custom data-quality tests and its own CI workflow.
+**[E-commerce SQL Analytics](projects/ecommerce_sql_analytics/)** reconciles **98,199 commercial orders** across different relational grains rather than allowing many-to-many joins to inflate revenue. It also contains a **[dbt + DuckDB extension](projects/ecommerce_sql_analytics/dbt_project/)** with sources, staging/intermediate/mart models, relationship tests, custom data-quality tests and CI.
 
 ### Data engineering
 
@@ -105,33 +121,32 @@ Across the stronger projects I make these visible rather than leaving them impli
 
 - source provenance, schema and quality checks
 - missing-value, duplicate and join-grain controls
-- validation / holdout design that matches the intended use
-- leakage checks
-- meaningful baselines before more complex models
+- shared KPI definitions for BI work
+- validation / holdout design that matches intended use
+- leakage checks and meaningful baselines
 - uncertainty, calibration, threshold or stability checks where relevant
 - machine-readable retained results
 - unit tests and self-tests
 - GitHub Actions CI
 - dbt tests / model lineage where appropriate
+- source-controlled Power BI / Tableau assets
 - APIs and Docker where deployment adds value
 - limitations and negative results stated explicitly
 
 ## Original university and laboratory work
 
-I keep the original executed notebooks rather than rewriting history. They are indexed in **[docs/UNIVERSITY_PROJECTS.md](docs/UNIVERSITY_PROJECTS.md)** and **[docs/PROJECT_CATALOG.md](docs/PROJECT_CATALOG.md)**, while the recruiter-facing path above points to the strengthened work.
-
-This includes the original UK house-price, SQL/customer, churn, CNN, TensorFlow forecasting, PySpark and R projects, plus retained laboratory notebooks such as `Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb`, `AeroFlow_AI_Engine.ipynb`, `Aviation_Strategy_PostgreSQL_Optimization.ipynb`, `CineIntelligence_NoSQL_DataEngineering.ipynb`, `Clustering_Models.ipynb`, `KDDCup.ipynb`, `LLM_Mastery_Hands_on_Code.ipynb`, `LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`, `Logistic_Regression_PySpark.ipynb`, `Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb`, `NYC_Airbnb_Market_Analysis (1).ipynb`, `Naive_Bayes_PySpark.ipynb`, `Parkinsons_Progression_ML.ipynb`, `Pathfinding.ipynb`, `PyTorch_medical_AI_xray_diagnosis.ipynb`, `Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb` and `financial_fraud_aml_detection_system.ipynb`.
+I keep the original executed notebooks rather than rewriting history. They are indexed in **[docs/UNIVERSITY_PROJECTS.md](docs/UNIVERSITY_PROJECTS.md)** and **[docs/PROJECT_CATALOG.md](docs/PROJECT_CATALOG.md)**, while the recruiter-facing path above points to strengthened work.
 
 ## Main stack
 
-**Data:** Python · SQL · Pandas · NumPy · PostgreSQL · DuckDB · PySpark · dbt  
+**Data & BI:** Python · SQL · Pandas · NumPy · Power BI · DAX · TMDL · Tableau · PostgreSQL · DuckDB · PySpark · dbt  
 **ML:** scikit-learn · CatBoost · PyTorch · TensorFlow/Keras  
 **Applied AI:** NLP · retrieval/RAG · computer vision · FastAPI  
 **Engineering:** Docker · Git · GitHub Actions · testing · data/model validation · model monitoring
 
 ## Supporting analyst portfolio
 
-The separate **[Data Analyst Bootcamp portfolio](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)** keeps dashboard, reporting and analyst-focused work available without crowding this repository.
+The separate **[Data Analyst Bootcamp portfolio](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp)** keeps additional dashboard, reporting, cleaning and SQL work available without crowding this repository.
 
 ## Licence
 
