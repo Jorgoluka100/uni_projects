@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: Clean order-level staging view.
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: customer_id
+        tests: [not_null]
+
+  - name: stg_customers
+    description: Clean customer staging view.
+    columns:
+      - name: customer_id
+        tests: [not_null, unique]
+      - name: customer_unique_id
+        tests: [not_null]
+
+  - name: int_order_items
+    description: Order-item rows aggregated to exactly one row per order before mart joins.
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: merchandise_value_brl
+        tests: [not_null]
+
+  - name: int_payments
+    description: Payment rows aggregated to the order grain.
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+
+  - name: int_reviews
+    description: One deterministic review record per order.
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+
+  - name: fct_orders
+    description: Tested one-row-per-order analytics mart.
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: merchandise_value_brl
+        tests: [not_null]
+      - name: total_paid_brl
+        tests: [not_null]
