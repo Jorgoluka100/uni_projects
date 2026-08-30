@@ -2,7 +2,7 @@
 
 This repository is deliberately structured as a progression rather than a flat list of projects.
 
-The target audience is **internship, graduate and junior hiring** across Data Science, Data Engineering, Analytics and ML / AI Engineering.
+The target audience is **internship, graduate and junior hiring** across Data Science, Data Engineering, Analytics / BI and ML / AI Engineering.
 
 ## 1. Foundation — can I work with data and explain the basics?
 
@@ -34,7 +34,7 @@ The [`skills/`](../skills/) lab contains compact notebook + Python pairs that ar
 
 These exercises are intentionally small. They establish that the concepts are understood before the same skills are demonstrated on larger real datasets.
 
-## 2. Intermediate — can I build reliable end-to-end work?
+## 2. Intermediate — can I build reliable end-to-end work and communicate it?
 
 ### Data Science
 
@@ -43,11 +43,17 @@ These exercises are intentionally small. They establish that the concepts are un
 - [`uk_house_price_prediction`](../projects/uk_house_price_prediction/) — official 2025–2026 data, temporal holdout, strong baseline and CatBoost
 - [`experiment_lab`](../projects/experiment_lab/) — treatment effects, CUPED, confidence intervals, guardrails and power
 
+### Business Intelligence / Analytics
+
+- [`executive_commerce_bi`](../projects/executive_commerce_bi/) — Power BI + Tableau over a governed shared KPI layer; PBIP/PBIR, TMDL/DAX, Tableau workbook source, dashboard storytelling, data-contract tests and CI
+- [`ecommerce_sql_analytics`](../projects/ecommerce_sql_analytics/) — explicit semantic grain, reconciliation, cohorts, windows and join-safety tests over 98,199 commercial orders
+
+The BI project is intentionally designed as a bridge between technical analysis and commercial communication. It makes the same verified metrics usable as executive dashboards rather than stopping at notebooks or SQL output.
+
 ### Data / Analytics Engineering
 
 - [`reliable_event_pipeline`](../projects/reliable_event_pipeline/) — schema validation, reject handling, deduplication, late data, idempotency, SQL checks and tests
 - [`pyspark_clickstream_analytics`](../projects/pyspark_clickstream_analytics/) — distributed transformations over real event data and a one-million-row load test
-- [`ecommerce_sql_analytics`](../projects/ecommerce_sql_analytics/) — explicit semantic grain, reconciliation, cohorts, windows and join-safety tests
 - [`ecommerce_sql_analytics/dbt_project`](../projects/ecommerce_sql_analytics/dbt_project/) — dbt sources, staging/intermediate/mart models, relationship tests, custom data tests and CI
 
 ### ML / AI Engineering
@@ -99,10 +105,11 @@ A recruiter should be able to move through the repository and answer, in order:
 
 1. **Can this candidate clean and manipulate data?**
 2. **Can they write SQL and reason about data grain?**
-3. **Can they build regression, classification and clustering models?**
-4. **Can they work with neural networks, sequences, text and images?**
-5. **Can they test pipelines and models properly?**
-6. **Can they package an AI/ML system behind an API and container?**
-7. **Can they explain limitations and avoid overstating results?**
+3. **Can they turn governed data into Power BI / Tableau reporting and define business KPIs clearly?**
+4. **Can they build regression, classification and clustering models?**
+5. **Can they work with neural networks, sequences, text and images?**
+6. **Can they test pipelines and models properly?**
+7. **Can they package an AI/ML system behind an API and container?**
+8. **Can they explain limitations and avoid overstating results?**
 
-The portfolio is therefore intentionally not a collection of twenty unrelated "AI apps". Each layer exists to provide a different hiring signal.
+The portfolio is therefore intentionally not a collection of unrelated "AI apps". Each layer exists to provide a different hiring signal.
