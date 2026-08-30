@@ -1,41 +1,77 @@
-# Python Projects
+# Data & AI Projects
 
-These are the projects in this repository that I built as normal Python applications rather than as large notebooks. I use them to practise the parts of data and AI work that sit around the model itself: command-line runs, tests, saved outputs, APIs and basic packaging.
+This folder contains the strongest end-to-end projects in my portfolio. They are designed to make the full problem-solving process inspectable: **data quality → feature or data design → modelling / transformation → validation → evaluation → engineering → limitations**.
 
-## Retail data cleaning and customer segmentation
+If you are reviewing this portfolio for a role, start with the evidence most relevant to that role.
 
-A full data-cleaning and unsupervised-learning pipeline over the UCI Online Retail dataset. The project audits the raw source, records duplicate/missing/cancellation/invalid-value problems, applies explicit cleaning rules, validates the cleaned transaction table, builds customer-level RFM features and selects a KMeans solution using several clustering diagnostics plus stability checks.
+## Start by role
 
-The retained evidence comes from a full GitHub Actions run over **541,909 raw rows**, producing **392,692 valid purchase rows** for **4,338 customers**.
+| Target role | Best projects | Evidence |
+| --- | --- | --- |
+| **Data Scientist** | [Flight Delay Risk](flight_delay_risk/) · [Parkinson's Progression](parkinsons_progression/) · [Customer Churn](customer_churn_prediction/) · [UK House Prices](uk_house_price_prediction/) | supervised ML, baselines, feature policy, leakage controls, realistic validation, calibration and thresholding |
+| **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](reliable_event_pipeline/) · [PySpark Clickstream](pyspark_clickstream_analytics/) · [E-commerce SQL Analytics](ecommerce_sql_analytics/) | ingestion, schema validation, deduplication, idempotency, SQL modelling, quality checks and distributed transformations |
+| **ML / AI Engineer** | [Grounded RAG](grounded_rag/) · [Image Classification](image_classification_confidence/) · [ModelWatch](model_watch/) | retrieval evaluation, PyTorch, APIs, Docker, model export, calibration, uncertainty and drift monitoring |
+| **Data Analyst / Product Analyst** | [E-commerce SQL Analytics](ecommerce_sql_analytics/) · [ExperimentLab](experiment_lab/) · [Retail Customer Segmentation](retail_customer_segmentation/) | SQL, KPI logic, experimentation, customer analysis and business interpretation |
 
-[Open project](retail_customer_segmentation/)
+## Flagship projects
 
-## Retrieval-augmented support assistant
+### [Reliable Event Pipeline](reliable_event_pipeline/)
+A compact data-engineering pipeline covering schema validation, reject handling, duplicate control, late-arriving data, idempotent loads, SQL reconciliation, audit metrics and automated tests.
 
-A local retrieval application over a small frozen set of policy and incident documents. It combines keyword and latent-semantic retrieval, returns the documents used for an answer, abstains on weak matches and exposes a read-only ticket analytics route through FastAPI. I also included prompt-injection cases to check that the tool is not executed on the attack examples.
+**Verified demo:** 10 input rows → 7 clean warehouse events, with invalid and duplicate records handled explicitly.
 
-The perfect scores in the frozen fixture are there to verify the implementation. They are not presented as real-world LLM performance.
+### [Flight Delay Risk](flight_delay_risk/)
+A classification project built on official 2026 US flight data with chronological validation and an untouched **180,000-flight** test set.
 
-[Open project](grounded_rag/)
+The retained evaluation focuses on out-of-time generalisation rather than a convenient random split.
 
-## Experiment analysis
+### [Grounded RAG](grounded_rag/)
+A local retrieval-augmented assistant with hybrid retrieval, source attribution, abstention on weak evidence, prompt-injection checks, read-only tool routing, FastAPI and Docker.
 
-A small A/B-testing project covering a treatment-effect estimate, CUPED, bootstrap confidence intervals, a guardrail check and a power/MDE calculation. The data is simulated so I can compare the analysis against a known effect.
+The project includes a frozen evaluation fixture so retrieval, citation and routing behaviour can be tested rather than judged from a demo alone.
 
-[Open project](experiment_lab/)
+### [E-commerce SQL Analytics](ecommerce_sql_analytics/)
+An end-to-end SQL analytics project over **98,199 commercial orders**, including relational modelling, reconciliation, cohorts, window functions and join-safety checks.
 
-## Model monitoring
+### [Image Classification with Confidence](image_classification_confidence/)
+A PyTorch / EfficientNet-B0 computer-vision project with uncertainty checks, selective prediction, Grad-CAM and verified model export.
 
-A monitoring demo that compares new batches with a reference dataset and checks drift, discrimination and calibration. The shifts are deliberately introduced so I can test whether the monitoring rules react in the expected direction.
+**Retained test accuracy:** **85.9%**.
 
-[Open project](model_watch/)
+### [Parkinson's Progression](parkinsons_progression/)
+A regression project that strengthens my original MSc work with explicit feature policy, meaningful baselines, patient-grouped holdout separation and grouped cross-validation so repeated measurements from one person cannot leak across train and evaluation data.
 
-## Job matching / retrieval experiment
+### [Customer Churn Prediction](customer_churn_prediction/)
+A classification project with a protected holdout, grouped validation, out-of-fold calibration and cost-aware threshold selection.
 
-A small information-retrieval project that ranks jobs against a candidate profile and reports the main skill matches and gaps. The fixture is synthetic and the project is mainly an exercise in ranking, evaluation and explaining why an item was retrieved.
+### [PySpark Clickstream Analytics](pyspark_clickstream_analytics/)
+Distributed transformations and data-quality logic over **165,474 real events**, plus a separate one-million-row load test.
 
-[Open project](careerlens_ai/)
+### [ExperimentLab](experiment_lab/)
+An experimentation project covering treatment effects, confidence intervals, CUPED, guardrails and statistical power.
 
-## Running the projects
+### [ModelWatch](model_watch/)
+A model-monitoring project that checks data drift, discrimination and calibration against a reference dataset and verifies that deliberately introduced shifts trigger the expected monitoring behaviour.
 
-Each folder has its own README with the commands needed to run it. Project-specific GitHub Actions workflows and the repository integrity checks validate tests and retained evidence.
+## Additional applied projects
+
+- [Energy Demand Forecasting](energy_demand_forecasting/) — TensorFlow / time-series forecasting
+- [UK House Price Prediction](uk_house_price_prediction/) — regression and reproducible modelling
+- [Retail Customer Segmentation](retail_customer_segmentation/) — data cleaning, RFM features and clustering
+- [CareerLens AI](careerlens_ai/) — ranking, retrieval evaluation and explainable skill matching
+- [Production Data Pipeline](production_data_pipeline/) — additional pipeline and data-engineering practice
+
+## What I want employers to be able to inspect
+
+Across the strongest projects I make the following explicit rather than hiding them behind a final metric:
+
+- where the data came from and what was wrong with it
+- how missing values, duplicates, joins or invalid records were handled
+- why the train / validation / test strategy matches the problem
+- what leakage or unrealistic evaluation would look like
+- which baseline the model or method must beat
+- how the result is measured and retained
+- what tests or checks protect the implementation
+- what the project does **not** claim to prove
+
+The repository also retains my original university notebooks and smaller fundamentals exercises so the progression from learning to stronger end-to-end engineering is visible.
