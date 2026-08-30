@@ -67,6 +67,7 @@
     {"id": "reliable-event-pipeline", "path": "projects/reliable_event_pipeline", "role": "data_engineering"},
     {"id": "flight-delay-risk", "path": "projects/flight_delay_risk", "role": "data_science"},
     {"id": "ecommerce-sql-analytics", "path": "projects/ecommerce_sql_analytics", "role": "analytics"},
+    {"id": "executive-commerce-bi", "path": "projects/executive_commerce_bi", "role": "analytics"},
     {"id": "customer-churn", "path": "projects/customer_churn_prediction", "role": "data_science"},
     {"id": "grounded-rag", "path": "projects/grounded_rag", "role": "ai_engineering"},
     {"id": "image-classification-confidence", "path": "projects/image_classification_confidence", "role": "ml_engineering"},
