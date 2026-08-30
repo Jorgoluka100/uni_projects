@@ -1,0 +1,30 @@
+name: dbt analytics engineering
+
+on:
+  push:
+    paths:
+      - 'projects/ecommerce_sql_analytics/dbt_project/**'
+      - '.github/workflows/dbt-analytics-engineering.yml'
+  pull_request:
+    paths:
+      - 'projects/ecommerce_sql_analytics/dbt_project/**'
+      - '.github/workflows/dbt-analytics-engineering.yml'
+
+jobs:
+  dbt-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dbt DuckDB
+        run: python -m pip install -r projects/ecommerce_sql_analytics/dbt_project/requirements-dbt.txt
+      - name: Prepare deterministic source fixture
+        run: python projects/ecommerce_sql_analytics/dbt_project/prepare_fixture.py
+      - name: Validate dbt connection
+        run: dbt debug --project-dir projects/ecommerce_sql_analytics/dbt_project --profiles-dir projects/ecommerce_sql_analytics/dbt_project
+      - name: Build and test models
+        run: dbt build --project-dir projects/ecommerce_sql_analytics/dbt_project --profiles-dir projects/ecommerce_sql_analytics/dbt_project
+      - name: Generate documentation artifacts
+        run: dbt docs generate --project-dir projects/ecommerce_sql_analytics/dbt_project --profiles-dir projects/ecommerce_sql_analytics/dbt_project
