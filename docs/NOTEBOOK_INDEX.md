@@ -65,6 +65,9 @@ The exporter mirrors notebook paths and writes code cells in order with `# %%` m
 | LSTM sequence modelling | [`05_lstm_sequence_modelling.ipynb`](../skills/05_lstm_sequence_modelling.ipynb) | [`05_lstm_sequence_modelling.py`](../skills/05_lstm_sequence_modelling.py) |
 | Text classification | [`06_text_classification_tfidf.ipynb`](../skills/06_text_classification_tfidf.ipynb) | [`06_text_classification_tfidf.py`](../skills/06_text_classification_tfidf.py) |
 | CNN image fundamentals | [`07_cnn_image_fundamentals.ipynb`](../skills/07_cnn_image_fundamentals.ipynb) | [`07_cnn_image_fundamentals.py`](../skills/07_cnn_image_fundamentals.py) |
+| Regression fundamentals | [`08_regression_fundamentals.ipynb`](../skills/08_regression_fundamentals.ipynb) | [`08_regression_fundamentals.py`](../skills/08_regression_fundamentals.py) |
+| Clustering fundamentals | [`09_clustering_fundamentals.ipynb`](../skills/09_clustering_fundamentals.ipynb) | [`09_clustering_fundamentals.py`](../skills/09_clustering_fundamentals.py) |
+| SQL analytics fundamentals | [`10_sql_analytics_fundamentals.ipynb`](../skills/10_sql_analytics_fundamentals.ipynb) | [`10_sql_analytics_fundamentals.py`](../skills/10_sql_analytics_fundamentals.py) |
 
 ## 3. Strengthened projects — notebook + implementation
 
