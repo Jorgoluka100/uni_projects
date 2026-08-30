@@ -1,0 +1,34 @@
+table DeliveryQuality
+
+	measure 'Delivered Orders' = SUM(DeliveryQuality[delivered_orders])
+		formatString: #,##0
+
+	measure 'Average Review' = AVERAGE(DeliveryQuality[average_review_score])
+		formatString: 0.00
+
+	column delivery_status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: delivery_status
+
+	column delivered_orders
+		dataType: int64
+		sourceColumn: delivered_orders
+
+	column average_review_score
+		dataType: double
+		sourceColumn: average_review_score
+
+	column delivered_order_share_pct
+		dataType: double
+		sourceColumn: delivered_order_share_pct
+
+	partition DeliveryQuality = m
+		mode: import
+		source =
+			let
+				Source = Csv.Document(File.Contents(DataRoot & "\\delivery_review_summary.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				Typed = Table.TransformColumnTypes(Headers, {{"delivery_status", type text}, {"delivered_orders", Int64.Type}, {"average_review_score", type number}, {"delivered_order_share_pct", type number}})
+			in
+				Typed

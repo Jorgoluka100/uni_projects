@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "2233445566778899aabb",
+  "position": {"x": 24, "y": 170, "z": 2000, "height": 250, "width": 604, "tabOrder": 2000},
+  "visual": {"visualType": "lineChart", "query": {"queryState": {
+    "Category": {"projections": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": "MonthlyPerformance"}}, "Property": "order_month"}}, "queryRef": "MonthlyPerformance.order_month", "nativeQueryRef": "order_month"}]},
+    "Y": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "MonthlyPerformance"}}, "Property": "Total GMV"}}, "queryRef": "MonthlyPerformance.Total GMV", "nativeQueryRef": "Total GMV"}]}
+  }}}}
+}

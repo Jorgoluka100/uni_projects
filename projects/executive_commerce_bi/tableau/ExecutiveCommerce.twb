@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<workbook original-version='18.1' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <repository-location derived-from='https://github.com/Jorgoluka100/uni_projects' id='ExecutiveCommerce' path='projects/executive_commerce_bi/tableau' revision='1.0' />
+  <datasources>
+    <datasource caption='Executive Commerce BI' inline='true' name='ExecutiveCommerceBI' version='18.1'>
+      <connection class='textscan' directory='../data' filename='tableau_dashboard_long.csv' header='yes' separator=','>
+        <relation name='tableau_dashboard_long' table='[tableau_dashboard_long.csv]' type='table' />
+      </connection>
+      <column caption='Section' datatype='string' name='[section]' role='dimension' type='nominal' />
+      <column caption='Dimension' datatype='string' name='[dimension]' role='dimension' type='nominal' />
+      <column caption='Metric' datatype='string' name='[metric]' role='dimension' type='nominal' />
+      <column caption='Value' datatype='real' name='[value]' role='measure' type='quantitative' />
+      <column caption='Secondary Value' datatype='real' name='[secondary_value]' role='measure' type='quantitative' />
+      <column caption='Sort Order' datatype='integer' name='[sort_order]' role='dimension' type='ordinal' />
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Executive Pulse'><table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources></view></table></worksheet>
+    <worksheet name='Monthly Trend'><table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources></view></table></worksheet>
+    <worksheet name='Category Leaders'><table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources></view></table></worksheet>
+    <worksheet name='Delivery Experience'><table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources></view></table></worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard name='Executive Commerce Dashboard'>
+      <style />
+      <zones>
+        <zone h='18000' id='1' name='Executive Pulse' type-v2='sheet' w='100000' x='0' y='0' />
+        <zone h='41000' id='2' name='Monthly Trend' type-v2='sheet' w='50000' x='0' y='18000' />
+        <zone h='41000' id='3' name='Category Leaders' type-v2='sheet' w='50000' x='50000' y='18000' />
+        <zone h='41000' id='4' name='Delivery Experience' type-v2='sheet' w='100000' x='0' y='59000' />
+      </zones>
+    </dashboard>
+  </dashboards>
+</workbook>

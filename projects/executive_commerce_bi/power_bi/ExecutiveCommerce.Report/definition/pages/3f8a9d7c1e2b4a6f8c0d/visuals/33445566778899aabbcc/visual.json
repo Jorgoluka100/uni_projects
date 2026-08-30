@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "33445566778899aabbcc",
+  "position": {"x": 652, "y": 170, "z": 3000, "height": 250, "width": 604, "tabOrder": 3000},
+  "visual": {"visualType": "clusteredBarChart", "query": {"queryState": {
+    "Category": {"projections": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": "CategoryPerformance"}}, "Property": "category_name"}}, "queryRef": "CategoryPerformance.category_name", "nativeQueryRef": "category_name"}]},
+    "Y": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "CategoryPerformance"}}, "Property": "Category GMV"}}, "queryRef": "CategoryPerformance.Category GMV", "nativeQueryRef": "Category GMV"}]}
+  }}}}
+}

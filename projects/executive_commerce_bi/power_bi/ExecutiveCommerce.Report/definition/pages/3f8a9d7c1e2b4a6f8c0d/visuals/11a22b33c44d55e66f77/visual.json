@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "11a22b33c44d55e66f77",
+  "position": {"x": 24, "y": 24, "z": 1000, "height": 120, "width": 1232, "tabOrder": 1000},
+  "visual": {"visualType": "cardVisual", "query": {"queryState": {"Data": {"projections": [
+    {"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "ExecutiveKPIs"}}, "Property": "Commercial Orders"}}, "queryRef": "ExecutiveKPIs.Commercial Orders", "nativeQueryRef": "Commercial Orders"},
+    {"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "ExecutiveKPIs"}}, "Property": "Merchandise Value"}}, "queryRef": "ExecutiveKPIs.Merchandise Value", "nativeQueryRef": "Merchandise Value"},
+    {"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "ExecutiveKPIs"}}, "Property": "Repeat Customer %"}}, "queryRef": "ExecutiveKPIs.Repeat Customer %", "nativeQueryRef": "Repeat Customer %"}
+  ]}}}}}
+}

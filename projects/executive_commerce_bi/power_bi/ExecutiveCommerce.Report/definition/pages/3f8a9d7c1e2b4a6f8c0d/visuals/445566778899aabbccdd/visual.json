@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "445566778899aabbccdd",
+  "position": {"x": 24, "y": 450, "z": 4000, "height": 230, "width": 604, "tabOrder": 4000},
+  "visual": {"visualType": "clusteredBarChart", "query": {"queryState": {
+    "Category": {"projections": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": "DeliveryQuality"}}, "Property": "delivery_status"}}, "queryRef": "DeliveryQuality.delivery_status", "nativeQueryRef": "delivery_status"}]},
+    "Y": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "DeliveryQuality"}}, "Property": "Average Review"}}, "queryRef": "DeliveryQuality.Average Review", "nativeQueryRef": "Average Review"}]}
+  }}}}
+}

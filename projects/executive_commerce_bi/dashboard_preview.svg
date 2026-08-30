@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Executive Commerce Intelligence dashboard preview</title>
+  <desc id="desc">Portfolio preview showing verified Olist marketplace KPIs and the delivery review-score comparison.</desc>
+  <rect width="1600" height="900" fill="#0b1220"/>
+  <text x="70" y="80" fill="#f8fafc" font-family="Arial, sans-serif" font-size="38" font-weight="700">Executive Commerce Intelligence</text>
+  <text x="70" y="118" fill="#94a3b8" font-family="Arial, sans-serif" font-size="18">POWER BI + TABLEAU · governed KPI layer · verified historical marketplace data</text>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(70 165)"><rect width="270" height="130" rx="18" fill="#131d2f" stroke="#24324a"/><text x="24" y="38" fill="#94a3b8" font-size="16">COMMERCIAL ORDERS</text><text x="24" y="88" fill="#f8fafc" font-size="40" font-weight="700">98,199</text></g>
+    <g transform="translate(365 165)"><rect width="270" height="130" rx="18" fill="#131d2f" stroke="#24324a"/><text x="24" y="38" fill="#94a3b8" font-size="16">UNIQUE CUSTOMERS</text><text x="24" y="88" fill="#f8fafc" font-size="40" font-weight="700">94,983</text></g>
+    <g transform="translate(660 165)"><rect width="270" height="130" rx="18" fill="#131d2f" stroke="#24324a"/><text x="24" y="38" fill="#94a3b8" font-size="16">MERCHANDISE VALUE</text><text x="24" y="88" fill="#f8fafc" font-size="40" font-weight="700">R$13.49M</text></g>
+    <g transform="translate(955 165)"><rect width="270" height="130" rx="18" fill="#131d2f" stroke="#24324a"/><text x="24" y="38" fill="#94a3b8" font-size="16">REPEAT CUSTOMERS</text><text x="24" y="88" fill="#f8fafc" font-size="40" font-weight="700">3.03%</text></g>
+    <g transform="translate(1250 165)"><rect width="280" height="130" rx="18" fill="#131d2f" stroke="#24324a"/><text x="24" y="38" fill="#94a3b8" font-size="16">TOP-10 SELLER SHARE</text><text x="24" y="88" fill="#f8fafc" font-size="40" font-weight="700">13.24%</text></g>
+
+    <g transform="translate(70 330)">
+      <rect width="690" height="420" rx="20" fill="#131d2f" stroke="#24324a"/>
+      <text x="28" y="45" fill="#f8fafc" font-size="24" font-weight="700">Delivery experience signal</text>
+      <text x="28" y="75" fill="#94a3b8" font-size="16">Average review score · observational comparison</text>
+      <text x="28" y="145" fill="#cbd5e1" font-size="17">On time / early</text>
+      <rect x="180" y="118" width="420" height="42" rx="10" fill="#34d399"/>
+      <text x="615" y="148" fill="#f8fafc" font-size="22" font-weight="700">4.28</text>
+      <text x="28" y="235" fill="#cbd5e1" font-size="17">Late</text>
+      <rect x="180" y="208" width="250" height="42" rx="10" fill="#fb7185"/>
+      <text x="445" y="238" fill="#f8fafc" font-size="22" font-weight="700">2.55</text>
+      <line x1="180" y1="300" x2="625" y2="300" stroke="#334155"/>
+      <text x="28" y="345" fill="#94a3b8" font-size="16">Interview question</text>
+      <text x="28" y="377" fill="#e2e8f0" font-size="19">Where should operations investigate first if customer experience matters?</text>
+    </g>
+
+    <g transform="translate(790 330)">
+      <rect width="740" height="200" rx="20" fill="#131d2f" stroke="#24324a"/>
+      <text x="28" y="45" fill="#f8fafc" font-size="24" font-weight="700">Commercial highlights</text>
+      <text x="28" y="92" fill="#94a3b8" font-size="16">Strongest complete month</text>
+      <text x="28" y="130" fill="#f8fafc" font-size="28" font-weight="700">Nov 2017 · R$1.004M</text>
+      <text x="390" y="92" fill="#94a3b8" font-size="16">Leading category</text>
+      <text x="390" y="130" fill="#f8fafc" font-size="28" font-weight="700">health_beauty</text>
+      <text x="390" y="162" fill="#cbd5e1" font-size="17">R$1.251M merchandise value</text>
+    </g>
+
+    <g transform="translate(790 555)">
+      <rect width="740" height="195" rx="20" fill="#131d2f" stroke="#24324a"/>
+      <text x="28" y="45" fill="#f8fafc" font-size="24" font-weight="700">What the BI layer proves</text>
+      <text x="28" y="87" fill="#cbd5e1" font-size="18">• shared KPI definitions across Power BI and Tableau</text>
+      <text x="28" y="120" fill="#cbd5e1" font-size="18">• governed exports with hashes and row-count manifest</text>
+      <text x="28" y="153" fill="#cbd5e1" font-size="18">• DAX / TMDL semantic model + dashboard storytelling</text>
+    </g>
+  </g>
+  <text x="70" y="835" fill="#64748b" font-family="Arial, sans-serif" font-size="15">Static GitHub preview. Metrics shown are retained verified outputs from the upstream SQL analytics project.</text>
+</svg>
