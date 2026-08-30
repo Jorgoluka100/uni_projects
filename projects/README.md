@@ -1,6 +1,6 @@
 # Data & AI Projects — Intermediate & Advanced
 
-The **foundation layer** lives in [`../skills/`](../skills/). This folder starts where the small exercises stop: real datasets, realistic validation, SQL/data engineering, testing, APIs, model monitoring and deployment-oriented work.
+The **foundation layer** lives in [`../skills/`](../skills/). This folder starts where the small exercises stop: real datasets, business intelligence, realistic validation, SQL/data engineering, testing, APIs, model monitoring and deployment-oriented work.
 
 **[See the full Foundation → Intermediate → Advanced roadmap →](../docs/HIRING_PORTFOLIO.md)**
 
@@ -8,7 +8,7 @@ The **foundation layer** lives in [`../skills/`](../skills/). This folder starts
 
 ### [Flight Delay Risk Platform](flight_delay_risk/)
 
-The strongest end-to-end system in the portfolio:
+The strongest end-to-end ML system in the portfolio:
 
 ```text
 official 2026 BTS data
@@ -35,13 +35,28 @@ This is the project to start with for **ML / AI Engineering** or a more engineer
 | **Data Scientist** | [Customer Churn](customer_churn_prediction/) · [UK House Prices](uk_house_price_prediction/) · [Parkinson's Progression](parkinsons_progression/) · [Retail Segmentation](retail_customer_segmentation/) | real-data cleaning, feature engineering, baselines, leakage controls, grouped/temporal validation, calibration, uncertainty and clustering |
 | **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](reliable_event_pipeline/) · [PySpark Clickstream](pyspark_clickstream_analytics/) · [E-commerce SQL + dbt](ecommerce_sql_analytics/) | ingestion, schema validation, idempotency, distributed transformations, semantic grain, dbt models and data-quality tests |
 | **ML / AI Engineer** | [Grounded RAG](grounded_rag/) · [Image Classification](image_classification_confidence/) · [Energy Forecasting](energy_demand_forecasting/) · [ModelWatch](model_watch/) | retrieval, PyTorch, TensorFlow, APIs, Docker, model export, uncertainty and drift/calibration monitoring |
-| **Data Analyst / Product Analyst** | [E-commerce SQL + dbt](ecommerce_sql_analytics/) · [ExperimentLab](experiment_lab/) · [Retail Segmentation](retail_customer_segmentation/) | SQL, KPI logic, cohorts, experimentation, customer analysis and business interpretation |
+| **Data Analyst / BI / Product Analyst** | [Executive Commerce Intelligence](executive_commerce_bi/) · [E-commerce SQL + dbt](ecommerce_sql_analytics/) · [ExperimentLab](experiment_lab/) | Power BI, Tableau, KPI design, DAX/TMDL, SQL, experimentation, customer analysis and business interpretation |
 
 ## Data handling first
 
 ### [Retail Customer Data Cleaning & Segmentation](retail_customer_segmentation/)
 
 The strongest proof that I can work with messy data before modelling. The project begins with **541,909 raw transaction rows**, audits duplicates, missing customer identifiers, cancellations and invalid quantity/price values, applies explicit cleaning rules, validates the final transaction table and only then builds customer-level RFM features and clustering.
+
+## Business intelligence
+
+### [Executive Commerce Intelligence — Power BI + Tableau](executive_commerce_bi/)
+
+A dual-tool executive analytics project built on the same verified e-commerce warehouse as the SQL/dbt work.
+
+It demonstrates the part of data work that happens after trustworthy metrics exist:
+
+- **Power BI:** PBIP / PBIR source, TMDL semantic model, DAX measures and starter executive visuals
+- **Tableau:** `.twb` workbook source, shared tidy export and calculation pack
+- **Governance:** one KPI dictionary for both tools, required-column contracts, hashes and row-count manifest
+- **Storytelling:** executive pulse, category/customer mix, delivery experience and marketplace-health views
+
+The retained commercial evidence covers **98,199 orders**, **94,983 customers** and **R$13.49M merchandise value**, with delivery/review and seller-concentration signals carried into the BI layer.
 
 ## Data / analytics engineering
 
@@ -53,7 +68,7 @@ A compact engineering pipeline covering schema validation, reject handling, dupl
 
 ### [E-commerce SQL + dbt](ecommerce_sql_analytics/)
 
-End-to-end analytics over **98,199 commercial orders**, including explicit relational grain, reconciliation, cohorts, window functions and join-safety checks. The project now includes a **dbt + DuckDB analytics-engineering layer** with staging/intermediate/mart models, relationships, custom data tests and CI.
+End-to-end analytics over **98,199 commercial orders**, including explicit relational grain, reconciliation, cohorts, window functions and join-safety checks. The project includes a **dbt + DuckDB analytics-engineering layer** with staging/intermediate/mart models, relationships, custom data tests and CI.
 
 ### [PySpark Clickstream Analytics](pyspark_clickstream_analytics/)
 
@@ -103,6 +118,7 @@ Across the stronger projects I make the following explicit rather than hiding th
 
 - where the data came from and what was wrong with it
 - how missing values, duplicates, joins or invalid records were handled
+- how business KPIs are defined and kept consistent across reporting tools
 - why the train / validation / test strategy matches the problem
 - what leakage or unrealistic evaluation would look like
 - which baseline the model or method must beat
@@ -114,7 +130,7 @@ Across the stronger projects I make the following explicit rather than hiding th
 The intended progression is therefore:
 
 ```text
-skills/       → fundamentals I can explain
-projects/     → real-data intermediate evidence
-flight_delay  → advanced end-to-end flagship
+skills/          → fundamentals I can explain
+projects/        → real-data + business/engineering evidence
+flight_delay     → advanced end-to-end ML flagship
 ```
