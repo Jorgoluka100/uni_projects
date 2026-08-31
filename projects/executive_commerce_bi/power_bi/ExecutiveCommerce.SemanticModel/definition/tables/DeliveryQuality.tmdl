@@ -3,7 +3,19 @@ table DeliveryQuality
 	measure 'Delivered Orders' = SUM(DeliveryQuality[delivered_orders])
 		formatString: #,##0
 
-	measure 'Average Review' = AVERAGE(DeliveryQuality[average_review_score])
+	measure 'Average Review' = DIVIDE(SUMX(DeliveryQuality, DeliveryQuality[average_review_score] * DeliveryQuality[delivered_orders]), SUM(DeliveryQuality[delivered_orders]))
+		formatString: 0.00
+
+	measure 'Late Delivery Rate' = DIVIDE(CALCULATE(SUM(DeliveryQuality[delivered_orders]), DeliveryQuality[delivery_status] = "late"), SUM(DeliveryQuality[delivered_orders]))
+		formatString: 0.00%
+
+	measure 'On-Time Review' = CALCULATE(MAX(DeliveryQuality[average_review_score]), DeliveryQuality[delivery_status] = "on_time")
+		formatString: 0.00
+
+	measure 'Late Review' = CALCULATE(MAX(DeliveryQuality[average_review_score]), DeliveryQuality[delivery_status] = "late")
+		formatString: 0.00
+
+	measure 'Delivery Review Gap' = [On-Time Review] - [Late Review]
 		formatString: 0.00
 
 	column delivery_status
@@ -19,6 +31,10 @@ table DeliveryQuality
 		dataType: double
 		sourceColumn: average_review_score
 
+	column average_days_late
+		dataType: double
+		sourceColumn: average_days_late
+
 	column delivered_order_share_pct
 		dataType: double
 		sourceColumn: delivered_order_share_pct
@@ -29,6 +45,6 @@ table DeliveryQuality
 			let
 				Source = Csv.Document(File.Contents(DataRoot & "\\delivery_review_summary.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
 				Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				Typed = Table.TransformColumnTypes(Headers, {{"delivery_status", type text}, {"delivered_orders", Int64.Type}, {"average_review_score", type number}, {"delivered_order_share_pct", type number}})
+				Typed = Table.TransformColumnTypes(Headers, {{"delivery_status", type text}, {"delivered_orders", Int64.Type}, {"average_review_score", type number}, {"average_days_late", type number}, {"delivered_order_share_pct", type number}})
 			in
 				Typed
