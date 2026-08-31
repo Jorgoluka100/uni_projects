@@ -1,5 +1,5 @@
 customer_segment,customers,orders,merchandise_value_brl,average_orders_per_customer,average_customer_value_brl,customer_share_pct,merchandise_value_share_pct
-one_time_high_value,17537,17537,7053526.44,1.0,402.21,18.46,52.27
-one_time,74559,74559,5690405.87,1.0,76.32,78.5,42.17
+one_time_high_value,17538,17538,7053706.34,1.0,402.2,18.46,52.27
+one_time,74558,74558,5690225.97,1.0,76.32,78.5,42.17
 repeat_high_value,2193,4686,699359.24,2.14,318.91,2.31,5.18
 repeat,694,1417,51109.19,2.04,73.64,0.73,0.38
