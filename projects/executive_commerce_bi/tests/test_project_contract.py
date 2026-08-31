@@ -28,21 +28,29 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
         for relative in required:
             self.assertTrue((ROOT / relative).exists(), relative)
 
-    def test_power_bi_bindings_and_two_page_story(self) -> None:
+    def test_power_bi_bindings_and_three_page_story(self) -> None:
         pbip = json.loads((ROOT / "power_bi/ExecutiveCommerce.pbip").read_text())
         self.assertEqual(pbip["artifacts"][0]["report"]["path"], "ExecutiveCommerce.Report")
         pbir = json.loads((ROOT / "power_bi/ExecutiveCommerce.Report/definition.pbir").read_text())
         self.assertEqual(pbir["datasetReference"]["byPath"]["path"], "../ExecutiveCommerce.SemanticModel")
         pages = json.loads((ROOT / "power_bi/ExecutiveCommerce.Report/definition/pages/pages.json").read_text())
         self.assertIn(pages["activePageName"], pages["pageOrder"])
-        self.assertEqual(2, len(pages["pageOrder"]))
+        self.assertEqual(3, len(pages["pageOrder"]))
         page_names = set()
         for page_id in pages["pageOrder"]:
             page = json.loads(
                 (ROOT / f"power_bi/ExecutiveCommerce.Report/definition/pages/{page_id}/page.json").read_text()
             )
             page_names.add(page["displayName"])
-        self.assertEqual({"Executive Overview", "Market & Operations"}, page_names)
+        self.assertEqual(
+            {"Executive Overview", "Market & Operations", "Customer & Service Drivers"},
+            page_names,
+        )
+
+        drivers = ROOT / "power_bi/ExecutiveCommerce.Report/definition/pages/9c2f4e6a8b1d3f5c7e0a/visuals"
+        driver_source = "\n".join(path.read_text() for path in drivers.rglob("visual.json"))
+        for entity in ["CustomerSegments", "DeliveryImpact", "OperationalPriority"]:
+            self.assertIn(entity, driver_source)
 
     def test_power_bi_semantic_model_has_business_depth(self) -> None:
         model = (ROOT / "power_bi/ExecutiveCommerce.SemanticModel/definition/model.tmdl").read_text()
