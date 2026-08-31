@@ -37,6 +37,9 @@ jobs:
       - name: Rebuild pinned warehouse, analysis and dashboard extracts
         run: python projects/executive_commerce_bi/refresh_verified_data.py
 
+      - name: Build right-censored cohort retention analysis
+        run: python projects/executive_commerce_bi/cohort_analysis.py
+
       - name: Feed deep analysis into Tableau extract
         run: python projects/executive_commerce_bi/enrich_tableau_analysis.py
 
@@ -69,14 +72,19 @@ jobs:
           assert analysis['scope']['commercial_orders'] == 98199
           assert analysis['delivery']['review_score_gap'] > 0
           assert analysis['customers']['repeat_customer_pct'] == 3.03
+          assert analysis['cohort_retention']['month_1_weighted_retention_pct'] >= 0
+          assert analysis['cohort_retention']['month_3_weighted_retention_pct'] >= 0
           assert len(pd.read_csv(data / 'analysis_delivery_impact.csv')) >= 4
           assert len(pd.read_csv(data / 'analysis_state_performance.csv')) >= 20
           assert len(pd.read_csv(data / 'analysis_category_performance.csv')) >= 20
+          cohort = pd.read_csv(data / 'analysis_retention_curve.csv')
+          assert float(cohort.loc[cohort['month_number'] == 0, 'weighted_retention_pct'].iloc[0]) == 100.0
+          assert cohort['observable_cohorts'].is_monotonic_decreasing
           priority = pd.read_csv(data / 'analysis_operational_priority.csv')
           assert len(priority) > 0
           assert priority['late_order_merchandise_value_brl'].is_monotonic_decreasing
           tableau = pd.read_csv(data / 'tableau_dashboard_long.csv')
-          assert {'Customer Segment', 'Delay Impact', 'Operational Priority'}.issubset(set(tableau['section']))
+          assert {'Customer Segment', 'Cohort Retention', 'Delay Impact', 'Operational Priority'}.issubset(set(tableau['section']))
           assert (project / 'VERIFIED_ANALYSIS.md').exists()
           preview = project / 'dashboard_preview.svg'
           assert preview.exists() and preview.stat().st_size > 3000
