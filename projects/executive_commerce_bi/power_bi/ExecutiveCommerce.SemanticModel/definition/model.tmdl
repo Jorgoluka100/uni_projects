@@ -13,3 +13,6 @@ ref table DeliveryQuality
 ref table StatePerformance
 ref table PaymentBehaviour
 ref table SellerOperations
+ref table CustomerSegments
+ref table DeliveryImpact
+ref table OperationalPriority
