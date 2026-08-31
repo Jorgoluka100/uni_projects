@@ -37,6 +37,9 @@ jobs:
       - name: Rebuild pinned warehouse, analysis and dashboard extracts
         run: python projects/executive_commerce_bi/refresh_verified_data.py
 
+      - name: Render dashboard preview from verified analysis
+        run: python projects/executive_commerce_bi/render_dashboard_preview.py
+
       - name: Validate retained dashboard and analysis evidence
         run: |
           python - <<'PY'
@@ -70,6 +73,8 @@ jobs:
           assert len(priority) > 0
           assert priority['late_order_merchandise_value_brl'].is_monotonic_decreasing
           assert (project / 'VERIFIED_ANALYSIS.md').exists()
+          preview = project / 'dashboard_preview.svg'
+          assert preview.exists() and preview.stat().st_size > 3000
           print(json.dumps(analysis, indent=2))
           PY
 
@@ -80,7 +85,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add projects/executive_commerce_bi/data projects/executive_commerce_bi/VERIFIED_ANALYSIS.md
+          git add projects/executive_commerce_bi/data projects/executive_commerce_bi/VERIFIED_ANALYSIS.md projects/executive_commerce_bi/dashboard_preview.svg
           if git diff --cached --quiet; then
             echo 'Dashboard and analysis extracts are already current.'
           else
