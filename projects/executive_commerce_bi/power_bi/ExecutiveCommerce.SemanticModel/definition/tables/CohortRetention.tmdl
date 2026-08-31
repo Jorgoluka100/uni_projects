@@ -1,0 +1,41 @@
+table CohortRetention
+
+	measure 'Weighted Cohort Retention' = DIVIDE(SUMX(CohortRetention, CohortRetention[weighted_retention_pct] * CohortRetention[eligible_cohort_customers]), SUM(CohortRetention[eligible_cohort_customers]) * 100)
+		formatString: 0.00%
+
+	measure 'Observable Cohorts' = MAX(CohortRetention[observable_cohorts])
+		formatString: #,##0
+
+	column month_number
+		dataType: int64
+		sourceColumn: month_number
+
+	column observable_cohorts
+		dataType: int64
+		sourceColumn: observable_cohorts
+
+	column active_customers
+		dataType: int64
+		sourceColumn: active_customers
+
+	column eligible_cohort_customers
+		dataType: int64
+		sourceColumn: eligible_cohort_customers
+
+	column weighted_retention_pct
+		dataType: double
+		sourceColumn: weighted_retention_pct
+
+	column average_cohort_retention_pct
+		dataType: double
+		sourceColumn: average_cohort_retention_pct
+
+	partition CohortRetention = m
+		mode: import
+		source =
+			let
+				Source = Csv.Document(File.Contents(DataRoot & "\\analysis_retention_curve.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				Typed = Table.TransformColumnTypes(Headers, {{"month_number", Int64.Type}, {"observable_cohorts", Int64.Type}, {"active_customers", Int64.Type}, {"eligible_cohort_customers", Int64.Type}, {"weighted_retention_pct", type number}, {"average_cohort_retention_pct", type number}})
+			in
+				Typed
