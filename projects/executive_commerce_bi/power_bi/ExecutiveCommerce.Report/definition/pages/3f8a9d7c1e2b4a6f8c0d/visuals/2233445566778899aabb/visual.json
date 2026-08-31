@@ -5,5 +5,5 @@
   "visual": {"visualType": "lineChart", "query": {"queryState": {
     "Category": {"projections": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": "MonthlyPerformance"}}, "Property": "order_month"}}, "queryRef": "MonthlyPerformance.order_month", "nativeQueryRef": "order_month"}]},
     "Y": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "MonthlyPerformance"}}, "Property": "Total GMV"}}, "queryRef": "MonthlyPerformance.Total GMV", "nativeQueryRef": "Total GMV"}]}
-  }}}}
+  }}}
 }
