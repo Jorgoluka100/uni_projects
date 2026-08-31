@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "fd44fd44fd44fd44fd44",
+  "position": {"x": 432, "y": 24, "z": 1100, "height": 300, "width": 392, "tabOrder": 1100},
+  "visual": {
+    "visualType": "lineChart",
+    "query": {"queryState": {
+      "Category": {"projections": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": "CohortRetention"}}, "Property": "month_number"}}, "queryRef": "CohortRetention.month_number", "nativeQueryRef": "month_number"}]},
+      "Y": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "CohortRetention"}}, "Property": "Weighted Cohort Retention"}}, "queryRef": "CohortRetention.Weighted Cohort Retention", "nativeQueryRef": "Weighted Cohort Retention"}]}
+    }},
+    "drillFilterOtherVisuals": true
+  }
+}
