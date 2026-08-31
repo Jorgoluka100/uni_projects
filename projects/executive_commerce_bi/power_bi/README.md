@@ -29,7 +29,7 @@ Designed for the next question: **where should the team investigate?**
 
 ## Semantic model
 
-The report is deliberately model-first rather than visual-first. The TMDL model contains seven explicit tables:
+The report is deliberately **model-first rather than visual-first**. The TMDL model now contains ten explicit import tables:
 
 1. `ExecutiveKPIs`
 2. `MonthlyPerformance`
@@ -38,8 +38,17 @@ The report is deliberately model-first rather than visual-first. The TMDL model 
 5. `StatePerformance`
 6. `PaymentBehaviour`
 7. `SellerOperations`
+8. `CustomerSegments`
+9. `DeliveryImpact`
+10. `OperationalPriority`
 
-DAX measures include commercial orders, customers, merchandise value, AOV, repeat rate, seller concentration, late-delivery rate, delivery review gap, regional GMV, regional delivery risk, payment value and priority-seller metrics.
+The final three tables are generated from the deeper verified business analysis:
+
+- **CustomerSegments** — customer count, GMV share and average customer value by one-time/repeat value segment
+- **DeliveryImpact** — delay buckets with order volume, GMV, review score, 1-star rate and 5-star rate
+- **OperationalPriority** — states/categories ranked transparently by merchandise value attached to late orders
+
+DAX measures include commercial orders, customers, merchandise value, AOV, repeat rate, seller concentration, late-delivery rate, delivery review gap, regional GMV, payment value, priority-seller metrics, segment GMV share, one-star review rate and late-order GMV.
 
 ## Reproduce the data
 
@@ -49,9 +58,10 @@ From repository root:
 pip install -r projects/ecommerce_sql_analytics/requirements.txt
 pip install pyarrow
 python projects/executive_commerce_bi/refresh_verified_data.py
+python projects/executive_commerce_bi/render_dashboard_preview.py
 ```
 
-That command downloads the pinned Olist source, rebuilds the warehouse, runs integrity checks, verifies the retained headline evidence and writes the governed dashboard CSVs into `../data/`.
+The refresh downloads the pinned Olist source, rebuilds the warehouse, runs integrity checks, verifies the retained headline evidence, performs the deeper business analysis and writes the governed dashboard CSVs into `../data/`.
 
 Then edit the `DataRoot` expression in:
 
@@ -61,6 +71,6 @@ so it points at that generated `data/` folder on your machine, and open `Executi
 
 ## What is automatically verified
 
-GitHub Actions checks the real data refresh, retained headline metrics, Power BI project/report bindings, PBIR JSON, semantic-model table coverage and the shared dashboard evidence.
+GitHub Actions checks the real data refresh, retained headline metrics, decision-oriented analysis outputs, generated dashboard preview, Power BI project/report bindings, PBIR JSON, semantic-model table coverage and the shared dashboard evidence.
 
-Power BI Desktop itself is not available in the repository CI environment. I therefore do **not** claim that a `.pbix` binary or published Power BI Service report was runtime-rendered by CI. The source, measures, data lineage and report definitions are the inspectable evidence here; the final Desktop render is the publication checkpoint.
+Power BI Desktop itself is not available in the repository CI environment. I therefore do **not** claim that a `.pbix` binary or published Power BI Service report was runtime-rendered by CI. The source, measures, data lineage, analysis and report definitions are the inspectable evidence here; the final Desktop render is the publication checkpoint.
