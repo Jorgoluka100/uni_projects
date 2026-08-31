@@ -16,6 +16,7 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
             "DASHBOARD_STORY.md",
             "dashboard_preview.svg",
             "business_analysis.py",
+            "cohort_analysis.py",
             "enrich_tableau_analysis.py",
             "render_dashboard_preview.py",
             "refresh_verified_data.py",
@@ -49,7 +50,7 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
 
         drivers = ROOT / "power_bi/ExecutiveCommerce.Report/definition/pages/9c2f4e6a8b1d3f5c7e0a/visuals"
         driver_source = "\n".join(path.read_text() for path in drivers.rglob("visual.json"))
-        for entity in ["CustomerSegments", "DeliveryImpact", "OperationalPriority"]:
+        for entity in ["CustomerSegments", "CohortRetention", "DeliveryImpact", "OperationalPriority"]:
             self.assertIn(entity, driver_source)
 
     def test_power_bi_semantic_model_has_business_depth(self) -> None:
@@ -63,6 +64,7 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
             "PaymentBehaviour",
             "SellerOperations",
             "CustomerSegments",
+            "CohortRetention",
             "DeliveryImpact",
             "OperationalPriority",
         ]:
@@ -75,6 +77,8 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
         self.assertIn("measure 'Priority Sellers'", sellers)
         segments = (ROOT / "power_bi/ExecutiveCommerce.SemanticModel/definition/tables/CustomerSegments.tmdl").read_text()
         self.assertIn("measure 'Segment GMV Share'", segments)
+        cohort = (ROOT / "power_bi/ExecutiveCommerce.SemanticModel/definition/tables/CohortRetention.tmdl").read_text()
+        self.assertIn("measure 'Weighted Cohort Retention'", cohort)
         impact = (ROOT / "power_bi/ExecutiveCommerce.SemanticModel/definition/tables/DeliveryImpact.tmdl").read_text()
         self.assertIn("measure 'One Star Review Rate'", impact)
         priority = (ROOT / "power_bi/ExecutiveCommerce.SemanticModel/definition/tables/OperationalPriority.tmdl").read_text()
@@ -104,6 +108,7 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
                 "Payment Mix",
                 "Seller Risk",
                 "Customer Value",
+                "Cohort Retention",
                 "Delay Severity",
                 "Operational Priority",
             },
@@ -139,6 +144,8 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
             "analysis_summary.json",
             "analysis_monthly_growth.csv",
             "analysis_customer_segments.csv",
+            "analysis_cohort_retention.csv",
+            "analysis_retention_curve.csv",
             "analysis_delivery_impact.csv",
             "analysis_state_performance.csv",
             "analysis_category_performance.csv",
