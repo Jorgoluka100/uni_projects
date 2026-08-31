@@ -2,16 +2,18 @@
 
 This is the exploratory / storytelling half of **Executive Commerce Intelligence**. It consumes the governed `../data/tableau_dashboard_long.csv` extract generated from the same verified warehouse as the Power BI report.
 
-The Tableau work is intentionally **not** a clone of Power BI. Power BI acts as the operational command center; Tableau is used to move through the marketplace story and compare commercial opportunity with service quality.
+The Tableau work is intentionally **not** a clone of Power BI. Power BI acts as the operational command center; Tableau is used to move through the marketplace story and compare commercial opportunity with customer and service quality.
 
 ## Workbook structure
+
+The workbook contains **10 analytical worksheets across 3 dashboards**.
 
 ### Dashboard 1 — Executive Commerce Dashboard
 
 - **Executive Pulse** — headline commercial KPIs
 - **Monthly Trend** — monthly merchandise-value movement
 - **Category Leaders** — ranked category value with supporting freight signal
-- **Delivery Experience** — on-time vs late review-score comparison
+- **Delivery Experience** — overall on-time vs late review-score comparison
 
 ### Dashboard 2 — Marketplace Explorer
 
@@ -19,16 +21,29 @@ The Tableau work is intentionally **not** a clone of Power BI. Power BI acts as 
 - **Payment Mix** — payment value by method with order penetration as supporting context
 - **Seller Risk** — seller counts by operational-review status
 
-The workbook therefore answers two different questions:
+### Dashboard 3 — Customer & Service Drivers
 
-1. **What is happening?** — executive performance and customer experience.
+- **Customer Value** — GMV share by one-time/repeat and high-value customer segments
+- **Delay Severity** — average review score by delivery-delay bucket, with 1-star share as supporting risk context
+- **Operational Priority** — states/categories ranked by merchandise value attached to late orders, with late-delivery rate as context
+
+The dashboards answer three levels of question:
+
+1. **What is happening?** — executive performance and headline customer experience.
 2. **Where should I investigate?** — geography, payment behaviour and seller operations.
+3. **What appears to be driving the risk?** — retention mix, delivery severity and material late-order exposure.
 
 ## Inspectable Tableau source
 
-[`ExecutiveCommerce.twb`](ExecutiveCommerce.twb) is committed as plain-text Tableau workbook XML. The worksheets include actual filters, shelves and mark definitions rather than only sheet names, and the two dashboard layouts are version controlled.
+[`ExecutiveCommerce.twb`](ExecutiveCommerce.twb) is committed as plain-text Tableau workbook XML. The worksheets include actual filters, shelves and mark definitions rather than only sheet names, and all three dashboard layouts are version controlled.
 
-The shared data extract is a tidy long table with sections for executive KPIs, trends, categories, delivery, regions, payments and seller risk. See [`calculations.md`](calculations.md) for field semantics and calculated-field logic.
+The shared tidy extract contains the original executive/trend/category/delivery/region/payment/seller sections plus the executed deeper-analysis sections:
+
+- `Customer Segment`
+- `Delay Impact`
+- `Operational Priority`
+
+Those additional sections are generated from the verified analysis outputs rather than manually entered into the workbook.
 
 ## Reproduce the data
 
@@ -38,10 +53,11 @@ From repository root:
 pip install -r projects/ecommerce_sql_analytics/requirements.txt
 pip install pyarrow
 python projects/executive_commerce_bi/refresh_verified_data.py
+python projects/executive_commerce_bi/enrich_tableau_analysis.py
 ```
 
 Then open `ExecutiveCommerce.twb` in Tableau Desktop / Tableau Public and refresh the text-file connection if your local path differs.
 
 ## Verification boundary
 
-CI parses the workbook as XML and verifies the required worksheets, both dashboards, shelves/marks and governed data outputs. Tableau Desktop/Public is not available in CI, so publication and final interactive rendering remain a Desktop/Public checkpoint rather than something this repository falsely claims to have automated.
+CI parses the workbook as XML and verifies the required **10 worksheets, 3 dashboards, shelves/marks and governed analysis outputs**. Tableau Desktop/Public is not available in CI, so publication and final interactive rendering remain a Desktop/Public checkpoint rather than something this repository falsely claims to have automated.
