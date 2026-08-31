@@ -37,6 +37,9 @@ jobs:
       - name: Rebuild pinned warehouse, analysis and dashboard extracts
         run: python projects/executive_commerce_bi/refresh_verified_data.py
 
+      - name: Feed deep analysis into Tableau extract
+        run: python projects/executive_commerce_bi/enrich_tableau_analysis.py
+
       - name: Render dashboard preview from verified analysis
         run: python projects/executive_commerce_bi/render_dashboard_preview.py
 
@@ -72,6 +75,8 @@ jobs:
           priority = pd.read_csv(data / 'analysis_operational_priority.csv')
           assert len(priority) > 0
           assert priority['late_order_merchandise_value_brl'].is_monotonic_decreasing
+          tableau = pd.read_csv(data / 'tableau_dashboard_long.csv')
+          assert {'Customer Segment', 'Delay Impact', 'Operational Priority'}.issubset(set(tableau['section']))
           assert (project / 'VERIFIED_ANALYSIS.md').exists()
           preview = project / 'dashboard_preview.svg'
           assert preview.exists() and preview.stat().st_size > 3000
