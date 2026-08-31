@@ -15,6 +15,8 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
             "KPI_DICTIONARY.md",
             "DASHBOARD_STORY.md",
             "dashboard_preview.svg",
+            "business_analysis.py",
+            "render_dashboard_preview.py",
             "refresh_verified_data.py",
             "power_bi/ExecutiveCommerce.pbip",
             "power_bi/ExecutiveCommerce.SemanticModel/definition.pbism",
@@ -89,9 +91,9 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
             self.assertIsNotNone(worksheet.find("./table/rows"))
             self.assertIsNotNone(worksheet.find("./table/cols"))
 
-    def test_preview_uses_retained_values(self) -> None:
+    def test_preview_uses_verified_analysis_values(self) -> None:
         preview = (ROOT / "dashboard_preview.svg").read_text()
-        for value in ["98,199", "94,983", "R$13.49M", "3.03%", "13.24%", "4.28", "2.55"]:
+        for value in ["98,199", "94,983", "R$13.49M", "3.03%", "8.11%", "1.74", "R$342K"]:
             self.assertIn(value, preview)
 
     def test_generated_data_when_present(self) -> None:
@@ -110,6 +112,15 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
             "state_performance.csv",
             "seller_operational_review.csv",
             "tableau_dashboard_long.csv",
+            "analysis_summary.json",
+            "analysis_monthly_growth.csv",
+            "analysis_customer_segments.csv",
+            "analysis_delivery_impact.csv",
+            "analysis_state_performance.csv",
+            "analysis_category_performance.csv",
+            "analysis_seller_risk.csv",
+            "analysis_payment_mix.csv",
+            "analysis_operational_priority.csv",
         ]:
             self.assertIn(filename, manifest["files"])
 
