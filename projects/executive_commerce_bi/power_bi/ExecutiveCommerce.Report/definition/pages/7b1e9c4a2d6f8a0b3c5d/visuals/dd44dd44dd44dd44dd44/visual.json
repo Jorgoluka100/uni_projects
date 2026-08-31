@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "dd44dd44dd44dd44dd44",
+  "position": {"x": 24, "y": 438, "z": 1300, "height": 240, "width": 600, "tabOrder": 1300},
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {"queryState": {
+      "Category": {"projections": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": "PaymentBehaviour"}}, "Property": "payment_type"}}, "queryRef": "PaymentBehaviour.payment_type", "nativeQueryRef": "payment_type"}]},
+      "Y": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "PaymentBehaviour"}}, "Property": "Payment Value"}}, "queryRef": "PaymentBehaviour.Payment Value", "nativeQueryRef": "Payment Value"}]}
+    }},
+    "drillFilterOtherVisuals": true
+  }
+}
