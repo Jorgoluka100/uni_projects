@@ -2,7 +2,7 @@
 
 A dual-tool business-intelligence project built on the same verified Olist e-commerce warehouse used in my SQL / dbt work.
 
-The aim is deliberately different from a modelling project: **turn validated commercial data into decisions that an operations, commercial or product team could use.**
+The purpose is deliberately different from a modelling project: **turn validated commercial data into decisions that an operations, commercial or product team could use.**
 
 ![Dashboard portfolio preview](dashboard_preview.svg)
 
@@ -10,7 +10,7 @@ The aim is deliberately different from a modelling project: **turn validated com
 
 **Where is marketplace value being created, where is customer experience breaking down, and what should leadership investigate first?**
 
-The upstream warehouse protects reporting grain before the BI layer sees the data. Orders, items, payments and reviews are reconciled before export so the dashboards do not silently inflate revenue through many-to-many joins.
+The upstream warehouse protects reporting grain before the BI layer sees the data. Orders, items, payments and reviews are reconciled before export so the dashboards do not silently inflate monetary totals through many-to-many joins.
 
 ## Verified scale
 
@@ -26,78 +26,57 @@ The upstream warehouse protects reporting grain before the BI layer sees the dat
 | Avg review — on time / early | **4.28 / 5** |
 | Avg review — late | **2.55 / 5** |
 
-These are retained results from the verified SQL project rather than values typed into the dashboard manually.
+These are retained results from the verified SQL project rather than values typed into dashboard cards.
 
-## Dashboard story
+## Two tools, two jobs
 
-### 1. Executive Pulse
+### Power BI — Executive Commerce Command Center
 
-- commercial orders
-- unique customers
-- merchandise value
-- average order value
-- repeat-customer rate
-- monthly GMV and order trend
+**Use case:** recurring operational and leadership review.
 
-**Decision:** Is growth being driven by more customers, more orders, or larger baskets?
+The source-controlled PBIP / PBIR report now has two pages:
 
-### 2. Customer & Category
+1. **Executive Overview** — headline KPIs, monthly GMV, category performance and delivery experience.
+2. **Market & Operations** — regional value, regional delivery risk, payment behaviour and seller operational risk.
 
-- category value and order volume
-- average review by category
-- state-level category mix
-- repeat behaviour
+The TMDL semantic model contains **seven explicit tables** and reusable DAX measures rather than relying on implicit visual calculations.
 
-**Decision:** Which categories and customer markets deserve deeper commercial attention?
+**[Open Power BI source →](power_bi/)**
 
-### 3. Delivery & Experience
+### Tableau — Marketplace Story & Explorer
 
-- on-time vs late delivery share
-- average review by delivery status
-- seller operational review flags
+**Use case:** exploratory analysis and presentation-led investigation.
 
-**Decision:** Where does service quality appear to be damaging customer experience?
+The Tableau workbook now contains **seven analytical worksheets and two dashboards**:
 
-### 4. Marketplace Health
+- **Executive Commerce Dashboard** — KPI pulse, monthly trend, category leaders and delivery experience.
+- **Marketplace Explorer** — regional performance, payment mix and seller risk.
 
-- seller concentration
-- payment behaviour
-- seller value and operational quality
+The `.twb` workbook is committed as inspectable XML and contains filters, shelves and mark definitions rather than being an empty workbook shell.
 
-**Decision:** Is value overly concentrated, and where are marketplace dependencies emerging?
+**[Open Tableau source →](tableau/)**
 
-## Why both Power BI and Tableau?
+## One governed data path
 
-The point is not to create two unrelated dashboards. Both tools consume the **same governed BI exports and KPI definitions**. That makes cross-tool consistency inspectable and demonstrates that the analysis logic lives in the data model rather than in one dashboard file.
-
-- [`power_bi/`](power_bi/) — source-controlled PBIP / PBIR + TMDL semantic-model project, DAX measures and starter report page.
-- [`tableau/`](tableau/) — Tableau workbook source template, calculation definitions and dashboard layout contract.
-- [`KPI_DICTIONARY.md`](KPI_DICTIONARY.md) — definitions, grain and caveats.
-- [`DASHBOARD_STORY.md`](DASHBOARD_STORY.md) — page-by-page analytical and UX design.
-- [`prepare_bi_data.py`](prepare_bi_data.py) — converts verified Parquet marts into BI-friendly CSVs plus a hashed manifest.
-- [`project_notebook.ipynb`](project_notebook.ipynb) — interview-style walkthrough of the data contract, KPI layer, BI architecture and limitations.
-
-## Reproduce the BI data
-
-First build the upstream warehouse:
+Both tools consume data generated from the same pinned, integrity-checked warehouse. The strongest reproducibility path is one command from repository root:
 
 ```bash
-cd ../ecommerce_sql_analytics
-pip install -r requirements.txt
-python run.py --output-dir artifacts --database artifacts/ecommerce.duckdb
+pip install -r projects/ecommerce_sql_analytics/requirements.txt
+pip install pyarrow
+python projects/executive_commerce_bi/refresh_verified_data.py
 ```
 
-Then build the BI exports:
+That refresh:
 
-```bash
-cd ../executive_commerce_bi
-pip install pandas pyarrow
-python prepare_bi_data.py \
-  --source-dir ../ecommerce_sql_analytics/artifacts/tables \
-  --output-dir data
-```
+1. downloads the pinned Olist dataset version and verifies source hashes;
+2. rebuilds the DuckDB warehouse with the existing SQL modules;
+3. runs warehouse integrity checks;
+4. compares the rebuild with retained executed headline evidence;
+5. creates governed Power BI / Tableau extracts;
+6. adds regional and seller-operational views for deeper BI analysis;
+7. writes a manifest containing row counts, columns, hashes and verification evidence.
 
-Outputs include:
+Generated dashboard data includes:
 
 - `executive_kpis.csv`
 - `monthly_performance.csv`
@@ -105,29 +84,44 @@ Outputs include:
 - `delivery_review_summary.csv`
 - `payment_behaviour.csv`
 - `state_category_mix.csv`
+- `state_performance.csv`
+- `seller_operational_review.csv`
 - `tableau_dashboard_long.csv`
 - `manifest.json`
 
-## Engineering / quality evidence
+## What a recruiter can inspect quickly
 
-- one governed source for both dashboard tools
-- explicit KPI dictionary
-- data-prep script with required-column contracts
-- output hashes and row counts in `manifest.json`
-- source-controlled Power BI semantic model and report definitions
-- Tableau workbook XML source
-- automated JSON/XML/project-contract checks in GitHub Actions
-- no claim that historical marketplace revenue equals profit
-- no causal claim that late delivery *causes* poor reviews
+| Evidence | What it demonstrates |
+| --- | --- |
+| [`dashboard_preview.svg`](dashboard_preview.svg) | clear business communication and dashboard hierarchy |
+| [`power_bi/`](power_bi/) | PBIP, PBIR, TMDL, Power Query-style ingestion and DAX measures |
+| [`tableau/ExecutiveCommerce.twb`](tableau/ExecutiveCommerce.twb) | Tableau workbook XML, worksheets, filters, shelves, marks and dashboard layouts |
+| [`KPI_DICTIONARY.md`](KPI_DICTIONARY.md) | KPI definitions, grain and caveats |
+| [`DASHBOARD_STORY.md`](DASHBOARD_STORY.md) | audience, decisions and page-level UX design |
+| [`refresh_verified_data.py`](refresh_verified_data.py) | real-data lineage from pinned source to dashboard extracts |
+| [`tests/`](tests/) + GitHub Actions | automated BI source and evidence contracts |
+
+## Analytical decisions I would discuss in an interview
+
+- I use **merchandise value / GMV**, not “profit”, because cost and margin data are not available.
+- I keep reporting grain controlled upstream instead of trying to repair duplicated revenue inside a dashboard.
+- The **3.03% repeat-customer rate** makes retention a more interesting management question than merely celebrating order volume.
+- Late deliveries are associated with materially weaker review scores (**2.55 vs 4.28**), but I do not describe that observational relationship as causal proof.
+- Seller and regional views are designed as **investigation queues**, not automated business decisions.
+
+## Supporting documentation
+
+- [`KPI_DICTIONARY.md`](KPI_DICTIONARY.md) — definitions, grain and caveats
+- [`DASHBOARD_STORY.md`](DASHBOARD_STORY.md) — page-by-page analytical and UX design
+- [`prepare_bi_data.py`](prepare_bi_data.py) — reusable governed-export layer and synthetic contract self-test
+- [`project_notebook.ipynb`](project_notebook.ipynb) — interview-style walkthrough
 
 ## Verification boundary
 
-The **data pipeline, retained KPI evidence, Power BI/Tableau source contracts and project structure are automated and CI-checked in this repository**. The repository does **not** claim that a binary `.pbix` file or a published Tableau workbook was generated and runtime-tested inside CI.
+The **real-data refresh, retained KPI evidence, Power BI/Tableau source contracts and project structure are CI-checked**. The repository does **not** claim that Power BI Desktop or Tableau Desktop/Public is running inside GitHub Actions.
 
-Final interactive opening, refresh and publication should be performed in **Power BI Desktop** and **Tableau Desktop / Tableau Public** respectively. Keeping that boundary explicit makes the evidence stronger: the source and data contracts are inspectable here without pretending that desktop-only behaviour was verified where those applications are unavailable.
+A final interactive open/refresh/publication in the desktop applications is therefore a separate publication checkpoint. That boundary is stated explicitly rather than using screenshots to imply runtime verification that has not occurred.
 
-## What this project demonstrates
+## Skills demonstrated
 
-**Power BI · Tableau · data visualisation · DAX · TMDL · PBIP/PBIR · KPI design · dashboard storytelling · commercial analytics · data quality · reproducible reporting**
-
-The project intentionally bridges technical data work and business communication: the upstream SQL makes the numbers trustworthy; the BI layer makes the implications usable.
+**Power BI · Tableau · DAX · TMDL · PBIP/PBIR · dashboard design · KPI definition · commercial analytics · data visualisation · SQL lineage · DuckDB · data quality · reproducible reporting · GitHub Actions**
