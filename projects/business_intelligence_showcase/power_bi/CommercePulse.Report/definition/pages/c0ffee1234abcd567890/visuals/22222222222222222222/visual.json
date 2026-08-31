@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "22222222222222222222",
+  "position": {"x": 330, "y": 20, "z": 1100, "height": 110, "width": 290, "tabOrder": 1100},
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {"queryState": {"Data": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "KPI"}}, "Property": "Commercial Orders"}}, "queryRef": "KPI.Commercial Orders", "nativeQueryRef": "Commercial Orders"}]}}},
+    "drillFilterOtherVisuals": true
+  }
+}
