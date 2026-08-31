@@ -21,7 +21,6 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
             "power_bi/ExecutiveCommerce.pbip",
             "power_bi/ExecutiveCommerce.SemanticModel/definition.pbism",
             "power_bi/ExecutiveCommerce.SemanticModel/definition/model.tmdl",
-            "power_bi/ExecutiveCommerce.Report/definition.pbir",
             "tableau/ExecutiveCommerce.twb",
         ]
         for relative in required:
@@ -53,6 +52,9 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
             "StatePerformance",
             "PaymentBehaviour",
             "SellerOperations",
+            "CustomerSegments",
+            "DeliveryImpact",
+            "OperationalPriority",
         ]:
             self.assertIn(f"ref table {table}", model)
 
@@ -61,6 +63,12 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
         self.assertIn("measure 'Delivery Review Gap'", delivery)
         sellers = (ROOT / "power_bi/ExecutiveCommerce.SemanticModel/definition/tables/SellerOperations.tmdl").read_text()
         self.assertIn("measure 'Priority Sellers'", sellers)
+        segments = (ROOT / "power_bi/ExecutiveCommerce.SemanticModel/definition/tables/CustomerSegments.tmdl").read_text()
+        self.assertIn("measure 'Segment GMV Share'", segments)
+        impact = (ROOT / "power_bi/ExecutiveCommerce.SemanticModel/definition/tables/DeliveryImpact.tmdl").read_text()
+        self.assertIn("measure 'One Star Review Rate'", impact)
+        priority = (ROOT / "power_bi/ExecutiveCommerce.SemanticModel/definition/tables/OperationalPriority.tmdl").read_text()
+        self.assertIn("measure 'Late Order GMV'", priority)
 
     def test_all_pbir_json_is_valid(self) -> None:
         report = ROOT / "power_bi/ExecutiveCommerce.Report"
