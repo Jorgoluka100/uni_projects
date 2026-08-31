@@ -49,6 +49,39 @@ class EcommerceSqlTests(unittest.TestCase):
         ).fetchone()[0]
         self.assertFalse(bool(commercial))
 
+    def test_commercial_scope_is_independent_of_complete_month_reporting_window(self) -> None:
+        """A valid order outside the comparison window stays commercial but not in monthly KPIs."""
+        self.connection.execute(
+            "INSERT INTO raw.customers VALUES ('c5', 'u4', 4000, 'campinas', 'SP')"
+        )
+        self.connection.execute(
+            """
+            INSERT INTO raw.orders VALUES (
+                'o5', 'c5', 'delivered',
+                '2016-12-20 08:00:00', '2016-12-20 09:00:00',
+                '2016-12-21 12:00:00', '2016-12-28 12:00:00', '2016-12-30 00:00:00'
+            )
+            """
+        )
+        self.connection.execute(
+            "INSERT INTO raw.order_items VALUES ('o5', 1, 'p1', 's1', '2016-12-22', 40.0, 5.0)"
+        )
+        build_analytics(self.connection, Path(__file__).parents[1] / "sql")
+
+        commercial = self.connection.execute(
+            "SELECT commercial_order FROM analytics.order_mart WHERE order_id = 'o5'"
+        ).fetchone()[0]
+        headline_orders = self.connection.execute(
+            "SELECT commercial_orders FROM analytics.headline_kpis"
+        ).fetchone()[0]
+        out_of_window_months = self.connection.execute(
+            "SELECT COUNT(*) FROM analytics.monthly_performance WHERE order_month < DATE '2017-01-01'"
+        ).fetchone()[0]
+
+        self.assertTrue(bool(commercial))
+        self.assertEqual(int(headline_orders), 4)
+        self.assertEqual(int(out_of_window_months), 0)
+
     def test_repeat_customer_cohort_is_preserved(self) -> None:
         month_one = self.connection.execute(
             """
