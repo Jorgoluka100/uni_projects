@@ -1,5 +1,8 @@
 table SellerOperations
 
+	measure 'Seller Count' = COUNTROWS(SellerOperations)
+		formatString: #,##0
+
 	measure 'Seller GMV' = SUM(SellerOperations[merchandise_value_brl])
 		formatString: R$ #,##0.00
 
@@ -8,6 +11,9 @@ table SellerOperations
 
 	measure 'Priority Sellers' = CALCULATE(COUNTROWS(SellerOperations), SellerOperations[operational_status] = "review_priority")
 		formatString: #,##0
+
+	measure 'Priority Seller Rate' = DIVIDE([Priority Sellers], [Seller Count])
+		formatString: 0.00%
 
 	column seller_id
 		dataType: string
