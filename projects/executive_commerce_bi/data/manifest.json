@@ -119,7 +119,7 @@
         "average_review_score",
         "operational_status"
       ],
-      "sha256": "ce80dcf3097dee87d29e2d041d3144a264df781f6a133673fd549e0c5b304ffe"
+      "sha256": "fe64c2aa1cae2bcdc837204ba4b58ffa07943c29e21c9544b3ca54e0ee630c4c"
     },
     "analysis_monthly_growth.csv": {
       "rows": 20,
@@ -146,7 +146,7 @@
         "customer_share_pct",
         "merchandise_value_share_pct"
       ],
-      "sha256": "19a7007c8d1cbe24b35715b0da753f45326c5866ab4a84996a537af8e10b99ff"
+      "sha256": "35265a33727620ad3d194b99961c4797b00da8f0156d2b3e7af92c92d64b9b98"
     },
     "analysis_delivery_impact.csv": {
       "rows": 5,
