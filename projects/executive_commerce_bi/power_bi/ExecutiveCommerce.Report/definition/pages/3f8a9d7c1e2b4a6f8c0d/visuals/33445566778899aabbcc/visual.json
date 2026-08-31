@@ -5,5 +5,5 @@
   "visual": {"visualType": "clusteredBarChart", "query": {"queryState": {
     "Category": {"projections": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": "CategoryPerformance"}}, "Property": "category_name"}}, "queryRef": "CategoryPerformance.category_name", "nativeQueryRef": "category_name"}]},
     "Y": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "CategoryPerformance"}}, "Property": "Category GMV"}}, "queryRef": "CategoryPerformance.Category GMV", "nativeQueryRef": "Category GMV"}]}
-  }}}}
+  }}}
 }
