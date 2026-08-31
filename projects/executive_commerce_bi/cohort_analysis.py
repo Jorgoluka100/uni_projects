@@ -1,8 +1,10 @@
-"""Generate cohort-retention evidence from the verified Olist warehouse.
+"""Generate correctly right-censored cohort-retention evidence.
 
-The upstream SQL table is right-censored: a cohort/month row exists only when that
-month was actually observable. This script keeps that property and adds a weighted
-retention curve for dashboard use.
+A sparse retention table can omit both future months and observed months with zero
+returning customers. That is useful for storage but unsafe for an aggregate curve:
+zero-retention observed cohorts would disappear from the denominator. This module
+builds the complete *eligible* cohort-age grid, fills observed zero-return months
+with zero, and excludes only months that were not yet observable.
 """
 from __future__ import annotations
 
@@ -19,6 +21,7 @@ DB_PATH = PROJECT / ".artifacts" / "ecommerce.duckdb"
 MANIFEST = DATA / "manifest.json"
 SUMMARY = DATA / "analysis_summary.json"
 VERIFIED_ANALYSIS = PROJECT / "VERIFIED_ANALYSIS.md"
+COMPLETE_MONTH_EXCLUSIVE = "2018-09-01"
 
 
 def sha256(path: Path) -> str:
@@ -33,45 +36,118 @@ def register_file(manifest: dict, path: Path, frame: pd.DataFrame) -> None:
     }
 
 
+def build_right_censored_cohorts(con: duckdb.DuckDBPyConnection) -> pd.DataFrame:
+    return con.execute(
+        f"""
+        WITH customer_months AS (
+            SELECT DISTINCT
+                customer_unique_id,
+                order_month
+            FROM analytics.order_mart
+            WHERE commercial_order
+              AND customer_unique_id IS NOT NULL
+              AND order_month < DATE '{COMPLETE_MONTH_EXCLUSIVE}'
+        ),
+        customer_cohorts AS (
+            SELECT
+                customer_unique_id,
+                MIN(order_month) AS cohort_month
+            FROM customer_months
+            GROUP BY customer_unique_id
+        ),
+        cohort_sizes AS (
+            SELECT
+                cohort_month,
+                COUNT(*)::BIGINT AS cohort_customers
+            FROM customer_cohorts
+            WHERE cohort_month >= DATE '2017-01-01'
+              AND cohort_month < DATE '{COMPLETE_MONTH_EXCLUSIVE}'
+            GROUP BY cohort_month
+        ),
+        activity AS (
+            SELECT
+                c.cohort_month,
+                DATE_DIFF('month', c.cohort_month, m.order_month)::INTEGER AS month_number,
+                COUNT(DISTINCT m.customer_unique_id)::BIGINT AS active_customers
+            FROM customer_months m
+            JOIN customer_cohorts c USING (customer_unique_id)
+            WHERE c.cohort_month >= DATE '2017-01-01'
+              AND c.cohort_month < DATE '{COMPLETE_MONTH_EXCLUSIVE}'
+              AND DATE_DIFF('month', c.cohort_month, m.order_month) BETWEEN 0 AND 12
+            GROUP BY c.cohort_month, month_number
+        ),
+        ages AS (
+            SELECT range::INTEGER AS month_number
+            FROM range(0, 13)
+        ),
+        eligible_grid AS (
+            SELECT
+                s.cohort_month,
+                a.month_number,
+                s.cohort_customers
+            FROM cohort_sizes s
+            CROSS JOIN ages a
+            WHERE s.cohort_month + a.month_number * INTERVAL '1 month'
+                  < DATE '{COMPLETE_MONTH_EXCLUSIVE}'
+        )
+        SELECT
+            g.cohort_month,
+            g.month_number,
+            COALESCE(a.active_customers, 0)::BIGINT AS active_customers,
+            g.cohort_customers,
+            ROUND(100.0 * COALESCE(a.active_customers, 0) / NULLIF(g.cohort_customers, 0), 2) AS retention_pct
+        FROM eligible_grid g
+        LEFT JOIN activity a
+          ON a.cohort_month = g.cohort_month
+         AND a.month_number = g.month_number
+        ORDER BY g.cohort_month, g.month_number
+        """
+    ).df()
+
+
+def build_weighted_curve(raw: pd.DataFrame) -> pd.DataFrame:
+    grouped = raw.groupby("month_number", as_index=False).agg(
+        observable_cohorts=("cohort_month", "count"),
+        active_customers=("active_customers", "sum"),
+        eligible_cohort_customers=("cohort_customers", "sum"),
+        average_cohort_retention_pct=("retention_pct", "mean"),
+    )
+    grouped["weighted_retention_pct"] = (
+        100.0 * grouped["active_customers"] / grouped["eligible_cohort_customers"]
+    ).round(2)
+    grouped["average_cohort_retention_pct"] = grouped["average_cohort_retention_pct"].round(2)
+    return grouped[
+        [
+            "month_number",
+            "observable_cohorts",
+            "active_customers",
+            "eligible_cohort_customers",
+            "weighted_retention_pct",
+            "average_cohort_retention_pct",
+        ]
+    ].sort_values("month_number")
+
+
 def main() -> None:
     if not DB_PATH.exists():
         raise FileNotFoundError(f"Verified warehouse not found: {DB_PATH}")
 
     con = duckdb.connect(str(DB_PATH), read_only=True)
-    raw = con.execute(
-        """
-        SELECT
-            cohort_month,
-            month_number,
-            active_customers,
-            cohort_customers,
-            retention_pct
-        FROM analytics.cohort_retention
-        ORDER BY cohort_month, month_number
-        """
-    ).df()
-    curve = con.execute(
-        """
-        SELECT
-            month_number,
-            COUNT(*)::BIGINT AS observable_cohorts,
-            SUM(active_customers)::BIGINT AS active_customers,
-            SUM(cohort_customers)::BIGINT AS eligible_cohort_customers,
-            ROUND(100.0 * SUM(active_customers) / NULLIF(SUM(cohort_customers), 0), 2) AS weighted_retention_pct,
-            ROUND(AVG(retention_pct), 2) AS average_cohort_retention_pct
-        FROM analytics.cohort_retention
-        GROUP BY month_number
-        ORDER BY month_number
-        """
-    ).df()
+    raw = build_right_censored_cohorts(con)
     con.close()
+    curve = build_weighted_curve(raw)
 
     if raw.empty or curve.empty:
         raise AssertionError("Cohort retention analysis produced no rows")
-    if float(curve.loc[curve["month_number"] == 0, "weighted_retention_pct"].iloc[0]) != 100.0:
+    month_zero = curve.loc[curve["month_number"] == 0].iloc[0]
+    if float(month_zero["weighted_retention_pct"]) != 100.0:
         raise AssertionError("Month-zero weighted retention must equal 100%")
     if not curve["observable_cohorts"].is_monotonic_decreasing:
-        raise AssertionError("Observable cohort count should not increase with cohort age")
+        raise AssertionError("Eligible cohort count should not increase with cohort age")
+    if (raw["active_customers"] > raw["cohort_customers"]).any():
+        raise AssertionError("Active customers cannot exceed cohort size")
+    if not (raw["active_customers"] == 0).any():
+        raise AssertionError("Expected observed zero-retention cohort-months in complete grid")
 
     raw_path = DATA / "analysis_cohort_retention.csv"
     curve_path = DATA / "analysis_retention_curve.csv"
@@ -96,16 +172,16 @@ def main() -> None:
     manifest["files"][SUMMARY.name]["sha256"] = sha256(SUMMARY)
     MANIFEST.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-    m1 = retention_summary.get("month_1_weighted_retention_pct")
-    m3 = retention_summary.get("month_3_weighted_retention_pct")
-    m6 = retention_summary.get("month_6_weighted_retention_pct")
+    m1 = retention_summary["month_1_weighted_retention_pct"]
+    m3 = retention_summary["month_3_weighted_retention_pct"]
+    m6 = retention_summary["month_6_weighted_retention_pct"]
     section = (
         "\n## Cohort retention\n\n"
-        "The warehouse uses acquisition cohorts and only includes follow-up months that were actually observable, so later cohorts are **right-censored rather than filled with artificial zeroes**.\n\n"
+        "The retention curve uses an **eligible cohort-age grid**: observed months with no returning customers are recorded as zero, while genuinely future months are excluded. This avoids both zero-fill censoring bias and sparse-table denominator bias.\n\n"
         f"- Weighted month-1 retention: **{m1:.2f}%**\n"
         f"- Weighted month-3 retention: **{m3:.2f}%**\n"
         f"- Weighted month-6 retention: **{m6:.2f}%**\n\n"
-        "The low cohort retention reinforces the repeat-customer finding, while the censoring rule avoids making recent cohorts look worse simply because future months do not exist yet.\n"
+        "The low cohort retention reinforces the repeat-customer finding without making recent cohorts look worse simply because their future follow-up months do not yet exist.\n"
     )
     analysis_text = VERIFIED_ANALYSIS.read_text(encoding="utf-8")
     marker = "\n## Cohort retention\n"
