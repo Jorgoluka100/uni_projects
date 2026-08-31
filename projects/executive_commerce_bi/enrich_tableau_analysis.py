@@ -1,4 +1,4 @@
-"""Add the verified customer/service analysis to Tableau's tidy long-form extract."""
+"""Add verified customer/service analysis to Tableau's tidy long-form extract."""
 from __future__ import annotations
 
 import hashlib
@@ -11,7 +11,7 @@ PROJECT = Path(__file__).resolve().parent
 DATA = PROJECT / "data"
 TABLEAU = DATA / "tableau_dashboard_long.csv"
 MANIFEST = DATA / "manifest.json"
-DEEP_SECTIONS = {"Customer Segment", "Delay Impact", "Operational Priority"}
+DEEP_SECTIONS = {"Customer Segment", "Cohort Retention", "Delay Impact", "Operational Priority"}
 
 
 def sha256(path: Path) -> str:
@@ -35,6 +35,18 @@ def main() -> None:
             "sort_order": next_sort + int(i),
         })
     next_sort += len(customer)
+
+    cohort = pd.read_csv(DATA / "analysis_retention_curve.csv")
+    for i, row in cohort.iterrows():
+        rows.append({
+            "section": "Cohort Retention",
+            "dimension": f"Month {int(row['month_number'])}",
+            "metric": "Weighted Retention %",
+            "value": row["weighted_retention_pct"],
+            "secondary_value": row["observable_cohorts"],
+            "sort_order": next_sort + int(i),
+        })
+    next_sort += len(cohort)
 
     delivery = pd.read_csv(DATA / "analysis_delivery_impact.csv")
     for i, row in delivery.iterrows():
