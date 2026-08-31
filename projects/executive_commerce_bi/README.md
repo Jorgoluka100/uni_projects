@@ -75,18 +75,19 @@ The seller review identifies **10 review-priority sellers** covering 907 seller-
 
 Credit cards touch **77.0%** of commercial orders and account for **R$12.35M** of payment value, with 3.51 average instalments. Boleto is the clear second payment method at 19.89% order penetration.
 
-## Two tools, two jobs
+## Two tools, distinct jobs
 
 ### Power BI — Executive Commerce Command Center
 
 **Use case:** recurring operational and leadership review.
 
-The source-controlled PBIP / PBIR report has two pages:
+The source-controlled PBIP / PBIR report now has **three pages**:
 
 1. **Executive Overview** — headline KPIs, monthly GMV, category performance and delivery experience.
 2. **Market & Operations** — regional value, regional delivery risk, payment behaviour and seller operational risk.
+3. **Customer & Service Drivers** — customer GMV mix, review score by delivery-delay severity and late-order GMV priorities.
 
-The TMDL semantic model contains explicit tables and reusable DAX measures rather than relying on implicit visual calculations.
+The TMDL semantic model contains **10 explicit tables**, including dedicated `CustomerSegments`, `DeliveryImpact` and `OperationalPriority` analysis tables with reusable DAX measures.
 
 **[Open Power BI source →](power_bi/)**
 
@@ -94,10 +95,11 @@ The TMDL semantic model contains explicit tables and reusable DAX measures rathe
 
 **Use case:** exploratory analysis and presentation-led investigation.
 
-The Tableau workbook contains analytical worksheets and two dashboards:
+The Tableau workbook contains **10 analytical worksheets across three dashboards**:
 
 - **Executive Commerce Dashboard** — KPI pulse, monthly trend, category leaders and delivery experience.
 - **Marketplace Explorer** — regional performance, payment mix and seller risk.
+- **Customer & Service Drivers** — customer value structure, delay severity and operational priority.
 
 The `.twb` workbook is committed as inspectable XML and contains filters, shelves and mark definitions rather than being an empty workbook shell.
 
@@ -105,16 +107,17 @@ The `.twb` workbook is committed as inspectable XML and contains filters, shelve
 
 ## One governed data path
 
-Both tools consume data generated from the same pinned, integrity-checked warehouse. The strongest reproducibility path is one command from repository root:
+Both tools consume data generated from the same pinned, integrity-checked warehouse. The reproducibility path from repository root is:
 
 ```bash
 pip install -r projects/ecommerce_sql_analytics/requirements.txt
 pip install pyarrow
 python projects/executive_commerce_bi/refresh_verified_data.py
+python projects/executive_commerce_bi/enrich_tableau_analysis.py
 python projects/executive_commerce_bi/render_dashboard_preview.py
 ```
 
-That refresh:
+That flow:
 
 1. downloads the pinned Olist dataset version and verifies source hashes;
 2. rebuilds the DuckDB warehouse with the existing SQL modules;
@@ -123,8 +126,9 @@ That refresh:
 5. creates governed Power BI / Tableau extracts;
 6. runs decision-oriented customer, delivery, category, regional, payment and seller analysis;
 7. builds a transparent operational-priority table;
-8. generates the GitHub dashboard preview from the verified analysis;
-9. writes a manifest containing row counts, columns, hashes and verification evidence.
+8. enriches Tableau with the deeper customer/service analysis sections;
+9. generates the GitHub dashboard preview from the verified analysis;
+10. writes a manifest containing row counts, columns, hashes and verification evidence.
 
 ### Generated analysis data
 
@@ -148,8 +152,8 @@ The original governed dashboard extracts remain alongside these files in [`data/
 | [`VERIFIED_ANALYSIS.md`](VERIFIED_ANALYSIS.md) | executed business findings and management interpretation |
 | [`business_analysis.py`](business_analysis.py) | decision-oriented SQL/Python analysis over the verified warehouse |
 | [`render_dashboard_preview.py`](render_dashboard_preview.py) | reproducible visual communication from analysis outputs |
-| [`power_bi/`](power_bi/) | PBIP, PBIR, TMDL, Power Query-style ingestion and DAX measures |
-| [`tableau/ExecutiveCommerce.twb`](tableau/ExecutiveCommerce.twb) | Tableau workbook XML, worksheets, filters, shelves, marks and dashboard layouts |
+| [`power_bi/`](power_bi/) | PBIP, three PBIR report pages, 10-table TMDL semantic model and DAX measures |
+| [`tableau/ExecutiveCommerce.twb`](tableau/ExecutiveCommerce.twb) | Tableau workbook XML with 10 worksheets and 3 dashboard layouts |
 | [`KPI_DICTIONARY.md`](KPI_DICTIONARY.md) | KPI definitions, grain and caveats |
 | [`refresh_verified_data.py`](refresh_verified_data.py) | real-data lineage from pinned source to analysis and dashboard extracts |
 | [`tests/`](tests/) + GitHub Actions | automated BI source, data and evidence contracts |
