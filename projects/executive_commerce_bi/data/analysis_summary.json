@@ -31,5 +31,15 @@
     "late_order_merchandise_value_brl": 342232.4,
     "late_delivery_pct": 5.89,
     "average_review_score": 4.2
+  },
+  "cohort_retention": {
+    "month_1_weighted_retention_pct": 0.48,
+    "month_1_observable_cohorts": 19,
+    "month_3_weighted_retention_pct": 0.26,
+    "month_3_observable_cohorts": 17,
+    "month_6_weighted_retention_pct": 0.23,
+    "month_6_observable_cohorts": 14,
+    "month_12_weighted_retention_pct": 0.18,
+    "month_12_observable_cohorts": 8
   }
 }

@@ -84,7 +84,7 @@
       "sha256": "cd642c9ee24db7d242af78691fa9e4ccf47d4a50e879ba1847a0ddca29edab17"
     },
     "tableau_dashboard_long.csv": {
-      "rows": 170,
+      "rows": 183,
       "columns": [
         "section",
         "dimension",
@@ -93,7 +93,7 @@
         "secondary_value",
         "sort_order"
       ],
-      "sha256": "893ba57bf9d683b86c246fbdacf37797a966170cbd8a73e908ebdcb05ca44bbe"
+      "sha256": "e2698e74f5d656de1ea23d1171b80805c1456bed0cdc3a6a2a403b3e493820c6"
     },
     "state_performance.csv": {
       "rows": 27,
@@ -119,7 +119,7 @@
         "average_review_score",
         "operational_status"
       ],
-      "sha256": "980de4a0d3de8ae5833cb247cacac55c401de55f31fc4d5079acde4c63d81e70"
+      "sha256": "caf105117f83132bbabce6dcba7b8870445a6bfe17317fdf57dfa74be60c710a"
     },
     "analysis_monthly_growth.csv": {
       "rows": 20,
@@ -146,7 +146,7 @@
         "customer_share_pct",
         "merchandise_value_share_pct"
       ],
-      "sha256": "79ee03f2bafce86ec8757b55a066fce5a99a1c1573b0e2020d6e401040fce60b"
+      "sha256": "0485aaa219a2b225be0fa3006e0a61f1a31961dfb569abb986037950987d0bbe"
     },
     "analysis_delivery_impact.csv": {
       "rows": 5,
@@ -241,7 +241,30 @@
         "market",
         "management_priority"
       ],
-      "sha256": "00ea38723d790e8ffd13545f616535ba270fcb51c6d6aeab1fd41a37fe16e4d3"
+      "sha256": "2721b22cab6f08a659b2bf66b7d3f4bcddffcdb25268cba7aa60a06c703b9c96"
+    },
+    "analysis_cohort_retention.csv": {
+      "rows": 181,
+      "columns": [
+        "cohort_month",
+        "month_number",
+        "active_customers",
+        "cohort_customers",
+        "retention_pct"
+      ],
+      "sha256": "523be0ead2bb40169e185091c7561ea383d238be5b1a6d5cfed909f32062f5c5"
+    },
+    "analysis_retention_curve.csv": {
+      "rows": 13,
+      "columns": [
+        "month_number",
+        "observable_cohorts",
+        "active_customers",
+        "eligible_cohort_customers",
+        "weighted_retention_pct",
+        "average_cohort_retention_pct"
+      ],
+      "sha256": "6369745a6176fc312c9f12b9289c75e863b8fd1dbecc5c9039bafc98dab6b233"
     }
   },
   "business_analysis": {
@@ -277,6 +300,16 @@
       "late_order_merchandise_value_brl": 342232.4,
       "late_delivery_pct": 5.89,
       "average_review_score": 4.2
+    },
+    "cohort_retention": {
+      "month_1_weighted_retention_pct": 0.48,
+      "month_1_observable_cohorts": 19,
+      "month_3_weighted_retention_pct": 0.26,
+      "month_3_observable_cohorts": 17,
+      "month_6_weighted_retention_pct": 0.23,
+      "month_6_observable_cohorts": 14,
+      "month_12_weighted_retention_pct": 0.18,
+      "month_12_observable_cohorts": 8
     }
   },
   "verification": {
