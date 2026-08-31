@@ -1,8 +1,8 @@
 model Model
-	culture: en-US
+	culture: en-GB
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	discourageImplicitMeasures
-	sourceQueryCulture: en-US
+	sourceQueryCulture: en-GB
 
 	expression DataRoot = "C:\\CHANGE_ME\\executive_commerce_bi\\data"
 
@@ -10,3 +10,6 @@ ref table ExecutiveKPIs
 ref table MonthlyPerformance
 ref table CategoryPerformance
 ref table DeliveryQuality
+ref table StatePerformance
+ref table PaymentBehaviour
+ref table SellerOperations
