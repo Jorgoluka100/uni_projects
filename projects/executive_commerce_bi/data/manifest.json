@@ -84,7 +84,7 @@
       "sha256": "cd642c9ee24db7d242af78691fa9e4ccf47d4a50e879ba1847a0ddca29edab17"
     },
     "tableau_dashboard_long.csv": {
-      "rows": 146,
+      "rows": 170,
       "columns": [
         "section",
         "dimension",
@@ -93,7 +93,7 @@
         "secondary_value",
         "sort_order"
       ],
-      "sha256": "61a8b29b303899019294f5eee61fb6f3fa79e547338bf0026a88d4366926b651"
+      "sha256": "893ba57bf9d683b86c246fbdacf37797a966170cbd8a73e908ebdcb05ca44bbe"
     },
     "state_performance.csv": {
       "rows": 27,
@@ -119,7 +119,7 @@
         "average_review_score",
         "operational_status"
       ],
-      "sha256": "f0e66fffd444aa94bbe61a14c42c045af4fdffab26eab956b9c26880a2497daa"
+      "sha256": "8684584794b5f4d0c00762b4461ba31a738e0a3cf1b88c6be13c7f3572992f63"
     },
     "analysis_monthly_growth.csv": {
       "rows": 20,
@@ -146,7 +146,7 @@
         "customer_share_pct",
         "merchandise_value_share_pct"
       ],
-      "sha256": "34df8d00047e38e6fbb9ecb97414348115b15692b2a76e00bc890dabcf00d438"
+      "sha256": "79ee03f2bafce86ec8757b55a066fce5a99a1c1573b0e2020d6e401040fce60b"
     },
     "analysis_delivery_impact.csv": {
       "rows": 5,

@@ -145,3 +145,27 @@ Payment,voucher,Payment Value,349874.4,3.81,201838
 Payment,debit_card,Payment Value,212417.75,1.54,201839
 Seller Risk,monitor,Seller Count,418.0,9024214.130000005,201840
 Seller Risk,review_priority,Seller Count,10.0,139011.78,201841
+Customer Segment,One Time High Value,GMV Share,52.27,18.46,201842
+Customer Segment,One Time,GMV Share,42.17,78.5,201843
+Customer Segment,Repeat High Value,GMV Share,5.18,2.31,201844
+Customer Segment,Repeat,GMV Share,0.38,0.73,201845
+Delay Impact,On time,Average Review,4.28,6.82,201846
+Delay Impact,1-3 days late,Average Review,3.28,25.35,201847
+Delay Impact,4-7 days late,Average Review,2.09,59.1,201848
+Delay Impact,8-14 days late,Average Review,1.67,70.64,201849
+Delay Impact,15+ days late,Average Review,2.82,40.13,201850
+Operational Priority,SP (state),Late Order GMV,342232.4,5.89,201851
+Operational Priority,RJ (state),Late Order GMV,238881.29,13.47,201852
+Operational Priority,health_beauty (category),Late Order GMV,112476.28,8.96,201853
+Operational Priority,watches_gifts (category),Late Order GMV,104208.59,8.52,201854
+Operational Priority,bed_bath_table (category),Late Order GMV,92757.47,8.75,201855
+Operational Priority,MG (state),Late Order GMV,91870.72,5.61,201856
+Operational Priority,sports_leisure (category),Late Order GMV,85365.79,7.76,201857
+Operational Priority,computers_accessories (category),Late Order GMV,73859.49,7.7,201858
+Operational Priority,BA (state),Late Order GMV,71874.01,14.04,201859
+Operational Priority,auto (category),Late Order GMV,71335.51,8.61,201860
+Operational Priority,furniture_decor (category),Late Order GMV,68801.03,8.48,201861
+Operational Priority,RS (state),Late Order GMV,53403.81,7.15,201862
+Operational Priority,cool_stuff (category),Late Order GMV,50256.7,6.83,201863
+Operational Priority,housewares (category),Late Order GMV,46932.07,6.95,201864
+Operational Priority,SC (state),Late Order GMV,44460.52,9.76,201865
