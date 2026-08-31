@@ -7,5 +7,5 @@
     {"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "DeliveryQuality"}}, "Property": "Delivery Review Gap"}}, "queryRef": "DeliveryQuality.Delivery Review Gap", "nativeQueryRef": "Delivery Review Gap"},
     {"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "SellerOperations"}}, "Property": "Priority Sellers"}}, "queryRef": "SellerOperations.Priority Sellers", "nativeQueryRef": "Priority Sellers"},
     {"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "SellerOperations"}}, "Property": "Priority Seller Rate"}}, "queryRef": "SellerOperations.Priority Seller Rate", "nativeQueryRef": "Priority Seller Rate"}
-  ]}}}}}
+  ]}}}}
 }
