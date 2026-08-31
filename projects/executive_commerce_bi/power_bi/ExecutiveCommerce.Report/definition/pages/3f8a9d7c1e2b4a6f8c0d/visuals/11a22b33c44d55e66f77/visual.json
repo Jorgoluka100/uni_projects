@@ -6,5 +6,5 @@
     {"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "ExecutiveKPIs"}}, "Property": "Commercial Orders"}}, "queryRef": "ExecutiveKPIs.Commercial Orders", "nativeQueryRef": "Commercial Orders"},
     {"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "ExecutiveKPIs"}}, "Property": "Merchandise Value"}}, "queryRef": "ExecutiveKPIs.Merchandise Value", "nativeQueryRef": "Merchandise Value"},
     {"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "ExecutiveKPIs"}}, "Property": "Repeat Customer %"}}, "queryRef": "ExecutiveKPIs.Repeat Customer %", "nativeQueryRef": "Repeat Customer %"}
-  ]}}}}}
+  ]}}}}
 }
