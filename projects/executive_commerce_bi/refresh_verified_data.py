@@ -1,193 +1,188 @@
+"""Rebuild the pinned Olist warehouse and refresh both BI dashboard data sets.
+
+This is the recruiter-facing reproducibility path for the BI project. It reuses the
+SQL project's real download, warehouse and integrity logic, verifies retained
+headline evidence, then feeds the existing Power BI/Tableau export contract.
+"""
 from __future__ import annotations
 
+import hashlib
 import json
-import shutil
 import sys
 from pathlib import Path
 
-import duckdb
+import pandas as pd
 
-
+ROOT = Path(__file__).resolve().parents[2]
 PROJECT = Path(__file__).resolve().parent
-REPO = PROJECT.parents[1]
-ECOMMERCE = REPO / "projects" / "ecommerce_sql_analytics"
-sys.path.insert(0, str(ECOMMERCE))
-
-from run import ProjectConfig, ensure_dataset  # noqa: E402
-from src.data import load_raw_tables  # noqa: E402
-from src.validate import assert_integrity, run_integrity_checks  # noqa: E402
-from src.warehouse import build_analytics, connect  # noqa: E402
-
-from prepare_bi_data import build_outputs  # noqa: E402
-
-
+ECOMMERCE = ROOT / "projects" / "ecommerce_sql_analytics"
 ARTIFACTS = PROJECT / ".artifacts"
-DB_PATH = ARTIFACTS / "ecommerce.duckdb"
-SOURCE_TABLES = ARTIFACTS / "source_tables"
+SOURCE_TABLES = ARTIFACTS / "verified_tables"
 DATA_DIR = PROJECT / "data"
-VERIFIED_SUMMARY = ECOMMERCE / "results" / "verified_summary.json"
+DB_PATH = ARTIFACTS / "ecommerce.duckdb"
+
+sys.path.insert(0, str(ECOMMERCE))
+from src.config import ProjectConfig  # noqa: E402
+from src.data import ensure_dataset  # noqa: E402
+from src.validate import assert_integrity, run_integrity_checks  # noqa: E402
+from src.warehouse import build_analytics, connect, load_raw_tables  # noqa: E402
+
+from prepare_bi_data import REQUIRED_COLUMNS, build_outputs  # noqa: E402
 
 
-def scalar(con: duckdb.DuckDBPyConnection, query: str):
-    row = con.execute(query).fetchone()
-    return None if row is None else row[0]
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def verify_retained_headline(con: duckdb.DuckDBPyConnection) -> dict:
-    expected = json.loads(VERIFIED_SUMMARY.read_text(encoding="utf-8"))
-    current = {
-        "commercial_orders": int(
-            scalar(con, "SELECT commercial_orders FROM analytics.headline_kpis")
-        ),
-        "unique_customers": int(
-            scalar(con, "SELECT unique_customers FROM analytics.headline_kpis")
-        ),
-        "merchandise_value_brl": round(
-            float(scalar(con, "SELECT merchandise_value_brl FROM analytics.headline_kpis")), 2
-        ),
-        "repeat_customer_pct": round(
-            float(
-                scalar(
-                    con,
-                    """
-                    SELECT 100.0 * SUM(CASE WHEN order_count >= 2 THEN 1 ELSE 0 END) / COUNT(*)
-                    FROM analytics.customer_frequency
-                    """,
-                )
-            ),
-            2,
-        ),
-    }
+def verify_retained_headline(con) -> dict[str, object]:
+    """Check the rebuild against the retained executed headline evidence."""
+    headline = con.execute("SELECT * FROM analytics.headline_kpis").df().iloc[0].to_dict()
+    repeat = con.execute("SELECT * FROM analytics.customer_order_frequency").df().iloc[0].to_dict()
     strongest = con.execute(
-        """
-        SELECT order_month, merchandise_value_brl
-        FROM analytics.monthly_performance
-        ORDER BY merchandise_value_brl DESC, order_month
-        LIMIT 1
-        """
+        "SELECT order_month, merchandise_value_brl FROM analytics.monthly_performance "
+        "ORDER BY merchandise_value_brl DESC LIMIT 1"
     ).fetchone()
-    current["strongest_complete_month"] = str(strongest[0])
-    current["strongest_month_gmv_brl"] = round(float(strongest[1]), 2)
 
-    comparable = (
-        "commercial_orders",
-        "unique_customers",
-        "merchandise_value_brl",
-        "repeat_customer_pct",
-        "strongest_complete_month",
-        "strongest_month_gmv_brl",
-    )
-    mismatches = {
-        key: {"expected": expected[key], "observed": current[key]}
-        for key in comparable
-        if current[key] != expected[key]
+    observed = {
+        "commercial_orders": int(headline["commercial_orders"]),
+        "unique_customers": int(headline["unique_customers"]),
+        "merchandise_value_brl": round(float(headline["merchandise_value_brl"]), 2),
+        "repeat_customer_pct": round(float(repeat["repeat_customer_pct"]), 2),
+        "strongest_complete_month": str(strongest[0])[:7],
+        "strongest_month_merchandise_value_brl": round(float(strongest[1]), 2),
     }
-    if mismatches:
+    retained = json.loads(
+        (ECOMMERCE / "results" / "verified_summary.json").read_text(encoding="utf-8")
+    )["headline_metrics"]
+    expected = {
+        "commercial_orders": int(retained["commercial_orders"]),
+        "unique_customers": int(retained["unique_customers"]),
+        "merchandise_value_brl": round(float(retained["merchandise_value_brl"]), 2),
+        "repeat_customer_pct": round(float(retained["repeat_customer_pct"]), 2),
+        "strongest_complete_month": str(retained["strongest_complete_month"]),
+        "strongest_month_merchandise_value_brl": round(
+            float(retained["strongest_month_merchandise_value_brl"]), 2
+        ),
+    }
+    if observed != expected:
         raise AssertionError(
-            "Pinned warehouse no longer reproduces retained BI evidence: "
-            + json.dumps(mismatches, indent=2, default=str)
+            "Rebuilt warehouse differs from retained executed evidence. "
+            f"observed={observed}; expected={expected}"
         )
-    return current
+    return observed
 
 
-def export_verified_source_tables(con: duckdb.DuckDBPyConnection) -> None:
-    if SOURCE_TABLES.exists():
-        shutil.rmtree(SOURCE_TABLES)
+def export_verified_source_tables(con) -> None:
     SOURCE_TABLES.mkdir(parents=True, exist_ok=True)
-
-    exports = {
-        "headline_kpis.parquet": "SELECT * FROM analytics.headline_kpis",
-        "monthly_performance.parquet": "SELECT * FROM analytics.monthly_performance ORDER BY order_month",
-        "category_performance.parquet": "SELECT * FROM analytics.category_performance ORDER BY merchandise_value_brl DESC",
-        "delivery_quality.parquet": "SELECT * FROM analytics.delivery_quality ORDER BY delivery_status",
-        "customer_frequency.parquet": "SELECT * FROM analytics.customer_frequency ORDER BY customer_unique_id",
-        "payment_mix.parquet": "SELECT * FROM analytics.payment_mix ORDER BY payment_value_brl DESC",
-        "order_mart.parquet": "SELECT * FROM analytics.order_mart",
-        "item_mart.parquet": "SELECT * FROM analytics.item_mart",
-    }
-    for filename, query in exports.items():
-        path = (SOURCE_TABLES / filename).as_posix().replace("'", "''")
-        con.execute(f"COPY ({query}) TO '{path}' (FORMAT PARQUET)")
+    for table_name in REQUIRED_COLUMNS:
+        frame = con.execute(f"SELECT * FROM analytics.{table_name}").df()
+        frame.to_parquet(SOURCE_TABLES / f"{table_name}.parquet", index=False)
 
 
-def add_operational_exports(con: duckdb.DuckDBPyConnection, manifest: dict) -> None:
-    state_query = """
-        SELECT
-            customer_state,
-            COUNT(*) AS commercial_orders,
-            COUNT(DISTINCT customer_unique_id) AS unique_customers,
-            ROUND(SUM(merchandise_value_brl), 2) AS merchandise_value_brl,
-            ROUND(AVG(merchandise_value_brl), 2) AS avg_order_value_brl,
-            ROUND(100.0 * AVG(CASE WHEN delivered_late THEN 1 ELSE 0 END), 2) AS late_delivery_pct,
-            ROUND(AVG(review_score), 2) AS avg_review_score
-        FROM analytics.order_mart
-        WHERE commercial_order
-        GROUP BY customer_state
-        ORDER BY merchandise_value_brl DESC, customer_state
-    """
-    state_df = con.execute(state_query).fetchdf()
-    state_path = DATA_DIR / "powerbi_state_performance.csv"
-    state_df.to_csv(state_path, index=False)
-    manifest["files"][state_path.name] = {
-        "rows": int(len(state_df)),
-        "columns": list(state_df.columns),
-    }
-
-    seller_query = """
-        WITH seller_orders AS (
+def add_operational_exports(con, manifest: dict[str, object]) -> None:
+    """Add BI-specific views that make regional and seller risk explorable."""
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    extras = {
+        "state_performance.csv": con.execute(
+            """
             SELECT
-                i.seller_id,
-                MAX(i.seller_state) AS seller_state,
-                COUNT(DISTINCT i.order_id) AS orders,
-                ROUND(SUM(i.item_price_brl), 2) AS merchandise_value_brl,
-                ROUND(100.0 * AVG(CASE WHEN i.delivered_late THEN 1 ELSE 0 END), 2) AS late_delivery_pct,
-                ROUND(AVG(i.review_score), 2) AS avg_review_score
-            FROM analytics.item_mart i
-            WHERE i.commercial_order
-            GROUP BY i.seller_id
-        )
-        SELECT
-            seller_id,
-            seller_state,
-            orders,
-            merchandise_value_brl,
-            late_delivery_pct,
-            avg_review_score,
-            CASE
-                WHEN late_delivery_pct >= 20 OR avg_review_score < 3.5 THEN 'Priority review'
-                WHEN late_delivery_pct >= 12 OR avg_review_score < 4.0 THEN 'Watch'
-                ELSE 'Healthy'
-            END AS operational_status
-        FROM seller_orders
-        ORDER BY merchandise_value_brl DESC, seller_id
-    """
-    seller_df = con.execute(seller_query).fetchdf()
-    seller_path = DATA_DIR / "powerbi_seller_operations.csv"
-    seller_df.to_csv(seller_path, index=False)
-    manifest["files"][seller_path.name] = {
-        "rows": int(len(seller_df)),
-        "columns": list(seller_df.columns),
+                customer_state,
+                COUNT(*)::BIGINT AS orders,
+                COUNT(DISTINCT customer_unique_id)::BIGINT AS unique_customers,
+                ROUND(SUM(merchandise_value_brl), 2) AS merchandise_value_brl,
+                ROUND(AVG(merchandise_value_brl), 2) AS average_order_value_brl,
+                ROUND(100.0 * AVG(CASE WHEN delivered_late THEN 1.0 WHEN delivered_late = FALSE THEN 0.0 END), 2) AS late_delivery_pct,
+                ROUND(AVG(review_score), 2) AS average_review_score
+            FROM analytics.order_mart
+            WHERE commercial_order AND customer_state IS NOT NULL
+            GROUP BY customer_state
+            ORDER BY merchandise_value_brl DESC
+            """
+        ).df(),
+        "seller_operational_review.csv": con.execute(
+            "SELECT * FROM analytics.seller_operational_review"
+        ).df(),
     }
+    files = manifest.setdefault("files", {})
+    for filename, frame in extras.items():
+        destination = DATA_DIR / filename
+        frame.to_csv(destination, index=False)
+        files[filename] = {
+            "rows": int(len(frame)),
+            "columns": list(frame.columns),
+            "sha256": sha256(destination),
+        }
 
 
-def enrich_tableau_story(con: duckdb.DuckDBPyConnection, manifest: dict) -> None:
-    tableau_path = DATA_DIR / "tableau_marketplace_story.csv"
-    tableau_df = con.execute(
+def enrich_tableau_story(con, manifest: dict[str, object]) -> None:
+    """Extend the common Tableau long extract with regional, payment and risk views."""
+    destination = DATA_DIR / "tableau_dashboard_long.csv"
+    base = pd.read_csv(destination)
+    next_sort = int(base["sort_order"].max()) + 1
+    rows: list[dict[str, object]] = []
+
+    states = con.execute(
         """
-        SELECT
-            order_month,
-            commercial_orders,
-            unique_customers,
-            merchandise_value_brl,
-            avg_order_value_brl
-        FROM analytics.monthly_performance
-        ORDER BY order_month
+        SELECT customer_state, merchandise_value_brl, late_delivery_pct
+        FROM (
+            SELECT
+                customer_state,
+                ROUND(SUM(merchandise_value_brl), 2) AS merchandise_value_brl,
+                ROUND(100.0 * AVG(CASE WHEN delivered_late THEN 1.0 WHEN delivered_late = FALSE THEN 0.0 END), 2) AS late_delivery_pct
+            FROM analytics.order_mart
+            WHERE commercial_order AND customer_state IS NOT NULL
+            GROUP BY customer_state
+        )
+        ORDER BY merchandise_value_brl DESC
         """
-    ).fetchdf()
-    tableau_df.to_csv(tableau_path, index=False)
-    manifest["files"][tableau_path.name] = {
-        "rows": int(len(tableau_df)),
-        "columns": list(tableau_df.columns),
+    ).df()
+    for rank, row in states.iterrows():
+        rows.append({
+            "section": "Region",
+            "dimension": row["customer_state"],
+            "metric": "State GMV",
+            "value": row["merchandise_value_brl"],
+            "secondary_value": row["late_delivery_pct"],
+            "sort_order": next_sort + int(rank),
+        })
+    next_sort += len(states)
+
+    payments = con.execute("SELECT * FROM analytics.payment_behaviour ORDER BY payment_value_brl DESC").df()
+    for rank, row in payments.iterrows():
+        rows.append({
+            "section": "Payment",
+            "dimension": row["payment_type"],
+            "metric": "Payment Value",
+            "value": row["payment_value_brl"],
+            "secondary_value": row["order_penetration_pct"],
+            "sort_order": next_sort + int(rank),
+        })
+    next_sort += len(payments)
+
+    seller_risk = con.execute(
+        """
+        SELECT operational_status, COUNT(*) AS seller_count, SUM(merchandise_value_brl) AS merchandise_value_brl
+        FROM analytics.seller_operational_review
+        GROUP BY operational_status
+        ORDER BY seller_count DESC
+        """
+    ).df()
+    for rank, row in seller_risk.iterrows():
+        rows.append({
+            "section": "Seller Risk",
+            "dimension": row["operational_status"],
+            "metric": "Seller Count",
+            "value": row["seller_count"],
+            "secondary_value": row["merchandise_value_brl"],
+            "sort_order": next_sort + int(rank),
+        })
+
+    enriched = pd.concat([base, pd.DataFrame(rows)], ignore_index=True)
+    enriched.to_csv(destination, index=False)
+    manifest["files"][destination.name] = {
+        "rows": int(len(enriched)),
+        "columns": list(enriched.columns),
+        "sha256": sha256(destination),
     }
 
 
