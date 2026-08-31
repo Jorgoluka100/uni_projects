@@ -119,7 +119,7 @@
         "average_review_score",
         "operational_status"
       ],
-      "sha256": "3a7179de026eae3f00cb6f76dacfda8f94779a900af9f3e70b4c1263e072f9c9"
+      "sha256": "36560851556f35901ffffe873aa049dd8fa2c1fc3b401d214578f090fcc7e9ef"
     },
     "analysis_monthly_growth.csv": {
       "rows": 20,
