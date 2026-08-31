@@ -32,14 +32,15 @@ Designed for the next question: **where should the team investigate?**
 Designed to connect the commercial result to the customer and operational drivers behind it:
 
 - **Customer value mix** — GMV share across one-time, one-time high-value, repeat and repeat high-value customers
+- **Cohort retention** — weighted retention by customer age using only cohort-months that were actually observable
 - **Delivery severity** — average review score across on-time and progressively later delivery buckets
 - **Operational priority** — states and categories ranked by merchandise value attached to late orders
 
-This page is fed by the deeper verified analysis tables rather than duplicated dashboard calculations.
+The cohort curve uses an eligible cohort-age grid: observed months with zero returning customers remain in the denominator, while genuinely future months are excluded. That prevents both sparse-table denominator bias and fake zeroes for recent cohorts.
 
 ## Semantic model
 
-The report is deliberately **model-first rather than visual-first**. The TMDL model contains ten explicit import tables:
+The report is deliberately **model-first rather than visual-first**. The TMDL model contains eleven explicit import tables:
 
 1. `ExecutiveKPIs`
 2. `MonthlyPerformance`
@@ -49,16 +50,18 @@ The report is deliberately **model-first rather than visual-first**. The TMDL mo
 6. `PaymentBehaviour`
 7. `SellerOperations`
 8. `CustomerSegments`
-9. `DeliveryImpact`
-10. `OperationalPriority`
+9. `CohortRetention`
+10. `DeliveryImpact`
+11. `OperationalPriority`
 
-The final three tables are generated from the deeper verified business analysis:
+The deeper analysis tables are generated from the verified business-analysis pipeline:
 
 - **CustomerSegments** — customer count, GMV share and average customer value by one-time/repeat value segment
+- **CohortRetention** — observable cohort count, eligible customer denominator and weighted retention by month since acquisition
 - **DeliveryImpact** — delay buckets with order volume, GMV, review score, 1-star rate and 5-star rate
 - **OperationalPriority** — states/categories ranked transparently by merchandise value attached to late orders
 
-DAX measures include commercial orders, customers, merchandise value, AOV, repeat rate, seller concentration, late-delivery rate, delivery review gap, regional GMV, payment value, priority-seller metrics, segment GMV share, one-star review rate and late-order GMV.
+DAX measures include commercial orders, customers, merchandise value, AOV, repeat rate, seller concentration, late-delivery rate, delivery review gap, regional GMV, payment value, priority-seller metrics, segment GMV share, weighted cohort retention, one-star review rate and late-order GMV.
 
 ## Reproduce the data
 
@@ -68,11 +71,12 @@ From repository root:
 pip install -r projects/ecommerce_sql_analytics/requirements.txt
 pip install pyarrow
 python projects/executive_commerce_bi/refresh_verified_data.py
+python projects/executive_commerce_bi/cohort_analysis.py
 python projects/executive_commerce_bi/enrich_tableau_analysis.py
 python projects/executive_commerce_bi/render_dashboard_preview.py
 ```
 
-The refresh downloads the pinned Olist source, rebuilds the warehouse, runs integrity checks, verifies the retained headline evidence, performs the deeper business analysis and writes the governed dashboard CSVs into `../data/`.
+The flow downloads the pinned Olist source, rebuilds the warehouse, runs integrity checks, verifies retained evidence, performs the deeper business and cohort analysis and writes governed dashboard data into `../data/`.
 
 Then edit the `DataRoot` expression in:
 
@@ -82,6 +86,6 @@ so it points at that generated `data/` folder on your machine, and open `Executi
 
 ## What is automatically verified
 
-GitHub Actions checks the real data refresh, retained headline metrics, decision-oriented analysis outputs, generated dashboard preview, Power BI project/report bindings, all three PBIR pages, PBIR JSON, semantic-model table coverage and the shared dashboard evidence.
+GitHub Actions checks the real data refresh, retained headline metrics, decision-oriented analysis outputs, cohort-retention denominator rules, generated dashboard preview, Power BI project/report bindings, all three PBIR pages, PBIR JSON, semantic-model table coverage and the shared dashboard evidence.
 
 Power BI Desktop itself is not available in the repository CI environment. I therefore do **not** claim that a `.pbix` binary or published Power BI Service report was runtime-rendered by CI. The source, measures, data lineage, analysis and report definitions are the inspectable evidence here; the final Desktop render is the publication checkpoint.
