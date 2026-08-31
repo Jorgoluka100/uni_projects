@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "33333333333333333333",
+  "position": {"x": 640, "y": 20, "z": 1200, "height": 110, "width": 290, "tabOrder": 1200},
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {"queryState": {"Data": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "KPI"}}, "Property": "Unique Customers"}}, "queryRef": "KPI.Unique Customers", "nativeQueryRef": "Unique Customers"}]}}},
+    "drillFilterOtherVisuals": true
+  }
+}
