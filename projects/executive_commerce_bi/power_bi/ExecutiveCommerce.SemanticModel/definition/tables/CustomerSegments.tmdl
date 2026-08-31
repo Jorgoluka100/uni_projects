@@ -1,0 +1,59 @@
+table CustomerSegments
+
+	measure 'Segment Customers' = SUM(CustomerSegments[customers])
+		formatString: #,##0
+
+	measure 'Segment Orders' = SUM(CustomerSegments[orders])
+		formatString: #,##0
+
+	measure 'Segment GMV' = SUM(CustomerSegments[merchandise_value_brl])
+		formatString: R$ #,##0.00
+
+	measure 'Segment GMV Share' = DIVIDE(SUM(CustomerSegments[merchandise_value_share_pct]), 100)
+		formatString: 0.00%
+
+	measure 'Average Customer Value' = DIVIDE(SUMX(CustomerSegments, CustomerSegments[average_customer_value_brl] * CustomerSegments[customers]), SUM(CustomerSegments[customers]))
+		formatString: R$ #,##0.00
+
+	column customer_segment
+		dataType: string
+		summarizeBy: none
+		sourceColumn: customer_segment
+
+	column customers
+		dataType: int64
+		sourceColumn: customers
+
+	column orders
+		dataType: int64
+		sourceColumn: orders
+
+	column merchandise_value_brl
+		dataType: double
+		sourceColumn: merchandise_value_brl
+
+	column average_orders_per_customer
+		dataType: double
+		sourceColumn: average_orders_per_customer
+
+	column average_customer_value_brl
+		dataType: double
+		sourceColumn: average_customer_value_brl
+
+	column customer_share_pct
+		dataType: double
+		sourceColumn: customer_share_pct
+
+	column merchandise_value_share_pct
+		dataType: double
+		sourceColumn: merchandise_value_share_pct
+
+	partition CustomerSegments = m
+		mode: import
+		source =
+			let
+				Source = Csv.Document(File.Contents(DataRoot & "\\analysis_customer_segments.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				Typed = Table.TransformColumnTypes(Headers, {{"customer_segment", type text}, {"customers", Int64.Type}, {"orders", Int64.Type}, {"merchandise_value_brl", type number}, {"average_orders_per_customer", type number}, {"average_customer_value_brl", type number}, {"customer_share_pct", type number}, {"merchandise_value_share_pct", type number}})
+			in
+				Typed
