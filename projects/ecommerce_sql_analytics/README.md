@@ -11,7 +11,7 @@ The project now has two complementary layers:
 
 ## Questions I looked at
 
-- How many commercial orders and customers are in a comparable reporting window?
+- How many commercial orders and customers are in the eligible commercial population?
 - Which months and categories contribute the most merchandise value?
 - How much repeat purchasing is visible?
 - What does cohort retention look like once later cohorts are treated fairly?
@@ -30,7 +30,7 @@ The project now has two complementary layers:
 | Leading category | **health_beauty — R$1.251M** |
 | Top-10 seller share | **13.24%** |
 
-These figures come from Olist dataset version 7 and the complete-month window from **1 Jan 2017 to 31 Aug 2018**. The saved summary is in [`results/verified_summary.json`](results/verified_summary.json).
+The source is pinned to Olist dataset version 7. **Commercial-population metrics** use every order with at least one item except canceled/unavailable orders. **Time-comparative metrics** such as monthly performance, repeat purchasing and cohorts use complete months from **1 Jan 2017 to 31 Aug 2018** so partial boundary months do not distort comparisons. The saved evidence contract is in [`results/verified_summary.json`](results/verified_summary.json).
 
 ## The join problem
 
@@ -97,11 +97,11 @@ A deterministic fixture keeps the dbt CI fast while the parent project remains t
 
 ## Findings I would discuss in an interview
 
-Only **3.03%** of customers placed at least two commercial orders in the comparable window. That makes repeat behaviour one of the more interesting questions in the dataset.
+Only **3.03%** of customers placed at least two commercial orders in the comparable complete-month window. That makes repeat behaviour one of the more interesting questions in the dataset.
 
 Late deliveries had an average review score of **2.55/5**, compared with **4.28/5** for orders delivered on time or early. Low-review rates were **54.55% vs 9.44%**. I treat this as an association, not proof that lateness caused the review.
 
-The ten largest sellers accounted for **13.24%** of merchandise value in the analysis window.
+The ten largest sellers accounted for **13.24%** of merchandise value across the eligible commercial population.
 
 ## Data checks and reproducibility
 
