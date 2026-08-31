@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "ee55ee55ee55ee55ee55",
+  "position": {"x": 648, "y": 438, "z": 1400, "height": 240, "width": 608, "tabOrder": 1400},
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {"queryState": {
+      "Category": {"projections": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": "SellerOperations"}}, "Property": "operational_status"}}, "queryRef": "SellerOperations.operational_status", "nativeQueryRef": "operational_status"}]},
+      "Y": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "SellerOperations"}}, "Property": "Seller Count"}}, "queryRef": "SellerOperations.Seller Count", "nativeQueryRef": "Seller Count"}]}
+    }},
+    "drillFilterOtherVisuals": true
+  }
+}
