@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "bb22bb22bb22bb22bb22",
+  "position": {"x": 24, "y": 164, "z": 1100, "height": 250, "width": 600, "tabOrder": 1100},
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {"queryState": {
+      "Category": {"projections": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": "StatePerformance"}}, "Property": "customer_state"}}, "queryRef": "StatePerformance.customer_state", "nativeQueryRef": "customer_state"}]},
+      "Y": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "StatePerformance"}}, "Property": "State GMV"}}, "queryRef": "StatePerformance.State GMV", "nativeQueryRef": "State GMV"}]}
+    }},
+    "drillFilterOtherVisuals": true
+  }
+}
