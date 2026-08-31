@@ -12,6 +12,12 @@ table StatePerformance
 	measure 'State Average Order Value' = DIVIDE(SUM(StatePerformance[merchandise_value_brl]), SUM(StatePerformance[orders]))
 		formatString: R$ #,##0.00
 
+	measure 'State Late Delivery Rate' = DIVIDE(SUMX(StatePerformance, StatePerformance[late_delivery_pct] * StatePerformance[orders]), SUM(StatePerformance[orders]) * 100)
+		formatString: 0.00%
+
+	measure 'State Average Review' = DIVIDE(SUMX(StatePerformance, StatePerformance[average_review_score] * StatePerformance[orders]), SUM(StatePerformance[orders]))
+		formatString: 0.00
+
 	column customer_state
 		dataType: string
 		summarizeBy: none
