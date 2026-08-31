@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "7b1e9c4a2d6f8a0b3c5d",
+  "displayName": "Market & Operations",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}
