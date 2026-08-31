@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <workbook original-version='18.1' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
-  <repository-location derived-from='https://github.com/Jorgoluka100/uni_projects' id='ExecutiveCommerce' path='projects/executive_commerce_bi/tableau' revision='3.0' />
+  <repository-location derived-from='https://github.com/Jorgoluka100/uni_projects' id='ExecutiveCommerce' path='projects/executive_commerce_bi/tableau' revision='4.0' />
   <datasources>
     <datasource caption='Executive Commerce BI' inline='true' name='ExecutiveCommerceBI' version='18.1'>
       <connection class='textscan' directory='../data' filename='tableau_dashboard_long.csv' header='yes' separator=','>
@@ -23,84 +23,80 @@
   <worksheets>
     <worksheet name='Executive Pulse'>
       <table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources>
-        <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Executive KPI&quot;' /></filter>
-        <aggregation value='true' />
+        <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Executive KPI&quot;' /></filter><aggregation value='true' />
       </view><panes><pane><mark class='Bar' /><encodings><text column='[ExecutiveCommerceBI].[sum:value:qk]' /></encodings></pane></panes>
       <rows>[ExecutiveCommerceBI].[none:dimension:nk]</rows><cols>[ExecutiveCommerceBI].[sum:value:qk]</cols></table>
     </worksheet>
     <worksheet name='Monthly Trend'>
       <table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources>
         <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Trend&quot;' /></filter>
-        <filter class='categorical' column='[ExecutiveCommerceBI].[metric]'><groupfilter function='member' level='[metric]' member='&quot;Monthly GMV&quot;' /></filter>
-        <aggregation value='true' />
+        <filter class='categorical' column='[ExecutiveCommerceBI].[metric]'><groupfilter function='member' level='[metric]' member='&quot;Monthly GMV&quot;' /></filter><aggregation value='true' />
       </view><panes><pane><mark class='Line' /><encodings><tooltip column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /></encodings></pane></panes>
       <rows>[ExecutiveCommerceBI].[sum:value:qk]</rows><cols>[ExecutiveCommerceBI].[none:dimension:nk]</cols></table>
     </worksheet>
     <worksheet name='Category Leaders'>
       <table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources>
         <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Category&quot;' /></filter>
-        <filter class='categorical' column='[ExecutiveCommerceBI].[metric]'><groupfilter function='member' level='[metric]' member='&quot;Category GMV&quot;' /></filter>
-        <aggregation value='true' />
+        <filter class='categorical' column='[ExecutiveCommerceBI].[metric]'><groupfilter function='member' level='[metric]' member='&quot;Category GMV&quot;' /></filter><aggregation value='true' />
       </view><panes><pane><mark class='Bar' /><encodings><tooltip column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /></encodings></pane></panes>
       <rows>[ExecutiveCommerceBI].[none:dimension:nk]</rows><cols>[ExecutiveCommerceBI].[sum:value:qk]</cols></table>
     </worksheet>
     <worksheet name='Delivery Experience'>
       <table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources>
-        <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Delivery&quot;' /></filter>
-        <aggregation value='true' />
+        <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Delivery&quot;' /></filter><aggregation value='true' />
       </view><panes><pane><mark class='Bar' /><encodings><text column='[ExecutiveCommerceBI].[sum:value:qk]' /><tooltip column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /></encodings></pane></panes>
       <rows>[ExecutiveCommerceBI].[none:dimension:nk]</rows><cols>[ExecutiveCommerceBI].[sum:value:qk]</cols></table>
     </worksheet>
     <worksheet name='Regional Performance'>
       <table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources>
-        <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Region&quot;' /></filter>
-        <aggregation value='true' />
+        <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Region&quot;' /></filter><aggregation value='true' />
       </view><panes><pane><mark class='Bar' /><encodings><color column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /><tooltip column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /></encodings></pane></panes>
       <rows>[ExecutiveCommerceBI].[none:dimension:nk]</rows><cols>[ExecutiveCommerceBI].[sum:value:qk]</cols></table>
     </worksheet>
     <worksheet name='Payment Mix'>
       <table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources>
-        <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Payment&quot;' /></filter>
-        <aggregation value='true' />
+        <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Payment&quot;' /></filter><aggregation value='true' />
       </view><panes><pane><mark class='Bar' /><encodings><tooltip column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /></encodings></pane></panes>
       <rows>[ExecutiveCommerceBI].[none:dimension:nk]</rows><cols>[ExecutiveCommerceBI].[sum:value:qk]</cols></table>
     </worksheet>
     <worksheet name='Seller Risk'>
       <table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources>
-        <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Seller Risk&quot;' /></filter>
-        <aggregation value='true' />
+        <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Seller Risk&quot;' /></filter><aggregation value='true' />
       </view><panes><pane><mark class='Bar' /><encodings><text column='[ExecutiveCommerceBI].[sum:value:qk]' /><tooltip column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /></encodings></pane></panes>
       <rows>[ExecutiveCommerceBI].[none:dimension:nk]</rows><cols>[ExecutiveCommerceBI].[sum:value:qk]</cols></table>
     </worksheet>
     <worksheet name='Customer Value'>
       <table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources>
         <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Customer Segment&quot;' /></filter>
-        <filter class='categorical' column='[ExecutiveCommerceBI].[metric]'><groupfilter function='member' level='[metric]' member='&quot;GMV Share&quot;' /></filter>
-        <aggregation value='true' />
+        <filter class='categorical' column='[ExecutiveCommerceBI].[metric]'><groupfilter function='member' level='[metric]' member='&quot;GMV Share&quot;' /></filter><aggregation value='true' />
       </view><panes><pane><mark class='Bar' /><encodings><text column='[ExecutiveCommerceBI].[sum:value:qk]' /><tooltip column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /></encodings></pane></panes>
       <rows>[ExecutiveCommerceBI].[none:dimension:nk]</rows><cols>[ExecutiveCommerceBI].[sum:value:qk]</cols></table>
+    </worksheet>
+    <worksheet name='Cohort Retention'>
+      <table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources>
+        <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Cohort Retention&quot;' /></filter>
+        <filter class='categorical' column='[ExecutiveCommerceBI].[metric]'><groupfilter function='member' level='[metric]' member='&quot;Weighted Retention %&quot;' /></filter><aggregation value='true' />
+      </view><panes><pane><mark class='Line' /><encodings><text column='[ExecutiveCommerceBI].[sum:value:qk]' /><tooltip column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /></encodings></pane></panes>
+      <rows>[ExecutiveCommerceBI].[sum:value:qk]</rows><cols>[ExecutiveCommerceBI].[none:dimension:nk]</cols></table>
     </worksheet>
     <worksheet name='Delay Severity'>
       <table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources>
         <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Delay Impact&quot;' /></filter>
-        <filter class='categorical' column='[ExecutiveCommerceBI].[metric]'><groupfilter function='member' level='[metric]' member='&quot;Average Review&quot;' /></filter>
-        <aggregation value='true' />
+        <filter class='categorical' column='[ExecutiveCommerceBI].[metric]'><groupfilter function='member' level='[metric]' member='&quot;Average Review&quot;' /></filter><aggregation value='true' />
       </view><panes><pane><mark class='Bar' /><encodings><color column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /><text column='[ExecutiveCommerceBI].[sum:value:qk]' /><tooltip column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /></encodings></pane></panes>
       <rows>[ExecutiveCommerceBI].[none:dimension:nk]</rows><cols>[ExecutiveCommerceBI].[sum:value:qk]</cols></table>
     </worksheet>
     <worksheet name='Operational Priority'>
       <table><view><datasources><datasource caption='Executive Commerce BI' name='ExecutiveCommerceBI' /></datasources>
         <filter class='categorical' column='[ExecutiveCommerceBI].[section]'><groupfilter function='member' level='[section]' member='&quot;Operational Priority&quot;' /></filter>
-        <filter class='categorical' column='[ExecutiveCommerceBI].[metric]'><groupfilter function='member' level='[metric]' member='&quot;Late Order GMV&quot;' /></filter>
-        <aggregation value='true' />
+        <filter class='categorical' column='[ExecutiveCommerceBI].[metric]'><groupfilter function='member' level='[metric]' member='&quot;Late Order GMV&quot;' /></filter><aggregation value='true' />
       </view><panes><pane><mark class='Bar' /><encodings><color column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /><tooltip column='[ExecutiveCommerceBI].[sum:secondary_value:qk]' /></encodings></pane></panes>
       <rows>[ExecutiveCommerceBI].[none:dimension:nk]</rows><cols>[ExecutiveCommerceBI].[sum:value:qk]</cols></table>
     </worksheet>
   </worksheets>
   <dashboards>
     <dashboard name='Executive Commerce Dashboard'>
-      <style />
-      <zones>
+      <style /><zones>
         <zone h='18000' id='1' name='Executive Pulse' type-v2='sheet' w='100000' x='0' y='0' />
         <zone h='41000' id='2' name='Monthly Trend' type-v2='sheet' w='50000' x='0' y='18000' />
         <zone h='41000' id='3' name='Category Leaders' type-v2='sheet' w='50000' x='50000' y='18000' />
@@ -108,19 +104,18 @@
       </zones>
     </dashboard>
     <dashboard name='Marketplace Explorer'>
-      <style />
-      <zones>
+      <style /><zones>
         <zone h='52000' id='11' name='Regional Performance' type-v2='sheet' w='60000' x='0' y='0' />
         <zone h='52000' id='12' name='Payment Mix' type-v2='sheet' w='40000' x='60000' y='0' />
         <zone h='48000' id='13' name='Seller Risk' type-v2='sheet' w='100000' x='0' y='52000' />
       </zones>
     </dashboard>
     <dashboard name='Customer &amp; Service Drivers'>
-      <style />
-      <zones>
-        <zone h='47000' id='21' name='Customer Value' type-v2='sheet' w='48000' x='0' y='0' />
-        <zone h='47000' id='22' name='Delay Severity' type-v2='sheet' w='52000' x='48000' y='0' />
-        <zone h='53000' id='23' name='Operational Priority' type-v2='sheet' w='100000' x='0' y='47000' />
+      <style /><zones>
+        <zone h='45000' id='21' name='Customer Value' type-v2='sheet' w='33000' x='0' y='0' />
+        <zone h='45000' id='22' name='Cohort Retention' type-v2='sheet' w='34000' x='33000' y='0' />
+        <zone h='45000' id='23' name='Delay Severity' type-v2='sheet' w='33000' x='67000' y='0' />
+        <zone h='55000' id='24' name='Operational Priority' type-v2='sheet' w='100000' x='0' y='45000' />
       </zones>
     </dashboard>
   </dashboards>
@@ -129,7 +124,8 @@
     <window class='worksheet' name='Category Leaders' /><window class='worksheet' name='Delivery Experience' />
     <window class='worksheet' name='Regional Performance' /><window class='worksheet' name='Payment Mix' />
     <window class='worksheet' name='Seller Risk' /><window class='worksheet' name='Customer Value' />
-    <window class='worksheet' name='Delay Severity' /><window class='worksheet' name='Operational Priority' />
+    <window class='worksheet' name='Cohort Retention' /><window class='worksheet' name='Delay Severity' />
+    <window class='worksheet' name='Operational Priority' />
     <window class='dashboard' name='Executive Commerce Dashboard' /><window class='dashboard' name='Marketplace Explorer' />
     <window class='dashboard' name='Customer &amp; Service Drivers' />
   </windows>
