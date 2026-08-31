@@ -16,11 +16,13 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
             "DASHBOARD_STORY.md",
             "dashboard_preview.svg",
             "business_analysis.py",
+            "enrich_tableau_analysis.py",
             "render_dashboard_preview.py",
             "refresh_verified_data.py",
             "power_bi/ExecutiveCommerce.pbip",
             "power_bi/ExecutiveCommerce.SemanticModel/definition.pbism",
             "power_bi/ExecutiveCommerce.SemanticModel/definition/model.tmdl",
+            "power_bi/ExecutiveCommerce.Report/definition.pbir",
             "tableau/ExecutiveCommerce.twb",
         ]
         for relative in required:
@@ -79,7 +81,10 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
     def test_tableau_xml_and_dashboards(self) -> None:
         tree = ET.parse(ROOT / "tableau/ExecutiveCommerce.twb")
         dashboard_names = {item.attrib.get("name") for item in tree.findall("./dashboards/dashboard")}
-        self.assertEqual({"Executive Commerce Dashboard", "Marketplace Explorer"}, dashboard_names)
+        self.assertEqual(
+            {"Executive Commerce Dashboard", "Marketplace Explorer", "Customer & Service Drivers"},
+            dashboard_names,
+        )
         worksheet_names = {item.attrib.get("name") for item in tree.findall("./worksheets/worksheet")}
         self.assertEqual(
             {
@@ -90,6 +95,9 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
                 "Regional Performance",
                 "Payment Mix",
                 "Seller Risk",
+                "Customer Value",
+                "Delay Severity",
+                "Operational Priority",
             },
             worksheet_names,
         )
