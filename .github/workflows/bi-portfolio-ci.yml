@@ -9,6 +9,10 @@ on:
       - '.github/workflows/bi-portfolio-ci.yml'
   workflow_dispatch:
 
+concurrency:
+  group: bi-portfolio-main
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -98,11 +102,37 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add projects/executive_commerce_bi/data projects/executive_commerce_bi/VERIFIED_ANALYSIS.md projects/executive_commerce_bi/dashboard_preview.svg
-          if git diff --cached --quiet; then
-            echo 'Dashboard and analysis extracts are already current.'
-          else
+
+          # Preserve the already-validated generated outputs outside the worktree.
+          tar -czf /tmp/verified-bi-output.tgz \
+            projects/executive_commerce_bi/data \
+            projects/executive_commerce_bi/VERIFIED_ANALYSIS.md \
+            projects/executive_commerce_bi/dashboard_preview.svg
+
+          # Other portfolio workflows may write evidence to main at the same time.
+          # Rebase generated files onto the newest remote tree and retry a racing push
+          # rather than failing a fully validated analysis because of a bot-bot conflict.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            tar -xzf /tmp/verified-bi-output.tgz
+            git add \
+              projects/executive_commerce_bi/data \
+              projects/executive_commerce_bi/VERIFIED_ANALYSIS.md \
+              projects/executive_commerce_bi/dashboard_preview.svg
+
+            if git diff --cached --quiet; then
+              echo 'Dashboard and analysis extracts are already current.'
+              exit 0
+            fi
+
             git commit -m 'Refresh verified BI dashboard analysis'
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Push raced with another workflow; retrying (${attempt}/3)."
+          done
+
+          echo 'Unable to retain verified BI outputs after three synchronized attempts.' >&2
+          exit 1
