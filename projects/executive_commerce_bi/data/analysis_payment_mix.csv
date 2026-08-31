@@ -1,0 +1,5 @@
+payment_type,payment_rows,orders,payment_value_brl,average_installments,order_penetration_pct
+credit_card,75901,75614,12349453.71,3.51,77.0
+boleto,19535,19535,2826476.09,1.0,19.89
+voucher,5613,3745,349874.4,1.0,3.81
+debit_card,1516,1515,212417.75,1.0,1.54

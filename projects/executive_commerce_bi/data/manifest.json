@@ -119,7 +119,164 @@
         "average_review_score",
         "operational_status"
       ],
-      "sha256": "0fc05d27d2b8c5a6ce4a894f488be8bf552e032b905610cf61c296f4f02548e8"
+      "sha256": "666f151faba9dd091161fc88195281a79f9610fc6679635f426a3fbc70443370"
+    },
+    "analysis_monthly_growth.csv": {
+      "rows": 20,
+      "columns": [
+        "order_month",
+        "orders",
+        "customers",
+        "merchandise_value_brl",
+        "average_order_value_brl",
+        "merchandise_value_mom_pct",
+        "merchandise_value_rank"
+      ],
+      "sha256": "1b36b12c8ba419b58142984654958880da171307eaee3c27d827c8d19f58fb62"
+    },
+    "analysis_customer_segments.csv": {
+      "rows": 4,
+      "columns": [
+        "customer_segment",
+        "customers",
+        "orders",
+        "merchandise_value_brl",
+        "average_orders_per_customer",
+        "average_customer_value_brl",
+        "customer_share_pct",
+        "merchandise_value_share_pct"
+      ],
+      "sha256": "34df8d00047e38e6fbb9ecb97414348115b15692b2a76e00bc890dabcf00d438"
+    },
+    "analysis_delivery_impact.csv": {
+      "rows": 5,
+      "columns": [
+        "delivery_bucket",
+        "orders",
+        "merchandise_value_brl",
+        "average_days_late",
+        "average_review_score",
+        "one_star_review_pct",
+        "five_star_review_pct",
+        "delivered_order_share_pct"
+      ],
+      "sha256": "59ab1ce92c797d54c136437324c909a4ae6718df4e58abcec0c6abc08039d09b"
+    },
+    "analysis_state_performance.csv": {
+      "rows": 27,
+      "columns": [
+        "customer_state",
+        "orders",
+        "unique_customers",
+        "merchandise_value_brl",
+        "average_order_value_brl",
+        "late_delivery_pct",
+        "late_order_merchandise_value_brl",
+        "average_review_score",
+        "low_review_order_pct"
+      ],
+      "sha256": "23cd5cbb976711bbb90a9af23655e9ea23872d487dbb3730527eea79f746d938"
+    },
+    "analysis_category_performance.csv": {
+      "rows": 52,
+      "columns": [
+        "category_name",
+        "orders",
+        "merchandise_value_brl",
+        "freight_value_brl",
+        "freight_to_merchandise_pct",
+        "late_delivery_pct",
+        "late_order_merchandise_value_brl",
+        "average_review_score",
+        "low_review_order_pct"
+      ],
+      "sha256": "e4f0db40db3ffccfbca1770a0a827046d3a1a9d24092bdb13e2170d225681f47"
+    },
+    "analysis_seller_risk.csv": {
+      "rows": 2,
+      "columns": [
+        "operational_status",
+        "sellers",
+        "seller_orders",
+        "merchandise_value_brl",
+        "average_late_delivery_rate_pct",
+        "average_review_score"
+      ],
+      "sha256": "c597f83c2720ee1aafbfdc50fdabb13ebff99987b94b99a30330dc873e82ea89"
+    },
+    "analysis_payment_mix.csv": {
+      "rows": 4,
+      "columns": [
+        "payment_type",
+        "payment_rows",
+        "orders",
+        "payment_value_brl",
+        "average_installments",
+        "order_penetration_pct"
+      ],
+      "sha256": "0aa654a893777e720b0985d821aa015a87e5585f41b4aa1e1e0ec3bd00c301de"
+    },
+    "analysis_operational_priority.csv": {
+      "rows": 44,
+      "columns": [
+        "priority_rank",
+        "entity_type",
+        "entity_name",
+        "orders",
+        "merchandise_value_brl",
+        "late_delivery_pct",
+        "late_order_merchandise_value_brl",
+        "average_review_score",
+        "low_review_order_pct"
+      ],
+      "sha256": "d46ed0ec0da8df9e07ebe8723227c5c55ec34646b957162b7f16b6abf3c97332"
+    },
+    "analysis_summary.json": {
+      "rows": 1,
+      "columns": [
+        "scope",
+        "growth",
+        "customers",
+        "delivery",
+        "market",
+        "management_priority"
+      ],
+      "sha256": "00ea38723d790e8ffd13545f616535ba270fcb51c6d6aeab1fd41a37fe16e4d3"
+    }
+  },
+  "business_analysis": {
+    "scope": {
+      "commercial_orders": 98199,
+      "unique_customers": 94983,
+      "merchandise_value_brl": 13494400.74
+    },
+    "growth": {
+      "strongest_complete_month": "2017-11",
+      "strongest_month_merchandise_value_brl": 1003862.14,
+      "strongest_month_orders": 7421
+    },
+    "customers": {
+      "repeat_customer_pct": 3.03,
+      "repeat_segment_merchandise_value_share_pct": 5.56
+    },
+    "delivery": {
+      "late_delivery_share_pct": 8.11,
+      "on_time_average_review": 4.28,
+      "late_average_review": 2.54,
+      "review_score_gap": 1.74
+    },
+    "market": {
+      "top_state": "SP",
+      "top_state_merchandise_value_brl": 5163867.22,
+      "top_category": "health_beauty",
+      "top_category_merchandise_value_brl": 1255695.13
+    },
+    "management_priority": {
+      "entity_type": "state",
+      "entity_name": "SP",
+      "late_order_merchandise_value_brl": 342232.4,
+      "late_delivery_pct": 5.89,
+      "average_review_score": 4.2
     }
   },
   "verification": {

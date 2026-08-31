@@ -1,0 +1,35 @@
+{
+  "scope": {
+    "commercial_orders": 98199,
+    "unique_customers": 94983,
+    "merchandise_value_brl": 13494400.74
+  },
+  "growth": {
+    "strongest_complete_month": "2017-11",
+    "strongest_month_merchandise_value_brl": 1003862.14,
+    "strongest_month_orders": 7421
+  },
+  "customers": {
+    "repeat_customer_pct": 3.03,
+    "repeat_segment_merchandise_value_share_pct": 5.56
+  },
+  "delivery": {
+    "late_delivery_share_pct": 8.11,
+    "on_time_average_review": 4.28,
+    "late_average_review": 2.54,
+    "review_score_gap": 1.74
+  },
+  "market": {
+    "top_state": "SP",
+    "top_state_merchandise_value_brl": 5163867.22,
+    "top_category": "health_beauty",
+    "top_category_merchandise_value_brl": 1255695.13
+  },
+  "management_priority": {
+    "entity_type": "state",
+    "entity_name": "SP",
+    "late_order_merchandise_value_brl": 342232.4,
+    "late_delivery_pct": 5.89,
+    "average_review_score": 4.2
+  }
+}
