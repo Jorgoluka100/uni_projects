@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "db22db22db22db22db22",
+  "position": {"x": 648, "y": 24, "z": 1100, "height": 300, "width": 608, "tabOrder": 1100},
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {"queryState": {
+      "Category": {"projections": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": "DeliveryImpact"}}, "Property": "delivery_bucket"}}, "queryRef": "DeliveryImpact.delivery_bucket", "nativeQueryRef": "delivery_bucket"}]},
+      "Y": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "DeliveryImpact"}}, "Property": "Average Review by Delay"}}, "queryRef": "DeliveryImpact.Average Review by Delay", "nativeQueryRef": "Average Review by Delay"}]}
+    }},
+    "drillFilterOtherVisuals": true
+  }
+}
