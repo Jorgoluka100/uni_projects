@@ -1,0 +1,247 @@
+{
+  "source": "verified ecommerce_sql_analytics Parquet exports",
+  "files": {
+    "executive_kpis.csv": {
+      "rows": 1,
+      "columns": [
+        "commercial_orders",
+        "unique_customers",
+        "merchandise_value_brl",
+        "average_order_value_brl",
+        "freight_value_brl",
+        "total_payment_value_brl",
+        "customers",
+        "repeat_customers",
+        "repeat_customer_pct",
+        "average_orders_per_customer",
+        "average_customer_merchandise_value_brl",
+        "active_sellers",
+        "largest_seller_share_pct",
+        "top_ten_seller_share_pct",
+        "hhi_index"
+      ],
+      "sha256": "a7f215dd02d9efe3d393da67751600f292863ad07a94ad0fe34d488877025327"
+    },
+    "monthly_performance.csv": {
+      "rows": 20,
+      "columns": [
+        "order_month",
+        "orders",
+        "customers",
+        "merchandise_value_brl",
+        "average_order_value_brl",
+        "merchandise_value_mom_pct",
+        "merchandise_value_rank"
+      ],
+      "sha256": "1b36b12c8ba419b58142984654958880da171307eaee3c27d827c8d19f58fb62"
+    },
+    "category_performance.csv": {
+      "rows": 20,
+      "columns": [
+        "category_name",
+        "orders",
+        "items",
+        "merchandise_value_brl",
+        "freight_value_brl",
+        "freight_to_merchandise_pct",
+        "average_review_score",
+        "merchandise_value_rank"
+      ],
+      "sha256": "88e64ff9c8e7ca569924686f4a74936e0c18ac7bf3ac535f00a64ce3b299c0e6"
+    },
+    "delivery_review_summary.csv": {
+      "rows": 2,
+      "columns": [
+        "delivery_status",
+        "delivered_orders",
+        "average_review_score",
+        "average_days_late",
+        "delivered_order_share_pct"
+      ],
+      "sha256": "c8e68e62a5af53201aac18f5f419bd81c8b40e53e8e514104ba906cc6526b690"
+    },
+    "payment_behaviour.csv": {
+      "rows": 4,
+      "columns": [
+        "payment_type",
+        "payment_rows",
+        "orders",
+        "payment_value_brl",
+        "average_installments",
+        "order_penetration_pct"
+      ],
+      "sha256": "0aa654a893777e720b0985d821aa015a87e5585f41b4aa1e1e0ec3bd00c301de"
+    },
+    "state_category_mix.csv": {
+      "rows": 81,
+      "columns": [
+        "customer_state",
+        "category_name",
+        "orders",
+        "merchandise_value_brl",
+        "category_rank"
+      ],
+      "sha256": "cd642c9ee24db7d242af78691fa9e4ccf47d4a50e879ba1847a0ddca29edab17"
+    },
+    "tableau_dashboard_long.csv": {
+      "rows": 146,
+      "columns": [
+        "section",
+        "dimension",
+        "metric",
+        "value",
+        "secondary_value",
+        "sort_order"
+      ],
+      "sha256": "61a8b29b303899019294f5eee61fb6f3fa79e547338bf0026a88d4366926b651"
+    },
+    "state_performance.csv": {
+      "rows": 27,
+      "columns": [
+        "customer_state",
+        "orders",
+        "unique_customers",
+        "merchandise_value_brl",
+        "average_order_value_brl",
+        "late_delivery_pct",
+        "average_review_score"
+      ],
+      "sha256": "07a34b038cf621d1777bd3bc2e29e3af120b3cb0126bcaa678cef9ccea44f960"
+    },
+    "seller_operational_review.csv": {
+      "rows": 428,
+      "columns": [
+        "seller_id",
+        "seller_state",
+        "orders",
+        "merchandise_value_brl",
+        "late_delivery_rate_pct",
+        "average_review_score",
+        "operational_status"
+      ],
+      "sha256": "98f8af21d0223dc0f1c56a7751b07b3cf0674e29207b346d1dc7d9f8f03f40f5"
+    }
+  },
+  "verification": {
+    "verification_pass": true,
+    "dataset_version": 7,
+    "archive_sha256": "d521eb1d4a8b6dae030aa429380787261d3b04cd95bee0f43f18cb9cb18ffebb",
+    "source_hashes": {
+      "olist_customers_dataset.csv": "983a422239e1712ded753b3bf9ecf47dc73f144d306029dcfa99e70a226883d2",
+      "olist_geolocation_dataset.csv": "b514f6fc991b9566aeba02aa5d67e2c3630f034b60a0e05aa0d082a3b66d88d6",
+      "olist_order_items_dataset.csv": "0bc4d068c4fe38cbb01bd90e8746e3c613fe7b4baef75fab7b0e329701c3e279",
+      "olist_order_payments_dataset.csv": "4f713964f2815dbbaa40b9488268c55aac3627bfce5aa96cf58d1f3616de3cc0",
+      "olist_order_reviews_dataset.csv": "0dff69f6fed33a13648020198ea94d7ae12afbdd4904186c6cd904e27a3e1ccd",
+      "olist_orders_dataset.csv": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "olist_products_dataset.csv": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "olist_sellers_dataset.csv": "1f643d2b950373b85735e7794b20986f528d7a000432e7c6f9bcbb44d0846a0e",
+      "product_category_name_translation.csv": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278"
+    },
+    "headline": {
+      "commercial_orders": 98199,
+      "unique_customers": 94983,
+      "merchandise_value_brl": 13494400.74,
+      "repeat_customer_pct": 3.03,
+      "strongest_complete_month": "2017-11",
+      "strongest_month_merchandise_value_brl": 1003862.14
+    },
+    "integrity_checks": [
+      {
+        "name": "customers_customer_id_unique",
+        "passed": true,
+        "value": 0,
+        "expectation": "0 duplicate keys"
+      },
+      {
+        "name": "orders_order_id_unique",
+        "passed": true,
+        "value": 0,
+        "expectation": "0 duplicate keys"
+      },
+      {
+        "name": "products_product_id_unique",
+        "passed": true,
+        "value": 0,
+        "expectation": "0 duplicate keys"
+      },
+      {
+        "name": "sellers_seller_id_unique",
+        "passed": true,
+        "value": 0,
+        "expectation": "0 duplicate keys"
+      },
+      {
+        "name": "orders_customer_fk",
+        "passed": true,
+        "value": 0,
+        "expectation": "0 orphan rows"
+      },
+      {
+        "name": "items_order_fk",
+        "passed": true,
+        "value": 0,
+        "expectation": "0 orphan rows"
+      },
+      {
+        "name": "items_product_fk",
+        "passed": true,
+        "value": 0,
+        "expectation": "0 orphan rows"
+      },
+      {
+        "name": "items_seller_fk",
+        "passed": true,
+        "value": 0,
+        "expectation": "0 orphan rows"
+      },
+      {
+        "name": "payments_order_fk",
+        "passed": true,
+        "value": 0,
+        "expectation": "0 orphan rows"
+      },
+      {
+        "name": "reviews_order_fk",
+        "passed": true,
+        "value": 0,
+        "expectation": "0 orphan rows"
+      },
+      {
+        "name": "order_mart_row_count",
+        "passed": true,
+        "value": 99441,
+        "expectation": "99441 rows"
+      },
+      {
+        "name": "order_mart_one_row_per_order",
+        "passed": true,
+        "value": 99441,
+        "expectation": "99441 distinct order ids"
+      },
+      {
+        "name": "item_mart_row_count",
+        "passed": true,
+        "value": 112650,
+        "expectation": "112650 rows"
+      },
+      {
+        "name": "merchandise_value_reconciliation",
+        "passed": true,
+        "value": 2e-06,
+        "expectation": "< R$0.01 difference"
+      },
+      {
+        "name": "non_negative_item_values",
+        "passed": true,
+        "value": 0,
+        "expectation": "0 negative values"
+      },
+      {
+        "name": "review_score_range",
+        "passed": true,
+        "value": 0,
+        "expectation": "scores between 1 and 5"
+      }
+    ]
+  }
+}

@@ -1,0 +1,2 @@
+commercial_orders,unique_customers,merchandise_value_brl,average_order_value_brl,freight_value_brl,total_payment_value_brl,customers,repeat_customers,repeat_customer_pct,average_orders_per_customer,average_customer_merchandise_value_brl,active_sellers,largest_seller_share_pct,top_ten_seller_share_pct,hhi_index
+98199.0,94983.0,13494400.74,137.42,2241126.29,15738221.95,94703.0,2874.0,3.03,1.034,142.02,3029.0,1.7,13.24,36.03

@@ -1,0 +1,147 @@
+section,dimension,metric,value,secondary_value,sort_order
+Executive KPI,Commercial Orders,Commercial Orders,98199.0,,1
+Executive KPI,Unique Customers,Unique Customers,94983.0,,2
+Executive KPI,Merchandise Value (BRL),Merchandise Value (BRL),13494400.74,,3
+Executive KPI,Average Order Value (BRL),Average Order Value (BRL),137.42,,4
+Executive KPI,Repeat Customer %,Repeat Customer %,3.03,,5
+Executive KPI,Top 10 Seller Share %,Top 10 Seller Share %,13.24,,6
+Trend,2017-01,Monthly GMV,120098.27,,201701
+Trend,2017-01,Monthly Orders,787.0,,201701
+Trend,2017-01,Average Order Value,152.6,,201701
+Trend,2017-02,Monthly GMV,244959.35,103.97,201702
+Trend,2017-02,Monthly Orders,1718.0,103.97,201702
+Trend,2017-02,Average Order Value,142.58,103.97,201702
+Trend,2017-03,Monthly GMV,368341.32,50.37,201703
+Trend,2017-03,Monthly Orders,2617.0,50.37,201703
+Trend,2017-03,Average Order Value,140.75,50.37,201703
+Trend,2017-04,Monthly GMV,353842.98,-3.94,201704
+Trend,2017-04,Monthly Orders,2377.0,-3.94,201704
+Trend,2017-04,Average Order Value,148.86,-3.94,201704
+Trend,2017-05,Monthly GMV,503159.19,42.2,201705
+Trend,2017-05,Monthly Orders,3640.0,42.2,201705
+Trend,2017-05,Average Order Value,138.23,42.2,201705
+Trend,2017-06,Monthly GMV,429916.61,-14.56,201706
+Trend,2017-06,Monthly Orders,3205.0,-14.56,201706
+Trend,2017-06,Average Order Value,134.14,-14.56,201706
+Trend,2017-07,Monthly GMV,492287.3,14.51,201707
+Trend,2017-07,Monthly Orders,3946.0,14.51,201707
+Trend,2017-07,Average Order Value,124.76,14.51,201707
+Trend,2017-08,Monthly GMV,568245.79,15.43,201708
+Trend,2017-08,Monthly Orders,4272.0,15.43,201708
+Trend,2017-08,Average Order Value,133.02,15.43,201708
+Trend,2017-09,Monthly GMV,621415.91,9.36,201709
+Trend,2017-09,Monthly Orders,4227.0,9.36,201709
+Trend,2017-09,Average Order Value,147.01,9.36,201709
+Trend,2017-10,Monthly GMV,660179.62,6.24,201710
+Trend,2017-10,Monthly Orders,4547.0,6.24,201710
+Trend,2017-10,Average Order Value,145.19,6.24,201710
+Trend,2017-11,Monthly GMV,1003862.14,52.06,201711
+Trend,2017-11,Monthly Orders,7421.0,52.06,201711
+Trend,2017-11,Average Order Value,135.27,52.06,201711
+Trend,2017-12,Monthly GMV,742183.79,-26.07,201712
+Trend,2017-12,Monthly Orders,5618.0,-26.07,201712
+Trend,2017-12,Average Order Value,132.11,-26.07,201712
+Trend,2018-01,Monthly GMV,945456.29,27.39,201801
+Trend,2018-01,Monthly Orders,7187.0,27.39,201801
+Trend,2018-01,Average Order Value,131.55,27.39,201801
+Trend,2018-02,Monthly GMV,837895.43,-11.38,201802
+Trend,2018-02,Monthly Orders,6624.0,-11.38,201802
+Trend,2018-02,Average Order Value,126.49,-11.38,201802
+Trend,2018-03,Monthly GMV,981051.06,17.09,201803
+Trend,2018-03,Monthly Orders,7168.0,17.09,201803
+Trend,2018-03,Average Order Value,136.87,17.09,201803
+Trend,2018-04,Monthly GMV,993592.98,1.28,201804
+Trend,2018-04,Monthly Orders,6919.0,1.28,201804
+Trend,2018-04,Average Order Value,143.6,1.28,201804
+Trend,2018-05,Monthly GMV,992871.75,-0.07,201805
+Trend,2018-05,Monthly Orders,6833.0,-0.07,201805
+Trend,2018-05,Average Order Value,145.31,-0.07,201805
+Trend,2018-06,Monthly GMV,863265.53,-13.05,201806
+Trend,2018-06,Monthly Orders,6145.0,-13.05,201806
+Trend,2018-06,Average Order Value,140.48,-13.05,201806
+Trend,2018-07,Monthly GMV,878044.27,1.71,201807
+Trend,2018-07,Monthly Orders,6233.0,1.71,201807
+Trend,2018-07,Average Order Value,140.87,1.71,201807
+Trend,2018-08,Monthly GMV,848860.1,-3.32,201808
+Trend,2018-08,Monthly Orders,6421.0,-3.32,201808
+Trend,2018-08,Average Order Value,132.2,-3.32,201808
+Category,health_beauty,Category GMV,1255695.13,14.49,1
+Category,health_beauty,Category Orders,8800.0,14.49,1
+Category,health_beauty,Average Review,4.13,14.49,1
+Category,watches_gifts,Category GMV,1198185.21,8.35,2
+Category,watches_gifts,Category Orders,5604.0,8.35,2
+Category,watches_gifts,Average Review,4.01,8.35,2
+Category,bed_bath_table,Category GMV,1035964.06,19.73,3
+Category,bed_bath_table,Category Orders,9399.0,19.73,3
+Category,bed_bath_table,Average Review,3.88,19.73,3
+Category,sports_leisure,Category GMV,979740.92,17.1,4
+Category,sports_leisure,Category Orders,7673.0,17.1,4
+Category,sports_leisure,Average Review,4.11,17.1,4
+Category,computers_accessories,Category GMV,904322.02,16.21,5
+Category,computers_accessories,Category Orders,6654.0,16.21,5
+Category,computers_accessories,Average Review,3.94,16.21,5
+Category,furniture_decor,Category GMV,727465.05,23.67,6
+Category,furniture_decor,Category Orders,6425.0,23.67,6
+Category,furniture_decor,Average Review,3.9,23.67,6
+Category,housewares,Category GMV,626825.8,23.17,7
+Category,housewares,Category Orders,5847.0,23.17,7
+Category,housewares,Average Review,4.06,23.17,7
+Category,cool_stuff,Category GMV,620770.49,13.42,8
+Category,cool_stuff,Category Orders,3616.0,13.42,8
+Category,cool_stuff,Average Review,4.14,13.42,8
+Category,auto,Category GMV,586585.73,15.69,9
+Category,auto,Category Orders,3872.0,15.69,9
+Category,auto,Average Review,4.05,15.69,9
+Category,garden_tools,Category GMV,481009.94,20.48,10
+Category,garden_tools,Category Orders,3505.0,20.48,10
+Category,garden_tools,Average Review,4.04,20.48,10
+Category,toys,Category GMV,479808.54,16.04,11
+Category,toys,Category Orders,3855.0,16.04,11
+Category,toys,Average Review,4.16,16.04,11
+Category,baby,Category GMV,410312.2,16.57,12
+Category,baby,Category Orders,2868.0,16.57,12
+Category,baby,Average Review,4.01,16.57,12
+Category,perfumery,Category GMV,396599.31,13.61,13
+Category,perfumery,Category Orders,3146.0,13.61,13
+Category,perfumery,Average Review,4.17,13.61,13
+Category,telephony,Category GMV,322342.64,22.01,14
+Category,telephony,Category Orders,4183.0,22.01,14
+Category,telephony,Average Review,3.94,22.01,14
+Category,office_furniture,Category GMV,273580.7,25.04,15
+Category,office_furniture,Category Orders,1272.0,25.04,15
+Category,office_furniture,Average Review,3.48,25.04,15
+Delivery,late,Average Review,2.54,8.11,2
+Delivery,on_time,Average Review,4.28,91.89,1
+Region,SP,State GMV,5163867.22,5.89,201809
+Region,RJ,State GMV,1811623.42,13.47,201810
+Region,MG,State GMV,1573508.2,5.61,201811
+Region,RS,State GMV,742559.78,7.15,201812
+Region,PR,State GMV,676883.06,5.0,201813
+Region,SC,State GMV,518578.28,9.76,201814
+Region,BA,State GMV,507108.83,14.04,201815
+Region,DF,State GMV,300886.45,7.07,201816
+Region,GO,State GMV,287870.46,8.18,201817
+Region,ES,State GMV,273532.13,12.23,201818
+Region,PE,State GMV,261739.94,10.8,201819
+Region,CE,State GMV,226264.06,15.32,201820
+Region,PA,State GMV,178821.12,12.37,201821
+Region,MT,State GMV,156313.53,6.77,201822
+Region,MA,State GMV,119291.62,19.67,201823
+Region,MS,State GMV,116754.65,11.55,201824
+Region,PB,State GMV,114874.1,11.03,201825
+Region,PI,State GMV,86660.09,15.97,201826
+Region,RN,State GMV,83034.98,10.76,201827
+Region,AL,State GMV,80314.81,23.93,201828
+Region,SE,State GMV,58920.85,15.22,201829
+Region,TO,State GMV,49407.99,12.77,201830
+Region,RO,State GMV,46031.64,2.88,201831
+Region,AM,State GMV,22356.84,4.14,201832
+Region,AC,State GMV,15982.95,3.75,201833
+Region,AP,State GMV,13474.3,4.48,201834
+Region,RR,State GMV,7739.44,12.2,201835
+Payment,credit_card,Payment Value,12349453.71,77.0,201836
+Payment,boleto,Payment Value,2826476.09,19.89,201837
+Payment,voucher,Payment Value,349874.4,3.81,201838
+Payment,debit_card,Payment Value,212417.75,1.54,201839
+Seller Risk,monitor,Seller Count,418.0,9024214.130000005,201840
+Seller Risk,review_priority,Seller Count,10.0,139011.78,201841
