@@ -3,6 +3,13 @@
 -- item_mart: exactly one row per order item.
 -- Child tables are aggregated before joining to orders to prevent many-to-many
 -- multiplication of merchandise value, payments or review records.
+--
+-- Scope contract:
+-- commercial_order represents the full eligible commercial population: an order
+-- must contain at least one item and must not be cancelled or unavailable.
+-- Comparable complete-month reporting windows are applied by downstream analyses
+-- (for example monthly trends and repeat-customer analysis), not baked into this
+-- reusable population flag.
 
 CREATE OR REPLACE TABLE analytics.order_mart AS
 WITH item_agg AS (
@@ -69,8 +76,6 @@ SELECT
     (
         COALESCE(i.item_count, 0) > 0
         AND LOWER(COALESCE(o.order_status, '')) NOT IN ('canceled', 'unavailable')
-        AND TRY_CAST(o.order_purchase_timestamp AS TIMESTAMP) >= TIMESTAMP '2017-01-01 00:00:00'
-        AND TRY_CAST(o.order_purchase_timestamp AS TIMESTAMP) < TIMESTAMP '2018-09-01 00:00:00'
     ) AS commercial_order,
     CASE
         WHEN TRY_CAST(o.order_delivered_customer_date AS TIMESTAMP) IS NULL
