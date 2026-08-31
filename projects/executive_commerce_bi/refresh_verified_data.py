@@ -11,6 +11,8 @@ import json
 import sys
 from pathlib import Path
 
+import pandas as pd
+
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT = Path(__file__).resolve().parent
 ECOMMERCE = ROOT / "projects" / "ecommerce_sql_analytics"
@@ -112,6 +114,78 @@ def add_operational_exports(con, manifest: dict[str, object]) -> None:
         }
 
 
+def enrich_tableau_story(con, manifest: dict[str, object]) -> None:
+    """Extend the common Tableau long extract with regional, payment and risk views."""
+    destination = DATA_DIR / "tableau_dashboard_long.csv"
+    base = pd.read_csv(destination)
+    next_sort = int(base["sort_order"].max()) + 1
+    rows: list[dict[str, object]] = []
+
+    states = con.execute(
+        """
+        SELECT customer_state, merchandise_value_brl, late_delivery_pct
+        FROM (
+            SELECT
+                customer_state,
+                ROUND(SUM(merchandise_value_brl), 2) AS merchandise_value_brl,
+                ROUND(100.0 * AVG(CASE WHEN delivered_late THEN 1.0 WHEN delivered_late = FALSE THEN 0.0 END), 2) AS late_delivery_pct
+            FROM analytics.order_mart
+            WHERE commercial_order AND customer_state IS NOT NULL
+            GROUP BY customer_state
+        )
+        ORDER BY merchandise_value_brl DESC
+        """
+    ).df()
+    for rank, row in states.iterrows():
+        rows.append({
+            "section": "Region",
+            "dimension": row["customer_state"],
+            "metric": "State GMV",
+            "value": row["merchandise_value_brl"],
+            "secondary_value": row["late_delivery_pct"],
+            "sort_order": next_sort + int(rank),
+        })
+    next_sort += len(states)
+
+    payments = con.execute("SELECT * FROM analytics.payment_behaviour ORDER BY payment_value_brl DESC").df()
+    for rank, row in payments.iterrows():
+        rows.append({
+            "section": "Payment",
+            "dimension": row["payment_type"],
+            "metric": "Payment Value",
+            "value": row["payment_value_brl"],
+            "secondary_value": row["order_penetration_pct"],
+            "sort_order": next_sort + int(rank),
+        })
+    next_sort += len(payments)
+
+    seller_risk = con.execute(
+        """
+        SELECT operational_status, COUNT(*) AS seller_count, SUM(merchandise_value_brl) AS merchandise_value_brl
+        FROM analytics.seller_operational_review
+        GROUP BY operational_status
+        ORDER BY seller_count DESC
+        """
+    ).df()
+    for rank, row in seller_risk.iterrows():
+        rows.append({
+            "section": "Seller Risk",
+            "dimension": row["operational_status"],
+            "metric": "Seller Count",
+            "value": row["seller_count"],
+            "secondary_value": row["merchandise_value_brl"],
+            "sort_order": next_sort + int(rank),
+        })
+
+    enriched = pd.concat([base, pd.DataFrame(rows)], ignore_index=True)
+    enriched.to_csv(destination, index=False)
+    manifest["files"][destination.name] = {
+        "rows": int(len(enriched)),
+        "columns": list(enriched.columns),
+        "sha256": sha256(destination),
+    }
+
+
 def main() -> None:
     ARTIFACTS.mkdir(parents=True, exist_ok=True)
     config = ProjectConfig(database_path=DB_PATH, output_dir=ARTIFACTS)
@@ -127,6 +201,7 @@ def main() -> None:
     export_verified_source_tables(con)
     manifest = build_outputs(SOURCE_TABLES, DATA_DIR)
     add_operational_exports(con, manifest)
+    enrich_tableau_story(con, manifest)
     manifest["verification"] = {
         "verification_pass": True,
         "dataset_version": config.dataset_version,
