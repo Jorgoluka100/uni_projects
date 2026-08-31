@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "44444444444444444444",
+  "position": {"x": 950, "y": 20, "z": 1300, "height": 110, "width": 310, "tabOrder": 1300},
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {"queryState": {"Data": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "KPI"}}, "Property": "Repeat Customer Rate"}}, "queryRef": "KPI.Repeat Customer Rate", "nativeQueryRef": "Repeat Customer Rate"}]}}},
+    "drillFilterOtherVisuals": true
+  }
+}
