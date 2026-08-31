@@ -6,7 +6,7 @@ The Tableau work is intentionally **not** a clone of Power BI. Power BI acts as 
 
 ## Workbook structure
 
-The workbook contains **10 analytical worksheets across 3 dashboards**.
+The workbook contains **11 analytical worksheets across 3 dashboards**.
 
 ### Dashboard 1 — Executive Commerce Dashboard
 
@@ -24,14 +24,17 @@ The workbook contains **10 analytical worksheets across 3 dashboards**.
 ### Dashboard 3 — Customer & Service Drivers
 
 - **Customer Value** — GMV share by one-time/repeat and high-value customer segments
+- **Cohort Retention** — weighted retention by month since acquisition, with observable cohort count as context
 - **Delay Severity** — average review score by delivery-delay bucket, with 1-star share as supporting risk context
 - **Operational Priority** — states/categories ranked by merchandise value attached to late orders, with late-delivery rate as context
+
+The cohort view is deliberately right-censored: observed months with zero returning customers are retained, while months that have not yet occurred for newer cohorts are excluded.
 
 The dashboards answer three levels of question:
 
 1. **What is happening?** — executive performance and headline customer experience.
 2. **Where should I investigate?** — geography, payment behaviour and seller operations.
-3. **What appears to be driving the risk?** — retention mix, delivery severity and material late-order exposure.
+3. **What appears to be driving the risk?** — customer value mix, cohort retention, delivery severity and material late-order exposure.
 
 ## Inspectable Tableau source
 
@@ -40,10 +43,11 @@ The dashboards answer three levels of question:
 The shared tidy extract contains the original executive/trend/category/delivery/region/payment/seller sections plus the executed deeper-analysis sections:
 
 - `Customer Segment`
+- `Cohort Retention`
 - `Delay Impact`
 - `Operational Priority`
 
-Those additional sections are generated from the verified analysis outputs rather than manually entered into the workbook.
+Those additional sections are generated from verified analysis outputs rather than manually entered into the workbook.
 
 ## Reproduce the data
 
@@ -53,6 +57,7 @@ From repository root:
 pip install -r projects/ecommerce_sql_analytics/requirements.txt
 pip install pyarrow
 python projects/executive_commerce_bi/refresh_verified_data.py
+python projects/executive_commerce_bi/cohort_analysis.py
 python projects/executive_commerce_bi/enrich_tableau_analysis.py
 ```
 
@@ -60,4 +65,4 @@ Then open `ExecutiveCommerce.twb` in Tableau Desktop / Tableau Public and refres
 
 ## Verification boundary
 
-CI parses the workbook as XML and verifies the required **10 worksheets, 3 dashboards, shelves/marks and governed analysis outputs**. Tableau Desktop/Public is not available in CI, so publication and final interactive rendering remain a Desktop/Public checkpoint rather than something this repository falsely claims to have automated.
+CI parses the workbook as XML and verifies the required **11 worksheets, 3 dashboards, shelves/marks and governed analysis outputs**. Tableau Desktop/Public is not available in CI, so publication and final interactive rendering remain a Desktop/Public checkpoint rather than something this repository falsely claims to have automated.
