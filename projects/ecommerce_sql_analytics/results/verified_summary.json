@@ -38,7 +38,7 @@
     "item_mart": "one row per order item",
     "reason": "Prevent item x payment x review fanout from inflating monetary measures."
   },
-  "evidence_policy": "Only figures reproduced from the pinned Olist v7 source and the complete-month commercial window are promoted to README/CV claims. Synthetic fixtures are used only for software and SQL-grain tests.",
+  "evidence_policy": "Figures are reproduced from the pinned Olist v7 source. Commercial population metrics use all item-backed orders except canceled/unavailable orders; time-comparative metrics such as monthly trends, repeat behaviour and cohorts use complete months from 2017-01-01 through 2018-08-31. Synthetic fixtures are used only for software and SQL-grain tests.",
   "limitations": [
     "Historical anonymised marketplace data; the results do not describe Olist's current business.",
     "Merchandise value is not profit because product cost and operating expense are unavailable.",
