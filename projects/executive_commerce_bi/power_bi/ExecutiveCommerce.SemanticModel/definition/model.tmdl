@@ -14,5 +14,6 @@ ref table StatePerformance
 ref table PaymentBehaviour
 ref table SellerOperations
 ref table CustomerSegments
+ref table CohortRetention
 ref table DeliveryImpact
 ref table OperationalPriority
