@@ -7,7 +7,6 @@ not invent a second set of business rules or headline numbers.
 from __future__ import annotations
 
 import json
-import subprocess
 import sys
 from pathlib import Path
 
@@ -20,24 +19,74 @@ DATA_DIR = PROJECT / "data"
 ARTIFACT_DIR = PROJECT / ".artifacts"
 DB_PATH = ARTIFACT_DIR / "ecommerce.duckdb"
 
+# Reuse the production SQL project's source, warehouse and validation code rather
+# than maintaining a second implementation for the dashboards.
+sys.path.insert(0, str(ECOMMERCE))
+from src.config import ProjectConfig  # noqa: E402
+from src.data import ensure_dataset  # noqa: E402
+from src.validate import assert_integrity, run_integrity_checks  # noqa: E402
+from src.warehouse import build_analytics, connect, load_raw_tables  # noqa: E402
+
 
 def run_verified_warehouse() -> None:
+    """Rebuild Olist marts and verify them against retained executed evidence."""
     ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
-    subprocess.run(
-        [
-            sys.executable,
-            str(ECOMMERCE / "run.py"),
-            "--output-dir",
-            str(ARTIFACT_DIR),
-            "--database",
-            str(DB_PATH),
+    config = ProjectConfig(database_path=DB_PATH, output_dir=ARTIFACT_DIR)
+    source_hashes = ensure_dataset(config)
+
+    con = connect(DB_PATH)
+    load_raw_tables(con, config.data_dir)
+    build_analytics(con, ECOMMERCE / "sql")
+    checks = run_integrity_checks(con)
+    assert_integrity(checks)
+
+    headline = con.execute("SELECT * FROM analytics.headline_kpis").df().iloc[0].to_dict()
+    repeat = con.execute("SELECT * FROM analytics.customer_order_frequency").df().iloc[0].to_dict()
+    strongest = con.execute(
+        "SELECT order_month, merchandise_value_brl FROM analytics.monthly_performance "
+        "ORDER BY merchandise_value_brl DESC LIMIT 1"
+    ).fetchone()
+
+    observed = {
+        "commercial_orders": int(headline["commercial_orders"]),
+        "unique_customers": int(headline["unique_customers"]),
+        "merchandise_value_brl": round(float(headline["merchandise_value_brl"]), 2),
+        "repeat_customer_pct": round(float(repeat["repeat_customer_pct"]), 2),
+        "strongest_complete_month": str(strongest[0])[:7],
+        "strongest_month_merchandise_value_brl": round(float(strongest[1]), 2),
+    }
+    retained = json.loads((ECOMMERCE / "results" / "verified_summary.json").read_text(encoding="utf-8"))[
+        "headline_metrics"
+    ]
+    expected = {
+        "commercial_orders": int(retained["commercial_orders"]),
+        "unique_customers": int(retained["unique_customers"]),
+        "merchandise_value_brl": round(float(retained["merchandise_value_brl"]), 2),
+        "repeat_customer_pct": round(float(retained["repeat_customer_pct"]), 2),
+        "strongest_complete_month": str(retained["strongest_complete_month"]),
+        "strongest_month_merchandise_value_brl": round(
+            float(retained["strongest_month_merchandise_value_brl"]), 2
+        ),
+    }
+    if observed != expected:
+        raise AssertionError(
+            "Rebuilt BI warehouse does not match retained executed evidence. "
+            f"observed={observed}; expected={expected}"
+        )
+
+    audit = {
+        "verification_pass": True,
+        "source_hashes": source_hashes,
+        "integrity_checks": [
+            {"name": check.name, "passed": bool(check.passed), "detail": check.detail}
+            for check in checks
         ],
-        cwd=ROOT,
-        check=True,
+        "observed": observed,
+    }
+    (ARTIFACT_DIR / "bi_warehouse_verification.json").write_text(
+        json.dumps(audit, indent=2, default=str), encoding="utf-8"
     )
-    verification = json.loads((ARTIFACT_DIR / "verification.json").read_text(encoding="utf-8"))
-    if verification.get("verification_pass") is not True:
-        raise AssertionError("Underlying Olist warehouse did not pass its retained evidence gate")
+    con.close()
 
 
 def export_query(con: duckdb.DuckDBPyConnection, filename: str, query: str) -> int:
