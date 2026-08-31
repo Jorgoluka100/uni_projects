@@ -122,7 +122,20 @@ class ExecutiveCommerceBIContractTests(unittest.TestCase):
 
     def test_preview_uses_verified_analysis_values(self) -> None:
         preview = (ROOT / "dashboard_preview.svg").read_text()
-        for value in ["98,199", "94,983", "R$13.49M", "3.03%", "8.11%", "1.74", "R$342K"]:
+        for value in [
+            "98,199",
+            "94,983",
+            "R$13.49M",
+            "3.03%",
+            "8.11%",
+            "1.74",
+            "R$342K",
+            "Cohort retention after acquisition",
+            "M1 0.48%",
+            "M3 0.26%",
+            "M6 0.23%",
+            "M12 0.18%",
+        ]:
             self.assertIn(value, preview)
 
     def test_generated_data_when_present(self) -> None:
