@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "ec33ec33ec33ec33ec33",
+  "position": {"x": 24, "y": 348, "z": 1200, "height": 348, "width": 1232, "tabOrder": 1200},
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {"queryState": {
+      "Category": {"projections": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": "OperationalPriority"}}, "Property": "entity_name"}}, "queryRef": "OperationalPriority.entity_name", "nativeQueryRef": "entity_name"}]},
+      "Y": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "OperationalPriority"}}, "Property": "Late Order GMV"}}, "queryRef": "OperationalPriority.Late Order GMV", "nativeQueryRef": "Late Order GMV"}]}
+    }},
+    "drillFilterOtherVisuals": true
+  }
+}
