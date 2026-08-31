@@ -27,9 +27,19 @@ Designed for the next question: **where should the team investigate?**
 - payment value by payment type
 - seller operational-status split
 
+### Page 3 — Customer & Service Drivers
+
+Designed to connect the commercial result to the customer and operational drivers behind it:
+
+- **Customer value mix** — GMV share across one-time, one-time high-value, repeat and repeat high-value customers
+- **Delivery severity** — average review score across on-time and progressively later delivery buckets
+- **Operational priority** — states and categories ranked by merchandise value attached to late orders
+
+This page is fed by the deeper verified analysis tables rather than duplicated dashboard calculations.
+
 ## Semantic model
 
-The report is deliberately **model-first rather than visual-first**. The TMDL model now contains ten explicit import tables:
+The report is deliberately **model-first rather than visual-first**. The TMDL model contains ten explicit import tables:
 
 1. `ExecutiveKPIs`
 2. `MonthlyPerformance`
@@ -58,6 +68,7 @@ From repository root:
 pip install -r projects/ecommerce_sql_analytics/requirements.txt
 pip install pyarrow
 python projects/executive_commerce_bi/refresh_verified_data.py
+python projects/executive_commerce_bi/enrich_tableau_analysis.py
 python projects/executive_commerce_bi/render_dashboard_preview.py
 ```
 
@@ -71,6 +82,6 @@ so it points at that generated `data/` folder on your machine, and open `Executi
 
 ## What is automatically verified
 
-GitHub Actions checks the real data refresh, retained headline metrics, decision-oriented analysis outputs, generated dashboard preview, Power BI project/report bindings, PBIR JSON, semantic-model table coverage and the shared dashboard evidence.
+GitHub Actions checks the real data refresh, retained headline metrics, decision-oriented analysis outputs, generated dashboard preview, Power BI project/report bindings, all three PBIR pages, PBIR JSON, semantic-model table coverage and the shared dashboard evidence.
 
 Power BI Desktop itself is not available in the repository CI environment. I therefore do **not** claim that a `.pbix` binary or published Power BI Service report was runtime-rendered by CI. The source, measures, data lineage, analysis and report definitions are the inspectable evidence here; the final Desktop render is the publication checkpoint.
