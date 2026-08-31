@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "88888888888888888888",
+  "position": {"x": 640, "y": 440, "z": 2300, "height": 110, "width": 300, "tabOrder": 2300},
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {"queryState": {"Data": {"projections": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "KPI"}}, "Property": "Late Delivery Rate"}}, "queryRef": "KPI.Late Delivery Rate", "nativeQueryRef": "Late Delivery Rate"}]}}},
+    "drillFilterOtherVisuals": true
+  }
+}
