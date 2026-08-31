@@ -34,43 +34,57 @@ jobs:
       - name: Self-test governed BI exports
         run: python projects/executive_commerce_bi/prepare_bi_data.py --self-test
 
-      - name: Rebuild pinned warehouse and dashboard extracts
+      - name: Rebuild pinned warehouse, analysis and dashboard extracts
         run: python projects/executive_commerce_bi/refresh_verified_data.py
 
-      - name: Validate retained dashboard evidence
+      - name: Validate retained dashboard and analysis evidence
         run: |
           python - <<'PY'
           import json
           import pandas as pd
           from pathlib import Path
 
-          data = Path('projects/executive_commerce_bi/data')
+          project = Path('projects/executive_commerce_bi')
+          data = project / 'data'
           manifest = json.loads((data / 'manifest.json').read_text())
           assert manifest['verification']['verification_pass'] is True
           assert manifest['verification']['headline']['commercial_orders'] == 98199
           assert manifest['verification']['headline']['unique_customers'] == 94983
           assert abs(manifest['verification']['headline']['merchandise_value_brl'] - 13494400.74) < 0.01
           assert abs(manifest['verification']['headline']['repeat_customer_pct'] - 3.03) < 0.01
+
           executive = pd.read_csv(data / 'executive_kpis.csv').iloc[0]
           assert int(executive['commercial_orders']) == 98199
           assert len(pd.read_csv(data / 'monthly_performance.csv')) == 20
           assert len(pd.read_csv(data / 'state_performance.csv')) >= 20
           assert len(pd.read_csv(data / 'seller_operational_review.csv')) > 0
-          print(json.dumps(manifest['verification']['headline'], indent=2))
+
+          analysis = json.loads((data / 'analysis_summary.json').read_text())
+          assert analysis['scope']['commercial_orders'] == 98199
+          assert analysis['delivery']['review_score_gap'] > 0
+          assert analysis['customers']['repeat_customer_pct'] == 3.03
+          assert len(pd.read_csv(data / 'analysis_delivery_impact.csv')) >= 4
+          assert len(pd.read_csv(data / 'analysis_state_performance.csv')) >= 20
+          assert len(pd.read_csv(data / 'analysis_category_performance.csv')) >= 20
+          priority = pd.read_csv(data / 'analysis_operational_priority.csv')
+          assert len(priority) > 0
+          assert priority['late_order_merchandise_value_brl'].is_monotonic_decreasing
+          assert (project / 'VERIFIED_ANALYSIS.md').exists()
+          print(json.dumps(analysis, indent=2))
           PY
 
       - name: Validate Power BI and Tableau source contracts
         run: python -m unittest discover -s projects/executive_commerce_bi/tests -p 'test_*.py'
 
-      - name: Retain compact dashboard data
+      - name: Retain compact dashboard data and analysis
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add projects/executive_commerce_bi/data
+          git add projects/executive_commerce_bi/data projects/executive_commerce_bi/VERIFIED_ANALYSIS.md
           if git diff --cached --quiet; then
-            echo 'Dashboard extracts are already current.'
+            echo 'Dashboard and analysis extracts are already current.'
           else
-            git commit -m 'Refresh verified BI dashboard data'
+            git commit -m 'Refresh verified BI dashboard analysis'
             git pull --rebase origin main
             git push origin HEAD:main
           fi
