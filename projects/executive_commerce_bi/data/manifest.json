@@ -93,7 +93,7 @@
         "secondary_value",
         "sort_order"
       ],
-      "sha256": "e2698e74f5d656de1ea23d1171b80805c1456bed0cdc3a6a2a403b3e493820c6"
+      "sha256": "579625fcb75b1372d75b8830175b16bbac28dd4def69a7608be8317149c82f03"
     },
     "state_performance.csv": {
       "rows": 27,
@@ -119,7 +119,7 @@
         "average_review_score",
         "operational_status"
       ],
-      "sha256": "f0e66fffd444aa94bbe61a14c42c045af4fdffab26eab956b9c26880a2497daa"
+      "sha256": "ce80dcf3097dee87d29e2d041d3144a264df781f6a133673fd549e0c5b304ffe"
     },
     "analysis_monthly_growth.csv": {
       "rows": 20,
@@ -244,7 +244,7 @@
       "sha256": "2721b22cab6f08a659b2bf66b7d3f4bcddffcdb25268cba7aa60a06c703b9c96"
     },
     "analysis_cohort_retention.csv": {
-      "rows": 181,
+      "rows": 182,
       "columns": [
         "cohort_month",
         "month_number",
@@ -252,7 +252,7 @@
         "cohort_customers",
         "retention_pct"
       ],
-      "sha256": "523be0ead2bb40169e185091c7561ea383d238be5b1a6d5cfed909f32062f5c5"
+      "sha256": "eb63b1ecb50f6bfa77c6308964c68fccf5e75c398c80ad6efc243b1b86252740"
     },
     "analysis_retention_curve.csv": {
       "rows": 13,
@@ -264,7 +264,7 @@
         "weighted_retention_pct",
         "average_cohort_retention_pct"
       ],
-      "sha256": "6369745a6176fc312c9f12b9289c75e863b8fd1dbecc5c9039bafc98dab6b233"
+      "sha256": "da06494b61b67ffb70ce9dff2c43af4a210ee4436c7146a0282f6394428c537a"
     }
   },
   "business_analysis": {
