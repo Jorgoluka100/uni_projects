@@ -27,6 +27,7 @@ from src.data import ensure_dataset  # noqa: E402
 from src.validate import assert_integrity, run_integrity_checks  # noqa: E402
 from src.warehouse import build_analytics, connect, load_raw_tables  # noqa: E402
 
+from business_analysis import build_business_analysis  # noqa: E402
 from prepare_bi_data import REQUIRED_COLUMNS, build_outputs  # noqa: E402
 
 
@@ -202,6 +203,8 @@ def main() -> None:
     manifest = build_outputs(SOURCE_TABLES, DATA_DIR)
     add_operational_exports(con, manifest)
     enrich_tableau_story(con, manifest)
+    business_summary = build_business_analysis(con, DATA_DIR, manifest)
+    manifest["business_analysis"] = business_summary
     manifest["verification"] = {
         "verification_pass": True,
         "dataset_version": config.dataset_version,
