@@ -1,9 +1,9 @@
-# Jorgo Luka — Data & AI Engineering Portfolio
+# Jorgo Luka — Graduate Data & AI Portfolio
 
 **MSc Artificial Intelligence & Data Science (Distinction)**  
 Python · SQL · Power BI · Tableau · Data Science · Data Engineering · Machine Learning · Applied AI
 
-This portfolio is structured to answer the questions I would expect in an internship, graduate or junior technical interview: **can I work with raw data, build models, evaluate them properly, communicate results to a business and turn stronger work into reliable software?**
+This portfolio is structured to answer the questions I would expect in a graduate or junior technical interview: **can I work with raw data, build models, evaluate them properly, communicate results to a business and turn stronger work into reliable software?**
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
 [![BI portfolio project](https://github.com/Jorgoluka100/uni_projects/actions/workflows/bi-portfolio-ci.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/bi-portfolio-ci.yml)
@@ -28,6 +28,8 @@ This portfolio is structured to answer the questions I would expect in an intern
 | **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [PySpark Clickstream](projects/pyspark_clickstream_analytics/) · [E-commerce SQL + dbt](projects/ecommerce_sql_analytics/) | ingestion, schema contracts, deduplication, idempotency, SQL grain, dbt modelling, data-quality tests and scalable transformations |
 | **ML / AI Engineer** | [Flight Delay Risk Platform](projects/flight_delay_risk/) · [Grounded RAG](projects/grounded_rag/) · [Image Classification](projects/image_classification_confidence/) · [ModelWatch](projects/model_watch/) | serving, FastAPI, Docker, retrieval, PyTorch, model export, uncertainty, drift monitoring and CI |
 | **Data Analyst / BI / Product Analyst** | [Executive Commerce Intelligence — Power BI + Tableau](projects/executive_commerce_bi/) · [E-commerce SQL + dbt](projects/ecommerce_sql_analytics/) · [ExperimentLab](projects/experiment_lab/) | dashboarding, KPI design, Power BI/TMDL, Tableau, SQL, experimentation and business interpretation |
+
+**[Browse all 14 end-to-end projects by role and evidence →](projects/)**
 
 ## Foundation — individual skills I can explain from code
 
