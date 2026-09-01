@@ -1,136 +1,56 @@
-# Data & AI Projects — Intermediate & Advanced
+# End-to-end Data & AI projects
 
-The **foundation layer** lives in [`../skills/`](../skills/). This folder starts where the small exercises stop: real datasets, business intelligence, realistic validation, SQL/data engineering, testing, APIs, model monitoring and deployment-oriented work.
+These projects are the recruiter-facing part of the portfolio. Each one starts with a decision or engineering problem, keeps the data and evaluation boundary visible, and provides code that can be inspected without relying on a notebook alone.
 
-**[See the full Foundation → Intermediate → Advanced roadmap →](../docs/HIRING_PORTFOLIO.md)**
+## Choose the route closest to the role
 
-## Advanced flagship
-
-### [Flight Delay Risk Platform](flight_delay_risk/)
-
-The strongest end-to-end ML system in the portfolio:
-
-```text
-official 2026 BTS data
-    ↓
-data quality + leakage-safe features
-    ↓
-CatBoost + chronological validation
-    ↓
-untouched 180,000-flight test set
-    ↓
-verified release metadata
-    ↓
-FastAPI single / batch inference
-    ↓
-Docker + CI
-```
-
-This is the project to start with for **ML / AI Engineering** or a more engineering-heavy Data Science role.
-
-## Intermediate — start by role
-
-| Target role | Best projects | Evidence |
+| Hiring route | Start here | Then inspect |
 | --- | --- | --- |
-| **Data Scientist** | [Customer Churn](customer_churn_prediction/) · [UK House Prices](uk_house_price_prediction/) · [Parkinson's Progression](parkinsons_progression/) · [Retail Segmentation](retail_customer_segmentation/) | real-data cleaning, feature engineering, baselines, leakage controls, grouped/temporal validation, calibration, uncertainty and clustering |
-| **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](reliable_event_pipeline/) · [PySpark Clickstream](pyspark_clickstream_analytics/) · [E-commerce SQL + dbt](ecommerce_sql_analytics/) | ingestion, schema validation, idempotency, distributed transformations, semantic grain, dbt models and data-quality tests |
-| **ML / AI Engineer** | [Grounded RAG](grounded_rag/) · [Image Classification](image_classification_confidence/) · [Energy Forecasting](energy_demand_forecasting/) · [ModelWatch](model_watch/) | retrieval, PyTorch, TensorFlow, APIs, Docker, model export, uncertainty and drift/calibration monitoring |
-| **Data Analyst / BI / Product Analyst** | [Executive Commerce Intelligence](executive_commerce_bi/) · [E-commerce SQL + dbt](ecommerce_sql_analytics/) · [ExperimentLab](experiment_lab/) | Power BI, Tableau, KPI design, DAX/TMDL, SQL, experimentation, customer analysis and business interpretation |
+| **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](reliable_event_pipeline/) | [PySpark Clickstream](pyspark_clickstream_analytics/) · [E-commerce SQL + dbt](ecommerce_sql_analytics/) |
+| **Data Scientist** | [Flight Delay Risk](flight_delay_risk/) | [Customer Churn](customer_churn_prediction/) · [UK House Prices](uk_house_price_prediction/) · [Retail Segmentation](retail_customer_segmentation/) |
+| **ML / AI Engineer** | [Grounded RAG](grounded_rag/) | [Image Classification](image_classification_confidence/) · [Energy Forecasting](energy_demand_forecasting/) · [ModelWatch](model_watch/) |
+| **Data Analyst / BI / Product Analyst** | [Executive Commerce Intelligence](executive_commerce_bi/) | [E-commerce SQL + dbt](ecommerce_sql_analytics/) · [ExperimentLab](experiment_lab/) |
 
-## Data handling first
+## Project map
 
-### [Retail Customer Data Cleaning & Segmentation](retail_customer_segmentation/)
+| Project | Primary hiring signal | Inspectable evidence |
+| --- | --- | --- |
+| **[Flight Delay Risk Platform](flight_delay_risk/)** | Data Science · ML Engineering | Official 2026 BTS data, chronological validation, untouched 180,000-flight test set, model card, FastAPI, Docker and CI |
+| **[Reliable Event Pipeline](reliable_event_pipeline/)** | Data Engineering | Schema contracts, reject handling, deduplication, late-arriving data, idempotent loads, SQL reconciliation and unit tests |
+| **[E-commerce SQL + dbt](ecommerce_sql_analytics/)** | Analytics Engineering · SQL | Explicit relational grains, financial reconciliation, cohorts/windows, staging-to-mart dbt models and data-quality tests over 98,199 orders |
+| **[PySpark Clickstream](pyspark_clickstream_analytics/)** | Data Engineering · Distributed Analytics | 165,474 real events, session transformations, a clearly labelled one-million-row load test and leakage-aware Spark ML |
+| **[Executive Commerce Intelligence](executive_commerce_bi/)** | BI · Analytics | Governed KPI layer, Power BI PBIP/PBIR + TMDL/DAX, Tableau source, retained dashboard evidence and CI |
+| **[Retail Cleaning & Segmentation](retail_customer_segmentation/)** | Data Science · Data Quality | Auditable cleaning of 541,909 transaction rows, validated RFM features, clustering diagnostics and tests |
+| **[Customer Churn](customer_churn_prediction/)** | Data Science | Grouped holdout, out-of-fold calibration, proxy-feature policy, cost-aware threshold and bootstrap intervals |
+| **[UK House Prices](uk_house_price_prediction/)** | Data Science · Regression | Official Land Registry data, temporal holdout, strong location baseline, CatBoost and honest negative/small-gain reporting |
+| **[Energy Demand Forecasting](energy_demand_forecasting/)** | ML Engineering · TensorFlow | Chronological forecasting, strong seasonal baseline, Conv1D + LSTM, interval coverage and saved-model reload check |
+| **[Image Classification](image_classification_confidence/)** | ML Engineering · Computer Vision | PyTorch/EfficientNet-B0, calibration, selective review, Grad-CAM, bootstrap intervals and export parity |
+| **[Grounded RAG](grounded_rag/)** | AI Engineering · NLP | Hybrid retrieval, citations, abstention, tool routing, prompt-injection checks, FastAPI and Docker |
+| **[ModelWatch](model_watch/)** | MLOps | PSI/KS drift, discrimination and calibration checks, subgroup summaries and an explicit retraining policy |
+| **[ExperimentLab](experiment_lab/)** | Product Data Science | CUPED, bootstrap uncertainty, guardrails, power and a machine-readable ship/hold decision on labelled synthetic data |
+| **[Parkinson's Progression](parkinsons_progression/)** | Data Science · Validation Design | Subject-grouped validation, schema/cleaning controls and clear educational/non-clinical scope |
 
-The strongest proof that I can work with messy data before modelling. The project begins with **541,909 raw transaction rows**, audits duplicates, missing customer identifiers, cancellations and invalid quantity/price values, applies explicit cleaning rules, validates the final transaction table and only then builds customer-level RFM features and clustering.
+## How to inspect a project
 
-## Business intelligence
+The stronger projects use the same evidence pattern:
 
-### [Executive Commerce Intelligence — Power BI + Tableau](executive_commerce_bi/)
+1. `README.md` explains the decision, data, result and limitations.
+2. `src/`, `run.py` and SQL files expose the implementation outside notebook cells.
+3. `tests/` and GitHub Actions check important data, modelling or engineering contracts.
+4. `results/`, `verified/` and model cards retain machine-readable evidence where a metric is promoted.
 
-A dual-tool executive analytics project built on the same verified e-commerce warehouse as the SQL/dbt work.
+`verification_pass=true` means the repository's stated checks passed; it is not presented as an external audit. Synthetic fixtures, load-test replication and historical datasets are labelled where they are used.
 
-It demonstrates the part of data work that happens after trustworthy metrics exist:
+## Verify the portfolio gates
 
-- **Power BI:** PBIP / PBIR source, TMDL semantic model, DAX measures and starter executive visuals
-- **Tableau:** `.twb` workbook source, shared tidy export and calculation pack
-- **Governance:** one KPI dictionary for both tools, required-column contracts, hashes and row-count manifest
-- **Storytelling:** executive pulse, category/customer mix, delivery experience and marketplace-health views
+From the repository root:
 
-The retained commercial evidence covers **98,199 orders**, **94,983 customers** and **R$13.49M merchandise value**, with delivery/review and seller-concentration signals carried into the BI layer.
-
-## Data / analytics engineering
-
-### [Reliable Event Pipeline](reliable_event_pipeline/)
-
-A compact engineering pipeline covering schema validation, reject handling, duplicate control, late-arriving data, idempotent loads, SQL reconciliation, audit metrics and automated tests.
-
-**Verified demo:** 10 input rows → 7 clean warehouse events, with invalid and duplicate records handled explicitly.
-
-### [E-commerce SQL + dbt](ecommerce_sql_analytics/)
-
-End-to-end analytics over **98,199 commercial orders**, including explicit relational grain, reconciliation, cohorts, window functions and join-safety checks. The project includes a **dbt + DuckDB analytics-engineering layer** with staging/intermediate/mart models, relationships, custom data tests and CI.
-
-### [PySpark Clickstream Analytics](pyspark_clickstream_analytics/)
-
-Distributed transformations and data-quality logic over **165,474 real events**, plus a separate one-million-row load test.
-
-## Applied machine learning
-
-### [Customer Churn Prediction](customer_churn_prediction/)
-
-Classification with a protected grouped holdout, out-of-fold probability calibration, cost-aware threshold selection and bootstrap uncertainty.
-
-### [UK House Price Prediction](uk_house_price_prediction/)
-
-Official HM Land Registry data with a genuine time-based 2026 holdout, a strong local/property baseline and CatBoost regression.
-
-### [Parkinson's Progression](parkinsons_progression/)
-
-Regression with explicit feature policy, meaningful baselines, patient-grouped holdout separation and GroupKFold validation so repeated measurements from one person cannot leak across train and evaluation data.
-
-### [ExperimentLab](experiment_lab/)
-
-Experimentation covering treatment effects, confidence intervals, CUPED, guardrails and statistical power.
-
-## Deep learning & applied AI
-
-### [Grounded RAG](grounded_rag/)
-
-Hybrid retrieval, source attribution, abstention on weak evidence, prompt-injection checks, read-only tool routing, FastAPI and Docker. A frozen evaluation fixture makes retrieval and routing behaviour testable rather than demo-only.
-
-### [Image Classification with Confidence](image_classification_confidence/)
-
-PyTorch / EfficientNet-B0 with uncertainty checks, selective prediction, Grad-CAM and verified model export.
-
-**Retained test accuracy:** **85.9%**.
-
-### [Energy Demand Forecasting](energy_demand_forecasting/)
-
-TensorFlow Conv1D + LSTM time-series forecasting with chronological splitting, a strong weekly seasonal baseline, uncertainty intervals and saved-model reload checks.
-
-### [ModelWatch](model_watch/)
-
-Monitoring checks for data drift, discrimination and calibration against a reference dataset, with deliberately introduced shifts used to test whether monitoring rules react correctly.
-
-## What employers should be able to inspect
-
-Across the stronger projects I make the following explicit rather than hiding them behind a final metric:
-
-- where the data came from and what was wrong with it
-- how missing values, duplicates, joins or invalid records were handled
-- how business KPIs are defined and kept consistent across reporting tools
-- why the train / validation / test strategy matches the problem
-- what leakage or unrealistic evaluation would look like
-- which baseline the model or method must beat
-- how the result is measured and retained
-- what tests or checks protect the implementation
-- how an engineered project is packaged or served where relevant
-- what the project does **not** claim to prove
-
-The intended progression is therefore:
-
-```text
-skills/          → fundamentals I can explain
-projects/        → real-data + business/engineering evidence
-flight_delay     → advanced end-to-end ML flagship
+```bash
+python scripts/validate_portfolio_manifest.py
+python scripts/validate_skill_notebooks.py
+python scripts/validate_notebook_coverage.py
+python scripts/validate_new_projects.py
+python scripts/validate_portfolio.py
 ```
+
+The original university and laboratory notebooks remain available at the repository root for direct inspection. This folder is the recommended route for the strengthened, production-style work.
