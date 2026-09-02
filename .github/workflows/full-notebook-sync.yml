@@ -8,8 +8,11 @@ on:
       - 'scripts/build_full_project_notebooks.py'
       - 'scripts/enrich_project_notebooks.py'
       - 'scripts/validate_notebook_coverage.py'
+      - 'scripts/validate_full_portfolio_projects.py'
       - '.github/workflows/full-notebook-sync.yml'
       - 'projects/**/*.py'
+      - 'projects/**/*.ipynb'
+      - 'projects/**/README.md'
 
 permissions:
   contents: write
@@ -35,6 +38,9 @@ jobs:
 
       - name: Validate notebook portfolio
         run: python scripts/validate_notebook_coverage.py
+
+      - name: Validate every project as a complete portfolio piece
+        run: python scripts/validate_full_portfolio_projects.py
 
       - name: Commit generated notebooks
         run: |
