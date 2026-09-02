@@ -12,6 +12,7 @@ Python · SQL · R · Apache Spark/PySpark · Power BI · Tableau · Machine Lea
 | What you want to inspect | Open |
 | --- | --- |
 | **Original university/course work** | Direct links are immediately below ↓ |
+| **Historical pre-cleanup originals — 25 restored notebooks** | [originals/pre_cleanup_2026_08_11/](originals/pre_cleanup_2026_08_11/) |
 | **21 professional applications** | [projects/](projects/) |
 | **Every recruiter notebook + dataset/source** | [docs/NOTEBOOKS_AND_DATASETS.md](docs/NOTEBOOKS_AND_DATASETS.md) |
 | **Focused ML/data foundations** | [skills/](skills/) |
@@ -26,6 +27,9 @@ The original notebooks are preserved. They show the academic work first; the new
 | **KDD Cup Network Intrusion / Cyber-Attack Detection** | [KDDCup.ipynb](KDDCup.ipynb) | [Hardened KDD extension](extensions/kdd_intrusion_v2.py) · [verified evidence](verified/kdd_intrusion/) |
 | **KDD Intrusion — PySpark Logistic Regression** | [Logistic_Regression_PySpark.ipynb](Logistic_Regression_PySpark.ipynb) | [verified Spark KDD evidence](verified/spark_kdd/) |
 | **KDD Intrusion — PySpark Naive Bayes** | [Naive_Bayes_PySpark.ipynb](Naive_Bayes_PySpark.ipynb) | [verified Spark KDD evidence](verified/spark_kdd/) |
+| **PySpark Linear Regression & Regularisation — CN7030** | [Linear_Regression_PySpark_CN7030.ipynb](originals/pre_cleanup_2026_08_11/Linear_Regression_PySpark_CN7030.ipynb) | [Building Energy Efficiency Decision Model](projects/linear_regression_energy_efficiency/) |
+| **CN7030 NLP feature extraction / TF-IDF / sequence embedding** | [Feature comparison](originals/pre_cleanup_2026_08_11/CN7030_Feature_Extraction_Comparison.ipynb) · [TF-IDF](originals/pre_cleanup_2026_08_11/CN7030_Feature_Extraction_using_TF_IDF.ipynb) · [Sequence embedding](originals/pre_cleanup_2026_08_11/W8_CN7030_NLP_PySpark_Sequence_Embedding.ipynb) | [NLP Document Intelligence](projects/nlp_document_intelligence/) |
+| **University server-log analysis — preserved working copies** | [Server logs](originals/pre_cleanup_2026_08_11/Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb) · [second copy](originals/pre_cleanup_2026_08_11/Copy_of_Yet_another_copy_of_UniversityServerLogs%20(1).ipynb) | Historical university evidence retained exactly |
 | **Parkinson's Progression Modelling** | [Parkinsons_Progression_ML.ipynb](Parkinsons_Progression_ML.ipynb) | [Production version](projects/parkinsons_progression/) |
 | **UK House Price Analysis & Prediction** | [01_UK_House_Price_Analysis_and_Prediction.ipynb](01_UK_House_Price_Analysis_and_Prediction.ipynb) | [Production version](projects/uk_house_price_prediction/) |
 | **SQL Sales & Customer Analysis** | [02_SQL_Sales_and_Customer_Analysis.ipynb](02_SQL_Sales_and_Customer_Analysis.ipynb) | [SQL + dbt application](projects/ecommerce_sql_analytics/) |
@@ -35,7 +39,8 @@ The original notebooks are preserved. They show the academic work first; the new
 | **Clickstream Analysis — PySpark** | [06_Clickstream_Analysis_with_PySpark.ipynb](06_Clickstream_Analysis_with_PySpark.ipynb) | [Production PySpark application](projects/pyspark_clickstream_analytics/) |
 | **London Air Quality Analysis — R** | [07_London_Air_Quality_Analysis_with_R.ipynb](07_London_Air_Quality_Analysis_with_R.ipynb) | Original R/statistical-analysis evidence retained |
 
-[Full university index →](docs/UNIVERSITY_PROJECTS.md)
+[Full university index →](docs/UNIVERSITY_PROJECTS.md)  
+[Exact pre-cleanup archive — all 25 notebooks that had been removed →](originals/pre_cleanup_2026_08_11/)
 
 ## LLM / Udemy & specialist learning — direct access
 
@@ -43,12 +48,12 @@ The original notebooks are preserved. They show the academic work first; the new
 | --- | --- | --- |
 | **LLM hands-on training** | [LLM_Mastery_Hands_on_Code.ipynb](LLM_Mastery_Hands_on_Code.ipynb) | [Grounded RAG](projects/grounded_rag/) |
 | **Llama-style architecture & alignment** | [LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb](LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb) | [Grounded RAG](projects/grounded_rag/) + retained LLM evaluation assets |
-| **Linear Regression** | [Linear Regression foundations notebook](skills/08_regression_fundamentals.ipynb) | **[Building Energy Efficiency Decision Model](projects/linear_regression_energy_efficiency/)** |
+| **Linear Regression** | [Linear Regression foundations notebook](skills/08_regression_fundamentals.ipynb) · [original PySpark CN7030 notebook](originals/pre_cleanup_2026_08_11/Linear_Regression_PySpark_CN7030.ipynb) | **[Building Energy Efficiency Decision Model](projects/linear_regression_energy_efficiency/)** |
 | **K-Nearest Neighbours** | [classification foundations](skills/03_sklearn_end_to_end_classification.ipynb) | [KNN Product Quality](projects/knn_product_quality/) |
 | **Apache Spark / PySpark** | [University Clickstream](06_Clickstream_Analysis_with_PySpark.ipynb) | [Apache Spark Retail Intelligence](projects/apache_spark_retail_intelligence/) |
 | **XGBoost** | [regression foundations](skills/08_regression_fundamentals.ipynb) | [XGBoost Bike Demand](projects/xgboost_bike_demand/) |
 | **Neural Networks / Deep Learning** | [PyTorch fundamentals](skills/04_pytorch_neural_network_fundamentals.ipynb) | [Trained PyTorch Marketing Response](projects/deep_learning_marketing_response/) |
-| **NLP** | [TF-IDF text classification](skills/06_text_classification_tfidf.ipynb) | [NLP Document Intelligence](projects/nlp_document_intelligence/) |
+| **NLP** | [TF-IDF text classification](skills/06_text_classification_tfidf.ipynb) · [original CN7030 NLP archive](originals/pre_cleanup_2026_08_11/) | [NLP Document Intelligence](projects/nlp_document_intelligence/) |
 | **Statistical Modelling** | [regression foundations](skills/08_regression_fundamentals.ipynb) | [Statistical Marketing Mix](projects/statistical_marketing_mix/) · [ExperimentLab](projects/experiment_lab/) |
 
 ## 21 strengthened professional applications
@@ -98,7 +103,7 @@ Each project is designed to stand alone. The recruiter notebook leads with the *
 
 ## Other original / laboratory work — also retained
 
-Nothing has been deleted. These notebooks remain directly visible from the same repository:
+Nothing from the historical portfolio has been discarded. The curated originals below remain at repository root, and every notebook removed during the old cleanup is restored in the [pre-cleanup archive](originals/pre_cleanup_2026_08_11/).
 
 - [ConsultAI AI Opportunity Engine](01_ConsultAI_AI_Opportunity_Engine.ipynb)
 - [VisionForge PyTorch Visual Inspection](12_VisionForge_PyTorch_Visual_Inspection.ipynb)
