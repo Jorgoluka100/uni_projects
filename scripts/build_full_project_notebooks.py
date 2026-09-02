@@ -12,6 +12,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 PROJECTS = {
+    "flight_delay_risk": {
+        "title": "Flight Delay Risk Platform — Full Python Code",
+        "dataset": "U.S. DOT/BTS On-Time Reporting Carrier On-Time Performance data, with a temporal 2026 holdout documented in DATA_CARD.md.",
+        "files": [
+            "run.py",
+            "api.py",
+            "src/data.py",
+            "src/features.py",
+            "src/model.py",
+            "src/pipeline.py",
+            "src/evaluate.py",
+            "src/inference.py",
+        ],
+    },
     "ecommerce_sql_analytics": {
         "title": "E-commerce SQL + dbt Analytics — Full Python Code",
         "dataset": "Olist Brazilian E-commerce public dataset (pinned/reproducible download in src/data.py).",
