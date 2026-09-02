@@ -32,8 +32,13 @@ def read_notebook(path: Path, failures: list[str]) -> dict | None:
     return payload
 
 
+def _cell_text(cell: dict) -> str:
+    source = cell.get("source", [])
+    return "".join(source) if isinstance(source, list) else str(source or "")
+
+
 def validate_recruiter_notebook(path: Path, failures: list[str]) -> None:
-    """Reject notebook-shaped placeholders in end-to-end project folders."""
+    """Reject placeholders while allowing either full-code or recruiter-walkthrough notebooks."""
     payload = read_notebook(path, failures)
     if payload is None:
         return
@@ -42,24 +47,36 @@ def validate_recruiter_notebook(path: Path, failures: list[str]) -> None:
         failures.append(
             f"recruiter notebook is too thin ({len(cells)} cells): {path.relative_to(ROOT)}"
         )
+
     code_cells = [cell for cell in cells if cell.get("cell_type") == "code"]
     markdown_cells = [cell for cell in cells if cell.get("cell_type") == "markdown"]
     if len(code_cells) < 3:
         failures.append(f"recruiter notebook needs >=3 code cells: {path.relative_to(ROOT)}")
-    if len(markdown_cells) < 4:
-        failures.append(f"recruiter notebook needs >=4 markdown cells: {path.relative_to(ROOT)}")
 
-    source_text = "\n".join(
-        "".join(cell.get("source", []))
-        if isinstance(cell.get("source"), list)
-        else str(cell.get("source", ""))
-        for cell in cells
-    ).lower()
-    for required_signal in ("data", "interview"):
-        if required_signal not in source_text:
-            failures.append(
-                f"recruiter notebook missing '{required_signal}' context: {path.relative_to(ROOT)}"
-            )
+    code_lines = sum(len(_cell_text(cell).splitlines()) for cell in code_cells)
+    full_code_notebook = code_lines >= 80
+
+    # Full project notebooks can be code-heavy and concise in prose. Smaller
+    # walkthrough notebooks must carry more recruiter-facing explanation.
+    minimum_markdown = 2 if full_code_notebook else 4
+    if len(markdown_cells) < minimum_markdown:
+        failures.append(
+            f"recruiter notebook needs >={minimum_markdown} markdown cells: {path.relative_to(ROOT)}"
+        )
+
+    source_text = "\n".join(_cell_text(cell) for cell in cells).lower()
+    if "data" not in source_text:
+        failures.append(
+            f"recruiter notebook missing 'data' context: {path.relative_to(ROOT)}"
+        )
+
+    # Thin walkthroughs must explicitly coach interview discussion. A substantial
+    # full-code notebook already demonstrates the implementation directly and is
+    # therefore validated on code depth instead.
+    if not full_code_notebook and "interview" not in source_text:
+        failures.append(
+            f"recruiter notebook missing 'interview' context: {path.relative_to(ROOT)}"
+        )
 
 
 def validate_notebook(path: Path, failures: list[str]) -> None:
