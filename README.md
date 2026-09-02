@@ -12,6 +12,7 @@ This portfolio is structured to answer the questions I would expect in a graduat
 
 ## Start here
 
+**[Open every recruiter-facing `.ipynb` + its dataset/source →](docs/NOTEBOOKS_AND_DATASETS.md)**  
 **[Foundation → Intermediate → Advanced hiring roadmap](docs/HIRING_PORTFOLIO.md)**
 
 | Level | Purpose | Evidence |
