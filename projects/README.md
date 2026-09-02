@@ -2,6 +2,8 @@
 
 These projects are the recruiter-facing part of the portfolio. Each one starts with a decision or engineering problem, keeps the data and evaluation boundary visible, and provides code that can be inspected without relying on a notebook alone.
 
+**[Open the Notebook + Dataset index →](../docs/NOTEBOOKS_AND_DATASETS.md)** — direct `.ipynb` links and the dataset/source for every project.
+
 ## Choose the route closest to the role
 
 | Hiring route | Start here | Then inspect |
@@ -34,10 +36,11 @@ These projects are the recruiter-facing part of the portfolio. Each one starts w
 
 The stronger projects use the same evidence pattern:
 
-1. `README.md` explains the decision, data, result and limitations.
-2. `src/`, `run.py` and SQL files expose the implementation outside notebook cells.
-3. `tests/` and GitHub Actions check important data, modelling or engineering contracts.
-4. `results/`, `verified/` and model cards retain machine-readable evidence where a metric is promoted.
+1. `project_notebook.ipynb` is the fast Jupyter/Colab walkthrough.
+2. The project's `README.md`, data card/model or data-model file shows dataset provenance and the reproducible data route.
+3. `src/`, `run.py` and SQL files expose the implementation outside notebook cells.
+4. `tests/` and GitHub Actions check important data, modelling or engineering contracts.
+5. `results/`, `verified/` and model cards retain machine-readable evidence where a metric is promoted.
 
 `verification_pass=true` means the repository's stated checks passed; it is not presented as an external audit. Synthetic fixtures, load-test replication and historical datasets are labelled where they are used.
 
