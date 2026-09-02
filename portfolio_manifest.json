@@ -76,6 +76,12 @@
     {"id": "uk-house-price", "path": "projects/uk_house_price_prediction", "role": "data_science"},
     {"id": "energy-demand", "path": "projects/energy_demand_forecasting", "role": "ml_engineering"},
     {"id": "model-watch", "path": "projects/model_watch", "role": "ml_engineering"},
-    {"id": "retail-segmentation", "path": "projects/retail_customer_segmentation", "role": "data_science"}
+    {"id": "retail-segmentation", "path": "projects/retail_customer_segmentation", "role": "data_science"},
+    {"id": "knn-product-quality", "path": "projects/knn_product_quality", "role": "data_science"},
+    {"id": "apache-spark-retail-intelligence", "path": "projects/apache_spark_retail_intelligence", "role": "data_engineering"},
+    {"id": "xgboost-bike-demand", "path": "projects/xgboost_bike_demand", "role": "data_science"},
+    {"id": "deep-learning-marketing-response", "path": "projects/deep_learning_marketing_response", "role": "ml_engineering"},
+    {"id": "nlp-document-intelligence", "path": "projects/nlp_document_intelligence", "role": "ai_engineering"},
+    {"id": "statistical-marketing-mix", "path": "projects/statistical_marketing_mix", "role": "data_science"}
   ]
 }
