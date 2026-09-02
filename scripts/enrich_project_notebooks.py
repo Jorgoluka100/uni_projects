@@ -9,8 +9,9 @@ same project directory are appended as an application-engineering layer so a
 recruiter can inspect the original analysis AND the production-style code in one
 place.
 
-The ~1,000-line target is a depth target, never a padding target. This script
-reports code depth but does not manufacture filler just to hit a number.
+A roughly 500-line notebook is a useful depth guide for many projects, not a quota.
+Some focused applications are naturally smaller and some production systems are
+much larger. This script reports code depth but never manufactures filler.
 """
 from __future__ import annotations
 
@@ -19,8 +20,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS_ROOT = ROOT / "projects"
-TARGET_LOW = 800
-TARGET_IDEAL = 1000
+TARGET_LOW = 250
+TARGET_IDEAL = 500
 TARGET_HIGH = 1200
 ENRICHMENT_TAG = "portfolio-enrichment"
 
@@ -172,17 +173,18 @@ def enrich_notebook(project_dir: Path, notebook_path: Path) -> dict[str, object]
     code_lines = _meaningful_code_lines(final_cells)
 
     if TARGET_LOW <= code_lines <= TARGET_HIGH:
-        depth = "in the preferred substantial-project band"
+        depth = "within the substantial-project guide"
     elif code_lines > TARGET_HIGH:
-        depth = "above the preferred band; retain it when the extra code is genuinely project-specific"
+        depth = "larger than the usual guide; retain the extra code when it is genuinely project-specific"
     else:
-        depth = "below the preferred band and should gain substantive project-specific depth rather than filler"
+        depth = "compact and should only grow through substantive project-specific functionality, not filler"
 
     final_cells.append(_markdown(
         "## Portfolio depth check\n\n"
         f"**Meaningful code lines currently visible in this notebook:** {code_lines:,}. "
-        f"The portfolio aims for roughly **{TARGET_IDEAL:,} meaningful lines** per major project "
-        f"(normally about {TARGET_LOW:,}–{TARGET_HIGH:,}), and this notebook is {depth}.\n\n"
+        f"A useful portfolio guide is roughly **{TARGET_IDEAL:,} meaningful lines** for a major notebook, "
+        f"with project-specific depth often ranging from about {TARGET_LOW:,} to {TARGET_HIGH:,} lines. "
+        f"This notebook is {depth}.\n\n"
         "Line count is not a quality metric by itself. Additional code should only be added when it strengthens "
         "the real application: data validation, cleaning, EDA, feature engineering, modelling, tuning, error "
         "analysis, explainability, inference, testing, monitoring, APIs, reproducibility or business logic.\n"
