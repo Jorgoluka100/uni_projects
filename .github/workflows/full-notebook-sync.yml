@@ -1,0 +1,50 @@
+name: Sync full project notebooks
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build_full_project_notebooks.py'
+      - '.github/workflows/full-notebook-sync.yml'
+      - 'projects/ecommerce_sql_analytics/**/*.py'
+      - 'projects/executive_commerce_bi/**/*.py'
+      - 'projects/experiment_lab/**/*.py'
+      - 'projects/grounded_rag/**/*.py'
+      - 'projects/model_watch/**/*.py'
+      - 'projects/reliable_event_pipeline/**/*.py'
+      - 'projects/retail_customer_segmentation/**/*.py'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build code-first notebooks
+        run: python scripts/build_full_project_notebooks.py
+
+      - name: Validate notebook portfolio
+        run: python scripts/validate_notebook_coverage.py
+
+      - name: Commit generated notebooks
+        run: |
+          if git diff --quiet -- projects/*/project_notebook.ipynb; then
+            echo 'Notebooks already in sync.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add projects/*/project_notebook.ipynb
+          git commit -m 'Sync full Python code into recruiter notebooks'
+          git push
