@@ -1,4 +1,4 @@
-"""Validate notebook/Python coverage for recruiter-facing and historical work."""
+"""Validate notebook/Python coverage and recruiter-notebook quality."""
 
 from __future__ import annotations
 
@@ -15,20 +15,55 @@ PROJECTS = ROOT / "projects"
 SKILLS = ROOT / "skills"
 
 
-def validate_notebook(path: Path, failures: list[str]) -> None:
+def read_notebook(path: Path, failures: list[str]) -> dict | None:
     if not path.is_file():
         failures.append(f"missing notebook: {path.relative_to(ROOT)}")
-        return
+        return None
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except Exception as exc:
         failures.append(f"invalid notebook JSON {path.relative_to(ROOT)}: {exc}")
-        return
+        return None
     if payload.get("nbformat") != 4:
         failures.append(f"unexpected nbformat in {path.relative_to(ROOT)}")
     cells = payload.get("cells")
     if not isinstance(cells, list) or not cells:
         failures.append(f"missing/empty cells list in {path.relative_to(ROOT)}")
+    return payload
+
+
+def validate_recruiter_notebook(path: Path, failures: list[str]) -> None:
+    """Reject notebook-shaped placeholders in end-to-end project folders."""
+    payload = read_notebook(path, failures)
+    if payload is None:
+        return
+    cells = payload.get("cells") or []
+    if len(cells) < 8:
+        failures.append(
+            f"recruiter notebook is too thin ({len(cells)} cells): {path.relative_to(ROOT)}"
+        )
+    code_cells = [cell for cell in cells if cell.get("cell_type") == "code"]
+    markdown_cells = [cell for cell in cells if cell.get("cell_type") == "markdown"]
+    if len(code_cells) < 3:
+        failures.append(f"recruiter notebook needs >=3 code cells: {path.relative_to(ROOT)}")
+    if len(markdown_cells) < 4:
+        failures.append(f"recruiter notebook needs >=4 markdown cells: {path.relative_to(ROOT)}")
+
+    source_text = "\n".join(
+        "".join(cell.get("source", []))
+        if isinstance(cell.get("source"), list)
+        else str(cell.get("source", ""))
+        for cell in cells
+    ).lower()
+    for required_signal in ("data", "interview"):
+        if required_signal not in source_text:
+            failures.append(
+                f"recruiter notebook missing '{required_signal}' context: {path.relative_to(ROOT)}"
+            )
+
+
+def validate_notebook(path: Path, failures: list[str]) -> None:
+    read_notebook(path, failures)
 
 
 def project_directories() -> list[Path]:
@@ -47,13 +82,13 @@ def main() -> int:
     payload = json.loads(MANIFEST.read_text(encoding="utf-8"))
     index_text = NOTEBOOK_INDEX.read_text(encoding="utf-8") if NOTEBOOK_INDEX.is_file() else ""
 
-    # Check every Python-backed project folder, not only projects in the manifest.
+    # Every Python-backed end-to-end project must have a substantive recruiter notebook.
     projects = project_directories()
     if not projects:
         failures.append("no Python-backed project directories found")
     for project_path in projects:
         notebook = project_path / "project_notebook.ipynb"
-        validate_notebook(notebook, failures)
+        validate_recruiter_notebook(notebook, failures)
         python_files = [path for path in project_path.rglob("*.py") if "__pycache__" not in path.parts]
         if not python_files:
             failures.append(f"no Python source found under {project_path.relative_to(ROOT)}")
@@ -68,7 +103,8 @@ def main() -> int:
         if manifest_path not in checked_paths:
             failures.append(f"manifest project not covered by notebook/Python check: {manifest_path}")
 
-    # Focused skills must keep explicit notebook/Python twins.
+    # Focused skills keep explicit notebook/Python twins, without imposing the larger
+    # recruiter-notebook cell-count standard used for end-to-end project folders.
     skill_notebooks = sorted(SKILLS.glob("[0-9][0-9]_*.ipynb"))
     if not skill_notebooks:
         failures.append("no focused skills notebooks found")
@@ -101,7 +137,7 @@ def main() -> int:
     if failures:
         return 1
 
-    print("Notebook/Python coverage validation PASSED.")
+    print("Notebook/Python coverage and quality validation PASSED.")
     return 0
 
 
