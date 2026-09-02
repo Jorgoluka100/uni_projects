@@ -1,13 +1,17 @@
 # Data & AI Foundations Lab
 
-This folder is the **foundation layer** of the portfolio: small, interview-friendly projects that prove I understand the building blocks before the larger end-to-end systems.
+This folder is the **DataCamp-style foundation layer** of the portfolio: compact, interview-friendly projects that prove one skill clearly from objective to result before the larger end-to-end systems.
+
+These are deliberately **not** disguised as production applications. Each foundation should be easy to inspect in one sitting: objective → reproducible data/input → inspection/cleaning where needed → direct analysis/visualisation → method/model → metric/output → short conclusion.
 
 Each focused skill has both formats:
 
 - `.ipynb` for explanation, revision and Jupyter/Colab review
 - `.py` for normal Python execution and code review
 
-These are deliberately compact. The larger projects under [`../projects/`](../projects/) show the same skills on real datasets with stronger validation, testing and engineering.
+The larger projects under [`../projects/`](../projects/) are a different tier: full professional applications with real datasets, deeper EDA, stronger validation, robustness/error analysis, testing and role-relevant engineering.
+
+**[Read the final three-tier portfolio standard →](../docs/PORTFOLIO_STANDARD.md)**
 
 ## Level 1 — Data foundations
 
@@ -43,14 +47,14 @@ These are deliberately compact. The larger projects under [`../projects/`](../pr
 ## Progression
 
 ```text
+PROTECTED ORIGINALS
+university/course work kept exactly as evidence
+        ↓
 FOUNDATIONS
-small, explainable notebook + Python exercises
+DataCamp-style compact skill notebook + Python exercise
         ↓
-INTERMEDIATE
-real datasets + SQL + pipelines + tests + APIs + CI
-        ↓
-ADVANCED
-end-to-end systems that combine modelling and engineering
+PROFESSIONAL APPLICATIONS
+end-to-end systems with real analysis, evaluation, decisions and engineering
 ```
 
 The goal is not to pretend a focused learning exercise is production software. The goal is to make the fundamentals easy to inspect, then prove them again at a higher standard in the main portfolio.
