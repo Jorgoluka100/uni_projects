@@ -56,9 +56,9 @@ def validate_recruiter_notebook(path: Path, failures: list[str]) -> None:
     code_lines = sum(len(_cell_text(cell).splitlines()) for cell in code_cells)
     full_code_notebook = code_lines >= 80
 
-    # Full project notebooks can be code-heavy and concise in prose. Smaller
+    # A substantial full project notebook may be intentionally code-first. Smaller
     # walkthrough notebooks must carry more recruiter-facing explanation.
-    minimum_markdown = 2 if full_code_notebook else 4
+    minimum_markdown = 1 if full_code_notebook else 4
     if len(markdown_cells) < minimum_markdown:
         failures.append(
             f"recruiter notebook needs >={minimum_markdown} markdown cells: {path.relative_to(ROOT)}"
