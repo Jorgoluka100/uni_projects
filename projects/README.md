@@ -1,8 +1,25 @@
 # End-to-end Data & AI projects
 
-These projects are the recruiter-facing part of the portfolio. Each one starts with a decision or engineering problem, keeps the data and evaluation boundary visible, and provides code that can be inspected without relying on a notebook alone.
+These projects are the recruiter-facing part of the portfolio. **Every project must stand on its own as a complete portfolio piece**: a recruiter should be able to open one project folder and understand the problem, data, implementation, evaluation, results, limitations and reproduction path without depending on another project.
 
 **[Open the Notebook + Dataset index →](../docs/NOTEBOOKS_AND_DATASETS.md)** — direct `.ipynb` links and the dataset/source for every project.
+
+## Portfolio standard
+
+For this repository, a project is not considered complete because it has a long notebook. Each project/application should contain, where technically relevant:
+
+1. A clear business, analytical or engineering problem and success criteria.
+2. Dataset provenance, schema/quality checks and a reproducible data route.
+3. Cleaning, preprocessing, EDA and feature/data transformations.
+4. A substantive implementation in `project_notebook.ipynb` plus canonical Python/SQL source.
+5. Baselines and multiple modelling/analytical approaches when that genuinely improves the project.
+6. Leakage-aware validation, metrics, error analysis and uncertainty where appropriate.
+7. Explainability, decision logic or stakeholder interpretation where appropriate.
+8. Application/engineering depth such as inference, APIs, pipelines, testing, monitoring, dbt/SQL or deployment patterns when relevant to the role.
+9. Retained results/evidence rather than unsupported performance claims.
+10. Limitations, risks, next steps and a reproducible run path.
+
+The notebook depth target is roughly **800–1,200 meaningful lines of code, ideally around 1,000**, but line count is never used as permission to add filler. Smaller projects must gain genuine functionality before being described as major portfolio projects.
 
 ## Choose the route closest to the role
 
@@ -34,13 +51,13 @@ These projects are the recruiter-facing part of the portfolio. Each one starts w
 
 ## How to inspect a project
 
-The stronger projects use the same evidence pattern:
+Each project is expected to expose the same recruiter-friendly evidence pattern:
 
-1. `project_notebook.ipynb` is the fast Jupyter/Colab walkthrough.
-2. The project's `README.md`, data card/model or data-model file shows dataset provenance and the reproducible data route.
-3. `src/`, `run.py` and SQL files expose the implementation outside notebook cells.
-4. `tests/` and GitHub Actions check important data, modelling or engineering contracts.
-5. `results/`, `verified/` and model cards retain machine-readable evidence where a metric is promoted.
+1. `project_notebook.ipynb` — the complete notebook/project story, not a thin index.
+2. `README.md` plus a data card/data-model description where needed — problem framing, dataset provenance and reproduction instructions.
+3. `src/`, `run.py`, APIs and/or SQL — production-style implementation outside notebook cells.
+4. `tests/` and GitHub Actions — checks for important data, modelling or engineering contracts.
+5. `results/`, `outputs/`, `artifacts/` and/or `verified/` — retained evidence where a metric or result is promoted.
 
 `verification_pass=true` means the repository's stated checks passed; it is not presented as an external audit. Synthetic fixtures, load-test replication and historical datasets are labelled where they are used.
 
@@ -52,6 +69,7 @@ From the repository root:
 python scripts/validate_portfolio_manifest.py
 python scripts/validate_skill_notebooks.py
 python scripts/validate_notebook_coverage.py
+python scripts/validate_full_portfolio_projects.py
 python scripts/validate_new_projects.py
 python scripts/validate_portfolio.py
 ```
