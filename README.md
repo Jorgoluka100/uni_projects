@@ -3,7 +3,7 @@
 **MSc Artificial Intelligence & Data Science (Distinction)**  
 Python · SQL · R · Power BI · Tableau · Data Science · Data Engineering · Machine Learning · Deep Learning · Applied AI
 
-> **This repository is the single link for my complete portfolio.** It contains my original MSc/university work, strengthened industry-ready projects, focused skills notebooks, datasets/provenance, results, tests and engineering evidence.
+> **This repository is the single link for my complete portfolio.** It contains my original MSc/university work, LLM/course learning, strengthened industry-ready projects, focused skills notebooks, datasets/provenance, results, tests and engineering evidence.
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
 
@@ -12,10 +12,26 @@ Python · SQL · R · Power BI · Tableau · Data Science · Data Engineering ·
 | Portfolio area | What is here | Open |
 | --- | --- | --- |
 | **Original MSc / university projects** | Original executed coursework and academic notebooks retained as evidence of my MSc learning | **[University projects →](docs/UNIVERSITY_PROJECTS.md)** |
+| **LLM / course & specialist learning** | Original LLM Mastery notebooks plus focused algorithm and framework evidence | **[See LLM + specialist work below ↓](#llm-course--specialist-learning-projects)** |
 | **20 industry-ready projects / applications** | Standalone end-to-end projects for Data Science, Data Engineering, ML/AI Engineering, Analytics and BI roles | **[Professional projects →](projects/)** |
 | **All main notebooks + datasets** | Recruiter-facing `.ipynb` files with dataset/source and reproduction routes | **[Notebook & dataset index →](docs/NOTEBOOKS_AND_DATASETS.md)** |
 | **Data & AI foundations** | Cleaning, NumPy, regression, classification, clustering, SQL, PyTorch, LSTM, NLP and CNN notebooks | **[Foundations Lab →](skills/)** |
 | **Complete inventory** | University work, production projects, supporting assets and extensions | **[Project catalog →](docs/PROJECT_CATALOG.md)** |
+
+## LLM / course & specialist learning projects
+
+These are kept visible alongside the full applications so recruiters can see both the original learning work and how those skills were developed into larger projects.
+
+| Area | Direct evidence | Stronger application / progression |
+| --- | --- | --- |
+| **LLM Mastery — hands-on code** | **[LLM Mastery Hands-on Code notebook](LLM_Mastery_Hands_on_Code.ipynb)** | [Grounded RAG](projects/grounded_rag/) · LLM evaluation/engineering assets in this repository |
+| **LLM alignment** | **[Align and Master LLMs notebook](LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb)** | alignment/evaluation concepts retained alongside applied AI work |
+| **K-Nearest Neighbours (KNN)** | [classification foundations](skills/03_sklearn_end_to_end_classification.ipynb) | **[KNN Product Quality Decision System](projects/knn_product_quality/)** |
+| **Apache Spark / PySpark** | [Clickstream university notebook](06_Clickstream_Analysis_with_PySpark.ipynb) | **[Apache Spark Retail Intelligence](projects/apache_spark_retail_intelligence/)** · [PySpark Clickstream](projects/pyspark_clickstream_analytics/) |
+| **XGBoost** | model-selection and regression foundations | **[XGBoost Bike Demand](projects/xgboost_bike_demand/)** |
+| **Deep learning / neural networks** | [PyTorch fundamentals](skills/04_pytorch_neural_network_fundamentals.ipynb) | **[Deep Learning Marketing Response](projects/deep_learning_marketing_response/)** · [Image Classification](projects/image_classification_confidence/) |
+| **Natural Language Processing (NLP)** | [TF-IDF text classification](skills/06_text_classification_tfidf.ipynb) | **[NLP Document Intelligence](projects/nlp_document_intelligence/)** · [Grounded RAG](projects/grounded_rag/) |
+| **Statistical modelling** | regression/statistics foundations | **[Statistical Marketing Mix](projects/statistical_marketing_mix/)** · [ExperimentLab](projects/experiment_lab/) |
 
 ## Original MSc / university projects
 
