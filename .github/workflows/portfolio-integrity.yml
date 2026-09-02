@@ -27,6 +27,9 @@ jobs:
       - name: Compile-check portfolio Python code
         run: python -m compileall -q scripts extensions projects skills
 
+      - name: Protect original university and course notebooks
+        run: python scripts/validate_protected_originals.py
+
       - name: Validate portfolio manifest and project paths
         run: python scripts/validate_portfolio_manifest.py
 
