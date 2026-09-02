@@ -8,6 +8,7 @@ on:
       - 'scripts/build_full_project_notebooks.py'
       - 'scripts/enrich_project_notebooks.py'
       - 'scripts/append_visual_analysis.py'
+      - 'scripts/append_decision_analysis.py'
       - 'scripts/validate_notebook_coverage.py'
       - 'scripts/validate_full_portfolio_projects.py'
       - '.github/workflows/full-notebook-sync.yml'
@@ -40,6 +41,9 @@ jobs:
       - name: Add deeper visual analysis
         run: python scripts/append_visual_analysis.py
 
+      - name: Add robustness, slices and decision analysis
+        run: python scripts/append_decision_analysis.py
+
       - name: Validate notebook portfolio
         run: python scripts/validate_notebook_coverage.py
 
@@ -55,5 +59,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add projects/*/project_notebook.ipynb
-          git commit -m 'Deepen visual analysis in recruiter notebooks'
+          git commit -m 'Complete recruiter notebooks with robustness analysis'
           git push
