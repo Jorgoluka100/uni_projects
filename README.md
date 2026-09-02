@@ -15,7 +15,7 @@ Python · SQL · R · Apache Spark/PySpark · Power BI · Tableau · Machine Lea
 | **LLM / Udemy & specialist learning** | Hands-on LLM training, Llama-style architecture/alignment and algorithm foundations | **[Course & specialist work ↓](#llm--udemy-course--specialist-learning)** |
 | **20 professional projects / applications** | Standalone Data Science, Data Engineering, ML/AI Engineering, Analytics and BI portfolio pieces | **[All professional projects →](projects/)** |
 | **Notebooks + datasets** | Main recruiter notebooks with source/provenance and reproduction routes | **[Notebook & dataset index →](docs/NOTEBOOKS_AND_DATASETS.md)** |
-| **Foundations** | Cleaning, NumPy, regression, classification, clustering, SQL, PyTorch, LSTM, NLP and CNNs | **[Foundations Lab →](skills/)** |
+| **Foundations** | Cleaning, NumPy, **Linear Regression**, classification, clustering, SQL, PyTorch, LSTM, NLP and CNNs | **[Foundations Lab →](skills/)** |
 | **Complete inventory** | All retained notebooks, professional projects and supporting evidence | **[Project catalog →](docs/PROJECT_CATALOG.md)** |
 
 ## Original MSc / university projects
@@ -45,6 +45,7 @@ These are shown separately from university work so the source of the learning is
 | **LLM Mastery — hands-on training** | **[LLM Mastery Hands-on Code](LLM_Mastery_Hands_on_Code.ipynb)** | PyTorch transformer training, tokenisation, architecture/training parameters, checkpoints and experiment tracking; progresses into [Grounded RAG](projects/grounded_rag/) and LLM evaluation assets |
 | **LLM architecture & alignment** | **[Align and Master LLMs](LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb)** | Llama-style internals including RMSNorm, RoPE and attention plus the supplied 138M-parameter FineWeb-Edu pretrained workflow for alignment study |
 | **K-Nearest Neighbours** | [classification foundations](skills/03_sklearn_end_to_end_classification.ipynb) | **[KNN Product Quality Decision System](projects/knn_product_quality/)** — scaling, tuning, CV, neighbour explanations and confidence routing |
+| **Linear Regression** | **[Linear Regression & Ridge notebook](skills/08_regression_fundamentals.ipynb)** · [Python](skills/08_regression_fundamentals.py) | ordinary least-squares `LinearRegression`, median baseline, leakage-safe preprocessing, Ridge comparison, MAE/RMSE/R², residual analysis and inference; progresses into [UK House Prices](projects/uk_house_price_prediction/) and [Statistical Marketing Mix](projects/statistical_marketing_mix/) |
 | **Apache Spark / PySpark** | [university Clickstream notebook](06_Clickstream_Analysis_with_PySpark.ipynb) | [Apache Spark Retail Intelligence](projects/apache_spark_retail_intelligence/) · [PySpark Clickstream](projects/pyspark_clickstream_analytics/) |
 | **XGBoost** | regression/model-selection foundations | [XGBoost Bike Demand](projects/xgboost_bike_demand/) |
 | **Neural networks / deep learning** | [PyTorch fundamentals](skills/04_pytorch_neural_network_fundamentals.ipynb) | [trained PyTorch Marketing Response model](projects/deep_learning_marketing_response/) · [Image Classification](projects/image_classification_confidence/) |
@@ -113,7 +114,7 @@ The strengthened projects prioritise substantive end-to-end depth rather than ar
 ## Main stack
 
 **Data & BI:** Python · SQL · R · Pandas · NumPy · Power BI · DAX · TMDL · Tableau · PostgreSQL · DuckDB · Apache Spark/PySpark · dbt  
-**ML & Statistics:** scikit-learn · KNN · XGBoost · CatBoost · statsmodels · SciPy · PyTorch · TensorFlow/Keras  
+**ML & Statistics:** scikit-learn · Linear Regression · KNN · XGBoost · CatBoost · statsmodels · SciPy · PyTorch · TensorFlow/Keras  
 **Applied AI:** NLP · LLMs · retrieval/RAG · computer vision · FastAPI  
 **Engineering:** Docker · Git · GitHub Actions · testing · data/model validation · monitoring
 
