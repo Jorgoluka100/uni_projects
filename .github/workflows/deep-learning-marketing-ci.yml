@@ -30,6 +30,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r projects/deep_learning_marketing_response/requirements.txt
+          python -m pip install pytest
 
       - name: Run neural-network tests
         run: python -m pytest projects/deep_learning_marketing_response/tests -q
