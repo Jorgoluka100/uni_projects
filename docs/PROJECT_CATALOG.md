@@ -22,7 +22,8 @@ Full academic index: [`UNIVERSITY_PROJECTS.md`](UNIVERSITY_PROJECTS.md).
 
 - [`LLM_Mastery_Hands_on_Code.ipynb`](../LLM_Mastery_Hands_on_Code.ipynb) — hands-on PyTorch LLM/transformer training, tokenisation, training configuration, checkpoints and experiment tracking.
 - [`LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`](../LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb) — Llama-style architecture study and alignment workflow using supplied pretrained-model material, including RMSNorm, RoPE and attention internals.
-- [`skills/`](../skills/) — focused foundations for cleaning, NumPy, classification, PyTorch, LSTM, NLP, CNNs, regression, clustering and SQL.
+- [`skills/08_regression_fundamentals.ipynb`](../skills/08_regression_fundamentals.ipynb) · [`skills/08_regression_fundamentals.py`](../skills/08_regression_fundamentals.py) — explicit ordinary least-squares **Linear Regression** with a median baseline, leakage-safe mixed-type preprocessing, Ridge comparison, MAE/RMSE/R², residual diagnostics and inference.
+- [`skills/`](../skills/) — focused foundations for cleaning, NumPy, classification, PyTorch, LSTM, NLP, CNNs, Linear Regression, clustering and SQL.
 
 ## 20 strengthened professional projects
 
