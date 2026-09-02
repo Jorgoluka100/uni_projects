@@ -4,12 +4,12 @@ The portfolio rule is deliberately simple:
 
     one project -> one substantial notebook -> one complete recruiter story
 
-Existing notebook cells are preserved.  Missing canonical Python modules from the
+Existing notebook cells are preserved. Missing canonical Python modules from the
 same project directory are appended as an application-engineering layer so a
 recruiter can inspect the original analysis AND the production-style code in one
 place.
 
-The ~1,000-line target is a depth target, never a padding target.  This script
+The ~1,000-line target is a depth target, never a padding target. This script
 reports code depth but does not manufacture filler just to hit a number.
 """
 from __future__ import annotations
@@ -36,6 +36,15 @@ EXCLUDED_PARTS = {
     "node_modules",
     "dist",
     "build",
+}
+
+PROJECT_LIMITATION_NOTES = {
+    "parkinsons_progression": (
+        "This project is educational and non-clinical. The UCI telemonitoring data is historical, "
+        "the cohort is limited, and model performance does not establish safety or clinical utility. "
+        "A real clinical workflow would require external validation across sites and populations, "
+        "prospective evaluation, governance, clinician oversight and regulatory review before any use in care."
+    ),
 }
 
 
@@ -100,11 +109,31 @@ def _already_mirrored(existing_code: str, source: str) -> bool:
     return normalized in existing_code
 
 
+def _has_limitations_story(cells: list[dict]) -> bool:
+    text = "\n".join(_source(cell).lower() for cell in cells)
+    terms = ("limitation", "caveat", "risk", "future work", "next step")
+    return any(term in text for term in terms)
+
+
+def _limitations_cell(project_dir: Path) -> dict:
+    note = PROJECT_LIMITATION_NOTES.get(
+        project_dir.name,
+        (
+            "This portfolio project is bounded by the documented dataset, validation design and retained "
+            "evidence. Important limitations include dataset representativeness, possible distribution shift, "
+            "measurement quality and the gap between offline evaluation and production use. Next steps should "
+            "include stronger external or time-separated validation, monitoring, operational cost calibration "
+            "and human review where the application can affect consequential decisions."
+        ),
+    )
+    return _markdown(f"## Limitations and next steps\n\n{note}\n")
+
+
 def enrich_notebook(project_dir: Path, notebook_path: Path) -> dict[str, object]:
     notebook = json.loads(notebook_path.read_text(encoding="utf-8"))
     cells = notebook.get("cells", [])
 
-    # Remove only content previously created by this enrichment pass.  Original
+    # Remove only content previously created by this enrichment pass. Original
     # coursework/project cells and the code-first builder cells are preserved.
     preserved = [cell for cell in cells if ENRICHMENT_TAG not in _tags(cell)]
     existing_code = "\n".join(
@@ -133,6 +162,13 @@ def enrich_notebook(project_dir: Path, notebook_path: Path) -> dict[str, object]
         existing_code += "\n" + source
 
     final_cells = preserved + additions
+
+    # A complete portfolio story must surface limitations in the notebook itself,
+    # not only in a README. Add a concise project-aware section when the original
+    # notebook and mirrored source do not already contain one.
+    if not _has_limitations_story(final_cells):
+        final_cells.append(_limitations_cell(project_dir))
+
     code_lines = _meaningful_code_lines(final_cells)
 
     if TARGET_LOW <= code_lines <= TARGET_HIGH:
@@ -144,7 +180,7 @@ def enrich_notebook(project_dir: Path, notebook_path: Path) -> dict[str, object]
 
     final_cells.append(_markdown(
         "## Portfolio depth check\n\n"
-        f"**Meaningful code lines currently visible in this notebook:** {code_lines:,}.  "
+        f"**Meaningful code lines currently visible in this notebook:** {code_lines:,}. "
         f"The portfolio aims for roughly **{TARGET_IDEAL:,} meaningful lines** per major project "
         f"(normally about {TARGET_LOW:,}–{TARGET_HIGH:,}), and this notebook is {depth}.\n\n"
         "Line count is not a quality metric by itself. Additional code should only be added when it strengthens "
