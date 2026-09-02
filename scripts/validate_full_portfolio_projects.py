@@ -1,8 +1,9 @@
-"""Validate that every project is a complete, recruiter-facing portfolio project.
+"""Validate that every professional project is a complete recruiter-facing application.
 
-This is intentionally broader than notebook line count.  A project only passes when
-it presents a complete story: problem/context, data provenance, implementation,
-reproducibility, evaluation/results and limitations/next-step thinking.
+The goal is not raw line count. A project passes only when it has enough visible depth
+and a complete story: problem, data provenance/quality, direct EDA/visualisation,
+implementation, evaluation, robustness/failure analysis, decision logic,
+reproducibility and limitations.
 """
 from __future__ import annotations
 
@@ -11,11 +12,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS_ROOT = ROOT / "projects"
+MIN_MEANINGFUL_LINES = 800
 
 REQUIRED_NOTEBOOK_TERMS = {
-    "problem_or_objective": ("problem", "objective", "goal", "business"),
-    "data": ("dataset", "data source", "provenance", "data"),
-    "evaluation_or_analysis": ("evaluation", "metric", "analysis", "validation", "result"),
+    "problem_or_objective": ("problem", "objective", "goal", "business", "stakeholder"),
+    "data_and_provenance": ("dataset", "data source", "provenance", "source data", "data"),
+    "quality_or_preprocessing": ("cleaning", "preprocessing", "data quality", "schema", "missing"),
+    "eda_or_visualisation": ("eda", "exploratory", "visualisation", "visualization", "plot", "distribution"),
+    "baseline_or_comparison": ("baseline", "benchmark", "comparison", "compare", "alternative"),
+    "evaluation": ("evaluation", "metric", "validation", "result", "performance"),
+    "error_or_robustness": ("error", "residual", "confusion", "robustness", "slice", "drift", "sensitivity"),
+    "decision_or_solution": ("decision", "recommendation", "action", "solution", "inference", "policy"),
     "limitations": ("limitation", "risk", "caveat", "next step", "future work"),
     "reproducibility": ("reproduce", "reproducibility", "run the", "requirements", "environment"),
 }
@@ -75,12 +82,11 @@ def main() -> None:
             for label, alternatives in REQUIRED_NOTEBOOK_TERMS.items():
                 if not any(term in text for term in alternatives):
                     missing_story.append(label)
-            if code_lines < 150:
-                missing.append("substantive notebook code (>=150 meaningful lines)")
+            if code_lines < MIN_MEANINGFUL_LINES:
+                missing.append(
+                    f"full recruiter notebook depth (>={MIN_MEANINGFUL_LINES} meaningful visible code lines; no padding)"
+                )
 
-        # Every project needs an explicit result/evidence route. It may be tests,
-        # stored results, a verified evidence folder, or output artefacts documented
-        # in the project itself.
         evidence_exists = any((project / name).exists() for name in ("tests", "results", "artifacts", "outputs"))
         verified = ROOT / "verified" / project.name
         if verified.exists():
@@ -97,6 +103,7 @@ def main() -> None:
         report.append({
             "project": project.name,
             "meaningful_code_lines": code_lines,
+            "minimum_visible_depth": MIN_MEANINGFUL_LINES,
             "python_files": len(py_files),
             "has_readme": readme_path.exists(),
             "has_evidence_route": evidence_exists,
