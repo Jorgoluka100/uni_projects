@@ -23,11 +23,11 @@ These are deliberately compact. The larger projects under [`../projects/`](../pr
 
 | # | Project | What it proves |
 | --- | --- | --- |
-| 08 | [Regression fundamentals](08_regression_fundamentals.ipynb) · [Python](08_regression_fundamentals.py) | baseline regression, mixed-type preprocessing, regularisation, MAE and R² |
+| 08 | **[Linear Regression & Ridge fundamentals](08_regression_fundamentals.ipynb)** · [Python](08_regression_fundamentals.py) | ordinary least-squares `LinearRegression`, median baseline, mixed-type preprocessing, missing-value imputation, Ridge regularisation, MAE, RMSE, R², residual diagnostics and inference |
 | 03 | [Classification fundamentals](03_sklearn_end_to_end_classification.ipynb) · [Python](03_sklearn_end_to_end_classification.py) | train/test split, preprocessing pipeline, dummy baseline, logistic regression and classification metrics |
 | 09 | [Clustering fundamentals](09_clustering_fundamentals.ipynb) · [Python](09_clustering_fundamentals.py) | scaling, KMeans, candidate-k comparison, silhouette score and cluster interpretation |
 
-**Real-data follow-ons:** [Flight Delay Risk](../projects/flight_delay_risk/), [Customer Churn](../projects/customer_churn_prediction/), [UK House Prices](../projects/uk_house_price_prediction/) and [Retail Segmentation](../projects/retail_customer_segmentation/).
+**Real-data follow-ons:** [Flight Delay Risk](../projects/flight_delay_risk/), [Customer Churn](../projects/customer_churn_prediction/), [UK House Prices](../projects/uk_house_price_prediction/), [Statistical Marketing Mix](../projects/statistical_marketing_mix/) and [Retail Segmentation](../projects/retail_customer_segmentation/).
 
 ## Level 3 — Deep learning & unstructured data
 
@@ -53,4 +53,4 @@ ADVANCED
 end-to-end systems that combine modelling and engineering
 ```
 
-The goal is not to pretend a ten-minute learning exercise is production software. The goal is to make the fundamentals easy to inspect, then prove them again at a higher standard in the main portfolio.
+The goal is not to pretend a focused learning exercise is production software. The goal is to make the fundamentals easy to inspect, then prove them again at a higher standard in the main portfolio.
