@@ -6,16 +6,10 @@ on:
     branches: [main]
     paths:
       - 'scripts/build_full_project_notebooks.py'
+      - 'scripts/enrich_project_notebooks.py'
       - 'scripts/validate_notebook_coverage.py'
       - '.github/workflows/full-notebook-sync.yml'
-      - 'projects/flight_delay_risk/**/*.py'
-      - 'projects/ecommerce_sql_analytics/**/*.py'
-      - 'projects/executive_commerce_bi/**/*.py'
-      - 'projects/experiment_lab/**/*.py'
-      - 'projects/grounded_rag/**/*.py'
-      - 'projects/model_watch/**/*.py'
-      - 'projects/reliable_event_pipeline/**/*.py'
-      - 'projects/retail_customer_segmentation/**/*.py'
+      - 'projects/**/*.py'
 
 permissions:
   contents: write
@@ -36,6 +30,9 @@ jobs:
       - name: Build code-first notebooks
         run: python scripts/build_full_project_notebooks.py
 
+      - name: Preserve originals and add application code
+        run: python scripts/enrich_project_notebooks.py
+
       - name: Validate notebook portfolio
         run: python scripts/validate_notebook_coverage.py
 
@@ -48,5 +45,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add projects/*/project_notebook.ipynb
-          git commit -m 'Sync full Python code into recruiter notebooks'
+          git commit -m 'Preserve projects and enrich recruiter notebooks'
           git push
