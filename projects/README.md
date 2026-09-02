@@ -1,32 +1,38 @@
-# End-to-end Data & AI projects
+# 21 End-to-End Data & AI Applications
 
-These projects are the recruiter-facing part of the portfolio. **Every project must stand on its own as a complete portfolio piece**: a recruiter should be able to open one project folder and understand the problem, data, implementation, evaluation, results, limitations and reproduction path without depending on another project.
+These are the recruiter-facing projects. **Every project must stand on its own**: open one folder and understand the problem, data, analysis, implementation, evaluation, decision/solution, limitations and reproduction path.
 
-**[Open the Notebook + Dataset index →](../docs/NOTEBOOKS_AND_DATASETS.md)** — direct `.ipynb` links and the dataset/source for every project.
+**[Open every notebook + dataset/source →](../docs/NOTEBOOKS_AND_DATASETS.md)**
 
 ## Portfolio standard
 
-For this repository, a project is not considered complete because it has a long notebook. Each project/application should contain, where technically relevant:
+A project is not complete because it has a long notebook. Where technically relevant, each application should show:
 
-1. A clear business, analytical or engineering problem and success criteria.
-2. Dataset provenance, schema/quality checks and a reproducible data route.
-3. Cleaning, preprocessing, EDA and feature/data transformations.
-4. A substantive implementation in `project_notebook.ipynb` plus canonical Python/SQL source.
-5. Baselines and multiple modelling/analytical approaches when that genuinely improves the project.
-6. Leakage-aware validation, metrics, error analysis and uncertainty where appropriate.
-7. Explainability, decision logic or stakeholder interpretation where appropriate.
-8. Application/engineering depth such as inference, APIs, pipelines, testing, monitoring, dbt/SQL or deployment patterns when relevant to the role.
-9. Retained results/evidence rather than unsupported performance claims.
-10. Limitations, risks, next steps and a reproducible run path.
+1. problem, stakeholder and success criteria
+2. dataset provenance and reproducible acquisition
+3. schema/data-quality checks
+4. cleaning and preprocessing
+5. **real EDA and visualisations inside the notebook**
+6. feature engineering / transformations
+7. baseline and meaningful model/approach comparison
+8. leakage-aware validation and tuning
+9. metrics, residual/error analysis and robustness checks
+10. uncertainty/calibration and explainability where appropriate
+11. inference or an operational decision layer
+12. tests and retained results/evidence
+13. APIs, pipelines, SQL/dbt, monitoring or deployment when relevant
+14. limitations, risks and next steps
 
-A useful depth guide is **around 500 meaningful lines of visible notebook code for a major project**, but this is not a quota. Focused applications may be smaller and production-style systems can be much larger. The rule is substantive work, not padding: extra code should add real data validation, cleaning, EDA, modelling, error analysis, explainability, inference, testing, monitoring or decision logic.
+For major professional applications the working depth target is **roughly 1,000 meaningful visible notebook code lines when the problem genuinely supports it**. This is not permission to pad. A notebook should grow through useful analysis, plots, modelling, engineering and decision logic.
+
+The notebook is the main recruiter artifact. Modular `.py`, `src/`, SQL, APIs and tests are supporting engineering evidence, not a place to hide the work.
 
 ## Choose the route closest to the role
 
 | Hiring route | Start here | Then inspect |
 | --- | --- | --- |
+| **Data Scientist** | [Flight Delay Risk](flight_delay_risk/) | [Linear Regression Energy](linear_regression_energy_efficiency/) · [XGBoost Bike Demand](xgboost_bike_demand/) · [Customer Churn](customer_churn_prediction/) · [Statistical Marketing Mix](statistical_marketing_mix/) · [KNN Product Quality](knn_product_quality/) |
 | **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](reliable_event_pipeline/) | [Apache Spark Retail Intelligence](apache_spark_retail_intelligence/) · [PySpark Clickstream](pyspark_clickstream_analytics/) · [E-commerce SQL + dbt](ecommerce_sql_analytics/) |
-| **Data Scientist** | [Flight Delay Risk](flight_delay_risk/) | [XGBoost Bike Demand](xgboost_bike_demand/) · [Customer Churn](customer_churn_prediction/) · [Statistical Marketing Mix](statistical_marketing_mix/) · [KNN Product Quality](knn_product_quality/) |
 | **ML / AI Engineer** | [Grounded RAG](grounded_rag/) | [Deep Learning Marketing Response](deep_learning_marketing_response/) · [NLP Document Intelligence](nlp_document_intelligence/) · [Image Classification](image_classification_confidence/) · [Energy Forecasting](energy_demand_forecasting/) |
 | **Data Analyst / BI / Product Analyst** | [Executive Commerce Intelligence](executive_commerce_bi/) | [Statistical Marketing Mix](statistical_marketing_mix/) · [E-commerce SQL + dbt](ecommerce_sql_analytics/) · [ExperimentLab](experiment_lab/) |
 
@@ -34,50 +40,34 @@ A useful depth guide is **around 500 meaningful lines of visible notebook code f
 
 | Project | Primary hiring signal | Inspectable evidence |
 | --- | --- | --- |
-| **[Flight Delay Risk Platform](flight_delay_risk/)** | Data Science · ML Engineering | Official 2026 BTS data, chronological validation, untouched 180,000-flight test set, model card, FastAPI, Docker and CI |
-| **[Reliable Event Pipeline](reliable_event_pipeline/)** | Data Engineering | Schema contracts, reject handling, deduplication, late-arriving data, idempotent loads, SQL reconciliation and unit tests |
-| **[Apache Spark Retail Intelligence](apache_spark_retail_intelligence/)** | Data Engineering · Apache Spark | Explicit schemas, deterministic million-row workload, data-quality contracts, window functions, Customer 360 features, Spark ML and partition-aware Parquet output |
-| **[E-commerce SQL + dbt](ecommerce_sql_analytics/)** | Analytics Engineering · SQL | Explicit relational grains, financial reconciliation, cohorts/windows, staging-to-mart dbt models and data-quality tests over 98,199 orders |
-| **[PySpark Clickstream](pyspark_clickstream_analytics/)** | Data Engineering · Distributed Analytics | 165,474 real events, session transformations, a clearly labelled one-million-row load test and leakage-aware Spark ML |
-| **[Executive Commerce Intelligence](executive_commerce_bi/)** | BI · Analytics | Governed KPI layer, Power BI PBIP/PBIR + TMDL/DAX, Tableau source, retained dashboard evidence and CI |
-| **[Retail Cleaning & Segmentation](retail_customer_segmentation/)** | Data Science · Data Quality | Auditable cleaning of 541,909 transaction rows, validated RFM features, clustering diagnostics and tests |
-| **[Customer Churn](customer_churn_prediction/)** | Data Science | Grouped holdout, out-of-fold calibration, proxy-feature policy, cost-aware threshold and bootstrap intervals |
-| **[KNN Product Quality](knn_product_quality/)** | Data Science · K-Nearest Neighbours | Leakage-safe scaling, KNN hyperparameter search, scaling ablation, nearest-neighbour explanations, confidence review policy and saved inference pipeline |
-| **[XGBoost Bike Demand](xgboost_bike_demand/)** | Data Science · XGBoost | Public UCI bike-demand data, chronological validation, leakage controls, seasonal baseline, boosted-tree tuning, error slices and capacity-planning decisions |
-| **[Statistical Marketing Mix](statistical_marketing_mix/)** | Data Science · Statistical Modelling | OLS with HC3 errors, confidence intervals, VIF, residual diagnostics, bootstrap uncertainty, future holdout and budget scenarios on known synthetic ground truth |
-| **[UK House Prices](uk_house_price_prediction/)** | Data Science · Regression | Official Land Registry data, temporal holdout, strong location baseline, CatBoost and honest negative/small-gain reporting |
-| **[Energy Demand Forecasting](energy_demand_forecasting/)** | ML Engineering · TensorFlow | Chronological forecasting, strong seasonal baseline, Conv1D + LSTM, interval coverage and saved-model reload check |
-| **[Deep Learning Marketing Response](deep_learning_marketing_response/)** | ML Engineering · PyTorch | Real UCI campaign data, leakage review, logistic baseline, trained MLP, class imbalance handling, AdamW, early stopping, calibration/error slices and saved checkpoint |
-| **[Image Classification](image_classification_confidence/)** | ML Engineering · Computer Vision | PyTorch/EfficientNet-B0, calibration, selective review, Grad-CAM, bootstrap intervals and export parity |
-| **[NLP Document Intelligence](nlp_document_intelligence/)** | AI Engineering · NLP | Text cleaning, TF-IDF n-grams, Naive Bayes baseline, calibrated linear SVM, confidence routing, category keywords, confusion/error analysis and persisted inference |
-| **[Grounded RAG](grounded_rag/)** | AI Engineering · NLP | Hybrid retrieval, citations, abstention, tool routing, prompt-injection checks, FastAPI and Docker |
-| **[ModelWatch](model_watch/)** | MLOps | PSI/KS drift, discrimination and calibration checks, subgroup summaries and an explicit retraining policy |
-| **[ExperimentLab](experiment_lab/)** | Product Data Science | CUPED, bootstrap uncertainty, guardrails, power and a machine-readable ship/hold decision on labelled synthetic data |
-| **[Parkinson's Progression](parkinsons_progression/)** | Data Science · Validation Design | Subject-grouped validation, schema/cleaning controls and clear educational/non-clinical scope |
+| **[Flight Delay Risk Platform](flight_delay_risk/)** | Data Science · ML Engineering | Official 2026 BTS data, chronological validation, untouched test period, CatBoost, decisioning, FastAPI, Docker and CI |
+| **[Linear Regression — Building Energy Efficiency](linear_regression_energy_efficiency/)** | Data Science · Linear Regression | UCI Energy Efficiency, direct EDA/plots, median baseline, OLS LinearRegression, Ridge/Lasso/polynomial comparison, CV, residual/error slices, coefficient analysis, bootstrap uncertainty and design-review scenarios |
+| **[Customer Churn](customer_churn_prediction/)** | Data Science | Grouped holdout, calibration, proxy-feature policy, cost-aware threshold and bootstrap intervals |
+| **[UK House Prices](uk_house_price_prediction/)** | Data Science · Regression | Official Land Registry data, temporal holdout, location baseline, CatBoost and error analysis |
+| **[Retail Cleaning & Segmentation](retail_customer_segmentation/)** | Data Science · Data Quality | 541,909 transactions, auditable cleaning, RFM, cluster diagnostics, personas and tests |
+| **[KNN Product Quality](knn_product_quality/)** | Data Science · KNN | Scaling, KNN hyperparameter search, ablation, nearest-neighbour evidence and confidence review |
+| **[XGBoost Bike Demand](xgboost_bike_demand/)** | Data Science · XGBoost | UCI bike-demand data, chronological validation, leakage controls, seasonal baseline, boosted-tree tuning and capacity decisions |
+| **[Statistical Marketing Mix](statistical_marketing_mix/)** | Data Science · Statistics | OLS/HC3, confidence intervals, VIF, residual diagnostics, bootstrap uncertainty, holdout and budget scenarios |
+| **[ExperimentLab](experiment_lab/)** | Product Data Science | CUPED, bootstrap uncertainty, guardrails, power and ship/hold decision logic |
+| **[Parkinson's Progression](parkinsons_progression/)** | Data Science · Validation | Subject-grouped validation, schema controls, regression and explicit non-clinical limitations |
+| **[Grounded RAG](grounded_rag/)** | AI Engineering | Hybrid retrieval, citations, abstention, tool routing, prompt-injection checks, FastAPI and Docker |
+| **[Deep Learning Marketing Response](deep_learning_marketing_response/)** | ML Engineering · PyTorch | UCI campaign data, leakage review, logistic baseline, actually trained MLP, AdamW, early stopping, calibration and checkpoint |
+| **[NLP Document Intelligence](nlp_document_intelligence/)** | AI Engineering · NLP | Text cleaning, TF-IDF, Naive Bayes baseline, calibrated SVM, confidence routing, keywords and error analysis |
+| **[Image Classification](image_classification_confidence/)** | ML Engineering · Computer Vision | EfficientNet transfer learning, calibration, selective review, Grad-CAM, uncertainty and export checks |
+| **[Energy Demand Forecasting](energy_demand_forecasting/)** | ML Engineering · TensorFlow | Chronological forecasting, seasonal baseline, Conv1D/LSTM, interval coverage and model reload checks |
+| **[ModelWatch](model_watch/)** | MLOps | PSI/KS drift, data quality, discrimination, calibration, subgroup monitoring and retraining policy |
+| **[Reliable Event Pipeline](reliable_event_pipeline/)** | Data Engineering | Schema contracts, reject handling, deduplication, late data, idempotency, reconciliation and tests |
+| **[Apache Spark Retail Intelligence](apache_spark_retail_intelligence/)** | Data Engineering · Spark | Explicit schemas, million-row workload, data-quality contracts, window functions, Customer 360, Spark ML and Parquet |
+| **[PySpark Clickstream](pyspark_clickstream_analytics/)** | Data Engineering · Distributed Analytics | Real clickstream events, session/funnel transformations, one-million-row load test and Spark ML |
+| **[E-commerce SQL + dbt](ecommerce_sql_analytics/)** | Analytics Engineering · SQL | Relational grain, financial reconciliation, cohorts/windows, dbt marts and data-quality tests |
+| **[Executive Commerce Intelligence](executive_commerce_bi/)** | BI · Analytics | Governed KPIs, Power BI PBIP/PBIR/TMDL/DAX, Tableau assets and retained dashboard evidence |
 
 ## How to inspect a project
 
-Each project is expected to expose the same recruiter-friendly evidence pattern:
+1. `project_notebook.ipynb` — direct analysis, plots and complete project story.
+2. `README.md` — objective, dataset/provenance and reproduction route.
+3. `run.py`, `src/`, SQL, API or BI files — reusable implementation.
+4. `tests/` + GitHub Actions — important contracts and checks.
+5. `results/`, `outputs/`, `artifacts/` or `verified/` — retained evidence.
 
-1. `project_notebook.ipynb` — the complete notebook/project story, not a thin index.
-2. `README.md` plus a data card/data-model description where needed — problem framing, dataset provenance and reproduction instructions.
-3. `src/`, `run.py`, APIs and/or SQL — production-style implementation outside notebook cells.
-4. `tests/` and GitHub Actions — checks for important data, modelling or engineering contracts.
-5. `results/`, `outputs/`, `artifacts/` and/or `verified/` — retained evidence where a metric or result is promoted.
-
-`verification_pass=true` means the repository's stated checks passed; it is not presented as an external audit. Synthetic fixtures, load-test replication and historical datasets are labelled where they are used.
-
-## Verify the portfolio gates
-
-From the repository root:
-
-```bash
-python scripts/validate_portfolio_manifest.py
-python scripts/validate_skill_notebooks.py
-python scripts/validate_notebook_coverage.py
-python scripts/validate_full_portfolio_projects.py
-python scripts/validate_new_projects.py
-python scripts/validate_portfolio.py
-```
-
-The original university and laboratory notebooks remain available at the repository root for direct inspection. This folder is the recommended route for the strengthened, production-style work.
+The original university/course notebooks remain at repository root and are linked directly from the main [README](../README.md).
