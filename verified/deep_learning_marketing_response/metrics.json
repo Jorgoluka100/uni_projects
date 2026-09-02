@@ -1,0 +1,64 @@
+{
+  "dataset_audit": {
+    "rows": 41188,
+    "columns": 21,
+    "duplicate_rows": 12,
+    "missing_cells": 0,
+    "positive_rate": 0.11265417111780131,
+    "age_min": 17,
+    "age_max": 98
+  },
+  "split_rows": {
+    "train": 28823,
+    "validation": 6176,
+    "test": 6177
+  },
+  "preprocessed_input_dimension": 65,
+  "device": "cpu",
+  "logistic_validation": {
+    "roc_auc": 0.6542692009311681,
+    "pr_auc": 0.18283999076147403,
+    "f1": 0.2728564661297963,
+    "precision": 0.19807427785419532,
+    "recall": 0.4383561643835616,
+    "brier": 0.3261202573776245,
+    "log_loss": 0.8613777756690979,
+    "threshold": 0.6699999999999999,
+    "positive_rate": 0.23542746113989638
+  },
+  "neural_network_validation": {
+    "roc_auc": 0.6473552137447969,
+    "pr_auc": 0.18680379995183458,
+    "f1": 0.2574712643678161,
+    "precision": 0.1844532279314888,
+    "recall": 0.426179604261796,
+    "brier": 0.5053252577781677,
+    "log_loss": 1.2766097784042358,
+    "threshold": 0.7899999999999999,
+    "positive_rate": 0.24579015544041452
+  },
+  "neural_network_test": {
+    "roc_auc": 0.6251545723857249,
+    "pr_auc": 0.47790777776609483,
+    "f1": 0.5563210471925594,
+    "precision": 0.47070824832410374,
+    "recall": 0.68,
+    "brier": 0.39791029691696167,
+    "log_loss": 1.0914958715438843,
+    "threshold": 0.7899999999999999,
+    "positive_rate": 0.5554476282985268
+  },
+  "roc_auc_gain_vs_logistic": -0.006913987186371262,
+  "epochs_trained": 14,
+  "example_targeting_decision": {
+    "probability": 0.7863415479660034,
+    "threshold": 0.7899999999999999,
+    "tier": "hold",
+    "action": "do not target in this campaign"
+  },
+  "limitations": [
+    "Historical bank campaign data; not representative of every market or current behaviour.",
+    "This model is for marketing-response prioritisation, not lending or eligibility decisions.",
+    "A real deployment requires consent/privacy review, calibrated campaign costs and ongoing drift checks."
+  ]
+}
