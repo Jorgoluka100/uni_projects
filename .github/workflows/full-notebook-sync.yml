@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/build_full_project_notebooks.py'
+      - 'scripts/validate_notebook_coverage.py'
       - '.github/workflows/full-notebook-sync.yml'
       - 'projects/ecommerce_sql_analytics/**/*.py'
       - 'projects/executive_commerce_bi/**/*.py'
