@@ -26,7 +26,7 @@ Full academic index: [`UNIVERSITY_PROJECTS.md`](UNIVERSITY_PROJECTS.md).
 
 ## 20 strengthened professional projects
 
-Every project below has its own recruiter-facing `project_notebook.ipynb` and supporting application/engineering evidence.
+Every project below has its own recruiter-facing project notebook plus supporting application/engineering evidence.
 
 ### Data Science & Decision Science
 
