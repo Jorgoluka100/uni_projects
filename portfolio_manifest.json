@@ -6,6 +6,27 @@
   },
   "university_projects": [
     {
+      "id": "kdd-network-intrusion-university",
+      "title": "KDD Cup Network Intrusion / Cyber-Attack Analysis",
+      "notebook": "KDDCup.ipynb",
+      "follow_on": null,
+      "skills": ["cybersecurity analytics", "network intrusion", "KDD Cup 99", "PySpark", "classification"]
+    },
+    {
+      "id": "kdd-logistic-regression-pyspark-university",
+      "title": "KDD Intrusion Detection with PySpark Logistic Regression",
+      "notebook": "Logistic_Regression_PySpark.ipynb",
+      "follow_on": null,
+      "skills": ["PySpark", "logistic regression", "network security", "classification", "big data"]
+    },
+    {
+      "id": "kdd-naive-bayes-pyspark-university",
+      "title": "KDD Intrusion Detection with PySpark Naive Bayes",
+      "notebook": "Naive_Bayes_PySpark.ipynb",
+      "follow_on": null,
+      "skills": ["PySpark", "Naive Bayes", "network security", "classification", "big data"]
+    },
+    {
       "id": "parkinsons-progression-university",
       "title": "Parkinson's Progression Modelling",
       "notebook": "Parkinsons_Progression_ML.ipynb",
@@ -82,6 +103,7 @@
     {"id": "xgboost-bike-demand", "path": "projects/xgboost_bike_demand", "role": "data_science"},
     {"id": "deep-learning-marketing-response", "path": "projects/deep_learning_marketing_response", "role": "ml_engineering"},
     {"id": "nlp-document-intelligence", "path": "projects/nlp_document_intelligence", "role": "ai_engineering"},
-    {"id": "statistical-marketing-mix", "path": "projects/statistical_marketing_mix", "role": "data_science"}
+    {"id": "statistical-marketing-mix", "path": "projects/statistical_marketing_mix", "role": "data_science"},
+    {"id": "linear-regression-energy-efficiency", "path": "projects/linear_regression_energy_efficiency", "role": "data_science"}
   ]
 }
