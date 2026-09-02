@@ -6,7 +6,7 @@ The repository intentionally keeps three layers:
 
 1. **Original / previously uploaded notebooks** — retained as historical and university evidence.
 2. **Focused skills notebooks + `.py` scripts** — small interview-revision examples.
-3. **Strengthened projects** — each Python-backed project has a `project_notebook.ipynb` companion while the full implementation remains in normal Python/SQL/BI source files.
+3. **Strengthened projects** — each Python-backed project has a substantial `project_notebook.ipynb` plus normal Python/SQL/BI source files.
 
 ## 1. Original and previously uploaded notebooks
 
@@ -46,7 +46,7 @@ These files remain at repository root. They have not been replaced by the new pr
 
 ### Export any notebook to plain Python
 
-To create a `.py` view of **all notebooks**, including the older uploaded files, without changing the original `.ipynb` files:
+To create a `.py` view of all notebooks, including the older uploaded files, without changing the original `.ipynb` files:
 
 ```bash
 python scripts/export_notebooks_to_python.py --root . --output notebook_python_exports
@@ -71,17 +71,23 @@ The exporter mirrors notebook paths and writes code cells in order with `# %%` m
 
 ## 3. Strengthened projects — notebook + implementation
 
-The notebook is the Jupyter/Colab walkthrough. The project folder contains the actual Python package, tests, SQL, BI assets, API code and/or retained results.
+Each project is intended to stand alone as a portfolio piece. The notebook shows the project story and, through the notebook-enrichment workflow, mirrors the canonical project Python so recruiters can see the implementation directly inside `.ipynb`. The normal `.py`, SQL, API, BI and test files remain the reusable source of truth.
 
 | Project | Notebook | Python / project code |
 | --- | --- | --- |
 | Executive Commerce Intelligence — Power BI + Tableau | [`project_notebook.ipynb`](../projects/executive_commerce_bi/project_notebook.ipynb) | [`projects/executive_commerce_bi/`](../projects/executive_commerce_bi/) |
 | Parkinson's Progression | [`project_notebook.ipynb`](../projects/parkinsons_progression/project_notebook.ipynb) | [`projects/parkinsons_progression/`](../projects/parkinsons_progression/) |
 | Reliable Event Pipeline | [`project_notebook.ipynb`](../projects/reliable_event_pipeline/project_notebook.ipynb) | [`projects/reliable_event_pipeline/`](../projects/reliable_event_pipeline/) |
+| Apache Spark Retail Intelligence | [`project_notebook.ipynb`](../projects/apache_spark_retail_intelligence/project_notebook.ipynb) | [`projects/apache_spark_retail_intelligence/`](../projects/apache_spark_retail_intelligence/) |
 | Flight Delay Risk | [`project_notebook.ipynb`](../projects/flight_delay_risk/project_notebook.ipynb) | [`projects/flight_delay_risk/`](../projects/flight_delay_risk/) |
 | E-commerce SQL Analytics | [`project_notebook.ipynb`](../projects/ecommerce_sql_analytics/project_notebook.ipynb) | [`projects/ecommerce_sql_analytics/`](../projects/ecommerce_sql_analytics/) |
 | Customer Churn | [`project_notebook.ipynb`](../projects/customer_churn_prediction/project_notebook.ipynb) | [`projects/customer_churn_prediction/`](../projects/customer_churn_prediction/) |
+| KNN Product Quality | [`project_notebook.ipynb`](../projects/knn_product_quality/project_notebook.ipynb) | [`projects/knn_product_quality/`](../projects/knn_product_quality/) |
+| XGBoost Bike Demand | [`project_notebook.ipynb`](../projects/xgboost_bike_demand/project_notebook.ipynb) | [`projects/xgboost_bike_demand/`](../projects/xgboost_bike_demand/) |
+| Statistical Marketing Mix | [`project_notebook.ipynb`](../projects/statistical_marketing_mix/project_notebook.ipynb) | [`projects/statistical_marketing_mix/`](../projects/statistical_marketing_mix/) |
 | Grounded RAG | [`project_notebook.ipynb`](../projects/grounded_rag/project_notebook.ipynb) | [`projects/grounded_rag/`](../projects/grounded_rag/) |
+| NLP Document Intelligence | [`project_notebook.ipynb`](../projects/nlp_document_intelligence/project_notebook.ipynb) | [`projects/nlp_document_intelligence/`](../projects/nlp_document_intelligence/) |
+| Deep Learning Marketing Response | [`project_notebook.ipynb`](../projects/deep_learning_marketing_response/project_notebook.ipynb) | [`projects/deep_learning_marketing_response/`](../projects/deep_learning_marketing_response/) |
 | Image Classification | [`project_notebook.ipynb`](../projects/image_classification_confidence/project_notebook.ipynb) | [`projects/image_classification_confidence/`](../projects/image_classification_confidence/) |
 | ExperimentLab | [`project_notebook.ipynb`](../projects/experiment_lab/project_notebook.ipynb) | [`projects/experiment_lab/`](../projects/experiment_lab/) |
 | PySpark Clickstream | [`project_notebook.ipynb`](../projects/pyspark_clickstream_analytics/project_notebook.ipynb) | [`projects/pyspark_clickstream_analytics/`](../projects/pyspark_clickstream_analytics/) |
@@ -90,13 +96,13 @@ The notebook is the Jupyter/Colab walkthrough. The project folder contains the a
 | ModelWatch | [`project_notebook.ipynb`](../projects/model_watch/project_notebook.ipynb) | [`projects/model_watch/`](../projects/model_watch/) |
 | Retail Customer Segmentation | [`project_notebook.ipynb`](../projects/retail_customer_segmentation/project_notebook.ipynb) | [`projects/retail_customer_segmentation/`](../projects/retail_customer_segmentation/) |
 
-## Why the code is not duplicated inside every notebook
+## Why both `.ipynb` and modular source exist
 
-For the strengthened projects, the notebook is a companion rather than a second copy of the application. Duplicating hundreds of lines into `.ipynb` and `.py` files creates two implementations that can drift apart. The project notebook instead points to and inspects the normal Python source, tests and result files.
+The notebook is the recruiter-facing, end-to-end project/application: problem, dataset, cleaning/preprocessing, modelling or engineering, evaluation, results, limitations, decision logic and interview discussion. The repository also keeps modular source because tests, APIs, pipelines and production reuse are stronger in normal files.
 
-That gives recruiters both views without weakening the engineering structure:
+For code-backed projects the sync workflow mirrors canonical source into notebook code cells, so the recruiter does **not** have to hunt through `run.py` or `src/` to see the implementation. The modular files are additional engineering evidence rather than a substitute for the notebook.
 
 ```text
-.ipynb  → explanation / exploration / Colab review
-.py     → reusable implementation / tests / normal execution
+project_notebook.ipynb → complete readable project + visible code
+.py / src / SQL        → reusable implementation + tests + production structure
 ```

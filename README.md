@@ -18,19 +18,19 @@ This portfolio is structured to answer the questions I would expect in a graduat
 | Level | Purpose | Evidence |
 | --- | --- | --- |
 | **Foundation** | Prove the building blocks individually | [Data & AI Foundations Lab](skills/) — cleaning, NumPy, regression, classification, clustering, SQL, PyTorch, LSTM, text and CNNs |
-| **Intermediate** | Apply those skills to real data and business/engineering problems | [End-to-end projects](projects/) — real datasets, Power BI, Tableau, SQL, PySpark, pipelines, testing, dbt, APIs, Docker and monitoring |
+| **Intermediate** | Apply those skills to real data and business/engineering problems | [End-to-end projects](projects/) — real datasets, Power BI, Tableau, SQL, Apache Spark/PySpark, pipelines, testing, dbt, APIs, Docker and monitoring |
 | **Advanced** | Combine modelling and engineering into a releaseable system | [Flight Delay Risk Platform](projects/flight_delay_risk/) — official 2026 data → temporal ML evaluation → verified model → FastAPI → Docker → CI |
 
 ## Start with the role you are hiring for
 
 | Role | Best evidence | What it demonstrates |
 | --- | --- | --- |
-| **Data Scientist** | [Flight Delay Risk](projects/flight_delay_risk/) · [Customer Churn](projects/customer_churn_prediction/) · [UK House Prices](projects/uk_house_price_prediction/) · [Parkinson's Progression](projects/parkinsons_progression/) | cleaning, features, baselines, supervised ML, leakage control, realistic validation, calibration and uncertainty |
-| **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [PySpark Clickstream](projects/pyspark_clickstream_analytics/) · [E-commerce SQL + dbt](projects/ecommerce_sql_analytics/) | ingestion, schema contracts, deduplication, idempotency, SQL grain, dbt modelling, data-quality tests and scalable transformations |
-| **ML / AI Engineer** | [Flight Delay Risk Platform](projects/flight_delay_risk/) · [Grounded RAG](projects/grounded_rag/) · [Image Classification](projects/image_classification_confidence/) · [ModelWatch](projects/model_watch/) | serving, FastAPI, Docker, retrieval, PyTorch, model export, uncertainty, drift monitoring and CI |
-| **Data Analyst / BI / Product Analyst** | [Executive Commerce Intelligence — Power BI + Tableau](projects/executive_commerce_bi/) · [E-commerce SQL + dbt](projects/ecommerce_sql_analytics/) · [ExperimentLab](projects/experiment_lab/) | dashboarding, KPI design, Power BI/TMDL, Tableau, SQL, experimentation and business interpretation |
+| **Data Scientist** | [Flight Delay Risk](projects/flight_delay_risk/) · [XGBoost Bike Demand](projects/xgboost_bike_demand/) · [Customer Churn](projects/customer_churn_prediction/) · [Statistical Marketing Mix](projects/statistical_marketing_mix/) · [KNN Product Quality](projects/knn_product_quality/) | cleaning, feature engineering, KNN, gradient boosting, statistical modelling, baselines, leakage control, realistic validation, uncertainty and decision logic |
+| **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [Apache Spark Retail Intelligence](projects/apache_spark_retail_intelligence/) · [PySpark Clickstream](projects/pyspark_clickstream_analytics/) · [E-commerce SQL + dbt](projects/ecommerce_sql_analytics/) | ingestion, schema contracts, deduplication, idempotency, Apache Spark, window functions, scalable transformations, SQL grain, dbt modelling and data-quality tests |
+| **ML / AI Engineer** | [Flight Delay Risk Platform](projects/flight_delay_risk/) · [Grounded RAG](projects/grounded_rag/) · [Deep Learning Marketing Response](projects/deep_learning_marketing_response/) · [NLP Document Intelligence](projects/nlp_document_intelligence/) · [Image Classification](projects/image_classification_confidence/) | serving, FastAPI, Docker, retrieval, NLP, PyTorch neural-network training, model export, uncertainty, confidence routing, drift monitoring and CI |
+| **Data Analyst / BI / Product Analyst** | [Executive Commerce Intelligence — Power BI + Tableau](projects/executive_commerce_bi/) · [Statistical Marketing Mix](projects/statistical_marketing_mix/) · [E-commerce SQL + dbt](projects/ecommerce_sql_analytics/) · [ExperimentLab](projects/experiment_lab/) | dashboarding, KPI design, Power BI/TMDL, Tableau, SQL, statistical inference, experimentation and business interpretation |
 
-**[Browse all 14 end-to-end projects by role and evidence →](projects/)**
+**[Browse all 20 end-to-end projects by role and evidence →](projects/)**
 
 ## Foundation — individual skills I can explain from code
 
@@ -40,14 +40,16 @@ This portfolio is structured to answer the questions I would expect in a graduat
 | --- | --- |
 | Data cleaning / preprocessing | [focused project](skills/01_data_cleaning_preprocessing.ipynb) → [541,909-row real-data follow-on](projects/retail_customer_segmentation/) |
 | NumPy | [NumPy for ML](skills/02_numpy_for_machine_learning.ipynb) |
-| Classification | [scikit-learn classification](skills/03_sklearn_end_to_end_classification.ipynb) |
-| Neural networks / PyTorch | [PyTorch fundamentals](skills/04_pytorch_neural_network_fundamentals.ipynb) |
-| Sequence modelling / LSTM | [LSTM fundamentals](skills/05_lstm_sequence_modelling.ipynb) |
-| Text data | [TF-IDF text classification](skills/06_text_classification_tfidf.ipynb) → [Grounded RAG](projects/grounded_rag/) |
+| Classification | [scikit-learn classification](skills/03_sklearn_end_to_end_classification.ipynb) → [KNN Product Quality](projects/knn_product_quality/) |
+| Neural networks / PyTorch | [PyTorch fundamentals](skills/04_pytorch_neural_network_fundamentals.ipynb) → [trained marketing-response neural network](projects/deep_learning_marketing_response/) |
+| Sequence modelling / LSTM | [LSTM fundamentals](skills/05_lstm_sequence_modelling.ipynb) → [Energy Demand Forecasting](projects/energy_demand_forecasting/) |
+| Text data / NLP | [TF-IDF text classification](skills/06_text_classification_tfidf.ipynb) → [NLP Document Intelligence](projects/nlp_document_intelligence/) → [Grounded RAG](projects/grounded_rag/) |
 | Image data / CNNs | [CNN fundamentals](skills/07_cnn_image_fundamentals.ipynb) → [confidence-aware image classification](projects/image_classification_confidence/) |
-| Regression | [regression fundamentals](skills/08_regression_fundamentals.ipynb) → [UK House Prices](projects/uk_house_price_prediction/) |
+| Regression | [regression fundamentals](skills/08_regression_fundamentals.ipynb) → [XGBoost Bike Demand](projects/xgboost_bike_demand/) → [UK House Prices](projects/uk_house_price_prediction/) |
 | Clustering | [clustering fundamentals](skills/09_clustering_fundamentals.ipynb) → [Retail Segmentation](projects/retail_customer_segmentation/) |
 | SQL | [SQL fundamentals](skills/10_sql_analytics_fundamentals.ipynb) → [SQL + dbt analytics engineering](projects/ecommerce_sql_analytics/) |
+| Statistical modelling | [Statistical Marketing Mix](projects/statistical_marketing_mix/) — OLS, robust inference, diagnostics, bootstrap uncertainty and scenario analysis |
+| Apache Spark | [Apache Spark Retail Intelligence](projects/apache_spark_retail_intelligence/) → [PySpark Clickstream](projects/pyspark_clickstream_analytics/) |
 
 ## Intermediate — strongest end-to-end evidence
 
@@ -76,10 +78,15 @@ The underlying commercial evidence covers **98,199 orders**, **94,983 customers*
 
 ### Data engineering
 
-**[Reliable Event Pipeline](projects/reliable_event_pipeline/)** demonstrates ingestion, schema validation, reject handling, late-arriving data, idempotency, SQL reconciliation, audit metrics and automated tests. **[PySpark Clickstream](projects/pyspark_clickstream_analytics/)** adds distributed transformations over **165,474 real events** and a separate one-million-row load test.
+**[Reliable Event Pipeline](projects/reliable_event_pipeline/)** demonstrates ingestion, schema validation, reject handling, late-arriving data, idempotency, SQL reconciliation, audit metrics and automated tests. **[Apache Spark Retail Intelligence](projects/apache_spark_retail_intelligence/)** adds explicit schemas, a deterministic million-row workload, windows, Customer 360 feature engineering, Spark ML and partition-aware Parquet output. **[PySpark Clickstream](projects/pyspark_clickstream_analytics/)** adds distributed transformations over **165,474 real events** and a separate one-million-row load test.
 
-### ML / deep learning
+### Machine learning, deep learning, NLP and statistics
 
+- **[KNN Product Quality](projects/knn_product_quality/)** — scaling-sensitive nearest-neighbour classification, tuning, neighbour explanations and confidence review
+- **[XGBoost Bike Demand](projects/xgboost_bike_demand/)** — chronological demand forecasting, seasonal baseline, boosted-tree tuning, error slices and operations decisions
+- **[Deep Learning Marketing Response](projects/deep_learning_marketing_response/)** — real UCI data, leakage-aware preprocessing, logistic baseline and a trained PyTorch MLP with AdamW, dropout, BatchNorm, scheduling and early stopping
+- **[NLP Document Intelligence](projects/nlp_document_intelligence/)** — TF-IDF n-grams, Naive Bayes baseline, calibrated linear SVM, category keyword extraction and low-confidence human review
+- **[Statistical Marketing Mix](projects/statistical_marketing_mix/)** — OLS with HC3 standard errors, confidence intervals, VIF, residual diagnostics, bootstrap stability and budget scenarios
 - **[Customer Churn](projects/customer_churn_prediction/)** — grouped holdout, out-of-fold calibration and cost-aware threshold selection
 - **[Energy Demand Forecasting](projects/energy_demand_forecasting/)** — TensorFlow Conv1D + LSTM against a strong seasonal baseline
 - **[Image Classification](projects/image_classification_confidence/)** — EfficientNet-B0, bootstrap uncertainty, selective prediction, Grad-CAM and export verification
@@ -142,8 +149,8 @@ I keep the original executed notebooks rather than rewriting history. They are i
 
 ## Main stack
 
-**Data & BI:** Python · SQL · Pandas · NumPy · Power BI · DAX · TMDL · Tableau · PostgreSQL · DuckDB · PySpark · dbt  
-**ML:** scikit-learn · CatBoost · PyTorch · TensorFlow/Keras  
+**Data & BI:** Python · SQL · Pandas · NumPy · Power BI · DAX · TMDL · Tableau · PostgreSQL · DuckDB · Apache Spark/PySpark · dbt  
+**ML & Statistics:** scikit-learn · XGBoost · CatBoost · statsmodels · SciPy · PyTorch · TensorFlow/Keras  
 **Applied AI:** NLP · retrieval/RAG · computer vision · FastAPI  
 **Engineering:** Docker · Git · GitHub Actions · testing · data/model validation · model monitoring
 

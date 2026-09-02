@@ -25,10 +25,10 @@ The notebook depth target is roughly **800–1,200 meaningful lines of code, ide
 
 | Hiring route | Start here | Then inspect |
 | --- | --- | --- |
-| **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](reliable_event_pipeline/) | [PySpark Clickstream](pyspark_clickstream_analytics/) · [E-commerce SQL + dbt](ecommerce_sql_analytics/) |
-| **Data Scientist** | [Flight Delay Risk](flight_delay_risk/) | [Customer Churn](customer_churn_prediction/) · [UK House Prices](uk_house_price_prediction/) · [Retail Segmentation](retail_customer_segmentation/) |
-| **ML / AI Engineer** | [Grounded RAG](grounded_rag/) | [Image Classification](image_classification_confidence/) · [Energy Forecasting](energy_demand_forecasting/) · [ModelWatch](model_watch/) |
-| **Data Analyst / BI / Product Analyst** | [Executive Commerce Intelligence](executive_commerce_bi/) | [E-commerce SQL + dbt](ecommerce_sql_analytics/) · [ExperimentLab](experiment_lab/) |
+| **Data Engineer / Analytics Engineer** | [Reliable Event Pipeline](reliable_event_pipeline/) | [Apache Spark Retail Intelligence](apache_spark_retail_intelligence/) · [PySpark Clickstream](pyspark_clickstream_analytics/) · [E-commerce SQL + dbt](ecommerce_sql_analytics/) |
+| **Data Scientist** | [Flight Delay Risk](flight_delay_risk/) | [XGBoost Bike Demand](xgboost_bike_demand/) · [Customer Churn](customer_churn_prediction/) · [Statistical Marketing Mix](statistical_marketing_mix/) · [KNN Product Quality](knn_product_quality/) |
+| **ML / AI Engineer** | [Grounded RAG](grounded_rag/) | [Deep Learning Marketing Response](deep_learning_marketing_response/) · [NLP Document Intelligence](nlp_document_intelligence/) · [Image Classification](image_classification_confidence/) · [Energy Forecasting](energy_demand_forecasting/) |
+| **Data Analyst / BI / Product Analyst** | [Executive Commerce Intelligence](executive_commerce_bi/) | [Statistical Marketing Mix](statistical_marketing_mix/) · [E-commerce SQL + dbt](ecommerce_sql_analytics/) · [ExperimentLab](experiment_lab/) |
 
 ## Project map
 
@@ -36,14 +36,20 @@ The notebook depth target is roughly **800–1,200 meaningful lines of code, ide
 | --- | --- | --- |
 | **[Flight Delay Risk Platform](flight_delay_risk/)** | Data Science · ML Engineering | Official 2026 BTS data, chronological validation, untouched 180,000-flight test set, model card, FastAPI, Docker and CI |
 | **[Reliable Event Pipeline](reliable_event_pipeline/)** | Data Engineering | Schema contracts, reject handling, deduplication, late-arriving data, idempotent loads, SQL reconciliation and unit tests |
+| **[Apache Spark Retail Intelligence](apache_spark_retail_intelligence/)** | Data Engineering · Apache Spark | Explicit schemas, deterministic million-row workload, data-quality contracts, window functions, Customer 360 features, Spark ML and partition-aware Parquet output |
 | **[E-commerce SQL + dbt](ecommerce_sql_analytics/)** | Analytics Engineering · SQL | Explicit relational grains, financial reconciliation, cohorts/windows, staging-to-mart dbt models and data-quality tests over 98,199 orders |
 | **[PySpark Clickstream](pyspark_clickstream_analytics/)** | Data Engineering · Distributed Analytics | 165,474 real events, session transformations, a clearly labelled one-million-row load test and leakage-aware Spark ML |
 | **[Executive Commerce Intelligence](executive_commerce_bi/)** | BI · Analytics | Governed KPI layer, Power BI PBIP/PBIR + TMDL/DAX, Tableau source, retained dashboard evidence and CI |
 | **[Retail Cleaning & Segmentation](retail_customer_segmentation/)** | Data Science · Data Quality | Auditable cleaning of 541,909 transaction rows, validated RFM features, clustering diagnostics and tests |
 | **[Customer Churn](customer_churn_prediction/)** | Data Science | Grouped holdout, out-of-fold calibration, proxy-feature policy, cost-aware threshold and bootstrap intervals |
+| **[KNN Product Quality](knn_product_quality/)** | Data Science · K-Nearest Neighbours | Leakage-safe scaling, KNN hyperparameter search, scaling ablation, nearest-neighbour explanations, confidence review policy and saved inference pipeline |
+| **[XGBoost Bike Demand](xgboost_bike_demand/)** | Data Science · XGBoost | Public UCI bike-demand data, chronological validation, leakage controls, seasonal baseline, boosted-tree tuning, error slices and capacity-planning decisions |
+| **[Statistical Marketing Mix](statistical_marketing_mix/)** | Data Science · Statistical Modelling | OLS with HC3 errors, confidence intervals, VIF, residual diagnostics, bootstrap uncertainty, future holdout and budget scenarios on known synthetic ground truth |
 | **[UK House Prices](uk_house_price_prediction/)** | Data Science · Regression | Official Land Registry data, temporal holdout, strong location baseline, CatBoost and honest negative/small-gain reporting |
 | **[Energy Demand Forecasting](energy_demand_forecasting/)** | ML Engineering · TensorFlow | Chronological forecasting, strong seasonal baseline, Conv1D + LSTM, interval coverage and saved-model reload check |
+| **[Deep Learning Marketing Response](deep_learning_marketing_response/)** | ML Engineering · PyTorch | Real UCI campaign data, leakage review, logistic baseline, trained MLP, class imbalance handling, AdamW, early stopping, calibration/error slices and saved checkpoint |
 | **[Image Classification](image_classification_confidence/)** | ML Engineering · Computer Vision | PyTorch/EfficientNet-B0, calibration, selective review, Grad-CAM, bootstrap intervals and export parity |
+| **[NLP Document Intelligence](nlp_document_intelligence/)** | AI Engineering · NLP | Text cleaning, TF-IDF n-grams, Naive Bayes baseline, calibrated linear SVM, confidence routing, category keywords, confusion/error analysis and persisted inference |
 | **[Grounded RAG](grounded_rag/)** | AI Engineering · NLP | Hybrid retrieval, citations, abstention, tool routing, prompt-injection checks, FastAPI and Docker |
 | **[ModelWatch](model_watch/)** | MLOps | PSI/KS drift, discrimination and calibration checks, subgroup summaries and an explicit retraining policy |
 | **[ExperimentLab](experiment_lab/)** | Product Data Science | CUPED, bootstrap uncertainty, guardrails, power and a machine-readable ship/hold decision on labelled synthetic data |
