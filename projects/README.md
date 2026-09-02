@@ -19,7 +19,7 @@ For this repository, a project is not considered complete because it has a long 
 9. Retained results/evidence rather than unsupported performance claims.
 10. Limitations, risks, next steps and a reproducible run path.
 
-The notebook depth target is roughly **800–1,200 meaningful lines of code, ideally around 1,000**, but line count is never used as permission to add filler. Smaller projects must gain genuine functionality before being described as major portfolio projects.
+A useful depth guide is **around 500 meaningful lines of visible notebook code for a major project**, but this is not a quota. Focused applications may be smaller and production-style systems can be much larger. The rule is substantive work, not padding: extra code should add real data validation, cleaning, EDA, modelling, error analysis, explainability, inference, testing, monitoring or decision logic.
 
 ## Choose the route closest to the role
 
