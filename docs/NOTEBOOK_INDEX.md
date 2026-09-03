@@ -1,23 +1,21 @@
 # Notebook & Python Code Index
 
-This is the single place to find the repository's Jupyter notebooks and the Python code that supports the newer work.
+This is the single place to find the repository's recruiter-safe Jupyter notebooks and the Python code that supports the newer work.
 
-The repository intentionally keeps three layers:
+The repository has three layers:
 
-1. **Original / university / course notebooks** — retained and restored as evidence of the work and learning that came first.
+1. **Jorgo Luka university / course evidence** — work attributable to Jorgo or a clearly identifiable Jorgo contribution.
 2. **Focused skills notebooks + `.py` scripts** — compact DataCamp-style / interview-revision examples.
 3. **22 strengthened projects** — recruiter-facing `project_notebook.ipynb` applications plus normal Python/SQL/BI source files.
 
-## 1. Original university and course notebooks
+Lecturer tutorials, another student's notebook and raw group copies are kept only in the historical archive and are not indexed as Jorgo-authored evidence.
 
-These files are visible at repository root and are not replaced by the newer project notebooks.
+## 1. University and course evidence — Jorgo Luka
 
 ### Machine Learning / Big Data
 
-- [`Linear_Regression_PySpark_CN7030.ipynb`](../Linear_Regression_PySpark_CN7030.ipynb) — restored PySpark Linear Regression & regularisation work.
+- [`CN7030_Group3_Intrusion_Detection_Coursework.ipynb`](../CN7030_Group3_Intrusion_Detection_Coursework.ipynb) — Jorgo Luka individual CN7030 intrusion-detection / Logistic Regression coursework.
 - [`KDDCup.ipynb`](../KDDCup.ipynb) — KDD Cup network-intrusion analysis.
-- [`Logistic_Regression_PySpark.ipynb`](../Logistic_Regression_PySpark.ipynb) — PySpark Logistic Regression.
-- [`Naive_Bayes_PySpark.ipynb`](../Naive_Bayes_PySpark.ipynb) — PySpark Naive Bayes.
 - [`Parkinsons_Progression_ML.ipynb`](../Parkinsons_Progression_ML.ipynb)
 - [`01_UK_House_Price_Analysis_and_Prediction.ipynb`](../01_UK_House_Price_Analysis_and_Prediction.ipynb)
 - [`03_Customer_Churn_Prediction.ipynb`](../03_Customer_Churn_Prediction.ipynb)
@@ -43,12 +41,14 @@ These files are visible at repository root and are not replaced by the newer pro
 - [`07_London_Air_Quality_Analysis_with_R.ipynb`](../07_London_Air_Quality_Analysis_with_R.ipynb)
 - [`University_Server_Log_Analysis.ipynb`](../University_Server_Log_Analysis.ipynb)
 
-### LLM / Udemy & specialist learning
+### LLM / specialist course learning
+
+These are course-learning evidence rather than claims of authorship of the underlying course material:
 
 - [`LLM_Mastery_Hands_on_Code.ipynb`](../LLM_Mastery_Hands_on_Code.ipynb)
 - [`LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`](../LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb)
 
-### Other retained original / laboratory notebooks
+### Other retained Jorgo portfolio / laboratory notebooks
 
 - [`01_ConsultAI_AI_Opportunity_Engine.ipynb`](../01_ConsultAI_AI_Opportunity_Engine.ipynb)
 - [`Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb`](../Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb)
@@ -61,7 +61,7 @@ These files are visible at repository root and are not replaced by the newer pro
 - [`Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb`](../Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb)
 - [`financial_fraud_aml_detection_system.ipynb`](../financial_fraud_aml_detection_system.ipynb)
 
-Older coursework/group/data working files now use descriptive filenames at root. Their exact old filenames remain preserved in [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/).
+Raw group notebooks, lecturer tutorials, reference notebooks and exact old working filenames remain preserved in [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/) for historical context only.
 
 ## 2. Focused skills — notebook + Python pairs
 
