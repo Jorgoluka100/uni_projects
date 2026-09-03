@@ -5,9 +5,9 @@ honest evidence tiers:
 
 1. VERIFIED_NOTEBOOKS must contain retained executed output, narrative context,
    and no stored execution errors.
-2. ADVANCED_NOTEBOOKS must be valid, code-bearing, discoverable artefacts. Missing
-   notebook prose and old stored errors are surfaced as warnings while projects are
-   being upgraded and rerun; they cannot be promoted to verified status until clean.
+2. ADVANCED_NOTEBOOKS must be valid, code-bearing, discoverable artefacts that are
+   recruiter-safe Jorgo Luka portfolio evidence. Lecturer tutorials, another
+   student's notebook and raw group copies are historical archive material only.
 3. RETAINED_VERIFICATION_FILES are fresh-process, release-gate, methodology or
    engineering evidence files that must continue to report verification_pass=true.
 
@@ -49,10 +49,8 @@ ADVANCED_NOTEBOOKS = [
     "KDDCup.ipynb",
     "LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb",
     "LLM_Mastery_Hands_on_Code.ipynb",
-    "Logistic_Regression_PySpark.ipynb",
     "Movie_Recommendation_System_A_Hybrid_DL_Pipeline.ipynb",
     "NYC_Airbnb_Market_Analysis (1).ipynb",
-    "Naive_Bayes_PySpark.ipynb",
     "Parkinsons_Progression_ML.ipynb",
     "Pathfinding.ipynb",
     "PyTorch_medical_AI_xray_diagnosis.ipynb",
