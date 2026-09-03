@@ -19,6 +19,8 @@ EXPECTED = [
     "08_regression_fundamentals.ipynb",
     "09_clustering_fundamentals.ipynb",
     "10_sql_analytics_fundamentals.ipynb",
+    "11_support_vector_machines.ipynb",
+    "12_tree_and_ensemble_models.ipynb",
 ]
 
 
