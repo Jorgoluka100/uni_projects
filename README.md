@@ -11,7 +11,7 @@ Python · SQL · R · Apache Spark/PySpark · Machine Learning · Deep Learning 
 
 | Area | Best place to start |
 | --- | --- |
-| **Original university / MSc work** | Direct links below |
+| **Original university / MSc work** | [Full university project index](docs/UNIVERSITY_PROJECTS.md) · direct links below |
 | **Data Science** | [Flight Delay](projects/flight_delay_risk/) · [Linear Regression Energy](projects/linear_regression_energy_efficiency/) · [Customer Churn](projects/customer_churn_prediction/) |
 | **Machine Learning** | [KNN](projects/knn_product_quality/) · [XGBoost](projects/xgboost_bike_demand/) · [NLP classification](projects/nlp_document_intelligence/) |
 | **Deep Learning** | [CNN Retail Image Classification](projects/cnn_retail_image_classification/) · [Deep Learning Marketing](projects/deep_learning_marketing_response/) · [Energy Forecasting](projects/energy_demand_forecasting/) |
