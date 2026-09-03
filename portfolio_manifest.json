@@ -4,11 +4,10 @@
     "main_repository": "uni_projects",
     "analyst_repository": "primed-talent-data-analyst-bootcamp"
   },
+  "authorship_policy": "Recruiter-facing university evidence must be Jorgo Luka's own work or a clearly identifiable Jorgo Luka contribution. Lecturer tutorials, another student's notebook and raw group copies are historical archive material only.",
   "university_projects": [
+    {"id":"cn7030-jorgo-intrusion-detection","title":"CN7030 Intrusion Detection — Jorgo Luka Individual Coursework","notebook":"CN7030_Group3_Intrusion_Detection_Coursework.ipynb","follow_on":null,"skills":["PySpark","logistic regression","network security","intrusion detection","big data"]},
     {"id":"kdd-network-intrusion-university","title":"KDD Cup Network Intrusion / Cyber-Attack Analysis","notebook":"KDDCup.ipynb","follow_on":null,"skills":["cybersecurity analytics","network intrusion","KDD Cup 99","PySpark","classification"]},
-    {"id":"kdd-logistic-regression-pyspark-university","title":"KDD Intrusion Detection with PySpark Logistic Regression","notebook":"Logistic_Regression_PySpark.ipynb","follow_on":null,"skills":["PySpark","logistic regression","network security","classification","big data"]},
-    {"id":"kdd-naive-bayes-pyspark-university","title":"KDD Intrusion Detection with PySpark Naive Bayes","notebook":"Naive_Bayes_PySpark.ipynb","follow_on":null,"skills":["PySpark","Naive Bayes","network security","classification","big data"]},
-    {"id":"linear-regression-pyspark-cn7030-university","title":"PySpark Linear Regression & Regularisation — CN7030","notebook":"Linear_Regression_PySpark_CN7030.ipynb","follow_on":"projects/linear_regression_energy_efficiency","skills":["PySpark","linear regression","regularisation","regression","big data"]},
     {"id":"nlp-feature-comparison-cn7030-university","title":"CN7030 NLP Feature Extraction Comparison","notebook":"CN7030_Feature_Extraction_Comparison.ipynb","follow_on":"projects/nlp_document_intelligence","skills":["NLP","PySpark","feature extraction","text representation"]},
     {"id":"nlp-tfidf-cn7030-university","title":"CN7030 TF-IDF Feature Extraction","notebook":"CN7030_Feature_Extraction_using_TF_IDF.ipynb","follow_on":"projects/nlp_document_intelligence","skills":["NLP","TF-IDF","PySpark","feature engineering"]},
     {"id":"nlp-sequence-embedding-cn7030-university","title":"CN7030 NLP Sequence Embedding","notebook":"W8_CN7030_NLP_PySpark_Sequence_Embedding.ipynb","follow_on":"projects/nlp_document_intelligence","skills":["NLP","embeddings","PySpark","sequence representation"]},
