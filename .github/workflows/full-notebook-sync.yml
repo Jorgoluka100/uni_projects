@@ -1,4 +1,5 @@
 name: Sync full project notebooks
+# Portfolio depth gate currently covers 22 professional applications.
 
 on:
   workflow_dispatch:
