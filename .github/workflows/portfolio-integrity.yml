@@ -39,6 +39,12 @@ jobs:
       - name: Validate notebook and Python coverage
         run: python scripts/validate_notebook_coverage.py
 
+      - name: Validate full Python source mirrors in recruiter notebooks
+        run: python scripts/validate_full_python_mirrors.py
+
+      - name: Validate core ML algorithm coverage
+        run: python scripts/validate_algorithm_coverage.py
+
       - name: Self-test VisionForge release evidence gate
         run: python extensions/visionforge_release_gate.py --self-test
 
