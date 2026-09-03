@@ -1,45 +1,76 @@
-# Pre-cleanup original notebook archive — 11 August 2026
+# AI & Data Science Portfolio
 
-This folder preserves the exact notebook blobs that existed in the repository snapshot `archive/pre-cleanup-2026-08-11` but were later removed from the clean root layout.
+## Jorgo Luka — MSc Artificial Intelligence & Data Science (Distinction)
 
-**Purpose:** preservation, provenance and proof of earlier university/course work. These files are not the recruiter starting point; use the repository root README and `projects/` for the curated current portfolio.
+I build reproducible data products that start with a real decision, audit and clean the source data, establish an honest baseline, and finish with evaluated models, uncertainty, tests, and limitations.
 
-No notebook in this archive has been rewritten during restoration. Original filenames are intentionally retained, including `Copy_of_...` and `Untitled...` working copies.
+This repository contains work across Python, SQL, R, PyTorch, TensorFlow, PySpark, Pandas, NumPy, Matplotlib, Seaborn, DuckDB, and scikit-learn. The projects below are the best place to start: they are fully executed, preserve their outputs, and contain no stored notebook errors.
 
-## Clearly identifiable university / skills notebooks
+## Start here
 
-- [Linear_Regression_PySpark_CN7030.ipynb](Linear_Regression_PySpark_CN7030.ipynb) — PySpark linear regression and regularisation on diabetes data.
-- [CN7030_Feature_Extraction_Comparison.ipynb](CN7030_Feature_Extraction_Comparison.ipynb) — PySpark NLP feature extraction / representation work.
-- [CN7030_Feature_Extraction_using_TF_IDF.ipynb](CN7030_Feature_Extraction_using_TF_IDF.ipynb) — TF-IDF feature extraction work.
-- [W8_CN7030_NLP_PySpark_Sequence_Embedding.ipynb](W8_CN7030_NLP_PySpark_Sequence_Embedding.ipynb) — NLP / PySpark sequence-embedding work.
-- [Tutorial2_PySpark_DF_CN7030_(uel).ipynb](Tutorial2_PySpark_DF_CN7030_(uel).ipynb) — UEL PySpark DataFrame learning notebook.
-- [Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb](Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb) — university-server-log analysis working copy.
-- [Copy_of_Yet_another_copy_of_UniversityServerLogs (1).ipynb](Copy_of_Yet_another_copy_of_UniversityServerLogs%20(1).ipynb) — second preserved university-server-log copy.
+| Project | Problem solved | Verified evidence | Main tools | Open |
+|---|---|---|---|---|
+| **UK House Price Analysis and Prediction** | Produce a forward-looking residential price range while being explicit about uncertainty and missing property characteristics. | 995,059 modelling transactions; 216,564-sale untouched 2026 test; CatBoost MAE **£81,805**, R² **0.604**; 90% interval coverage **91.6%**. | Python, Pandas, NumPy, DuckDB SQL, CatBoost | [Notebook](01_UK_House_Price_Analysis_and_Prediction.ipynb) · [Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/01_UK_House_Price_Analysis_and_Prediction.ipynb) |
+| **SQL Sales and Customer Analysis** | Build trustworthy marketplace KPIs from nine relational tables without multiplying money across incompatible grains. | **98,199** commercial orders, **94,983** customers and **R$13.49M** merchandise value reconciled; source hashes, key checks, semantic-layer tests and artifact tests all passed. | SQL, DuckDB, Python, Pandas, Parquet | [Notebook](02_SQL_Sales_and_Customer_Analysis.ipynb) · [Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/02_SQL_Sales_and_Customer_Analysis.ipynb) |
+| **London Air Quality Analysis with R** | Turn messy, daily-updated government files into an auditable monitoring panel and test whether past-only features improve hourly NO₂ estimates. | Official 2025–2026 data; 143,102 observed station-hours; untouched 2026 MAE **10.48** and R² **0.056**; 90% interval coverage **88.2%**. | R, data.table, ggplot2, mgcv | [Notebook](07_London_Air_Quality_Analysis_with_R.ipynb) · [Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/07_London_Air_Quality_Analysis_with_R.ipynb) |
+| **Image Classification with CNNs and Transfer Learning** | Classify pet breeds and route uncertain predictions to human review instead of automating every case. | 7,349 real images and 37 breeds; test accuracy **58.5%**, macro-F1 **56.3%**, top-3 accuracy **83.1%**; accepted-case accuracy **80.9%** at **49.1%** coverage. | PyTorch, torchvision, MobileNetV3, Grad-CAM | [Notebook](04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb) · [Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb) |
+| **Clickstream Analysis with PySpark** | Measure engagement drop-off at Spark scale and identify higher-intent shopping sessions without using post-purchase leakage. | 165,474 real click events across 24,026 sessions; separate 12,330-session conversion dataset; test PR-AUC **0.351** versus **0.155** prevalence and ROC-AUC **0.763**. | PySpark, Spark SQL, Spark ML | [Notebook](06_Clickstream_Analysis_with_PySpark.ipynb) · [Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/06_Clickstream_Analysis_with_PySpark.ipynb) |
 
-## Coursework / project working copies retained exactly
+## Additional verified work
 
-- [3_CRWK_CN7030.ipynb](3_CRWK_CN7030.ipynb)
-- [Group3_CRWK_CN7030.ipynb](Group3_CRWK_CN7030.ipynb)
-- [Copy_of_35_CRWK_CN7030.ipynb](Copy_of_35_CRWK_CN7030.ipynb)
-- [Copy_of_3_CRWK_CN7030Copy.ipynb](Copy_of_3_CRWK_CN7030Copy.ipynb)
-- [Copy_of_Your_Group_ID_CRWK_CN7030.ipynb](Copy_of_Your_Group_ID_CRWK_CN7030.ipynb)
-- [Yet_another_copy_of_Your_Group_ID_CRWK_CN7030.ipynb](Yet_another_copy_of_Your_Group_ID_CRWK_CN7030.ipynb)
-- [Another_copy_of_TheOne.ipynb](Another_copy_of_TheOne.ipynb)
-- [Dataset.ipynb](Dataset.ipynb)
-- [Dataset1.ipynb](Dataset1.ipynb)
-- [Copy_of_Untitled4.ipynb](Copy_of_Untitled4.ipynb)
+### Customer Churn Prediction
 
-## Additional historical working notebooks
+A decision-ready telecom churn screening system with duplicate-profile grouped validation, cross-fitted probability calibration, proxy-feature review, cost-based thresholding, bootstrap intervals, subgroup diagnostics, drift monitoring and exact artifact reload checks. The status-excluded histogram gradient boosting model achieved holdout PR-AUC **0.955** (95% bootstrap interval **0.927–0.980**) and ROC-AUC **0.990**. At the training-selected threshold, it recalled **94.9%** of churners at **73.2%** precision while flagging **20.2%** of customers for review.
 
-- [Untitled1.ipynb](Untitled1.ipynb)
-- [Untitled3.ipynb](Untitled3.ipynb)
-- [Untitled4.ipynb](Untitled4.ipynb)
-- [Untitled5 (1).ipynb](Untitled5%20(1).ipynb)
-- [Untitled7.ipynb](Untitled7.ipynb)
-- [Untitled9.ipynb](Untitled9.ipynb)
-- [Untitled9 (1).ipynb](Untitled9%20(1).ipynb)
-- [Untitled10.ipynb](Untitled10.ipynb)
+[Open notebook](03_Customer_Churn_Prediction.ipynb) · [Run in Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/03_Customer_Churn_Prediction.ipynb)
 
-## Portfolio rule
+> Data-freshness note: this project uses the historical UCI Iranian Churn dataset. It demonstrates rigorous classification and decision design, not current telecom-market behaviour.
 
-The curated current portfolio remains the priority. This archive exists so historical work is never lost again. Original university/course notebooks at repository root remain protected separately, and the current 21 professional applications remain under `projects/`.
+### Energy Demand Forecasting with TensorFlow
+
+A chronological 14-day electricity-demand forecast with an LSTM, two honest baselines, prediction intervals, saved-model verification, and automated checks. On the untouched test period, the LSTM achieved MAE **43.51**, improving on the 7-day seasonal baseline MAE of **53.18** by **18.2%**.
+
+[Open notebook](05_Energy_Demand_Forecasting_with_TensorFlow.ipynb) · [Run in Colab](https://colab.research.google.com/github/Jorgoluka100/uni_projects/blob/main/05_Energy_Demand_Forecasting_with_TensorFlow.ipynb)
+
+> Data-freshness note: this project uses the official Open Power System Data series from 2006–2017. It is presented as a time-series methodology project, not a description of today's German electricity market.
+
+### Data Analyst Bootcamp Portfolio
+
+The separate [Data Analyst Bootcamp repository](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp) contains applied SQL, Python, data cleaning, reporting, regression, and Power BI work. Its strongest executed case study is the [Retail Margin Pipeline](https://github.com/Jorgoluka100/primed-talent-data-analyst-bootcamp/blob/main/01_retail_margin_pipeline.ipynb), which identifies where discounting, geography, and product mix erode profit.
+
+## How I build a project
+
+1. Define the decision, user, target, and failure cost.
+2. Document source provenance, licence, time coverage, and known limitations.
+3. Audit missingness, duplicates, invalid values, ranges, types, and join integrity.
+4. Fit preprocessing on training data only and prevent temporal, group, or target leakage.
+5. Compare against a simple baseline before selecting a more complex model.
+6. Reserve an untouched test set and report metrics that match the decision.
+7. Add uncertainty, error analysis, slices, or a human-review policy where appropriate.
+8. Reload the saved artifact and run automated acceptance checks.
+9. State what the result does **not** prove.
+
+## Skills evidenced
+
+| Capability | Evidence |
+|---|---|
+| Data cleaning and preprocessing | Explicit schemas, missing-value audits, duplicate controls, range checks, categorical handling, training-only transforms |
+| SQL and analytical querying | DuckDB SQL in the house-price project; Spark SQL in clickstream analysis; applied SQL work in the bootcamp repository |
+| Classical machine learning | CatBoost, histogram gradient boosting, regularised regression, baselines, tuning, calibration, error analysis |
+| Deep learning | CNNs, transfer learning, TensorFlow LSTMs, staged fine-tuning, Grad-CAM, model export |
+| Big-data processing | PySpark DataFrames, windows, sessionisation, Spark SQL, Spark ML, one-million-row load test |
+| Statistics and R | Time-aware modelling, GAMs, conformal intervals, data.table, ggplot2 |
+| Communication and governance | Decision framing, model cards, limitations, data licences, human escalation, reproducibility checks |
+
+## Evidence policy
+
+- A result is called **verified** only when the notebook has been run end to end, retains the produced outputs, contains no stored error, and passes its documented checks.
+- Current official data are preferred when they suit the problem. Older public datasets are labelled clearly and used only when the project is primarily demonstrating a method.
+- A large or complicated model is not automatically better. Every model must earn its place against a relevant baseline.
+- Files not featured above should be treated as coursework, experiments, or work awaiting re-validation—not as finished portfolio claims.
+
+## Current focus
+
+I am curating and expanding the existing portfolio one project at a time. Each promoted project must solve a clear problem, teach the full workflow from raw data to decision, and be defensible in a technical interview.
+
+For opportunities in data science, machine learning, AI, or analytics, contact me through my [GitHub profile](https://github.com/Jorgoluka100).
