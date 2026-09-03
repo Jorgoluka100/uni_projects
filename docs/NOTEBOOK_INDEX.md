@@ -41,7 +41,7 @@ These files are visible at repository root and are not replaced by the newer pro
 - [`02_SQL_Sales_and_Customer_Analysis.ipynb`](../02_SQL_Sales_and_Customer_Analysis.ipynb)
 - [`06_Clickstream_Analysis_with_PySpark.ipynb`](../06_Clickstream_Analysis_with_PySpark.ipynb)
 - [`07_London_Air_Quality_Analysis_with_R.ipynb`](../07_London_Air_Quality_Analysis_with_R.ipynb)
-- [`Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb`](../Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb)
+- [`University_Server_Log_Analysis.ipynb`](../University_Server_Log_Analysis.ipynb)
 
 ### LLM / Udemy & specialist learning
 
@@ -61,7 +61,7 @@ These files are visible at repository root and are not replaced by the newer pro
 - [`Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb`](../Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb)
 - [`financial_fraud_aml_detection_system.ipynb`](../financial_fraud_aml_detection_system.ipynb)
 
-All older coursework/group/data/`Untitled...` working files are also restored at root and preserved in [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/).
+Older coursework/group/data working files now use descriptive filenames at root. Their exact old filenames remain preserved in [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/).
 
 ## 2. Focused skills — notebook + Python pairs
 
@@ -77,6 +77,8 @@ All older coursework/group/data/`Untitled...` working files are also restored at
 | Linear Regression | [`08_regression_fundamentals.ipynb`](../skills/08_regression_fundamentals.ipynb) | [`08_regression_fundamentals.py`](../skills/08_regression_fundamentals.py) |
 | Clustering | [`09_clustering_fundamentals.ipynb`](../skills/09_clustering_fundamentals.ipynb) | [`09_clustering_fundamentals.py`](../skills/09_clustering_fundamentals.py) |
 | SQL analytics | [`10_sql_analytics_fundamentals.ipynb`](../skills/10_sql_analytics_fundamentals.ipynb) | [`10_sql_analytics_fundamentals.py`](../skills/10_sql_analytics_fundamentals.py) |
+| Support Vector Machines | [`11_support_vector_machines.ipynb`](../skills/11_support_vector_machines.ipynb) | [`11_support_vector_machines.py`](../skills/11_support_vector_machines.py) |
+| Trees & ensemble models | [`12_tree_and_ensemble_models.ipynb`](../skills/12_tree_and_ensemble_models.ipynb) | [`12_tree_and_ensemble_models.py`](../skills/12_tree_and_ensemble_models.py) |
 
 ## 3. Strengthened projects — 22 notebook-first applications
 
@@ -96,7 +98,7 @@ All older coursework/group/data/`Untitled...` working files are also restored at
 | Deep Learning Marketing Response | [`project_notebook.ipynb`](../projects/deep_learning_marketing_response/project_notebook.ipynb) | [`projects/deep_learning_marketing_response/`](../projects/deep_learning_marketing_response/) |
 | NLP Document Intelligence | [`project_notebook.ipynb`](../projects/nlp_document_intelligence/project_notebook.ipynb) | [`projects/nlp_document_intelligence/`](../projects/nlp_document_intelligence/) |
 | Image Classification Confidence | [`project_notebook.ipynb`](../projects/image_classification_confidence/project_notebook.ipynb) | [`projects/image_classification_confidence/`](../projects/image_classification_confidence/) |
-| **CNN Retail Image Classification & Confidence Routing** | [`project_notebook.ipynb`](../projects/cnn_retail_image_classification/project_notebook.ipynb) | [`projects/cnn_retail_image_classification/`](../projects/cnn_retail_image_classification/) |
+| **CNN 2D Image Classification — Convolutions, Padding & Confidence** | [`project_notebook.ipynb`](../projects/cnn_retail_image_classification/project_notebook.ipynb) | [`projects/cnn_retail_image_classification/`](../projects/cnn_retail_image_classification/) |
 | Energy Demand Forecasting | [`project_notebook.ipynb`](../projects/energy_demand_forecasting/project_notebook.ipynb) | [`projects/energy_demand_forecasting/`](../projects/energy_demand_forecasting/) |
 | ModelWatch | [`project_notebook.ipynb`](../projects/model_watch/project_notebook.ipynb) | [`projects/model_watch/`](../projects/model_watch/) |
 | Reliable Event Pipeline | [`project_notebook.ipynb`](../projects/reliable_event_pipeline/project_notebook.ipynb) | [`projects/reliable_event_pipeline/`](../projects/reliable_event_pipeline/) |
