@@ -33,15 +33,15 @@ This inventory separates **original university/course work**, **focused foundati
 - [`02_SQL_Sales_and_Customer_Analysis.ipynb`](../02_SQL_Sales_and_Customer_Analysis.ipynb)
 - [`06_Clickstream_Analysis_with_PySpark.ipynb`](../06_Clickstream_Analysis_with_PySpark.ipynb)
 - [`07_London_Air_Quality_Analysis_with_R.ipynb`](../07_London_Air_Quality_Analysis_with_R.ipynb)
-- [`Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb`](../Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb)
+- [`University_Server_Log_Analysis.ipynb`](../University_Server_Log_Analysis.ipynb)
 
-Full academic index: [`UNIVERSITY_PROJECTS.md`](UNIVERSITY_PROJECTS.md). Older coursework/group/data/Untitled working notebooks are restored at repository root and also preserved unchanged under [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/).
+Full academic index: [`UNIVERSITY_PROJECTS.md`](UNIVERSITY_PROJECTS.md). Older coursework/group/data working notebooks now use descriptive names at repository root, while exact pre-cleanup filenames remain preserved unchanged under [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/).
 
 ## LLM / Udemy & focused foundations
 
 - [`LLM_Mastery_Hands_on_Code.ipynb`](../LLM_Mastery_Hands_on_Code.ipynb)
 - [`LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`](../LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb)
-- [`skills/`](../skills/) — concise notebook + Python pairs for cleaning, NumPy, classification, PyTorch, LSTM, NLP, CNNs, Linear Regression, clustering and SQL.
+- [`skills/`](../skills/) — concise notebook + Python pairs for cleaning, NumPy, classification, PyTorch, LSTM, NLP, CNNs, Linear Regression, clustering, SQL, SVMs and tree/ensemble methods.
 
 # 22 professional applications
 
