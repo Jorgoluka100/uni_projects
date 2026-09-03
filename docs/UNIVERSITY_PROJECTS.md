@@ -33,7 +33,7 @@ These are the original university/course notebooks retained from the MSc Artific
 - [`02_SQL_Sales_and_Customer_Analysis.ipynb`](../02_SQL_Sales_and_Customer_Analysis.ipynb)
 - [`06_Clickstream_Analysis_with_PySpark.ipynb`](../06_Clickstream_Analysis_with_PySpark.ipynb)
 - [`07_London_Air_Quality_Analysis_with_R.ipynb`](../07_London_Air_Quality_Analysis_with_R.ipynb)
-- [`Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb`](../Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb)
+- [`University_Server_Log_Analysis.ipynb`](../University_Server_Log_Analysis.ipynb)
 
 ## LLM / specialist course work
 
@@ -42,6 +42,6 @@ These are the original university/course notebooks retained from the MSc Artific
 
 ## Historical originals
 
-The older coursework/group/data/`Untitled...` notebooks are restored to the repository root. Exact pre-cleanup copies are also retained in [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/) so nothing from the earlier portfolio is lost again.
+Older coursework/group/data working notebooks now use clear descriptive filenames at repository root. Their exact pre-cleanup filenames and copies are still retained unchanged in [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/), so nothing from the earlier portfolio is lost.
 
 Return to the **[single portfolio homepage](../README.md)** for the full Data Science, Machine Learning, Deep Learning, AI, Data Engineering and Analytics routes across all 22 professional projects.
