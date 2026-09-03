@@ -1,5 +1,5 @@
 {
-  "policy": "Original university/course/laboratory notebooks and exact historical copies must remain in the repository. Professional projects may be added alongside them. Descriptive root-level renames are permitted only with the owner's explicit approval when the exact historical filenames remain preserved in the pre-cleanup archive; automation must not otherwise delete, rename or silently replace these originals.",
+  "policy": "Original university/course/laboratory notebooks and exact historical copies must remain in the repository. Professional projects may be added alongside them. Descriptive root-level renames and removal of redundant root copies are permitted only with the owner's explicit approval when the exact historical filenames remain preserved in the pre-cleanup archive; automation must not otherwise delete, rename or silently replace these originals.",
   "required_paths": [
     "KDDCup.ipynb",
     "Logistic_Regression_PySpark.ipynb",
@@ -9,7 +9,6 @@
     "CN7030_Feature_Extraction_using_TF_IDF.ipynb",
     "W8_CN7030_NLP_PySpark_Sequence_Embedding.ipynb",
     "University_Server_Log_Analysis.ipynb",
-    "University_Server_Log_Analysis_Alternate.ipynb",
     "Parkinsons_Progression_ML.ipynb",
     "01_UK_House_Price_Analysis_and_Prediction.ipynb",
     "02_SQL_Sales_and_Customer_Analysis.ipynb",
@@ -37,10 +36,7 @@
     "XGBoost_Regression_Explainability_SHAP_LIME.ipynb",
     "CN7030_Group35_Logistic_Regression_Coursework_Reference.ipynb",
     "CN7030_Group3_Data_Preparation_Coursework.ipynb",
-    "Heat_Stress_Clustering_Analysis_Alternate.ipynb",
     "CN7030_Group_Coursework_Complete_Working_Notebook.ipynb",
-    "Heat_Stress_Thermal_Sensation_Clustering_v1.ipynb",
-    "Heat_Stress_Thermal_Sensation_Clustering_v2.ipynb",
     "Group3_CRWK_CN7030.ipynb",
     "Tutorial2_PySpark_DF_CN7030_(uel).ipynb",
     "Authentication_Log_Anomaly_Detection.ipynb",
@@ -60,7 +56,6 @@
     "CN7030_Feature_Extraction_using_TF_IDF.ipynb": "dd0bd3b0833ed2c52d9d7653fe74837f45e40066",
     "W8_CN7030_NLP_PySpark_Sequence_Embedding.ipynb": "f0c7c9ba4a300ed8e77ad1113c46b8e0b7419329",
     "University_Server_Log_Analysis.ipynb": "06c2120e3f2ea591311f1c6cc1b756a4ea677c0b",
-    "University_Server_Log_Analysis_Alternate.ipynb": "01aa0f70c88d6914c6461d3d094d331ab3dfea43",
     "KDDCup.ipynb": "7fbe37735c5b37165cf2121a55a78ae176fa3278",
     "Logistic_Regression_PySpark.ipynb": "9619c2a87835917f72781ae018415edfb1519dda",
     "Naive_Bayes_PySpark.ipynb": "5bc5492c7c7c554e9f8f3140c3c35c2a358998c6",
