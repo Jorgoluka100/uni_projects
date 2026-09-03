@@ -8,9 +8,12 @@ on:
     paths:
       - 'scripts/build_full_project_notebooks.py'
       - 'scripts/enrich_project_notebooks.py'
+      - 'scripts/ensure_full_python_in_notebooks.py'
       - 'scripts/append_visual_analysis.py'
       - 'scripts/append_decision_analysis.py'
       - 'scripts/validate_notebook_coverage.py'
+      - 'scripts/validate_full_python_mirrors.py'
+      - 'scripts/validate_algorithm_coverage.py'
       - 'scripts/validate_full_portfolio_projects.py'
       - '.github/workflows/full-notebook-sync.yml'
       - 'projects/**/*.py'
@@ -43,6 +46,9 @@ jobs:
       - name: Preserve originals and add application code
         run: python scripts/enrich_project_notebooks.py
 
+      - name: Ensure every Python file is fully visible in the notebook
+        run: python scripts/ensure_full_python_in_notebooks.py
+
       - name: Add deeper visual analysis
         run: python scripts/append_visual_analysis.py
 
@@ -51,6 +57,12 @@ jobs:
 
       - name: Validate notebook portfolio
         run: python scripts/validate_notebook_coverage.py
+
+      - name: Validate full Python source mirrors
+        run: python scripts/validate_full_python_mirrors.py
+
+      - name: Validate core ML algorithm coverage
+        run: python scripts/validate_algorithm_coverage.py
 
       - name: Validate every project as a complete portfolio piece
         run: python scripts/validate_full_portfolio_projects.py
@@ -64,5 +76,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add projects/*/project_notebook.ipynb
-          git commit -m 'Complete recruiter notebooks with robustness analysis'
+          git commit -m 'Synchronise complete Python source into recruiter notebooks'
           git push
