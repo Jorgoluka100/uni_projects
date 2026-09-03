@@ -1,15 +1,13 @@
 # Complete Project Catalog
 
-This inventory separates **original university/course work**, **focused foundations**, and **22 full professional applications**. The portfolio also makes Data Science, Machine Learning, Deep Learning, Computer Vision, NLP/LLMs, Data Engineering/MLOps and Analytics/BI explicit.
+This inventory separates **Jorgo Luka university/course evidence**, **focused foundations**, and **22 full professional applications**. Recruiter-facing evidence is limited to work attributable to Jorgo Luka or a clearly identifiable Jorgo contribution. Lecturer tutorials, another student's notebook and raw group copies are retained only in the historical archive.
 
-## Original MSc / university / course evidence
+## MSc / university / course evidence — Jorgo Luka
 
 ### Machine Learning / Big Data
 
-- [`Linear_Regression_PySpark_CN7030.ipynb`](../Linear_Regression_PySpark_CN7030.ipynb) — restored PySpark Linear Regression and regularisation coursework.
+- [`CN7030_Group3_Intrusion_Detection_Coursework.ipynb`](../CN7030_Group3_Intrusion_Detection_Coursework.ipynb) — individual Jorgo Luka CN7030 intrusion-detection / PySpark Logistic Regression coursework.
 - [`KDDCup.ipynb`](../KDDCup.ipynb) — KDD Cup network intrusion / cyber-attack analysis.
-- [`Logistic_Regression_PySpark.ipynb`](../Logistic_Regression_PySpark.ipynb) — PySpark Logistic Regression on KDD intrusion data.
-- [`Naive_Bayes_PySpark.ipynb`](../Naive_Bayes_PySpark.ipynb) — PySpark Naive Bayes on KDD intrusion data.
 - [`Parkinsons_Progression_ML.ipynb`](../Parkinsons_Progression_ML.ipynb)
 - [`01_UK_House_Price_Analysis_and_Prediction.ipynb`](../01_UK_House_Price_Analysis_and_Prediction.ipynb)
 - [`03_Customer_Churn_Prediction.ipynb`](../03_Customer_Churn_Prediction.ipynb)
@@ -35,12 +33,16 @@ This inventory separates **original university/course work**, **focused foundati
 - [`07_London_Air_Quality_Analysis_with_R.ipynb`](../07_London_Air_Quality_Analysis_with_R.ipynb)
 - [`University_Server_Log_Analysis.ipynb`](../University_Server_Log_Analysis.ipynb)
 
-Full academic index: [`UNIVERSITY_PROJECTS.md`](UNIVERSITY_PROJECTS.md). Older coursework/group/data working notebooks now use descriptive names at repository root, while exact pre-cleanup filenames remain preserved unchanged under [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/).
+Full academic index: [`UNIVERSITY_PROJECTS.md`](UNIVERSITY_PROJECTS.md).
 
-## LLM / Udemy & focused foundations
+### Historical course context — archive only
 
-- [`LLM_Mastery_Hands_on_Code.ipynb`](../LLM_Mastery_Hands_on_Code.ipynb)
-- [`LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`](../LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb)
+Raw group coursework, lecturer-authored tutorials, reference notebooks, old copies, datasets and exact pre-cleanup filenames remain preserved unchanged under [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/). They document learning history but are **not counted or presented as Jorgo Luka-authored portfolio projects**.
+
+## LLM / specialist course learning & focused foundations
+
+- [`LLM_Mastery_Hands_on_Code.ipynb`](../LLM_Mastery_Hands_on_Code.ipynb) — hands-on course-learning evidence.
+- [`LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`](../LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb) — hands-on architecture/alignment course-learning evidence.
 - [`skills/`](../skills/) — concise notebook + Python pairs for cleaning, NumPy, classification, PyTorch, LSTM, NLP, CNNs, Linear Regression, clustering, SQL, SVMs and tree/ensemble methods.
 
 # 22 professional applications
@@ -81,7 +83,7 @@ Every project below has a recruiter-facing notebook plus implementation and evid
 
 22. [`projects/executive_commerce_bi/`](../projects/executive_commerce_bi/) — governed KPIs, Power BI PBIP/PBIR/TMDL, DAX, Tableau and validation.
 
-## Other original / laboratory notebooks retained
+## Other retained Jorgo portfolio / laboratory notebooks
 
 - [`01_ConsultAI_AI_Opportunity_Engine.ipynb`](../01_ConsultAI_AI_Opportunity_Engine.ipynb)
 - [`Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb`](../Advanced_Multi_Modal_Health_Analytics_Diagnostic_Suite.ipynb)
