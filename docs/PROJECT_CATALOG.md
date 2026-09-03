@@ -35,7 +35,7 @@ This inventory separates **original university/course work**, **focused foundati
 - [`07_London_Air_Quality_Analysis_with_R.ipynb`](../07_London_Air_Quality_Analysis_with_R.ipynb)
 - [`Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb`](../Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb)
 
-Full academic index: [`UNIVERSITY_PROJECTS.md`](UNIVERSITY_PROJECTS.md). Older coursework/group/data/`Untitled...` notebooks are restored at repository root and also preserved unchanged under [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/).
+Full academic index: [`UNIVERSITY_PROJECTS.md`](UNIVERSITY_PROJECTS.md). Older coursework/group/data/Untitled working notebooks are restored at repository root and also preserved unchanged under [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/).
 
 ## LLM / Udemy & focused foundations
 
@@ -45,7 +45,7 @@ Full academic index: [`UNIVERSITY_PROJECTS.md`](UNIVERSITY_PROJECTS.md). Older c
 
 # 22 professional applications
 
-Every project below has a recruiter-facing `project_notebook.ipynb` plus implementation/evidence.
+Every project below has a recruiter-facing notebook plus implementation and evidence files.
 
 ## Data Science & Decision Science
 
