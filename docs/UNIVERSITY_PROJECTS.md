@@ -1,13 +1,13 @@
 # MSc / University & Course Projects
 
-These are the original university/course notebooks retained from the MSc Artificial Intelligence & Data Science period. They stay visible as academic evidence, while several topics also have newer production-style follow-on projects.
+This page surfaces university/course evidence only where it is reasonable to present the notebook as **Jorgo Luka's own work or an identifiable Jorgo Luka contribution**. Lecturer-authored tutorials, another student's notebook and raw group copies are preserved in the historical archive instead of being presented as Jorgo-authored portfolio evidence.
 
 ## Machine Learning / Big Data
 
-| University project | Original notebook(s) | Stronger follow-on evidence | Main skills |
+| University project | Notebook | Stronger follow-on evidence | Main skills |
 | --- | --- | --- | --- |
-| **PySpark Linear Regression & Regularisation — CN7030** | [`Linear_Regression_PySpark_CN7030.ipynb`](../Linear_Regression_PySpark_CN7030.ipynb) | [`projects/linear_regression_energy_efficiency/`](../projects/linear_regression_energy_efficiency/) | PySpark, Linear Regression, regularisation, regression evaluation |
-| **Network Intrusion / Cyber-Attack Detection — KDD Cup** | [`KDDCup.ipynb`](../KDDCup.ipynb) · [`Logistic_Regression_PySpark.ipynb`](../Logistic_Regression_PySpark.ipynb) · [`Naive_Bayes_PySpark.ipynb`](../Naive_Bayes_PySpark.ipynb) | KDD extensions and verified evidence | PySpark, Logistic Regression, Naive Bayes, classification, big data |
+| **CN7030 Intrusion Detection — Jorgo Luka individual coursework** | [`CN7030_Group3_Intrusion_Detection_Coursework.ipynb`](../CN7030_Group3_Intrusion_Detection_Coursework.ipynb) | classification / PySpark portfolio evidence | PySpark, Logistic Regression, intrusion detection, big data |
+| **Network Intrusion / Cyber-Attack Analysis — KDD Cup** | [`KDDCup.ipynb`](../KDDCup.ipynb) | KDD extension and verified evidence | PySpark, network intrusion, classification, big data |
 | **Parkinson's Progression Modelling** | [`Parkinsons_Progression_ML.ipynb`](../Parkinsons_Progression_ML.ipynb) | [`projects/parkinsons_progression/`](../projects/parkinsons_progression/) | cleaning, regression, grouped validation |
 | **UK House Price Analysis & Prediction** | [`01_UK_House_Price_Analysis_and_Prediction.ipynb`](../01_UK_House_Price_Analysis_and_Prediction.ipynb) | [`projects/uk_house_price_prediction/`](../projects/uk_house_price_prediction/) | regression, feature engineering, evaluation |
 | **Customer Churn Prediction** | [`03_Customer_Churn_Prediction.ipynb`](../03_Customer_Churn_Prediction.ipynb) | [`projects/customer_churn_prediction/`](../projects/customer_churn_prediction/) | classification, preprocessing, thresholds |
@@ -22,9 +22,9 @@ These are the original university/course notebooks retained from the MSc Artific
 
 ## Deep Learning / Computer Vision
 
-- [`04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb`](../04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb) — original CNN / transfer-learning work.
+- [`04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb`](../04_Image_Classification_with_CNNs_and_Transfer_Learning.ipynb) — CNN / transfer-learning evidence.
 - [`05_Energy_Demand_Forecasting_with_TensorFlow.ipynb`](../05_Energy_Demand_Forecasting_with_TensorFlow.ipynb) — TensorFlow/Keras forecasting.
-- [`PyTorch_medical_AI_xray_diagnosis.ipynb`](../PyTorch_medical_AI_xray_diagnosis.ipynb) — retained medical imaging work.
+- [`PyTorch_medical_AI_xray_diagnosis.ipynb`](../PyTorch_medical_AI_xray_diagnosis.ipynb) — retained medical-imaging work.
 - [`12_VisionForge_PyTorch_Visual_Inspection.ipynb`](../12_VisionForge_PyTorch_Visual_Inspection.ipynb) — PyTorch visual inspection.
 - Professional follow-ons: [`projects/cnn_retail_image_classification/`](../projects/cnn_retail_image_classification/) and [`projects/image_classification_confidence/`](../projects/image_classification_confidence/).
 
@@ -35,13 +35,15 @@ These are the original university/course notebooks retained from the MSc Artific
 - [`07_London_Air_Quality_Analysis_with_R.ipynb`](../07_London_Air_Quality_Analysis_with_R.ipynb)
 - [`University_Server_Log_Analysis.ipynb`](../University_Server_Log_Analysis.ipynb)
 
-## LLM / specialist course work
+## LLM / specialist course learning
+
+These are labelled as hands-on **course-learning evidence**, not claims that the underlying course material was authored by Jorgo Luka:
 
 - [`LLM_Mastery_Hands_on_Code.ipynb`](../LLM_Mastery_Hands_on_Code.ipynb)
 - [`LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`](../LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb)
 
-## Historical originals
+## Historical archive — not recruiter-facing authorship evidence
 
-Older coursework/group/data working notebooks now use clear descriptive filenames at repository root. Their exact pre-cleanup filenames and copies are still retained unchanged in [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/), so nothing from the earlier portfolio is lost.
+Raw group notebooks, lecturer tutorials, reference notebooks, old copies, datasets and the original working filenames are retained unchanged in [`originals/pre_cleanup_2026_08_11/`](../originals/pre_cleanup_2026_08_11/). They document the learning/course context but are **not counted as Jorgo Luka-authored portfolio projects**.
 
 Return to the **[single portfolio homepage](../README.md)** for the full Data Science, Machine Learning, Deep Learning, AI, Data Engineering and Analytics routes across all 22 professional projects.
