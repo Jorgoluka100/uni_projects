@@ -1,10 +1,10 @@
-# CNN Retail Image Classification & Confidence Routing
+# CNN 2D Image Classification — Convolutions, Padding & Confidence Routing
 
-A full computer-vision / deep-learning portfolio project built to make **convolutional neural networks** visible as a first-class skill rather than hiding them inside a generic image-classification project.
+A full computer-vision / deep-learning portfolio project built to make **2D convolutional neural networks** visible as a first-class skill rather than hiding them inside a generic image-classification project.
 
 ## Problem
 
-A retail or visual-inspection team needs to classify incoming product images automatically, but it should not force a prediction when the model is uncertain. The project therefore treats image classification as a **model + confidence-routing decision system**.
+An image-classification or visual-inspection team needs to classify incoming images automatically, but it should not force a prediction when the model is uncertain. The project therefore treats image classification as a **model + confidence-routing decision system**.
 
 ## Dataset
 
@@ -14,34 +14,44 @@ A retail or visual-inspection team needs to classify incoming product images aut
 
 This project deliberately demonstrates the progression from fundamentals to stronger engineering:
 
-1. image tensor inspection and class balance
+1. image tensors: batch × channel × height × width
 2. train / validation / test separation
 3. normalisation and data augmentation
-4. **custom convolutional neural network**
-5. convolution → ReLU → pooling → feature maps
-6. deeper CNN with **BatchNorm**
-7. **Dropout** regularisation
-8. AdamW optimisation
-9. learning-rate scheduling
-10. label smoothing
-11. training / validation learning curves
-12. confusion matrix and per-class errors
-13. **ResNet18 transfer learning** comparison
-14. probability calibration / temperature scaling
-15. expected calibration error
-16. selective prediction / confidence thresholds
-17. human-review routing for uncertain images
-18. model persistence and reproducible inference
-19. explainability route for Grad-CAM / activation inspection
-20. limitations and production next steps
+4. **`nn.Conv2d` 2D convolution**
+5. kernel size, input/output channels and learned feature maps
+6. **padding (`padding=1`)** and its effect on spatial dimensions
+7. stride and receptive-field reasoning
+8. convolution → ReLU → pooling blocks
+9. **`MaxPool2d`** spatial downsampling
+10. deeper CNN with **`BatchNorm2d`**
+11. **Dropout** regularisation
+12. adaptive average pooling
+13. flattening / linear classification heads
+14. AdamW optimisation
+15. learning-rate scheduling
+16. label smoothing
+17. training / validation learning curves
+18. confusion matrix and per-class errors
+19. **ResNet18 transfer learning** comparison
+20. probability calibration / temperature scaling
+21. expected calibration error
+22. selective prediction / confidence thresholds
+23. human-review routing for uncertain images
+24. model persistence and reproducible inference
+25. explainability route for Grad-CAM / activation inspection
+26. limitations and production next steps
 
 ## Models
 
-- `CompactCNN` — small from-scratch CNN baseline.
-- `RegularizedCNN` — deeper convolution blocks with BatchNorm and Dropout.
-- `ResNet18` — pretrained transfer-learning comparator adapted for 32×32 images.
+- `CompactCNN` — from-scratch `Conv2d` baseline with 3×3 kernels, padding, ReLU, max pooling and adaptive average pooling.
+- `RegularizedCNN` — deeper convolution blocks with repeated `Conv2d`, BatchNorm, ReLU, MaxPool and Dropout.
+- `ResNet18` — pretrained transfer-learning comparator adapted for 32×32 images, including a modified 3×3 padded first convolution.
 
 The point is **not to assume the largest network wins**. The final choice should come from validation accuracy, calibration, error slices, compute cost and the confidence/coverage trade-off.
+
+## Why padding matters here
+
+For a 3×3 convolution, `padding=1` keeps height and width unchanged when stride is 1. That lets the network learn local features without shrinking the feature map after every convolution; pooling is then used deliberately when spatial downsampling is wanted. The implementation makes this visible in the custom networks rather than hiding it inside a pretrained model.
 
 ## Decision layer
 
@@ -81,4 +91,4 @@ Open [`project_notebook.ipynb`](project_notebook.ipynb). It is the main readable
 
 ## Limitations
 
-CIFAR-10 is a benchmark rather than a real retailer's production catalogue. It is used here because it is reproducible and allows the CNN workflow to be evaluated end to end. Production deployment would require domain-specific images, class taxonomy governance, distribution-shift monitoring, privacy/licensing review and a documented human escalation policy.
+CIFAR-10 is a benchmark rather than a real production image catalogue. It is used here because it is reproducible and allows the CNN workflow to be evaluated end to end. Production deployment would require domain-specific images, class taxonomy governance, distribution-shift monitoring, privacy/licensing review and a documented human escalation policy.
