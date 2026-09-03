@@ -26,7 +26,7 @@ Python · SQL · R · Apache Spark/PySpark · Machine Learning · Deep Learning 
 
 # 1. Original university / MSc work — protected and visible
 
-These are not replaced by the professional projects. They are evidence of what was studied and built during university/coursework. The strongest originals are surfaced here; the **complete old repository tree** is preserved under [`originals/pre_cleanup_2026_08_11/`](originals/pre_cleanup_2026_08_11/), including older copies, group/coursework files, datasets and untitled working notebooks.
+These are not replaced by the professional projects. They are evidence of what was studied and built during university/coursework. The strongest originals are surfaced here; the **complete old repository tree** is preserved under [`originals/pre_cleanup_2026_08_11/`](originals/pre_cleanup_2026_08_11/), including older copies, group/coursework files, datasets and untitled working notebooks under their exact historical names.
 
 | Original work | Direct notebook | Stronger / follow-on evidence |
 | --- | --- | --- |
@@ -37,7 +37,7 @@ These are not replaced by the professional projects. They are evidence of what w
 | **CN7030 NLP Feature Extraction — comparison** | [CN7030_Feature_Extraction_Comparison.ipynb](CN7030_Feature_Extraction_Comparison.ipynb) | [NLP Document Intelligence](projects/nlp_document_intelligence/) |
 | **CN7030 TF-IDF** | [CN7030_Feature_Extraction_using_TF_IDF.ipynb](CN7030_Feature_Extraction_using_TF_IDF.ipynb) | [NLP Document Intelligence](projects/nlp_document_intelligence/) |
 | **CN7030 Sequence Embedding** | [W8_CN7030_NLP_PySpark_Sequence_Embedding.ipynb](W8_CN7030_NLP_PySpark_Sequence_Embedding.ipynb) | NLP / embedding evidence |
-| **University Server Log Analysis** | [Server logs](Copy_of_Yet_another_copy_of_UniversityServerLogs.ipynb) | full historical copies retained |
+| **University Server Log Analysis** | [University_Server_Log_Analysis.ipynb](University_Server_Log_Analysis.ipynb) | full historical copies retained |
 | **Parkinson's Progression Modelling** | [Parkinsons_Progression_ML.ipynb](Parkinsons_Progression_ML.ipynb) | [Professional project](projects/parkinsons_progression/) |
 | **UK House Price Analysis & Prediction** | [01_UK_House_Price_Analysis_and_Prediction.ipynb](01_UK_House_Price_Analysis_and_Prediction.ipynb) | [Professional project](projects/uk_house_price_prediction/) |
 | **SQL Sales & Customer Analysis** | [02_SQL_Sales_and_Customer_Analysis.ipynb](02_SQL_Sales_and_Customer_Analysis.ipynb) | [SQL + dbt](projects/ecommerce_sql_analytics/) |
@@ -199,7 +199,7 @@ These remain part of the repository rather than being deleted during portfolio c
 - [Strategic Telecom Churn + SQL](Strategic_Telecom_Churn_Analytics_Predictive_SQL.ipynb)
 - [Financial Fraud / AML Detection](financial_fraud_aml_detection_system.ipynb)
 
-For **everything that existed in the older repository state**, including working copies, group/coursework notebooks and untitled drafts, use the [complete pre-cleanup snapshot](originals/pre_cleanup_2026_08_11/).
+For **everything that existed in the older repository state**, including original working filenames and copies, use the [complete pre-cleanup snapshot](originals/pre_cleanup_2026_08_11/).
 
 ---
 
