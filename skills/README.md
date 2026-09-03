@@ -30,8 +30,10 @@ The larger projects under [`../projects/`](../projects/) are a different tier: f
 | 08 | **[Linear Regression & Ridge fundamentals](08_regression_fundamentals.ipynb)** · [Python](08_regression_fundamentals.py) | ordinary least-squares `LinearRegression`, median baseline, mixed-type preprocessing, missing-value imputation, Ridge regularisation, MAE, RMSE, R², residual diagnostics and inference |
 | 03 | [Classification fundamentals](03_sklearn_end_to_end_classification.ipynb) · [Python](03_sklearn_end_to_end_classification.py) | train/test split, preprocessing pipeline, dummy baseline, logistic regression and classification metrics |
 | 09 | [Clustering fundamentals](09_clustering_fundamentals.ipynb) · [Python](09_clustering_fundamentals.py) | scaling, KMeans, candidate-k comparison, silhouette score and cluster interpretation |
+| 11 | **[Support Vector Machines](11_support_vector_machines.ipynb)** · [Python](11_support_vector_machines.py) | scaling, maximum margins, LinearSVC, RBF kernels, `C`/`gamma`, support vectors, GridSearchCV, PCA inspection and confusion-matrix analysis |
+| 12 | **[Decision Trees, Random Forests & Gradient Boosting](12_tree_and_ensemble_models.ipynb)** · [Python](12_tree_and_ensemble_models.py) | tree depth/complexity, bagging, random forests, gradient boosting, cross-validation, feature importance and model comparison |
 
-**Real-data follow-ons:** [Flight Delay Risk](../projects/flight_delay_risk/), [Customer Churn](../projects/customer_churn_prediction/), [UK House Prices](../projects/uk_house_price_prediction/), [Statistical Marketing Mix](../projects/statistical_marketing_mix/) and [Retail Segmentation](../projects/retail_customer_segmentation/).
+**Professional follow-ons:** [Flight Delay Risk](../projects/flight_delay_risk/) and [UK House Prices](../projects/uk_house_price_prediction/) apply CatBoost; [XGBoost Bike Demand](../projects/xgboost_bike_demand/) applies boosted trees; [NLP Document Intelligence](../projects/nlp_document_intelligence/) applies calibrated `LinearSVC`; [Customer Churn](../projects/customer_churn_prediction/), [Statistical Marketing Mix](../projects/statistical_marketing_mix/) and [Retail Segmentation](../projects/retail_customer_segmentation/) extend the classical-ML/statistics route.
 
 ## Level 3 — Deep learning & unstructured data
 
@@ -40,9 +42,9 @@ The larger projects under [`../projects/`](../projects/) are a different tier: f
 | 04 | [PyTorch neural-network fundamentals](04_pytorch_neural_network_fundamentals.ipynb) · [Python](04_pytorch_neural_network_fundamentals.py) | tensors, layers, forward pass, loss, backpropagation, optimiser and evaluation |
 | 05 | [LSTM sequence modelling](05_lstm_sequence_modelling.ipynb) · [Python](05_lstm_sequence_modelling.py) | sequence shapes, hidden state and recurrent modelling |
 | 06 | [Text classification with TF-IDF](06_text_classification_tfidf.ipynb) · [Python](06_text_classification_tfidf.py) | text preprocessing, sparse features, logistic regression and text evaluation |
-| 07 | [CNN image fundamentals](07_cnn_image_fundamentals.ipynb) · [Python](07_cnn_image_fundamentals.py) | convolution, channels, pooling, flattening and a compact CNN training loop |
+| 07 | [CNN image fundamentals](07_cnn_image_fundamentals.ipynb) · [Python](07_cnn_image_fundamentals.py) | 2D convolution, channels, kernels, padding, pooling, flattening and a compact CNN training loop |
 
-**Real-data / engineered follow-ons:** [Energy Demand Forecasting](../projects/energy_demand_forecasting/), [Image Classification with Confidence](../projects/image_classification_confidence/) and [Grounded RAG](../projects/grounded_rag/).
+**Deep-learning follow-ons:** [CNN 2D Image Classification](../projects/cnn_retail_image_classification/), [Energy Demand Forecasting](../projects/energy_demand_forecasting/), [Image Classification with Confidence](../projects/image_classification_confidence/) and [Grounded RAG](../projects/grounded_rag/).
 
 ## Progression
 
