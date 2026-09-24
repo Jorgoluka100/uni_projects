@@ -19,7 +19,7 @@ Python · SQL · R · Apache Spark/PySpark · Machine Learning · Deep Learning 
 | **NLP / LLM / Applied AI** | [NLP Document Intelligence](projects/nlp_document_intelligence/) · [Grounded RAG](projects/grounded_rag/) · hands-on LLM course work |
 | **Data Engineering / MLOps** | [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [Spark Retail](projects/apache_spark_retail_intelligence/) · [ModelWatch](projects/model_watch/) |
 | **Analytics / BI** | [Executive Commerce BI](projects/executive_commerce_bi/) · [SQL + dbt](projects/ecommerce_sql_analytics/) |
-| **All 22 professional applications** | [projects/](projects/) |
+| **Recruiter evidence map** | [Plain-English project evidence](docs/RECRUITER_EVIDENCE_MAP.md) |\n| **All 22 professional applications** | [projects/](projects/) |
 | **Historical university/course archive** | [originals/pre_cleanup_2026_08_11/](originals/pre_cleanup_2026_08_11/) |
 
 ---
