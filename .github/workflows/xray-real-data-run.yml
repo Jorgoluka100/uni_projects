@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'PyTorch_medical_AI_xray_diagnosis.ipynb'
       - '.github/workflows/xray-real-data-run.yml'
   workflow_dispatch:
 
@@ -71,7 +72,7 @@ jobs:
           code = [c for c in nb['cells'] if c['cell_type'] == 'code']
           assert all(c.get('execution_count') is not None for c in code)
           output_count = sum(len(c.get('outputs', [])) for c in code)
-          assert output_count >= 15, output_count
+          assert output_count >= 20, output_count
           text = json.dumps(nb)
           assert 'All real-data medical-AI integrity checks passed.' in text
           print({'code_cells': len(code), 'outputs': output_count, 'verified': True})
