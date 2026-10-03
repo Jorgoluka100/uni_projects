@@ -1,0 +1,51 @@
+name: Execute AeroFlow real-data notebook
+
+on:
+  push:
+    paths:
+      - "AeroFlow_AI_Engine.ipynb"
+      - ".github/workflows/execute-aeroflow.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-notebook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install notebook dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install jupyter nbconvert ipykernel numpy pandas matplotlib scikit-learn catboost requests
+
+      - name: Execute AeroFlow notebook
+        run: |
+          jupyter nbconvert \
+            --to notebook \
+            --execute AeroFlow_AI_Engine.ipynb \
+            --inplace \
+            --ExecutePreprocessor.timeout=3600 \
+            --ExecutePreprocessor.kernel_name=python3
+
+      - name: Commit verified notebook outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add AeroFlow_AI_Engine.ipynb
+          if git diff --cached --quiet; then
+            echo "No notebook changes to commit."
+          else
+            git commit -m "Execute AeroFlow with real BTS data [skip ci]"
+            git push
+          fi
