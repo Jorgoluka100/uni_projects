@@ -34,8 +34,6 @@ jobs:
           python -m pip install medmnist scikit-learn pandas matplotlib jupyter nbconvert
 
       - name: Execute notebook end to end
-        env:
-          MPLBACKEND: Agg
         run: |
           jupyter nbconvert \
             --to notebook \
@@ -73,9 +71,21 @@ jobs:
           assert all(c.get('execution_count') is not None for c in code)
           output_count = sum(len(c.get('outputs', [])) for c in code)
           assert output_count >= 20, output_count
+          image_count = 0
+          for cell in code:
+              for output in cell.get('outputs', []):
+                  data = output.get('data', {})
+                  if 'image/png' in data or 'image/svg+xml' in data:
+                      image_count += 1
+          assert image_count >= 6, image_count
           text = json.dumps(nb)
           assert 'All real-data medical-AI integrity checks passed.' in text
-          print({'code_cells': len(code), 'outputs': output_count, 'verified': True})
+          print({
+              'code_cells': len(code),
+              'outputs': output_count,
+              'embedded_images': image_count,
+              'verified': True,
+          })
           PY
 
       - name: Commit executed notebook
