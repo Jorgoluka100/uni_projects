@@ -1,0 +1,40 @@
+{
+  "input_rows": 205,
+  "exact_duplicates_removed": 5,
+  "output_rows": 200,
+  "numeric_issues": {
+    "age": {
+      "missing": 0,
+      "unparseable": 1,
+      "out_of_range": 1
+    },
+    "sleep_hours": {
+      "missing": 0,
+      "unparseable": 0,
+      "out_of_range": 1
+    },
+    "steps": {
+      "missing": 0,
+      "unparseable": 0,
+      "out_of_range": 1
+    },
+    "resting_hr": {
+      "missing": 1,
+      "unparseable": 0,
+      "out_of_range": 0
+    }
+  },
+  "unknown_activity_values": 42,
+  "missing_after_cleaning": {
+    "record_id": 0,
+    "age": 2,
+    "sleep_hours": 1,
+    "steps": 1,
+    "resting_hr": 1,
+    "activity": 42
+  },
+  "train_rows": 160,
+  "test_rows": 40,
+  "feature_count": 12,
+  "source": "synthetic demo, seed 42"
+}
