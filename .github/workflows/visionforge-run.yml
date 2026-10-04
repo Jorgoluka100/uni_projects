@@ -73,6 +73,8 @@ jobs:
           cp visionforge_artifacts/corruption_report.csv verified/visionforge/
           cp visionforge_artifacts/selective_policy.csv verified/visionforge/
           cp visionforge_artifacts/training_history.csv verified/visionforge/
+          cp visionforge_artifacts/data_samples.png verified/visionforge/
+          cp visionforge_artifacts/correct_prediction_gallery.png verified/visionforge/
           cp visionforge_artifacts/model_diagnostics.png verified/visionforge/
           cp visionforge_artifacts/selective_policy.png verified/visionforge/
           cp visionforge_artifacts/corruption_stress.png verified/visionforge/
