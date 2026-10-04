@@ -4,12 +4,17 @@ on:
   pull_request:
     paths:
       - 'projects/energy_demand_forecasting/**'
+      - '05_Energy_Demand_Forecasting_with_TensorFlow.ipynb'
       - '.github/workflows/energy-forecast-ci.yml'
   push:
     branches: [main]
     paths:
       - 'projects/energy_demand_forecasting/**'
+      - '05_Energy_Demand_Forecasting_with_TensorFlow.ipynb'
       - '.github/workflows/energy-forecast-ci.yml'
+
+permissions:
+  contents: write
 
 jobs:
   test:
@@ -32,3 +37,66 @@ jobs:
         run: pytest -q
       - name: Compile project including TensorFlow module
         run: python -m compileall -q run.py src tests
+
+
+  execute-notebook:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install TensorFlow notebook runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install tensorflow-cpu==2.20.0 pandas numpy matplotlib seaborn scikit-learn jupyter nbconvert
+      - name: Execute notebook and retain rendered outputs
+        run: |
+          jupyter nbconvert \
+            --to notebook \
+            --execute 05_Energy_Demand_Forecasting_with_TensorFlow.ipynb \
+            --output 05_Energy_Demand_Forecasting_with_TensorFlow.ipynb \
+            --ExecutePreprocessor.timeout=1800
+      - name: Verify rendered notebook
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path('05_Energy_Demand_Forecasting_with_TensorFlow.ipynb')
+          nb = json.loads(path.read_text())
+          code = [c for c in nb['cells'] if c.get('cell_type') == 'code']
+          executed = sum(c.get('execution_count') is not None for c in code)
+          outputs = sum(len(c.get('outputs', [])) for c in code)
+          images = sum(
+              1
+              for c in code
+              for o in c.get('outputs', [])
+              if isinstance(o.get('data'), dict)
+              and ('image/png' in o['data'] or 'image/svg+xml' in o['data'])
+          )
+          assert executed >= 12, executed
+          assert outputs >= 12, outputs
+          assert images >= 6, images
+          assert any(
+              'Actual vs predicted — visible neural-network evidence'
+              in ''.join(c.get('source', []))
+              for c in nb['cells']
+          )
+          print({'executed_code_cells': executed, 'stored_outputs': outputs, 'embedded_images': images})
+          PY
+      - name: Commit refreshed notebook outputs
+        run: |
+          if git diff --quiet -- 05_Energy_Demand_Forecasting_with_TensorFlow.ipynb; then
+            echo 'Rendered notebook already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 05_Energy_Demand_Forecasting_with_TensorFlow.ipynb
+          git commit -m 'Render TensorFlow energy forecast notebook outputs'
+          git pull --rebase origin main
+          git push origin HEAD:main
