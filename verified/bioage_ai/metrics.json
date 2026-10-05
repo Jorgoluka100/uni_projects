@@ -1,0 +1,66 @@
+{
+  "project": 30,
+  "name": "BioAge AI — Biological Age & Longevity Risk Intelligence",
+  "data_source": "NHANES-derived aging-biomarkers table",
+  "adult_complete_rows": 4552,
+  "split": {
+    "train": 3186,
+    "validation": 682,
+    "test": 684
+  },
+  "model": {
+    "type": "deterministic gradient-boosted regression trees",
+    "learning_rate": 0.06,
+    "best_trees": 120,
+    "max_depth": 3,
+    "min_leaf": 35
+  },
+  "held_out_test": {
+    "mae_years": 9.735666,
+    "rmse_years": 11.993186,
+    "r2": 0.495923
+  },
+  "top_predictive_signals": [
+    {
+      "feature": "Mean_Cell_Volume",
+      "split_count": 117
+    },
+    {
+      "feature": "Systolic_Blood_Pressure",
+      "split_count": 109
+    },
+    {
+      "feature": "Glycohemoglobin",
+      "split_count": 89
+    },
+    {
+      "feature": "Blood_Urea_Nitrogen",
+      "split_count": 77
+    },
+    {
+      "feature": "Glucose",
+      "split_count": 65
+    },
+    {
+      "feature": "Total_Cholesterol",
+      "split_count": 64
+    },
+    {
+      "feature": "Creatinine",
+      "split_count": 58
+    },
+    {
+      "feature": "White_Blood_Cell_Count",
+      "split_count": 51
+    },
+    {
+      "feature": "Lymphocyte_Percent",
+      "split_count": 49
+    },
+    {
+      "feature": "C_Reactive_Protein",
+      "split_count": 46
+    }
+  ],
+  "warning": "Research/portfolio biomarker-age proxy only; not a clinical biological-age diagnosis and not causal evidence for anti-aging interventions."
+}
