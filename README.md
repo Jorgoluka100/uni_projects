@@ -3,7 +3,7 @@
 **MSc Artificial Intelligence & Data Science (Distinction)**  
 Python · SQL · R · Apache Spark/PySpark · Machine Learning · Deep Learning · CNNs · NLP · LLMs · Computer Vision · Power BI · Tableau
 
-> **One repository, complete evidence.** Recruiter-facing notebooks are Jorgo Luka's own work or clearly identified individual contributions. Raw group work, lecturer tutorials and course-reference notebooks are retained only in the historical archive and are **not** presented as Jorgo-authored portfolio projects. The repository also contains concise foundations and **22 professional applications** showing end-to-end job-facing capability.
+> **One repository, complete evidence.** Recruiter-facing notebooks are Jorgo Luka's own work or clearly identified individual contributions. Raw group work, lecturer tutorials and course-reference notebooks are retained only in the historical archive and are **not** presented as Jorgo-authored portfolio projects. The repository also contains concise foundations and **23 professional applications** showing end-to-end job-facing capability.
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
 
@@ -12,14 +12,14 @@ Python · SQL · R · Apache Spark/PySpark · Machine Learning · Deep Learning 
 | Area | Best place to start |
 | --- | --- |
 | **University / MSc evidence** | [University project index](docs/UNIVERSITY_PROJECTS.md) · direct links below |
-| **Data Science** | [Flight Delay](projects/flight_delay_risk/) · [Linear Regression Energy](projects/linear_regression_energy_efficiency/) · [Customer Churn](projects/customer_churn_prediction/) |
+| **Data Science** | [LongevityAI](projects/longevity_ai/) · [Flight Delay](projects/flight_delay_risk/) · [Linear Regression Energy](projects/linear_regression_energy_efficiency/) · [Customer Churn](projects/customer_churn_prediction/) |
 | **Machine Learning algorithms** | **[Complete ML algorithm coverage map](docs/ML_ALGORITHM_COVERAGE.md)** · [foundations](skills/) |
 | **Deep Learning** | [CNN 2D Image Classification](projects/cnn_retail_image_classification/) · [Deep Learning Marketing](projects/deep_learning_marketing_response/) · [Energy Forecasting](projects/energy_demand_forecasting/) |
 | **Computer Vision** | [CNN 2D Image Classification](projects/cnn_retail_image_classification/) · [Image Classification Confidence](projects/image_classification_confidence/) |
 | **NLP / LLM / Applied AI** | [NLP Document Intelligence](projects/nlp_document_intelligence/) · [Grounded RAG](projects/grounded_rag/) · hands-on LLM course work |
 | **Data Engineering / MLOps** | [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [Spark Retail](projects/apache_spark_retail_intelligence/) · [ModelWatch](projects/model_watch/) |
 | **Analytics / BI** | [Executive Commerce BI](projects/executive_commerce_bi/) · [SQL + dbt](projects/ecommerce_sql_analytics/) |
-| **Recruiter evidence map** | [Plain-English project evidence](docs/RECRUITER_EVIDENCE_MAP.md) |\n| **All 22 professional applications** | [projects/](projects/) |
+| **Recruiter evidence map** | [Plain-English project evidence](docs/RECRUITER_EVIDENCE_MAP.md) |\n| **All 23 professional applications** | [projects/](projects/) |
 | **Historical university/course archive** | [originals/pre_cleanup_2026_08_11/](originals/pre_cleanup_2026_08_11/) |
 
 ---
@@ -96,6 +96,7 @@ These demonstrate the complete workflow: **data acquisition → validation/clean
 8. [Statistical Marketing Mix](projects/statistical_marketing_mix/)
 9. [ExperimentLab — A/B Testing & Decision Science](projects/experiment_lab/)
 10. [Parkinson's Progression](projects/parkinsons_progression/)
+11. [LongevityAI — Human Biological Age, Healthspan & Anti-Aging Research Intelligence](projects/longevity_ai/)
 
 ---
 
