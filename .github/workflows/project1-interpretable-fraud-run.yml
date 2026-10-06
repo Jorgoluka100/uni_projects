@@ -1,0 +1,66 @@
+name: Execute Project 1 interpretable fraud notebook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/project1-interpretable-fraud-run.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  execute-notebook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install jupyter nbconvert nbclient ipykernel pandas numpy matplotlib scikit-learn xgboost
+
+      - name: Execute notebook
+        run: |
+          jupyter nbconvert             --to notebook             --execute 01_AI_Fraud_Transaction_Risk_Intelligence.ipynb             --output 01_AI_Fraud_Transaction_Risk_Intelligence.ipynb             --ExecutePreprocessor.timeout=1500             --ExecutePreprocessor.kernel_name=python3
+
+      - name: Validate execution
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("01_AI_Fraud_Transaction_Risk_Intelligence.ipynb")
+          nb = json.loads(p.read_text(encoding="utf-8"))
+          code = [c for c in nb["cells"] if c.get("cell_type") == "code"]
+          executed = [c for c in code if c.get("execution_count") is not None]
+          outputs = [c for c in code if c.get("outputs")]
+          print("Code cells:", len(code))
+          print("Executed:", len(executed))
+          print("With outputs:", len(outputs))
+          if len(executed) != len(code):
+              raise SystemExit("Not all code cells executed.")
+          if not outputs:
+              raise SystemExit("No outputs were saved.")
+          PY
+
+      - name: Commit executed notebook
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 01_AI_Fraud_Transaction_Risk_Intelligence.ipynb
+          if git diff --cached --quiet; then
+            echo 'No changes.'
+          else
+            git commit -m 'Execute interpretable Project 1 fraud notebook'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
