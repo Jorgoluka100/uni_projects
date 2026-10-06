@@ -1,5 +1,5 @@
 name: Execute Project 4 London mobility notebook
-# rerun: fixed rail-period date columns
+# rerun: per-line champion forecasting
 
 on:
   push:
