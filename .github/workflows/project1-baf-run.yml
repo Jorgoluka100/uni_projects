@@ -1,0 +1,66 @@
+name: Execute upgraded Project 1 BAF notebook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/project1-baf-run.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  execute-notebook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install jupyter nbconvert nbclient ipykernel pandas numpy matplotlib scikit-learn xgboost shap
+
+      - name: Execute upgraded fraud notebook
+        run: |
+          jupyter nbconvert             --to notebook             --execute 01_AI_Fraud_Transaction_Risk_Intelligence.ipynb             --output 01_AI_Fraud_Transaction_Risk_Intelligence.ipynb             --ExecutePreprocessor.timeout=1800             --ExecutePreprocessor.kernel_name=python3
+
+      - name: Validate saved execution
+        run: |
+          python - <<'PY'
+          import json
+          p = "01_AI_Fraud_Transaction_Risk_Intelligence.ipynb"
+          nb = json.load(open(p, encoding="utf-8"))
+          code = [c for c in nb["cells"] if c.get("cell_type") == "code"]
+          executed = [c for c in code if c.get("execution_count") is not None]
+          output_cells = [c for c in code if c.get("outputs")]
+          print("code_cells", len(code))
+          print("executed", len(executed))
+          print("output_cells", len(output_cells))
+          if len(code) != len(executed):
+              raise SystemExit("Not every code cell executed.")
+          if len(output_cells) < 10:
+              raise SystemExit("Insufficient saved outputs.")
+          PY
+
+      - name: Commit executed notebook
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 01_AI_Fraud_Transaction_Risk_Intelligence.ipynb
+          if git diff --cached --quiet; then
+            echo 'No executed output changes.'
+          else
+            git commit -m 'Execute upgraded Project 1 with BAF outputs'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
