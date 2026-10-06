@@ -1,0 +1,67 @@
+name: Execute Project 2 retail notebook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/project2-retail-run.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  execute-notebook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install notebook runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install jupyter nbconvert nbclient ipykernel pandas numpy matplotlib scikit-learn openpyxl xgboost shap
+
+      - name: Execute Project 2
+        run: |
+          jupyter nbconvert             --to notebook             --execute 02_Retail_Demand_Forecasting_Inventory_Optimisation.ipynb             --output 02_Retail_Demand_Forecasting_Inventory_Optimisation.ipynb             --ExecutePreprocessor.timeout=2400             --ExecutePreprocessor.kernel_name=python3
+
+      - name: Validate execution
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("02_Retail_Demand_Forecasting_Inventory_Optimisation.ipynb")
+          nb = json.loads(p.read_text(encoding="utf-8"))
+          code = [c for c in nb["cells"] if c.get("cell_type") == "code"]
+          executed = [c for c in code if c.get("execution_count") is not None]
+          outputs = [c for c in code if c.get("outputs")]
+          print(f"Code cells: {len(code)}")
+          print(f"Executed cells: {len(executed)}")
+          print(f"Cells with outputs: {len(outputs)}")
+          if len(code) != len(executed):
+              raise SystemExit("Some code cells did not execute.")
+          if not outputs:
+              raise SystemExit("Notebook has no outputs.")
+          PY
+
+      - name: Commit executed notebook
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 02_Retail_Demand_Forecasting_Inventory_Optimisation.ipynb
+          if git diff --cached --quiet; then
+            echo 'No notebook changes to commit.'
+          else
+            git commit -m 'Execute Project 2 retail notebook with real-data outputs'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
