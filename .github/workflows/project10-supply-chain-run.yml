@@ -1,0 +1,66 @@
+name: Execute Project 10 supply-chain notebook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/project10-supply-chain-run.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  execute-notebook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install jupyter nbconvert nbclient ipykernel pandas numpy matplotlib scikit-learn kagglehub
+
+      - name: Execute Project 10
+        run: |
+          jupyter nbconvert             --to notebook             --execute 10_Supply_Chain_Disruption_Delivery_Risk_Prediction.ipynb             --output 10_Supply_Chain_Disruption_Delivery_Risk_Prediction.ipynb             --ExecutePreprocessor.timeout=2400             --ExecutePreprocessor.kernel_name=python3
+
+      - name: Validate execution
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("10_Supply_Chain_Disruption_Delivery_Risk_Prediction.ipynb")
+          nb=json.loads(p.read_text(encoding="utf-8"))
+          code=[c for c in nb["cells"] if c.get("cell_type")=="code"]
+          nonempty=[c for c in code if "".join(c.get("source",[])).strip()]
+          executed=[c for c in nonempty if c.get("execution_count") is not None]
+          errors=[o for c in code for o in c.get("outputs",[]) if o.get("output_type")=="error"]
+          print("Non-empty code cells:",len(nonempty))
+          print("Executed:",len(executed))
+          print("Errors:",len(errors))
+          if len(nonempty)!=len(executed) or errors:
+              raise SystemExit("Notebook validation failed")
+          PY
+
+      - name: Commit executed notebook
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 10_Supply_Chain_Disruption_Delivery_Risk_Prediction.ipynb
+          if git diff --cached --quiet; then
+            echo 'No notebook changes to commit.'
+          else
+            git commit -m 'Execute Project 10 supply-chain notebook'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
