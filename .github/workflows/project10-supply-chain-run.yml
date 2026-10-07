@@ -1,5 +1,5 @@
 name: Execute Project 10 supply-chain notebook
-# rerun: tighter operational threshold
+# rerun: tighter operational threshold syntax fix
 
 on:
   push:
