@@ -1,0 +1,79 @@
+name: Execute Project 9 country clustering lab
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/project9-country-clustering-run.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  execute-notebook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install lab runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install jupyter nbconvert nbclient ipykernel pandas numpy scikit-learn yellowbrick matplotlib
+
+      - name: Download original lab dataset dependency
+        run: |
+          curl -L "https://raw.githubusercontent.com/zacharski/ml-class/master/data/Country-data.csv" -o Country-data.csv
+          python - <<'PY'
+          import pandas as pd
+          d = pd.read_csv("Country-data.csv")
+          print(d.shape)
+          print(d.columns.tolist())
+          if d.shape != (167, 10):
+              raise SystemExit("Unexpected Country-data.csv shape")
+          PY
+
+      - name: Execute original Project 9 notebook unchanged
+        run: |
+          jupyter nbconvert             --to notebook             --execute Country_Development_Clustering_with_KMeans.ipynb             --output Country_Development_Clustering_with_KMeans.ipynb             --ExecutePreprocessor.timeout=1200             --ExecutePreprocessor.kernel_name=python3
+
+      - name: Validate execution
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("Country_Development_Clustering_with_KMeans.ipynb")
+          nb=json.loads(p.read_text(encoding="utf-8"))
+          code=[c for c in nb["cells"] if c.get("cell_type")=="code"]
+          nonempty=[c for c in code if "".join(c.get("source",[])).strip()]
+          executed=[c for c in nonempty if c.get("execution_count") is not None]
+          errors=[o for c in code for o in c.get("outputs",[]) if o.get("output_type")=="error"]
+          print("Code cells:",len(code))
+          print("Non-empty code cells:",len(nonempty))
+          print("Executed non-empty cells:",len(executed))
+          print("Errors:",len(errors))
+          if len(nonempty)!=len(executed) or errors:
+              raise SystemExit("Notebook execution validation failed")
+          PY
+
+      - name: Commit executed original lab notebook
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Country_Development_Clustering_with_KMeans.ipynb
+          if git diff --cached --quiet; then
+            echo 'No notebook changes to commit.'
+          else
+            git commit -m 'Execute original Project 9 country clustering lab'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
