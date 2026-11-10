@@ -39,3 +39,22 @@ def test_threshold_respects_contact_constraint():
     result = score(truth, probabilities, threshold)
     assert 0.0 <= threshold <= 1.0
     assert result.positive_rate <= 0.50 + 1e-9
+
+def test_threshold_returns_reject_all_when_capacity_is_zero():
+    truth = np.array([0, 0, 1, 1], dtype=int)
+    probabilities = np.array([0.1, 0.2, 0.8, 0.9])
+    threshold = choose_threshold(truth, probabilities, max_contact_rate=0.0)
+    result = score(truth, probabilities, threshold)
+    assert threshold == 1.0
+    assert result.positive_rate == 0.0
+
+
+def test_threshold_and_score_reject_invalid_probability_inputs():
+    import pytest
+
+    with pytest.raises(ValueError, match="within"):
+        choose_threshold(np.array([0, 1]), np.array([-0.1, 1.1]))
+    with pytest.raises(ValueError, match="max_contact_rate"):
+        choose_threshold(np.array([0, 1]), np.array([0.2, 0.8]), max_contact_rate=1.2)
+    with pytest.raises(ValueError, match="threshold"):
+        score(np.array([0, 1]), np.array([0.2, 0.8]), 1.2)
