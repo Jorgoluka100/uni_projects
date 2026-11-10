@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from src.data import hhmm_to_minutes
+from src.data import DataConfig, hhmm_to_minutes
 from src.evaluate import expected_calibration_error, top_fraction_lift
 from src.model import threshold_for_capacity
 
@@ -13,7 +13,21 @@ from src.model import threshold_for_capacity
 class CoreTests(unittest.TestCase):
     def test_hhmm_conversion(self) -> None:
         values = pd.Series([0, 5, 930, 2359, None])
-        self.assertEqual(hhmm_to_minutes(values).tolist(), [0, 5, 570, 1439, 0])
+        converted = hhmm_to_minutes(values)
+        self.assertTrue(np.allclose(converted.iloc[:4], [0, 5, 570, 1439]))
+        self.assertTrue(np.isnan(converted.iloc[4]))
+
+    def test_invalid_hhmm_values_are_not_coerced_to_midnight(self) -> None:
+        values = pd.Series([1260, 2360, 2500, -100, 2400, 930.5])
+        converted = hhmm_to_minutes(values)
+        self.assertTrue(np.isnan(converted.iloc[[0, 1, 2, 3, 5]]).all())
+        self.assertEqual(converted.iloc[4], 0.0)
+
+    def test_data_config_rejects_duplicate_and_non_temporal_months(self) -> None:
+        with self.assertRaises(ValueError):
+            DataConfig(train_months=(1, 1)).validate()
+        with self.assertRaises(ValueError):
+            DataConfig(train_months=(2, 3), validation_months=(1,), test_months=(4,)).validate()
 
     def test_capacity_threshold_is_valid_probability(self) -> None:
         score = np.asarray([0.1, 0.2, 0.3, 0.8, 0.9])
