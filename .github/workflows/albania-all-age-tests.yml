@@ -4,6 +4,7 @@ on:
   push:
     branches: [main, portfolio-next-level]
     paths:
+      - "projects/statistical_marketing_mix/**"
       - "projects/parkinsons_progression/**"
       - "extensions/albania_all_age_allocation.py"
       - "tests/test_albania_all_age_allocation.py"
@@ -21,6 +22,7 @@ on:
       - ".github/workflows/albania-all-age-tests.yml"
   pull_request:
     paths:
+      - "projects/statistical_marketing_mix/**"
       - "projects/parkinsons_progression/**"
       - "extensions/albania_all_age_allocation.py"
       - "tests/test_albania_all_age_allocation.py"
@@ -54,7 +56,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install test dependencies
-        run: python -m pip install --upgrade pip numpy pandas scipy scikit-learn joblib pytest catboost xgboost requests
+        run: python -m pip install --upgrade pip numpy pandas scipy scikit-learn joblib pytest catboost xgboost requests statsmodels
       - name: Compile-check new and upgraded project code
         run: python -m compileall -q extensions/albania_all_age_allocation.py tests projects/experiment_lab projects/model_watch
       - name: Test Albania all-age demographic allocation
@@ -75,6 +77,7 @@ jobs:
           PYTHONPATH=projects/model_watch python -m pytest -q projects/model_watch/tests
           PYTHONPATH=projects/knn_product_quality python -m pytest -q projects/knn_product_quality/tests
           PYTHONPATH=projects/parkinsons_progression python -m pytest -q projects/parkinsons_progression/tests
+          PYTHONPATH=projects/statistical_marketing_mix python -m pytest -q projects/statistical_marketing_mix/tests
       - name: Self-test ExperimentLab
         run: python projects/experiment_lab/run.py --self-test
       - name: Self-test ModelWatch
