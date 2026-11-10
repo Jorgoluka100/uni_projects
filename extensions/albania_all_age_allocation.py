@@ -122,6 +122,10 @@ def compare_allocation_scenarios(
     equity_floor: float = DEFAULT_EQUITY_FLOOR,
 ) -> pd.DataFrame:
     """Compare population-only, all-age and older-age-focused scenarios."""
+    if regional_budget_eur < 0:
+        raise ValueError("regional_budget_eur must be non-negative.")
+    if not 0 <= equity_floor < 1:
+        raise ValueError("equity_floor must be in [0, 1).")
     profile = build_age_profile().set_index("prefecture")
     population_only = (
         equity_floor / len(profile)
@@ -131,8 +135,8 @@ def compare_allocation_scenarios(
         profile.reset_index(), equity_floor=equity_floor
     )
     older_focused = (
-        0.15 / len(profile)
-        + 0.85 * (
+        equity_floor / len(profile)
+        + (1 - equity_floor) * (
             0.50 * profile["population_share"]
             + 0.30 * profile["age_65_plus_share_national"]
             + 0.20 * (profile["age_80_plus"] / profile["age_80_plus"].sum())
