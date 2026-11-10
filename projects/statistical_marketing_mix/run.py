@@ -27,8 +27,8 @@ class HoldoutMetrics:
 
 
 def generate_weekly_data(weeks: int = 208, seed: int = SEED) -> pd.DataFrame:
-    if weeks < 104:
-        raise ValueError("Use at least two years of weekly history")
+    if not isinstance(weeks, int) or weeks < 104:
+        raise ValueError("weeks must be an integer; use at least two years of weekly history")
     rng = np.random.default_rng(seed)
     date = pd.date_range("2022-01-03", periods=weeks, freq="W-MON")
     trend = np.arange(weeks)
@@ -117,6 +117,18 @@ def audit_data(df: pd.DataFrame) -> dict[str, Any]:
 
 
 def add_model_features(df: pd.DataFrame) -> pd.DataFrame:
+    required = {
+        "search_spend", "social_spend", "display_spend", "promotion",
+        "price_index", "competitor_index", "distribution",
+    }
+    missing = sorted(required - set(df.columns))
+    if df.empty or missing:
+        raise ValueError(f"feature data must be non-empty and include {sorted(required)}; missing={missing}")
+    numeric = df[list(required)].apply(pd.to_numeric, errors="coerce").to_numpy(dtype=float)
+    if not np.isfinite(numeric).all():
+        raise ValueError("marketing inputs must be finite numeric values")
+    if np.any(df[["search_spend", "social_spend", "display_spend"]].to_numpy(dtype=float) < 0):
+        raise ValueError("media spend must be non-negative")
     out = df.copy()
     out["log_search"] = np.log1p(out["search_spend"] / 10000.0)
     out["log_social"] = np.log1p(out["social_spend"] / 10000.0)
@@ -129,8 +141,13 @@ def add_model_features(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def split_time(df: pd.DataFrame, holdout_weeks: int = 26) -> tuple[pd.DataFrame, pd.DataFrame]:
-    if holdout_weeks <= 0 or holdout_weeks >= len(df):
-        raise ValueError("Invalid holdout size")
+    if not isinstance(holdout_weeks, int) or holdout_weeks <= 0 or holdout_weeks >= len(df):
+        raise ValueError("holdout_weeks must be an integer between one and n_rows - 1")
+    if df.empty or "week" not in df.columns:
+        raise ValueError("time split requires non-empty data with a week column")
+    weeks = pd.to_datetime(df["week"], errors="coerce")
+    if weeks.isna().any() or weeks.duplicated().any() or not weeks.is_monotonic_increasing:
+        raise ValueError("week values must be complete, unique and chronologically ordered")
     train = df.iloc[:-holdout_weeks].copy()
     test = df.iloc[-holdout_weeks:].copy()
     if train["week"].max() >= test["week"].min():
@@ -155,8 +172,20 @@ def design_columns() -> list[str]:
 
 
 def fit_ols(train: pd.DataFrame):
+    required = set(design_columns()) | {"sales"}
+    missing = sorted(required - set(train.columns))
+    if train.empty or missing:
+        raise ValueError(f"OLS training data must be non-empty and include {sorted(required)}; missing={missing}")
+    matrix = train[design_columns()].to_numpy(dtype=float)
+    target = pd.to_numeric(train["sales"], errors="coerce").to_numpy(dtype=float)
+    if not np.isfinite(matrix).all() or not np.isfinite(target).all():
+        raise ValueError("OLS features and sales must be finite numeric values")
     x = sm.add_constant(train[design_columns()], has_constant="add")
-    model = sm.OLS(train["sales"], x)
+    if len(train) <= x.shape[1]:
+        raise ValueError("OLS requires more observations than fitted coefficients")
+    if np.linalg.matrix_rank(x.to_numpy(dtype=float)) < x.shape[1]:
+        raise ValueError("OLS design matrix is rank deficient")
+    model = sm.OLS(target, x)
     return model.fit(cov_type="HC3")
 
 
