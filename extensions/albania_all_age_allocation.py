@@ -60,6 +60,10 @@ def build_age_profile() -> pd.DataFrame:
     df["total_dependency_ratio"] = (
         100 * (df["age_0_14"] + df["age_65_plus"]) / df["age_15_64"]
     )
+    if df["prefecture"].duplicated().any():
+        raise ValueError("Prefecture names must be unique.")
+    if (df["age_80_plus"] > df["age_65_plus"]).any():
+        raise ValueError("The 80+ cohort cannot exceed the 65+ cohort.")
     if int(df["population"].sum()) != TOTAL_POPULATION:
         raise ValueError("Prefecture population totals do not reconcile to Census 2023.")
     for col, expected in EXPECTED_AGE_TOTALS.items():
@@ -79,9 +83,26 @@ def calculate_all_age_need_shares(
     """
     profile = build_age_profile() if profile is None else profile.copy()
     weights = DEFAULT_AGE_WEIGHTS if weights is None else weights
-    required = {"population", *AGE_COLUMNS}
-    if not required.issubset(profile.columns):
-        raise ValueError(f"Profile is missing columns: {sorted(required - set(profile.columns))}")
+    required = {
+        "prefecture", "population", "population_share",
+        "age_0_14_share_national", "age_15_64_share_national",
+        "age_65_plus_share_national", *AGE_COLUMNS,
+    }
+    if profile.empty or not required.issubset(profile.columns):
+        raise ValueError(f"Profile must be non-empty and include: {sorted(required)}")
+    if profile["prefecture"].isna().any() or profile["prefecture"].duplicated().any():
+        raise ValueError("Profile prefectures must be present and unique.")
+    numeric = profile[list(required - {"prefecture"})].to_numpy(dtype=float)
+    if not np.isfinite(numeric).all() or np.any(numeric < 0):
+        raise ValueError("Profile demographic values and shares must be finite and non-negative.")
+    if not np.isclose(profile["population_share"].sum(), 1.0):
+        raise ValueError("Population shares must sum to one.")
+    for col in AGE_COLUMNS:
+        share_col = f"{col}_share_national"
+        if not np.isclose(profile[share_col].sum(), 1.0):
+            raise ValueError(f"{share_col} must sum to one.")
+        if not np.allclose(profile["population"], profile[AGE_COLUMNS].sum(axis=1)):
+            raise ValueError("Prefecture population must equal the sum of its age cohorts.")
     if not 0 <= equity_floor < 1:
         raise ValueError("equity_floor must be in [0, 1).")
     if set(weights) != {"population", *AGE_COLUMNS}:
@@ -105,10 +126,10 @@ def allocate_budget(
     need_shares: pd.Series,
 ) -> pd.DataFrame:
     """Allocate a non-negative euro budget according to validated need shares."""
-    if budget_eur < 0:
-        raise ValueError("budget_eur must be non-negative.")
+    if not np.isfinite(budget_eur) or budget_eur < 0:
+        raise ValueError("budget_eur must be finite and non-negative.")
     shares = need_shares.astype(float)
-    if shares.empty or (shares < 0).any() or not np.isclose(shares.sum(), 1.0):
+    if shares.empty or not np.isfinite(shares.to_numpy()).all() or (shares < 0).any() or not np.isclose(shares.sum(), 1.0):
         raise ValueError("need_shares must be non-empty, non-negative and sum to 1.")
     return pd.DataFrame({
         "prefecture": shares.index,
@@ -122,8 +143,8 @@ def compare_allocation_scenarios(
     equity_floor: float = DEFAULT_EQUITY_FLOOR,
 ) -> pd.DataFrame:
     """Compare population-only, all-age and older-age-focused scenarios."""
-    if regional_budget_eur < 0:
-        raise ValueError("regional_budget_eur must be non-negative.")
+    if not np.isfinite(regional_budget_eur) or regional_budget_eur < 0:
+        raise ValueError("regional_budget_eur must be finite and non-negative.")
     if not 0 <= equity_floor < 1:
         raise ValueError("equity_floor must be in [0, 1).")
     profile = build_age_profile().set_index("prefecture")
@@ -159,8 +180,10 @@ def run_weight_sensitivity(
     seed: int = RANDOM_STATE,
 ) -> pd.DataFrame:
     """Quantify scenario sensitivity to all-age weights and equity floor."""
-    if n_sims < 1:
-        raise ValueError("n_sims must be at least 1.")
+    if not np.isfinite(regional_budget_eur) or regional_budget_eur < 0:
+        raise ValueError("regional_budget_eur must be finite and non-negative.")
+    if not isinstance(n_sims, int) or n_sims < 1:
+        raise ValueError("n_sims must be a positive integer.")
     profile = build_age_profile()
     base = np.array([0.40, 0.20, 0.20, 0.20])
     alpha = base * 60
