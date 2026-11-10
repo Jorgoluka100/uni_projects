@@ -100,7 +100,7 @@ Every project below has a recruiter-facing notebook plus implementation and evid
 
 - `extensions/` contains hardened/follow-on runners.
 - `verified/`, `results/`, `outputs/` and `artifacts/` retain machine-readable evidence where appropriate.
-- [`NOTEBOOKS_AND_DATASETS.md`](NOTEBOOKS_AND_DATASETS.md) maps all **22 professional projects** to notebooks and dataset/provenance routes.
+- [`NOTEBOOKS_AND_DATASETS.md`](NOTEBOOKS_AND_DATASETS.md) maps all **24 professional projects** to notebooks and dataset/provenance routes.
 - [`NOTEBOOK_INDEX.md`](NOTEBOOK_INDEX.md) indexes originals, foundations and all recruiter notebooks.
 
 Return to the **[single portfolio homepage](../README.md)**.
