@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import math
 import sqlite3
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
@@ -114,6 +115,8 @@ def _normalise(row: dict[str, str]) -> dict[str, object]:
 
     event_time = _parse_utc(row["event_time"])
     amount = float(row["amount"])
+    if not math.isfinite(amount):
+        raise ValueError("amount must be finite")
     if amount < 0:
         raise ValueError("negative amount")
 
@@ -139,6 +142,10 @@ def ingest_csv(
     Late arrivals are accepted but flagged. Rows older than the current warehouse
     maximum event time minus ``allowed_lateness_hours`` are considered late.
     """
+    if not batch_name or not batch_name.strip():
+        raise ValueError("batch_name must be non-empty")
+    if not isinstance(allowed_lateness_hours, int) or allowed_lateness_hours < 0:
+        raise ValueError("allowed_lateness_hours must be a non-negative integer")
     initialise(conn)
     if conn.execute("SELECT 1 FROM batch_audit WHERE batch_name = ?", (batch_name,)).fetchone():
         raise ValueError(f"batch_name already processed: {batch_name}")
