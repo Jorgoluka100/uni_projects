@@ -55,8 +55,11 @@ class DataConfig:
 
     def validate(self) -> None:
         month_groups = self.train_months + self.validation_months + self.test_months
-        if not month_groups:
-            raise ValueError("At least one month is required")
+        if not self.train_months or not self.validation_months or not self.test_months:
+            raise ValueError("Train, validation and test month groups must all be non-empty")
+        for name, group in (("train", self.train_months), ("validation", self.validation_months), ("test", self.test_months)):
+            if len(group) != len(set(group)):
+                raise ValueError(f"{name} months must not contain duplicates")
         if any(month not in range(1, 13) for month in month_groups):
             raise ValueError("All months must be between 1 and 12")
         if set(self.train_months) & set(self.validation_months):
@@ -65,14 +68,31 @@ class DataConfig:
             raise ValueError("Train and test months overlap")
         if set(self.validation_months) & set(self.test_months):
             raise ValueError("Validation and test months overlap")
+        if max(self.train_months) >= min(self.validation_months):
+            raise ValueError("Training months must precede validation months")
+        if max(self.validation_months) >= min(self.test_months):
+            raise ValueError("Validation months must precede test months")
 
 
 def hhmm_to_minutes(series: pd.Series) -> pd.Series:
-    """Convert BTS HHMM schedule fields to minutes after midnight."""
-    values = pd.to_numeric(series, errors="coerce").fillna(0).astype(int)
-    hours = (values // 100).clip(0, 23)
-    minutes = (values % 100).clip(0, 59)
-    return hours * 60 + minutes
+    """Convert valid BTS HHMM schedule fields to minutes after midnight.
+
+    Invalid values and missing times remain NaN so the cleaning pipeline drops
+    them instead of silently converting them into a midnight departure.
+    BTS' special 2400 representation is treated as 00:00.
+    """
+    values = pd.to_numeric(series, errors="coerce").astype(float)
+    integral = values.notna() & np.isclose(values.fillna(0) % 1, 0)
+    special_midnight = values.eq(2400)
+    hours = np.floor(values.fillna(0) / 100)
+    minutes = values.fillna(0) % 100
+    valid_clock = (
+        integral
+        & ((values.ge(0) & values.le(2359) & minutes.lt(60)) | special_midnight)
+    )
+    converted = hours * 60 + minutes
+    converted = converted.where(~special_midnight, 0)
+    return converted.where(valid_clock, np.nan).astype(float)
 
 
 def bts_zip_url(year: int, month: int) -> str:
