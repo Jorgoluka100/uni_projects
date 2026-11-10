@@ -4,6 +4,7 @@ on:
   push:
     branches: [main, portfolio-next-level]
     paths:
+      - "projects/parkinsons_progression/**"
       - "extensions/albania_all_age_allocation.py"
       - "tests/test_albania_all_age_allocation.py"
       - "projects/grounded_rag/**"
@@ -20,6 +21,7 @@ on:
       - ".github/workflows/albania-all-age-tests.yml"
   pull_request:
     paths:
+      - "projects/parkinsons_progression/**"
       - "extensions/albania_all_age_allocation.py"
       - "tests/test_albania_all_age_allocation.py"
       - "projects/flight_delay_risk/**"
@@ -72,6 +74,7 @@ jobs:
           PYTHONPATH=projects/xgboost_bike_demand python -m pytest -q projects/xgboost_bike_demand/tests
           PYTHONPATH=projects/model_watch python -m pytest -q projects/model_watch/tests
           PYTHONPATH=projects/knn_product_quality python -m pytest -q projects/knn_product_quality/tests
+          PYTHONPATH=projects/parkinsons_progression python -m pytest -q projects/parkinsons_progression/tests
       - name: Self-test ExperimentLab
         run: python projects/experiment_lab/run.py --self-test
       - name: Self-test ModelWatch
