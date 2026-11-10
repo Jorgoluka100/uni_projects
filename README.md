@@ -3,7 +3,7 @@
 **MSc Artificial Intelligence & Data Science (Distinction)**  
 Python · SQL · R · Apache Spark/PySpark · Machine Learning · Deep Learning · CNNs · NLP · LLMs · Computer Vision · Power BI · Tableau
 
-> **One repository, complete evidence.** Recruiter-facing notebooks are Jorgo Luka's own work or clearly identified individual contributions. Raw group work, lecturer tutorials and course-reference notebooks are retained only in the historical archive and are **not** presented as Jorgo-authored portfolio projects. The repository also contains concise foundations and **23 professional applications** showing end-to-end job-facing capability.
+> **One repository, complete evidence.** Recruiter-facing notebooks are Jorgo Luka's own work or clearly identified individual contributions. Raw group work, lecturer tutorials and course-reference notebooks are retained only in the historical archive and are **not** presented as Jorgo-authored portfolio projects. The repository also contains concise foundations and **24 professional applications** showing end-to-end job-facing capability.
 
 [![Portfolio checks](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml/badge.svg)](https://github.com/Jorgoluka100/uni_projects/actions/workflows/portfolio-integrity.yml)
 
@@ -20,7 +20,8 @@ Python · SQL · R · Apache Spark/PySpark · Machine Learning · Deep Learning 
 | **NLP / LLM / Applied AI** | [NLP Document Intelligence](projects/nlp_document_intelligence/) · [Grounded RAG](projects/grounded_rag/) · hands-on LLM course work |
 | **Data Engineering / MLOps** | [Reliable Event Pipeline](projects/reliable_event_pipeline/) · [Spark Retail](projects/apache_spark_retail_intelligence/) · [ModelWatch](projects/model_watch/) |
 | **Analytics / BI** | [Executive Commerce BI](projects/executive_commerce_bi/) · [SQL + dbt](projects/ecommerce_sql_analytics/) |
-| **Recruiter evidence map** | [Plain-English project evidence](docs/RECRUITER_EVIDENCE_MAP.md) |\n| **All 23 professional applications** | [projects/](projects/) |
+| **Recruiter evidence map** | [Plain-English project evidence](docs/RECRUITER_EVIDENCE_MAP.md) |
+| **All 24 professional applications** | [projects/](projects/) |
 | **Historical university/course archive** | [originals/pre_cleanup_2026_08_11/](originals/pre_cleanup_2026_08_11/) |
 
 ---
