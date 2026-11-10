@@ -27,3 +27,13 @@ def test_threshold_is_selected_from_training_probabilities():
     selected = select_cost_threshold(y, p)
     assert 0.01 <= selected["threshold"] <= 0.99
     assert selected["cost_units"] >= 0
+
+def test_operating_point_rejects_invalid_probabilities_and_thresholds():
+    import pytest
+
+    with pytest.raises(ValueError, match="within \[0, 1\]"):
+        operating_point([0, 1], [-0.1, 1.1], 0.5)
+    with pytest.raises(ValueError, match="threshold"):
+        operating_point([0, 1], [0.2, 0.8], 1.5)
+    with pytest.raises(ValueError, match="both binary classes"):
+        operating_point([1, 1], [0.2, 0.8], 0.5)
