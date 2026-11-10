@@ -52,7 +52,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install test dependencies
-        run: python -m pip install --upgrade pip numpy pandas scipy scikit-learn joblib pytest catboost xgboost
+        run: python -m pip install --upgrade pip numpy pandas scipy scikit-learn joblib pytest catboost xgboost requests
       - name: Compile-check new and upgraded project code
         run: python -m compileall -q extensions/albania_all_age_allocation.py tests projects/experiment_lab projects/model_watch
       - name: Test Albania all-age demographic allocation
