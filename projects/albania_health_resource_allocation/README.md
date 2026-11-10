@@ -14,7 +14,7 @@ This is a decision-support scenario, not a claim that an optimiser can determine
 
 - The original 09B notebook and its six-programme €100m scenario.
 - Census 2023 population counts for all 12 prefectures.
-- An all-age demographic extension covering **0–14, 15–64 and 65+**.
+- An all-age demographic extension covering **0–14, 15–64 and 65+**, with an 80+ sub-cohort derived from the original notebook’s 80–84 and 85+ counts.
 - Young-, old- and total-dependency ratios.
 - A side-by-side comparison of population-only, all-age and older-age-focused regional allocations; the older-age comparator retains the notebook’s 65+ and 80+ emphasis.
 - A 1,000-scenario sensitivity analysis over alternative demographic weights and equity floors.
@@ -42,7 +42,7 @@ python -m pip install numpy pandas
 python extensions/albania_all_age_allocation.py
 ```
 
-The module exposes reusable functions for the age profile, all-age need shares, budget allocation, scenario comparison and sensitivity analysis. To inspect the results interactively:
+The module prints a reproducible profile, scenario comparison and sensitivity summary when run directly. It also exposes reusable functions for the age profile, all-age need shares, budget allocation, scenario comparison and sensitivity analysis. To inspect the results interactively:
 
 ```python
 from extensions.albania_all_age_allocation import (
