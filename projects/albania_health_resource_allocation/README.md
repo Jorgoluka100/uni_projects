@@ -16,7 +16,7 @@ This is a decision-support scenario, not a claim that an optimiser can determine
 - Census 2023 population counts for all 12 prefectures.
 - An all-age demographic extension covering **0–14, 15–64 and 65+**.
 - Young-, old- and total-dependency ratios.
-- A side-by-side comparison of population-only, all-age and older-age-focused regional allocations.
+- A side-by-side comparison of population-only, all-age and older-age-focused regional allocations; the older-age comparator retains the notebook’s 65+ and 80+ emphasis.
 - A 1,000-scenario sensitivity analysis over alternative demographic weights and equity floors.
 - Validation tests for Census totals, age-group reconciliation, budget conservation and reproducibility.
 
