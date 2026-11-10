@@ -59,3 +59,9 @@ def test_high_load_screening_rule() -> None:
         "HIGH LOAD - REVIEW",
         "HIGH LOAD - REVIEW",
     ]
+
+def test_cli_guards_invalid_split_and_bootstrap_settings_without_global_warning_suppression() -> None:
+    source = (PROJECT / "run.py").read_text(encoding="utf-8")
+    assert "--test-size must be strictly between zero and one" in source
+    assert "--bootstrap must be at least one" in source
+    assert "warnings.filterwarnings(\"ignore\")" not in source
