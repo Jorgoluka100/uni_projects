@@ -28,3 +28,24 @@ def test_ols_contains_expected_terms():
     model = fit_ols(train)
     for term in design_columns():
         assert term in model.params.index
+
+def test_time_split_rejects_unsorted_or_duplicate_weeks():
+    import pytest
+
+    data = add_model_features(generate_weekly_data(120))
+    with pytest.raises(ValueError, match="chronologically ordered"):
+        split_time(data.iloc[::-1].reset_index(drop=True), holdout_weeks=20)
+    duplicate = data.copy()
+    duplicate.loc[1, "week"] = duplicate.loc[0, "week"]
+    with pytest.raises(ValueError, match="unique"):
+        split_time(duplicate, holdout_weeks=20)
+
+
+def test_ols_rejects_non_finite_model_inputs():
+    import pytest
+
+    data = add_model_features(generate_weekly_data(120))
+    train, _ = split_time(data, holdout_weeks=20)
+    train.loc[0, "sales"] = np.inf
+    with pytest.raises(ValueError, match="finite numeric"):
+        fit_ols(train)
