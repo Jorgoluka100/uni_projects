@@ -1,4 +1,4 @@
-name: Albania all-age allocation tests
+name: Portfolio project smoke tests
 
 on:
   push:
@@ -6,11 +6,15 @@ on:
     paths:
       - "extensions/albania_all_age_allocation.py"
       - "tests/test_albania_all_age_allocation.py"
+      - "projects/experiment_lab/**"
+      - "projects/model_watch/**"
       - ".github/workflows/albania-all-age-tests.yml"
   pull_request:
     paths:
       - "extensions/albania_all_age_allocation.py"
       - "tests/test_albania_all_age_allocation.py"
+      - "projects/experiment_lab/**"
+      - "projects/model_watch/**"
       - ".github/workflows/albania-all-age-tests.yml"
 
 permissions:
@@ -19,6 +23,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -26,7 +31,15 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install dependencies
-        run: python -m pip install --upgrade pip numpy pandas
-      - name: Run all-age allocation tests
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pip numpy pandas scipy scikit-learn joblib
+      - name: Compile-check new and upgraded project code
+        run: python -m compileall -q extensions/albania_all_age_allocation.py tests projects/experiment_lab projects/model_watch
+      - name: Test Albania all-age demographic allocation
         run: python -m unittest discover -s tests -p "test_albania_all_age_allocation.py" -v
+      - name: Self-test ExperimentLab
+        run: python projects/experiment_lab/run.py --self-test
+      - name: Self-test ModelWatch
+        run: python projects/model_watch/run.py --self-test
+      - name: Smoke-test Albania all-age analysis entry point
+        run: python extensions/albania_all_age_allocation.py
