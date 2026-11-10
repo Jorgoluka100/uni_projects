@@ -26,6 +26,8 @@ class AlbaniaAllAgeAllocationTests(unittest.TestCase):
             "age_15_64": 1555080,
             "age_65_plus": 473104,
         })
+        self.assertEqual(int(profile["age_80_plus"].sum()), 97417)
+        self.assertTrue((profile["age_80_plus"] <= profile["age_65_plus"]).all())
 
     def test_age_groups_cover_each_prefecture(self):
         profile = build_age_profile()
