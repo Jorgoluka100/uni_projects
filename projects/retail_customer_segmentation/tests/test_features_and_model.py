@@ -59,3 +59,24 @@ def test_clustering_pipeline_returns_stable_valid_shapes():
     stability = cluster_stability(matrix, selection.selected_k, labels, seeds=(3, 5, 7))
     assert stability["runs"] == 3
     assert 0.0 <= stability["min"] <= 1.0
+
+def test_segmentation_rejects_invalid_feature_values_and_cluster_inputs():
+    import pytest
+
+    customer = build_customer_features(_clean_transactions())
+    customer.loc[0, "monetary_value"] = -1.0
+    with pytest.raises(ValueError, match="non-negative"):
+        prepare_clustering_matrix(customer)
+    with pytest.raises(ValueError, match="finite"):
+        evaluate_cluster_counts(np.array([[0.0], [1.0], [np.nan]]))
+    with pytest.raises(ValueError, match="n_clusters"):
+        fit_final_kmeans(np.arange(30, dtype=float).reshape(10, 3), 1)
+
+
+def test_transaction_aggregation_rejects_missing_customer_and_bad_dates():
+    import pytest
+
+    frame = _clean_transactions()
+    frame.loc[0, "CustomerID"] = None
+    with pytest.raises(ValueError, match="CustomerID"):
+        build_customer_features(frame)
