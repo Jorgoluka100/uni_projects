@@ -8,7 +8,9 @@ on:
       - "projects/statistical_marketing_mix/**"
       - "projects/parkinsons_progression/**"
       - "extensions/albania_all_age_allocation.py"
+      - "extensions/export_albania_all_age_outputs.py"
       - "tests/test_albania_all_age_allocation.py"
+      - "tests/test_albania_output_export.py"
       - "projects/grounded_rag/**"
       - "projects/nlp_document_intelligence/**"
       - "projects/reliable_event_pipeline/**"
@@ -27,7 +29,9 @@ on:
       - "projects/statistical_marketing_mix/**"
       - "projects/parkinsons_progression/**"
       - "extensions/albania_all_age_allocation.py"
+      - "extensions/export_albania_all_age_outputs.py"
       - "tests/test_albania_all_age_allocation.py"
+      - "tests/test_albania_output_export.py"
       - "projects/flight_delay_risk/**"
       - "projects/customer_churn_prediction/**"
       - "projects/uk_house_price_prediction/**"
@@ -37,8 +41,6 @@ on:
       - "projects/reliable_event_pipeline/**"
       - "projects/nlp_document_intelligence/**"
       - "projects/grounded_rag/**"
-      - "projects/experiment_lab/**"
-      - "projects/model_watch/**"
       - "projects/experiment_lab/**"
       - "projects/model_watch/**"
       - ".github/workflows/albania-all-age-tests.yml"
@@ -60,9 +62,9 @@ jobs:
       - name: Install test dependencies
         run: python -m pip install --upgrade pip numpy pandas scipy scikit-learn joblib pytest catboost xgboost requests statsmodels
       - name: Compile-check new and upgraded project code
-        run: python -m compileall -q extensions/albania_all_age_allocation.py tests projects/experiment_lab projects/model_watch
-      - name: Test Albania all-age demographic allocation
-        run: python -m unittest discover -s tests -p "test_albania_all_age_allocation.py" -v
+        run: python -m compileall -q extensions tests projects/experiment_lab projects/model_watch
+      - name: Test Albania all-age allocation and exports
+        run: python -m unittest discover -s tests -p "test_albania_*" -v
       - name: Run regression, forecasting, churn, clustering and flight-risk tests
         run: |
           PYTHONPATH=projects/flight_delay_risk python -m pytest -q projects/flight_delay_risk/tests
@@ -87,3 +89,5 @@ jobs:
         run: python projects/model_watch/run.py --self-test
       - name: Smoke-test Albania all-age analysis entry point
         run: python extensions/albania_all_age_allocation.py
+      - name: Smoke-test Albania results export
+        run: python extensions/export_albania_all_age_outputs.py --output-dir /tmp/albania-all-age-ci
