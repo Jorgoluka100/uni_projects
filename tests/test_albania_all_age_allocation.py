@@ -26,8 +26,6 @@ class AlbaniaAllAgeAllocationTests(unittest.TestCase):
             "age_15_64": 1555080,
             "age_65_plus": 473104,
         })
-        self.assertEqual(int(profile["age_80_plus"].sum()), 97417)
-        self.assertTrue((profile["age_80_plus"] <= profile["age_65_plus"]).all())
 
     def test_age_groups_cover_each_prefecture(self):
         profile = build_age_profile()
@@ -35,6 +33,7 @@ class AlbaniaAllAgeAllocationTests(unittest.TestCase):
             profile["population"].to_numpy(),
             profile[AGE_COLUMNS].sum(axis=1).to_numpy(),
         ))
+        self.assertTrue((profile["age_65_plus_dependency_ratio"] >= 0).all())
         self.assertTrue((profile["total_dependency_ratio"] >= 0).all())
 
     def test_all_age_shares_sum_to_one_and_respect_floor(self):
@@ -55,7 +54,8 @@ class AlbaniaAllAgeAllocationTests(unittest.TestCase):
         self.assertEqual(len(comparison), 12)
         self.assertAlmostEqual(comparison["all_age_allocation_eur"].sum(), 10_000_000)
         higher_floor = compare_allocation_scenarios(10_000_000, equity_floor=0.25)
-        self.assertTrue((higher_floor["older_age_focused_share"] >= 0.25 / 12).all())
+        self.assertTrue((higher_floor["all_age_share"] >= 0.25 / 12).all())
+        self.assertNotIn("older_age_focused_share", higher_floor.columns)
         with self.assertRaises(ValueError):
             compare_allocation_scenarios(-1)
         first = run_weight_sensitivity(10_000_000, n_sims=30, seed=7)
@@ -67,7 +67,7 @@ class AlbaniaAllAgeAllocationTests(unittest.TestCase):
     def test_invalid_profile_and_budget_inputs_are_rejected(self):
         profile = build_age_profile()
         invalid = profile.copy()
-        invalid.loc[0, "age_80_plus"] = invalid.loc[0, "age_65_plus"] + 1
+        invalid.loc[0, "age_0_14"] = -1
         with self.assertRaises(ValueError):
             calculate_all_age_need_shares(invalid)
         with self.assertRaises(ValueError):
