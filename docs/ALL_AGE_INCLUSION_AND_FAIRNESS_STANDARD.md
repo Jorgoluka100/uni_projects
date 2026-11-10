@@ -4,7 +4,7 @@ This repository contains projects across health, finance, retail, transport, pub
 
 ## All-age principle
 
-Where age is relevant and the source data support it, analyse the full observed age range rather than selecting one convenient demographic. Include children, young people, working-age adults and older people in population descriptions and service-planning scenarios when those groups are present in the source.
+Where age is relevant and the source data support it, analyse the full observed age range rather than designing around one age group. Represent every source-defined cohort in population descriptions and service-planning scenarios, and do not give any age group extra priority unless a clearly stated, evidence-backed policy objective justifies it.
 
 Use the age bands supplied by the source wherever possible. If a project needs a different grouping, document the mapping and reconcile group totals to the source population. Do not manufacture detailed age splits from broad totals.
 
