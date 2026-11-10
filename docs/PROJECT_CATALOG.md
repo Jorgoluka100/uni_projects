@@ -45,7 +45,7 @@ Raw group coursework, lecturer-authored tutorials, reference notebooks, old copi
 - [`LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb`](../LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb) — hands-on architecture/alignment course-learning evidence.
 - [`skills/`](../skills/) — concise notebook + Python pairs for cleaning, NumPy, classification, PyTorch, LSTM, NLP, CNNs, Linear Regression, clustering, SQL, SVMs and tree/ensemble methods.
 
-# 22 professional applications
+# 24 professional applications
 
 Every project below has a recruiter-facing notebook plus implementation and evidence files.
 
@@ -104,3 +104,7 @@ Every project below has a recruiter-facing notebook plus implementation and evid
 - [`NOTEBOOK_INDEX.md`](NOTEBOOK_INDEX.md) indexes originals, foundations and all recruiter notebooks.
 
 Return to the **[single portfolio homepage](../README.md)**.
+
+
+23. [`projects/longevity_ai/`](../projects/longevity_ai/) — human biomarker research, biological-age modelling, uncertainty, subgroup audits and scientific limitations.
+24. [`projects/albania_health_resource_allocation/`](../projects/albania_health_resource_allocation/) — Albania healthcare budget scenario planning across all 12 prefectures, with Census 2023 all-age demographics and sensitivity analysis.
