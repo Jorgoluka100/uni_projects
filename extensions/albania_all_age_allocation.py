@@ -34,6 +34,7 @@ AGE_COUNTS = [
     ("Vlorë", 19_129, 89_049, 38_503),
 ]
 AGE_COLUMNS = ["age_0_14", "age_15_64", "age_65_plus"]
+AGE_80_PLUS = [6_197, 3_696, 7_968, 8_821, 11_729, 3_859, 8_739, 2_051, 4_395, 6_934, 24_651, 8_377]
 DEFAULT_AGE_WEIGHTS = {
     "age_0_14": 0.20,
     "age_15_64": 0.20,
@@ -46,6 +47,7 @@ DEFAULT_EQUITY_FLOOR = 0.15
 def build_age_profile() -> pd.DataFrame:
     """Return a validated prefecture-level population profile for all ages."""
     df = pd.DataFrame(AGE_COUNTS, columns=["prefecture", *AGE_COLUMNS])
+    df["age_80_plus"] = AGE_80_PLUS
     df["population"] = df[AGE_COLUMNS].sum(axis=1)
     for col in AGE_COLUMNS:
         df[f"{col}_share_national"] = df[col] / df[col].sum()
@@ -85,7 +87,7 @@ def calculate_all_age_need_shares(
     values = np.asarray(list(weights.values()), dtype=float)
     if np.any(values < 0) or not np.isclose(values.sum(), 1.0):
         raise ValueError("All weights must be non-negative and sum to 1.")
-    raw = sum(
+    raw = (
         weights["population"] * profile["population_share"]
         + weights["age_0_14"] * profile["age_0_14_share_national"]
         + weights["age_15_64"] * profile["age_15_64_share_national"]
@@ -131,9 +133,7 @@ def compare_allocation_scenarios(
         + 0.85 * (
             0.50 * profile["population_share"]
             + 0.30 * profile["age_65_plus_share_national"]
-            + 0.20 * (
-                profile["age_65_plus"] / profile["age_65_plus"].sum()
-            )
+            + 0.20 * (profile["age_80_plus"] / profile["age_80_plus"].sum())
         )
     )
     out = pd.DataFrame({
