@@ -20,6 +20,21 @@ def build_customer_features(transactions: pd.DataFrame) -> pd.DataFrame:
     if missing:
         raise ValueError(f"Missing required transaction columns: {missing}")
 
+    if transactions.empty:
+        raise ValueError("transactions must not be empty")
+    if transactions["CustomerID"].isna().any():
+        raise ValueError("CustomerID must be present for every transaction")
+    dates = pd.to_datetime(transactions["InvoiceDate"], errors="coerce")
+    if dates.isna().any():
+        raise ValueError("InvoiceDate must contain valid timestamps")
+    numeric = transactions[["Quantity", "line_revenue"]].apply(pd.to_numeric, errors="coerce")
+    if numeric.isna().any().any() or not np.isfinite(numeric.to_numpy(dtype=float)).all():
+        raise ValueError("Quantity and line_revenue must be finite numeric values")
+
+    transactions = transactions.copy()
+    transactions["InvoiceDate"] = dates
+    transactions["Quantity"] = numeric["Quantity"]
+    transactions["line_revenue"] = numeric["line_revenue"]
     snapshot_date = transactions["InvoiceDate"].max().normalize() + pd.Timedelta(days=1)
 
     customer = (
@@ -62,6 +77,16 @@ def cap_extreme_values(
 ) -> tuple[pd.DataFrame, dict]:
     """Winsorise extreme RFM values while keeping every customer in the analysis."""
     columns = columns or RFM_COLUMNS
+    if frame.empty:
+        raise ValueError("customer feature frame must not be empty")
+    if not 0 <= lower_quantile < upper_quantile <= 1:
+        raise ValueError("quantiles must satisfy 0 <= lower < upper <= 1")
+    missing = sorted(set(columns) - set(frame.columns))
+    if missing:
+        raise ValueError(f"missing winsorisation columns: {missing}")
+    values = frame[columns].to_numpy(dtype=float)
+    if not np.isfinite(values).all() or np.any(values < 0):
+        raise ValueError("RFM features must be finite and non-negative")
     capped = frame.copy()
     caps: dict[str, dict[str, float]] = {}
 
