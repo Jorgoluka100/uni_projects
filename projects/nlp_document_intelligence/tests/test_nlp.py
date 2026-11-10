@@ -22,3 +22,13 @@ def test_confidence_policy_routes_uncertain_rows_to_review():
     probabilities = np.array([[0.9, 0.1], [0.52, 0.48], [0.2, 0.8]])
     accepted = confidence_policy(probabilities, threshold=0.60)
     assert accepted.tolist() == [True, False, True]
+
+def test_confidence_policy_rejects_invalid_probability_matrices():
+    import pytest
+
+    with pytest.raises(ValueError, match="sum to one"):
+        confidence_policy(np.array([[0.7, 0.7]]))
+    with pytest.raises(ValueError, match="within"):
+        confidence_policy(np.array([[1.2, -0.2]]))
+    with pytest.raises(ValueError, match="threshold"):
+        confidence_policy(np.array([[0.7, 0.3]]), threshold=1.2)
