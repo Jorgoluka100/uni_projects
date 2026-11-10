@@ -16,6 +16,7 @@ EXPECTED_AGE_TOTALS = {
     "age_0_14": 373_929,
     "age_15_64": 1_555_080,
     "age_65_plus": 473_104,
+    "age_80_plus": 97_417,
 }
 
 # INSTAT Table 1.6: total population by prefecture and broad age group.
@@ -34,6 +35,7 @@ AGE_COUNTS = [
     ("Vlorë", 19_129, 89_049, 38_503),
 ]
 AGE_COLUMNS = ["age_0_14", "age_15_64", "age_65_plus"]
+# Derived from the original 09B notebook age_80_84 + age_85_plus prefecture counts.
 AGE_80_PLUS = [6_197, 3_696, 7_968, 8_821, 11_729, 3_859, 8_739, 2_051, 4_395, 6_934, 24_651, 8_377]
 DEFAULT_AGE_WEIGHTS = {
     "age_0_14": 0.20,
@@ -177,3 +179,24 @@ def run_weight_sensitivity(
         "median_eur": np.quantile(values, 0.50, axis=0),
         "p90_eur": np.quantile(values, 0.90, axis=0),
     })
+
+
+def main() -> None:
+    """Print the all-age profile, scenario comparison and sensitivity summary."""
+    profile = build_age_profile()
+    regional_budget_eur = 40_000_000
+    comparison = compare_allocation_scenarios(regional_budget_eur)
+    sensitivity = run_weight_sensitivity(regional_budget_eur)
+    print("CENSUS 2023 — ALL-AGE PROFILE BY PREFECTURE")
+    print(profile[[
+        "prefecture", "population", "age_0_14", "age_15_64", "age_65_plus",
+        "young_dependency_ratio", "old_dependency_ratio", "total_dependency_ratio",
+    ]].to_string(index=False))
+    print("\\nREGIONAL ALLOCATION SCENARIOS — €40m illustrative regional pool")
+    print(comparison.to_string(index=False))
+    print("\\nWEIGHT SENSITIVITY — 10th / 50th / 90th percentile")
+    print(sensitivity.to_string(index=False))
+
+
+if __name__ == "__main__":
+    main()
