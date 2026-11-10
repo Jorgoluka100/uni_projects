@@ -31,12 +31,10 @@ class AlbaniaAllAgeAllocationTests(unittest.TestCase):
 
     def test_age_groups_cover_each_prefecture(self):
         profile = build_age_profile()
-        self.assertTrue(
-            np.array_equal(
-                profile["population"].to_numpy(),
-                profile[AGE_COLUMNS].sum(axis=1).to_numpy(),
-            )
-        )
+        self.assertTrue(np.array_equal(
+            profile["population"].to_numpy(),
+            profile[AGE_COLUMNS].sum(axis=1).to_numpy(),
+        ))
         self.assertTrue((profile["total_dependency_ratio"] >= 0).all())
 
     def test_all_age_shares_sum_to_one_and_respect_floor(self):
@@ -45,11 +43,12 @@ class AlbaniaAllAgeAllocationTests(unittest.TestCase):
         self.assertAlmostEqual(float(shares.sum()), 1.0)
         self.assertTrue((shares >= 0.15 / 12).all())
 
-    def test_budget_is_conserved(self):
-        profile = build_age_profile()
-        shares = calculate_all_age_need_shares(profile)
+    def test_budget_is_conserved_and_zero_budget_is_valid(self):
+        shares = calculate_all_age_need_shares(build_age_profile())
         allocation = allocate_budget(25_000_000, shares)
         self.assertAlmostEqual(allocation["allocation_eur"].sum(), 25_000_000)
+        zero = allocate_budget(0, shares)
+        self.assertEqual(float(zero["allocation_eur"].sum()), 0.0)
 
     def test_scenario_comparison_and_sensitivity_are_reproducible(self):
         comparison = compare_allocation_scenarios(10_000_000)
@@ -73,24 +72,34 @@ class AlbaniaAllAgeAllocationTests(unittest.TestCase):
             calculate_all_age_need_shares(invalid)
         with self.assertRaises(ValueError):
             calculate_all_age_need_shares(profile.drop(columns=["population_share"]))
+        duplicate = profile.copy()
+        duplicate.loc[1, "prefecture"] = duplicate.loc[0, "prefecture"]
+        with self.assertRaises(ValueError):
+            calculate_all_age_need_shares(duplicate)
         with self.assertRaises(ValueError):
             allocate_budget(float("nan"), calculate_all_age_need_shares(profile))
         with self.assertRaises(ValueError):
+            allocate_budget(-1, calculate_all_age_need_shares(profile))
+        with self.assertRaises(ValueError):
             run_weight_sensitivity(-1.0, n_sims=5)
+
+    def test_invalid_weight_scenarios_are_rejected(self):
+        profile = build_age_profile()
+        with self.assertRaises(ValueError):
+            calculate_all_age_need_shares(profile, weights={
+                "population": 0.7,
+                "age_0_14": 0.1,
+                "age_15_64": 0.1,
+                "age_65_plus": 0.1,
+            }, equity_floor=1.0)
+        with self.assertRaises(ValueError):
+            calculate_all_age_need_shares(profile, weights={
+                "population": 0.7,
+                "age_0_14": -0.1,
+                "age_15_64": 0.2,
+                "age_65_plus": 0.2,
+            })
 
 
 if __name__ == "__main__":
     unittest.main()
-
-    def test_invalid_profile_and_budget_inputs_are_rejected(self):
-        profile = build_age_profile()
-        invalid = profile.copy()
-        invalid.loc[0, "age_80_plus"] = invalid.loc[0, "age_65_plus"] + 1
-        with self.assertRaises(ValueError):
-            calculate_all_age_need_shares(invalid)
-        with self.assertRaises(ValueError):
-            calculate_all_age_need_shares(profile.drop(columns=["population_share"]))
-        with self.assertRaises(ValueError):
-            allocate_budget(float("nan"), calculate_all_age_need_shares(profile))
-        with self.assertRaises(ValueError):
-            run_weight_sensitivity(-1.0, n_sims=5)
