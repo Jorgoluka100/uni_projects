@@ -19,6 +19,7 @@ This is a decision-support scenario, not a claim that an optimiser can determine
 - A side-by-side comparison of population-only, all-age and older-age-focused regional allocations; the older-age comparator retains the notebook’s 65+ and 80+ emphasis.
 - A 1,000-scenario sensitivity analysis over alternative demographic weights and equity floors.
 - Validation tests for Census totals, age-group reconciliation, budget conservation and reproducibility.
+- A repeatable export command that writes the prefecture profile, allocation comparison, sensitivity ranges and scenario metadata to CSV/JSON.
 
 ## Official demographic evidence
 
@@ -33,7 +34,7 @@ The all-age extension uses INSTAT *Regional Statistical Yearbook 2024*, Table 1.
 
 Source: [INSTAT Regional Statistical Yearbook 2024 (PDF)](https://www.instat.gov.al/media/vurntwyn/regional-statistical-yearbook-2024-fin.pdf), Table 1.6, pp. 40–41. The source table attributes the population counts to the 2023 Population and Housing Census.
 
-## Run
+## Run the analysis
 
 From the repository root:
 
@@ -42,7 +43,34 @@ python -m pip install numpy pandas
 python extensions/albania_all_age_allocation.py
 ```
 
-The module prints a reproducible profile, scenario comparison and sensitivity summary when run directly. It also exposes reusable functions for the age profile, all-age need shares, budget allocation, scenario comparison and sensitivity analysis. To inspect the results interactively:
+The module prints a reproducible profile, scenario comparison and sensitivity summary when run directly. It also exposes reusable functions for the age profile, all-age need shares, budget allocation, scenario comparison and sensitivity analysis.
+
+## Export machine-readable results
+
+Generate a consistent set of files for further analysis, Power BI, Tableau or review:
+
+```bash
+python extensions/export_albania_all_age_outputs.py
+```
+
+By default, this writes to `artifacts/albania_all_age/`:
+
+- `prefecture_age_profile.csv` — 12 prefectures, broad age cohorts, population shares and dependency ratios.
+- `allocation_scenario_comparison.csv` — population-only, all-age and older-age-focused allocations.
+- `allocation_weight_sensitivity.csv` — 10th, median and 90th percentile allocations from the seeded sensitivity run.
+- `scenario_metadata.json` — source, budget, assumptions, simulation count and random seed.
+
+The run is configurable:
+
+```bash
+python extensions/export_albania_all_age_outputs.py \
+  --regional-budget-eur 40000000 \
+  --simulations 1000 \
+  --seed 42 \
+  --output-dir artifacts/albania_all_age
+```
+
+To inspect the results interactively:
 
 ```python
 from extensions.albania_all_age_allocation import (
@@ -56,10 +84,10 @@ comparison = compare_allocation_scenarios(regional_budget_eur=40_000_000)
 sensitivity = run_weight_sensitivity(regional_budget_eur=40_000_000)
 ```
 
-Run tests:
+Run the Albania checks:
 
 ```bash
-python -m unittest discover -s tests -p "test_albania_all_age_allocation.py" -v
+python -m unittest discover -s tests -p "test_albania_*" -v
 ```
 
 ## Modelling choices and limitations
