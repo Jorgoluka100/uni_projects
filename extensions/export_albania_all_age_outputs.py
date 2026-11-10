@@ -53,6 +53,8 @@ def export_outputs(
         "source": "INSTAT Regional Statistical Yearbook 2024, Table 1.6; Census 2023",
         "population_total": TOTAL_POPULATION,
         "prefecture_count": int(len(profile)),
+        "scenario_scope": "balanced_all_age",
+        "age_cohorts": ["0-14", "15-64", "65+"],
         "regional_budget_eur": float(regional_budget_eur),
         "sensitivity_simulations": int(n_sims),
         "random_seed": int(seed),
