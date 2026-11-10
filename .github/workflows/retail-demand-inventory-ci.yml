@@ -1,0 +1,33 @@
+name: Retail demand and inventory sensitivity tests
+
+on:
+  push:
+    branches: [main, portfolio-next-level]
+    paths:
+      - "extensions/retail_inventory_sensitivity.py"
+      - "tests/test_retail_inventory_sensitivity.py"
+      - "02_Retail_Demand_Forecasting_Inventory_Optimisation.ipynb"
+      - ".github/workflows/retail-demand-inventory-ci.yml"
+  pull_request:
+    paths:
+      - "extensions/retail_inventory_sensitivity.py"
+      - "tests/test_retail_inventory_sensitivity.py"
+      - "02_Retail_Demand_Forecasting_Inventory_Optimisation.ipynb"
+      - ".github/workflows/retail-demand-inventory-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  sensitivity-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pip numpy pandas pytest
+      - name: Run lead-time and service-factor sensitivity tests
+        run: python -m pytest -q tests/test_retail_inventory_sensitivity.py
