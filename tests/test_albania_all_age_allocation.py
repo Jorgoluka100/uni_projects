@@ -68,3 +68,16 @@ class AlbaniaAllAgeAllocationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_invalid_profile_and_budget_inputs_are_rejected(self):
+        profile = build_age_profile()
+        invalid = profile.copy()
+        invalid.loc[0, "age_80_plus"] = invalid.loc[0, "age_65_plus"] + 1
+        with self.assertRaises(ValueError):
+            calculate_all_age_need_shares(invalid)
+        with self.assertRaises(ValueError):
+            calculate_all_age_need_shares(profile.drop(columns=["population_share"]))
+        with self.assertRaises(ValueError):
+            allocate_budget(float("nan"), calculate_all_age_need_shares(profile))
+        with self.assertRaises(ValueError):
+            run_weight_sensitivity(-1.0, n_sims=5)
