@@ -34,7 +34,13 @@ AGE_COUNTS = [
     ("Tiranë", 126_699, 508_596, 123_218),
     ("Vlorë", 19_129, 89_049, 38_503),
 ]
+# Keep the three broad cohorts exactly as published by INSTAT. In particular,
+# do not invent separate child, youth or working-age sub-bands when the source
+# table only supplies 0–14 and 15–64; finer analysis needs finer source data.
 AGE_COLUMNS = ["age_0_14", "age_15_64", "age_65_plus"]
+# 80+ is a nested subset of 65+, not a fourth mutually exclusive cohort.
+# It is retained for a focused older-age comparison and must never be added
+# again when reconciling the all-age population total.
 # Derived from the original 09B notebook age_80_84 + age_85_plus prefecture counts.
 AGE_80_PLUS = [6_197, 3_696, 7_968, 8_821, 11_729, 3_859, 8_739, 2_051, 4_395, 6_934, 24_651, 8_377]
 DEFAULT_AGE_WEIGHTS = {
@@ -54,6 +60,8 @@ def build_age_profile() -> pd.DataFrame:
     df["population"] = df[AGE_COLUMNS].sum(axis=1)
     for col in AGE_COLUMNS:
         # National share answers: what proportion of this age group lives here?
+        # Local percentage answers a different question: what fraction of this
+        # prefecture belongs to the cohort. Keeping both avoids denominator confusion.
         df[f"{col}_share_national"] = df[col] / df[col].sum()
         df[f"{col}_pct_local"] = df[col] / df["population"]
     df["population_share"] = df["population"] / df["population"].sum()
@@ -115,6 +123,8 @@ def calculate_all_age_need_shares(
     if np.any(values < 0) or not np.isclose(values.sum(), 1.0):
         raise ValueError("All weights must be non-negative and sum to 1.")
     # Weighted demographic signal: each input is a share of a national cohort.
+    # This gives each cohort representation in the allocation scenario without
+    # treating its raw population count as a proxy for disease burden.
     # Weights are policy choices for scenario testing, not clinical estimates.
     raw = (
         weights["population"] * profile["population_share"]
@@ -168,6 +178,7 @@ def compare_allocation_scenarios(
     )
     # Comparator 3: deliberately older-age-weighted; this is a scenario,
     # not a claim that older residents are the only group with healthcare needs.
+    # Showing it beside the all-age model makes the demographic trade-off visible.
     older_focused = (
         equity_floor / len(profile)
         + (1 - equity_floor) * (
