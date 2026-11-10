@@ -192,9 +192,9 @@ def main() -> None:
         "prefecture", "population", "age_0_14", "age_15_64", "age_65_plus",
         "young_dependency_ratio", "old_dependency_ratio", "total_dependency_ratio",
     ]].to_string(index=False))
-    print("\\nREGIONAL ALLOCATION SCENARIOS — €40m illustrative regional pool")
+    print("\nREGIONAL ALLOCATION SCENARIOS — €40m illustrative regional pool")
     print(comparison.to_string(index=False))
-    print("\\nWEIGHT SENSITIVITY — 10th / 50th / 90th percentile")
+    print("\nWEIGHT SENSITIVITY — 10th / 50th / 90th percentile")
     print(sensitivity.to_string(index=False))
 
 
