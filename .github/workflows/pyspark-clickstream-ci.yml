@@ -27,9 +27,11 @@ jobs:
           distribution: temurin
           java-version: '17'
       - name: Install PySpark
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt pytest
       - name: Run local Spark self-test
         run: python run.py --self-test
+      - name: Run conversion contract tests
+        run: python -m pytest -q tests
       - name: Validate retained evidence
         run: python run.py --check-evidence
       - name: Compile project
