@@ -2,6 +2,7 @@ from pathlib import Path
 import sys
 
 import numpy as np
+import pandas as pd
 
 PROJECT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT))
@@ -26,6 +27,7 @@ def test_pipeline_returns_probabilities():
     probabilities = np.array(list(result["class_probabilities"].values()))
     assert np.isclose(probabilities.sum(), 1.0)
     assert 0.0 <= result["confidence"] <= 1.0
+
 
 def test_confidence_policy_rejects_invalid_probabilities_and_alignment():
     import pytest
