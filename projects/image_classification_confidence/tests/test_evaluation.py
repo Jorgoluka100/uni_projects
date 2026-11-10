@@ -49,3 +49,17 @@ class EvaluationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_probability_validation_rejects_bad_rows_and_labels(self) -> None:
+        with self.assertRaises(ValueError):
+            classification_metrics(np.asarray([0, 1]), np.asarray([[0.7, 0.7], [0.2, 0.8]]))
+        with self.assertRaises(ValueError):
+            classification_metrics(np.asarray([0, 2]), np.asarray([[0.9, 0.1], [0.2, 0.8]]))
+        with self.assertRaises(ValueError):
+            softmax(np.asarray([[1.0, np.nan]]))
+
+    def test_ece_rejects_invalid_bin_count(self) -> None:
+        probabilities = np.asarray([[0.9, 0.1], [0.1, 0.9]])
+        labels = np.asarray([0, 1])
+        with self.assertRaises(ValueError):
+            expected_calibration_error(probabilities, labels, bins=0)
