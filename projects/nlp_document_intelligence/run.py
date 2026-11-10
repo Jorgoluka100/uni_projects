@@ -36,6 +36,7 @@ class Metrics:
 
 
 def normalise_text(text: str) -> str:
+    # Lightweight hygiene only: preserve useful wording while masking common contact details.
     text = str(text).replace("\x00", " ")
     text = re.sub(r"https?://\S+|www\.\S+", " URL ", text)
     text = re.sub(r"\b[\w.+-]+@[\w.-]+\.\w+\b", " EMAIL ", text)
@@ -44,6 +45,7 @@ def normalise_text(text: str) -> str:
 
 
 def load_corpus():
+    # Use the benchmark's predefined train/test split; never fit vocabulary on test text.
     kwargs = {
         "remove": ("headers", "footers", "quotes"),
         "shuffle": True,
@@ -60,6 +62,7 @@ def load_corpus():
 
 
 def corpus_audit(texts: list[str], labels: np.ndarray, target_names: list[str]) -> dict[str, Any]:
+    # Profile empty records, document length and class balance before training.
     lengths = np.asarray([len(text.split()) for text in texts], dtype=int)
     empty = int(sum(not text.strip() for text in texts))
     unique_labels, counts = np.unique(labels, return_counts=True)
@@ -78,6 +81,7 @@ def corpus_audit(texts: list[str], labels: np.ndarray, target_names: list[str]) 
 
 
 def build_vectorizer() -> TfidfVectorizer:
+    # Fit this vectorizer inside each Pipeline so vocabulary learning stays within training folds.
     return TfidfVectorizer(
         lowercase=True,
         strip_accents="unicode",
@@ -92,6 +96,7 @@ def build_vectorizer() -> TfidfVectorizer:
 
 
 def build_nb_baseline() -> Pipeline:
+    # Naive Bayes is a fast, interpretable text-classification reference point.
     return Pipeline(
         [
             ("tfidf", build_vectorizer()),
@@ -101,6 +106,7 @@ def build_nb_baseline() -> Pipeline:
 
 
 def build_calibrated_svm() -> Pipeline:
+    # LinearSVC is strong for sparse text; calibration adds probabilities for review routing.
     svm = LinearSVC(C=2.0, class_weight=None, random_state=RANDOM_STATE)
     calibrated = CalibratedClassifierCV(svm, method="sigmoid", cv=3)
     return Pipeline(
@@ -112,6 +118,7 @@ def build_calibrated_svm() -> Pipeline:
 
 
 def confidence_policy(probabilities: np.ndarray, threshold: float = 0.55) -> np.ndarray:
+    # Reject malformed probability rows before using confidence as an operational decision.
     probabilities = np.asarray(probabilities, dtype=float)
     if probabilities.ndim != 2 or probabilities.shape[0] == 0 or probabilities.shape[1] < 2:
         raise ValueError("probabilities must be a non-empty [n, classes] matrix")
@@ -130,6 +137,7 @@ def evaluate(
     truth: np.ndarray,
     threshold: float = 0.55,
 ) -> tuple[Metrics, dict[str, Any], np.ndarray, np.ndarray]:
+    # Evaluate every held-out record first; selective-routing metrics are reported separately.
     prediction = model.predict(texts)
     probabilities = model.predict_proba(texts) if hasattr(model, "predict_proba") else None
     accepted = None
@@ -161,6 +169,7 @@ def evaluate(
 
 
 def threshold_sweep(probabilities: np.ndarray, truth: np.ndarray, prediction: np.ndarray) -> pd.DataFrame:
+    # Higher thresholds usually trade lower automation coverage for higher accepted-case precision.
     rows = []
     for threshold in np.arange(0.35, 0.91, 0.05):
         accepted = probabilities.max(axis=1) >= threshold
@@ -177,6 +186,7 @@ def threshold_sweep(probabilities: np.ndarray, truth: np.ndarray, prediction: np
 
 
 def confusion_pairs(confusion: np.ndarray, target_names: list[str], top_n: int = 20) -> pd.DataFrame:
+    # Remove correct predictions so this table highlights the most frequent category mix-ups.
     rows = []
     matrix = confusion.copy().astype(int)
     np.fill_diagonal(matrix, 0)
@@ -218,6 +228,7 @@ def category_keywords(model: Pipeline, target_names: list[str], top_n: int = 15)
 
 
 def length_error_slices(texts: list[str], truth: np.ndarray, prediction: np.ndarray, probabilities: np.ndarray) -> pd.DataFrame:
+    # Error slices reveal whether very short or unusually long documents need extra review.
     frame = pd.DataFrame(
         {
             "words": [len(text.split()) for text in texts],
@@ -240,6 +251,7 @@ def length_error_slices(texts: list[str], truth: np.ndarray, prediction: np.ndar
 
 
 def predict_document(model: Pipeline, text: str, target_names: list[str], threshold: float = 0.55) -> dict[str, Any]:
+    # Return a compact, human-readable decision payload rather than only a class ID.
     cleaned = normalise_text(text)
     probabilities = model.predict_proba([cleaned])[0]
     label_index = int(np.argmax(probabilities))
@@ -266,6 +278,7 @@ def main() -> None:
     audit_train = corpus_audit(x_train, y_train, target_names)
     audit_test = corpus_audit(x_test, y_test, target_names)
 
+    # Keep the simple baseline so the final model's value is measured, not assumed.
     baseline = build_nb_baseline()
     baseline.fit(x_train, y_train)
     baseline_metrics, _, _, _ = evaluate(baseline, x_test, y_test, threshold=0.55)
@@ -286,6 +299,7 @@ def main() -> None:
     save_json(RESULTS / "category_keywords.json", keywords)
     joblib.dump({"model": model, "target_names": target_names}, ARTIFACTS / "nlp_document_router.joblib")
 
+    # Reload the persisted artifact and check prediction parity before declaring it usable.
     bundle = joblib.load(ARTIFACTS / "nlp_document_router.joblib")
     parity_original = model.predict(x_test[:20])
     parity_loaded = bundle["model"].predict(x_test[:20])
