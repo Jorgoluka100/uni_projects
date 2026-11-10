@@ -204,33 +204,54 @@ def predict_probabilities(model: nn.Module, x: np.ndarray, batch_size: int = 204
     return np.concatenate(outputs)
 
 
+def _validate_binary_scores(y_true: np.ndarray, probabilities: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    truth = np.asarray(y_true)
+    probability = np.asarray(probabilities, dtype=float)
+    if truth.ndim != 1 or probability.ndim != 1 or truth.size == 0 or truth.shape != probability.shape:
+        raise ValueError("labels and probabilities must be non-empty aligned 1D arrays")
+    if not np.isin(truth, [0, 1]).all() or np.unique(truth).size != 2:
+        raise ValueError("labels must contain both binary classes 0 and 1")
+    if not np.isfinite(probability).all() or np.any((probability < 0) | (probability > 1)):
+        raise ValueError("probabilities must be finite and within [0, 1]")
+    return truth.astype(int), probability
+
+
 def choose_threshold(y_true: np.ndarray, probabilities: np.ndarray, max_contact_rate: float = 0.25) -> float:
-    candidates = np.linspace(0.05, 0.95, 181)
-    best_threshold = 0.5
-    best_f1 = -1.0
+    truth, probability = _validate_binary_scores(y_true, probabilities)
+    if not np.isfinite(max_contact_rate) or not 0.0 <= max_contact_rate <= 1.0:
+        raise ValueError("max_contact_rate must be within [0, 1]")
+    # Strict '>' makes a threshold of 1.0 a valid reject-all policy and avoids
+    # sending an entire tied score group over the contact-capacity limit.
+    candidates = np.unique(np.r_[0.0, probability, 1.0])
+    best_key = (-1.0, -1.0, -1.0)
+    best_threshold = 1.0
     for threshold in candidates:
-        pred = (probabilities >= threshold).astype(int)
-        contact_rate = float(pred.mean())
-        if contact_rate > max_contact_rate or pred.sum() == 0:
+        prediction = (probability > threshold).astype(int)
+        contact_rate = float(prediction.mean())
+        if contact_rate > max_contact_rate:
             continue
-        score = f1_score(y_true, pred, zero_division=0)
-        if score > best_f1:
-            best_f1 = float(score)
+        f1 = float(f1_score(truth, prediction, zero_division=0))
+        candidate_key = (f1, -contact_rate, float(threshold))
+        if candidate_key > best_key:
+            best_key = candidate_key
             best_threshold = float(threshold)
     return best_threshold
 
 
 def score(y_true: np.ndarray, probabilities: np.ndarray, threshold: float) -> ScoreCard:
-    clipped = np.clip(probabilities, 1e-6, 1 - 1e-6)
-    prediction = (clipped >= threshold).astype(int)
+    truth, probability = _validate_binary_scores(y_true, probabilities)
+    if not np.isfinite(threshold) or not 0.0 <= threshold <= 1.0:
+        raise ValueError("threshold must be finite and within [0, 1]")
+    clipped = np.clip(probability, 1e-6, 1 - 1e-6)
+    prediction = (clipped > threshold).astype(int)
     return ScoreCard(
-        roc_auc=float(roc_auc_score(y_true, clipped)),
-        pr_auc=float(average_precision_score(y_true, clipped)),
-        f1=float(f1_score(y_true, prediction, zero_division=0)),
-        precision=float(precision_score(y_true, prediction, zero_division=0)),
-        recall=float(recall_score(y_true, prediction, zero_division=0)),
-        brier=float(brier_score_loss(y_true, clipped)),
-        log_loss=float(log_loss(y_true, clipped)),
+        roc_auc=float(roc_auc_score(truth, clipped)),
+        pr_auc=float(average_precision_score(truth, clipped)),
+        f1=float(f1_score(truth, prediction, zero_division=0)),
+        precision=float(precision_score(truth, prediction, zero_division=0)),
+        recall=float(recall_score(truth, prediction, zero_division=0)),
+        brier=float(brier_score_loss(truth, clipped)),
+        log_loss=float(log_loss(truth, clipped)),
         threshold=float(threshold),
         positive_rate=float(prediction.mean()),
     )
