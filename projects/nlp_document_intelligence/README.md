@@ -12,6 +12,8 @@ Scikit-learn's 20 Newsgroups corpus, downloaded through `fetch_20newsgroups`. He
 
 ## What this project demonstrates
 
+The executable pipeline includes short inline code notes explaining the purpose of preprocessing, leakage-safe vectorisation, baseline comparison, probability calibration, human-review thresholds, error slices and saved-model parity checks. Test notes explain the privacy and decision-policy guardrails.
+
 - text acquisition and cleaning
 - corpus/data-quality profiling
 - train/test separation supplied by the benchmark
