@@ -50,8 +50,8 @@ def expected_schema() -> StructType:
 
 
 def generate_events(spark: SparkSession, rows: int) -> DataFrame:
-    if rows < 1000:
-        raise ValueError("Use at least 1,000 rows for a meaningful Spark workload")
+    if not isinstance(rows, int) or rows < 1000:
+        raise ValueError("rows must be an integer of at least 1,000 for a meaningful Spark workload")
 
     base = spark.range(0, rows).withColumnRenamed("id", "event_id")
     epoch = F.to_timestamp(F.lit("2025-01-01 00:00:00"))
@@ -91,12 +91,18 @@ def validate_raw(df: DataFrame) -> dict[str, int]:
         raise ValueError(f"Missing required columns: {missing_columns}")
 
     row_count = df.count()
+    if row_count == 0:
+        raise ValueError("Raw event data must not be empty")
     duplicate_event_ids = df.groupBy("event_id").count().where(F.col("count") > 1).count()
     null_conditions = [F.col(c).isNull().cast("int") for c in required]
     null_cells = df.select(sum(null_conditions).alias("nulls")).agg(F.sum("nulls")).first()[0] or 0
     invalid_quantity = df.where(F.col("quantity") <= 0).count()
     invalid_price = df.where(F.col("unit_price") <= 0).count()
-    invalid_discount = df.where((F.col("discount") < 0) | (F.col("discount") > 1)).count()
+    invalid_discount = df.where((F.col("discount") < 0) | (F.col("discount") > 1) | F.isnan("discount")).count()
+    invalid_return_flag = df.where(~F.col("is_return").isin(0, 1)).count()
+    invalid_repeat_label = df.where(~F.col("repeat_purchase").isin(0, 1)).count()
+    invalid_customer_id = df.where(F.col("customer_id") <= 0).count()
+    invalid_product_id = df.where(F.col("product_id") <= 0).count()
 
     report = {
         "rows": int(row_count),
@@ -105,6 +111,10 @@ def validate_raw(df: DataFrame) -> dict[str, int]:
         "invalid_quantity": int(invalid_quantity),
         "invalid_price": int(invalid_price),
         "invalid_discount": int(invalid_discount),
+        "invalid_return_flag": int(invalid_return_flag),
+        "invalid_repeat_label": int(invalid_repeat_label),
+        "invalid_customer_id": int(invalid_customer_id),
+        "invalid_product_id": int(invalid_product_id),
     }
     if any(report[key] for key in report if key != "rows"):
         raise ValueError(f"Raw data contract failed: {report}")
@@ -130,6 +140,10 @@ def enrich_events(df: DataFrame) -> DataFrame:
 
 
 def build_customer_features(events: DataFrame) -> DataFrame:
+    required = {"event_id", "customer_id", "product_id", "channel", "event_ts", "quantity", "unit_price", "discount", "is_return", "repeat_purchase"}
+    missing = sorted(required - set(events.columns))
+    if missing or events.limit(1).count() == 0:
+        raise ValueError(f"events must be non-empty and include required columns; missing={missing}")
     customer_window = Window.partitionBy("customer_id").orderBy(F.col("event_ts").asc())
     ordered = (
         events
@@ -168,6 +182,8 @@ def build_customer_features(events: DataFrame) -> DataFrame:
 
 
 def business_kpis(events: DataFrame) -> dict[str, object]:
+    if events.limit(1).count() == 0:
+        raise ValueError("business KPI input must not be empty")
     totals = events.agg(
         F.count("event_id").alias("events"),
         F.countDistinct("customer_id").alias("customers"),
@@ -217,7 +233,18 @@ def fit_repeat_purchase_model(features: DataFrame) -> tuple[Pipeline, object, di
         "revenue_per_transaction",
         "mobile_share",
     ]
+    required = set(feature_columns) | {"repeat_purchase"}
+    missing = sorted(required - set(features.columns))
+    if missing or features.limit(1).count() == 0:
+        raise ValueError(f"customer features must be non-empty and include {sorted(required)}; missing={missing}")
+    label_count = features.select("repeat_purchase").distinct().count()
+    if label_count != 2:
+        raise ValueError("repeat_purchase training data must contain both binary classes")
     train, test = features.randomSplit([0.8, 0.2], seed=SEED)
+    if train.limit(1).count() == 0 or test.limit(1).count() == 0:
+        raise ValueError("customer split produced an empty training or test partition")
+    if train.select("repeat_purchase").distinct().count() != 2 or test.select("repeat_purchase").distinct().count() != 2:
+        raise ValueError("both train and test partitions must contain both repeat_purchase classes")
     assembler = VectorAssembler(inputCols=feature_columns, outputCol="raw_features", handleInvalid="keep")
     scaler = StandardScaler(inputCol="raw_features", outputCol="features", withMean=True, withStd=True)
     classifier = LogisticRegression(
