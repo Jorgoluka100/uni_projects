@@ -281,6 +281,11 @@
       "id": "longevity-ai",
       "path": "projects/longevity_ai",
       "role": "data_science"
+    },
+    {
+      "id": "albania-health-resource-allocation",
+      "path": "projects/albania_health_resource_allocation",
+      "role": "decision_science"
     }
   ]
 }
