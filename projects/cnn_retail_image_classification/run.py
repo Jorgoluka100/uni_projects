@@ -134,6 +134,10 @@ def make_datasets():
 
 
 def make_loader(dataset, batch_size: int, shuffle: bool) -> DataLoader:
+    if not isinstance(batch_size, int) or batch_size < 1:
+        raise ValueError("batch_size must be a positive integer")
+    if len(dataset) == 0:
+        raise ValueError("cannot create a loader for an empty dataset")
     return DataLoader(
         dataset,
         batch_size=batch_size,
@@ -143,7 +147,26 @@ def make_loader(dataset, batch_size: int, shuffle: bool) -> DataLoader:
     )
 
 
+def _validate_probabilities_targets(probabilities: np.ndarray, targets: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    probs = np.asarray(probabilities, dtype=float)
+    labels = np.asarray(targets)
+    if probs.ndim != 2 or probs.shape[0] == 0 or probs.shape[1] != 10:
+        raise ValueError("probabilities must be a non-empty [n, 10] matrix")
+    if labels.ndim != 1 or labels.size != probs.shape[0]:
+        raise ValueError("targets must be a 1D array aligned with probability rows")
+    if not np.isfinite(probs).all() or np.any((probs < 0) | (probs > 1)):
+        raise ValueError("probabilities must be finite and within [0, 1]")
+    if not np.allclose(probs.sum(axis=1), 1.0, atol=1e-5, rtol=1e-5):
+        raise ValueError("each probability row must sum to one")
+    if not np.isin(labels, np.arange(10)).all():
+        raise ValueError("targets must be integer CIFAR-10 class indices 0-9")
+    return probs, labels.astype(int)
+
+
 def expected_calibration_error(probabilities: np.ndarray, targets: np.ndarray, bins: int = 15) -> float:
+    probabilities, targets = _validate_probabilities_targets(probabilities, targets)
+    if not isinstance(bins, int) or bins < 2:
+        raise ValueError("bins must be an integer of at least two")
     confidence = probabilities.max(axis=1)
     predictions = probabilities.argmax(axis=1)
     correctness = (predictions == targets).astype(float)
@@ -174,6 +197,8 @@ def train_one_epoch(model, loader, optimizer, criterion):
         running_loss += loss.item() * images.size(0)
         correct += (logits.argmax(dim=1) == labels).sum().item()
         seen += images.size(0)
+    if seen == 0:
+        raise ValueError("training loader produced no images")
     return {"loss": running_loss / seen, "accuracy": correct / seen}
 
 
@@ -237,6 +262,16 @@ def fit_model(model, train_loader, validation_loader, epochs: int, learning_rate
 
 
 def temperature_scale(logits: np.ndarray, targets: np.ndarray) -> float:
+    logits = np.asarray(logits, dtype=float)
+    targets = np.asarray(targets)
+    if logits.ndim != 2 or logits.shape[0] == 0 or logits.shape[1] != 10:
+        raise ValueError("logits must be a non-empty [n, 10] matrix")
+    if targets.ndim != 1 or targets.size != logits.shape[0] or not np.isin(targets, np.arange(10)).all():
+        raise ValueError("targets must align with logits and contain CIFAR-10 class indices")
+    if not np.isfinite(logits).all():
+        raise ValueError("logits must contain only finite values")
+    if np.unique(targets).size < 2:
+        raise ValueError("temperature calibration requires at least two represented classes")
     logits_tensor = torch.tensor(logits, dtype=torch.float32)
     targets_tensor = torch.tensor(targets, dtype=torch.long)
     temperature = torch.ones(1, requires_grad=True)
@@ -255,11 +290,17 @@ def temperature_scale(logits: np.ndarray, targets: np.ndarray) -> float:
 
 
 def apply_temperature(logits: np.ndarray, temperature: float) -> np.ndarray:
-    scaled = torch.tensor(logits, dtype=torch.float32) / temperature
+    logits = np.asarray(logits, dtype=float)
+    if logits.ndim != 2 or logits.shape[0] == 0 or logits.shape[1] != 10 or not np.isfinite(logits).all():
+        raise ValueError("logits must be a non-empty finite [n, 10] matrix")
+    if not np.isfinite(temperature) or temperature <= 0:
+        raise ValueError("temperature must be finite and positive")
+    scaled = torch.tensor(logits, dtype=torch.float32) / float(temperature)
     return torch.softmax(scaled, dim=1).numpy()
 
 
 def selective_prediction_table(probabilities: np.ndarray, targets: np.ndarray) -> pd.DataFrame:
+    probabilities, targets = _validate_probabilities_targets(probabilities, targets)
     confidence = probabilities.max(axis=1)
     predictions = probabilities.argmax(axis=1)
     rows = []
@@ -278,6 +319,12 @@ def selective_prediction_table(probabilities: np.ndarray, targets: np.ndarray) -
 
 
 def class_error_table(targets: np.ndarray, predictions: np.ndarray) -> pd.DataFrame:
+    targets = np.asarray(targets)
+    predictions = np.asarray(predictions)
+    if targets.ndim != 1 or predictions.ndim != 1 or targets.size == 0 or targets.shape != predictions.shape:
+        raise ValueError("targets and predictions must be non-empty aligned 1D arrays")
+    if not np.isin(targets, np.arange(10)).all() or not np.isin(predictions, np.arange(10)).all():
+        raise ValueError("targets and predictions must be CIFAR-10 class indices 0-9")
     matrix = confusion_matrix(targets, predictions, labels=np.arange(10))
     support = matrix.sum(axis=1)
     correct = np.diag(matrix)
@@ -298,6 +345,8 @@ def main():
     parser.add_argument("--batch-size", type=int, default=128)
     parser.add_argument("--learning-rate", type=float, default=3e-4)
     args = parser.parse_args()
+    if args.epochs < 1 or args.batch_size < 1 or not np.isfinite(args.learning_rate) or args.learning_rate <= 0:
+        parser.error("epochs and batch-size must be positive, and learning-rate must be finite and positive")
 
     train_set, validation_set, test_set = make_datasets()
     train_loader = make_loader(train_set, args.batch_size, True)
