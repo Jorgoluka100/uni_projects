@@ -35,6 +35,27 @@ class PipelineTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 ingest_csv(conn, ROOT / "fixtures" / "batch_1.csv", batch_name="batch_1")
 
+    def test_non_finite_amounts_are_rejected(self) -> None:
+        for value in ("nan", "inf", "-inf"):
+            with self.assertRaisesRegex(ValueError, "amount must be finite"):
+                _normalise({
+                    "event_id": "e-1",
+                    "customer_id": "c-1",
+                    "event_time": "2026-01-01T00:00:00Z",
+                    "source": "web",
+                    "event_type": "purchase",
+                    "amount": value,
+                })
+
+    def test_invalid_lateness_and_blank_batch_names_are_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conn = connect(Path(tmp) / "events.db")
+            fixture = ROOT / "fixtures" / "batch_1.csv"
+            with self.assertRaisesRegex(ValueError, "non-negative integer"):
+                ingest_csv(conn, fixture, batch_name="bad-lateness", allowed_lateness_hours=-1)
+            with self.assertRaisesRegex(ValueError, "batch_name"):
+                ingest_csv(conn, fixture, batch_name="   ")
+
 
 if __name__ == "__main__":
     unittest.main()
