@@ -33,7 +33,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install Spark test dependencies
-        run: python -m pip install --upgrade pip pyspark pytest
+        run: python -m pip install --upgrade pip numpy pandas pyspark pytest
       - name: Run Spark retail data-contract tests
         working-directory: projects/apache_spark_retail_intelligence
         run: python -m pytest -q tests
