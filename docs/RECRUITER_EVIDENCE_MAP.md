@@ -16,6 +16,13 @@ This page is a plain-English guide to the strongest evidence in this portfolio. 
 
 **What the work demonstrates:** model quality is not only a headline accuracy score; the decision threshold has to reflect how the prediction will be used.
 
+### Albania Healthcare Resource Allocation — 09B
+**Evidence:** official INSTAT Census 2023 population by prefecture and broad age cohort; descriptive K-Means; constrained budget optimisation; equity floors; sensitivity analysis.
+
+**What the work demonstrates:** I can turn demographic and health-financing evidence into a transparent policy scenario, compare population-only with all-age and older-age-focused allocation rules, and show how subjective assumptions affect the result.
+
+**Evidence boundary:** the €100m budget is hypothetical. Demographic shares are allocation proxies, not measured disease burden, age-specific healthcare spending or proof of clinical benefit. The model requires health-system and clinical validation before policy use.
+
 ## 2. SQL, analytics and data quality
 
 ### E-commerce SQL + Customer Analysis
