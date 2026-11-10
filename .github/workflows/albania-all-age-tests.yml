@@ -45,6 +45,10 @@ jobs:
           PYTHONPATH=projects/energy_demand_forecasting python -m pytest -q projects/energy_demand_forecasting/tests
           PYTHONPATH=projects/retail_customer_segmentation python -m pytest -q projects/retail_customer_segmentation/tests
           PYTHONPATH=projects/image_classification_confidence python -m pytest -q projects/image_classification_confidence/tests
+          PYTHONPATH=projects/reliable_event_pipeline python -m pytest -q projects/reliable_event_pipeline/tests
+          PYTHONPATH=projects/nlp_document_intelligence python -m pytest -q projects/nlp_document_intelligence/tests
+          PYTHONPATH=projects/grounded_rag python -m pytest -q projects/grounded_rag/tests
+          PYTHONPATH=projects/experiment_lab python -m pytest -q projects/experiment_lab/tests
       - name: Self-test ExperimentLab
         run: python projects/experiment_lab/run.py --self-test
       - name: Self-test ModelWatch
