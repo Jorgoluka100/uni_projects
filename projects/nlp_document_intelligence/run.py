@@ -112,6 +112,15 @@ def build_calibrated_svm() -> Pipeline:
 
 
 def confidence_policy(probabilities: np.ndarray, threshold: float = 0.55) -> np.ndarray:
+    probabilities = np.asarray(probabilities, dtype=float)
+    if probabilities.ndim != 2 or probabilities.shape[0] == 0 or probabilities.shape[1] < 2:
+        raise ValueError("probabilities must be a non-empty [n, classes] matrix")
+    if not np.isfinite(probabilities).all() or np.any((probabilities < 0) | (probabilities > 1)):
+        raise ValueError("probabilities must be finite and within [0, 1]")
+    if not np.allclose(probabilities.sum(axis=1), 1.0, atol=1e-6, rtol=1e-6):
+        raise ValueError("each probability row must sum to one")
+    if not np.isfinite(threshold) or not 0.0 <= threshold <= 1.0:
+        raise ValueError("threshold must be finite and within [0, 1]")
     return probabilities.max(axis=1) >= threshold
 
 
