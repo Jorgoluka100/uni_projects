@@ -50,8 +50,10 @@ def build_age_profile() -> pd.DataFrame:
     """Return a validated prefecture-level population profile for all ages."""
     df = pd.DataFrame(AGE_COUNTS, columns=["prefecture", *AGE_COLUMNS])
     df["age_80_plus"] = AGE_80_PLUS
+    # Reconstruct each prefecture's total from mutually exclusive age bands.
     df["population"] = df[AGE_COLUMNS].sum(axis=1)
     for col in AGE_COLUMNS:
+        # National share answers: what proportion of this age group lives here?
         df[f"{col}_share_national"] = df[col] / df[col].sum()
         df[f"{col}_pct_local"] = df[col] / df["population"]
     df["population_share"] = df["population"] / df["population"].sum()
@@ -112,12 +114,16 @@ def calculate_all_age_need_shares(
     values = np.asarray(list(weights.values()), dtype=float)
     if np.any(values < 0) or not np.isclose(values.sum(), 1.0):
         raise ValueError("All weights must be non-negative and sum to 1.")
+    # Weighted demographic signal: each input is a share of a national cohort.
+    # Weights are policy choices for scenario testing, not clinical estimates.
     raw = (
         weights["population"] * profile["population_share"]
         + weights["age_0_14"] * profile["age_0_14_share_national"]
         + weights["age_15_64"] * profile["age_15_64_share_national"]
         + weights["age_65_plus"] * profile["age_65_plus_share_national"]
     )
+    # Reserve a minimum equal share for every prefecture, then distribute
+    # the remaining budget in proportion to the weighted demographic signal.
     shares = equity_floor / len(profile) + (1 - equity_floor) * raw
     shares.index = profile["prefecture"]
     return shares
@@ -133,6 +139,8 @@ def allocate_budget(
     shares = need_shares.astype(float)
     if shares.empty or not np.isfinite(shares.to_numpy()).all() or (shares < 0).any() or not np.isclose(shares.sum(), 1.0):
         raise ValueError("need_shares must be non-empty, non-negative and sum to 1.")
+    # Multiplying shares by the budget converts relative priorities into euros.
+    # The share checks above ensure the returned allocations conserve the budget.
     return pd.DataFrame({
         "prefecture": shares.index,
         "need_share": shares.to_numpy(),
@@ -150,6 +158,7 @@ def compare_allocation_scenarios(
     if not 0 <= equity_floor < 1:
         raise ValueError("equity_floor must be in [0, 1).")
     profile = build_age_profile().set_index("prefecture")
+    # Comparator 1: population alone, with the same equity floor as other cases.
     population_only = (
         equity_floor / len(profile)
         + (1 - equity_floor) * profile["population_share"]
@@ -157,6 +166,8 @@ def compare_allocation_scenarios(
     all_age = calculate_all_age_need_shares(
         profile.reset_index(), equity_floor=equity_floor
     )
+    # Comparator 3: deliberately older-age-weighted; this is a scenario,
+    # not a claim that older residents are the only group with healthcare needs.
     older_focused = (
         equity_floor / len(profile)
         + (1 - equity_floor) * (
@@ -188,11 +199,14 @@ def run_weight_sensitivity(
         raise ValueError("n_sims must be a positive integer.")
     profile = build_age_profile()
     base = np.array([0.40, 0.20, 0.20, 0.20])
+    # Dirichlet draws vary the weights around the baseline; larger concentration
+    # keeps draws nearer the baseline while still exploring plausible alternatives.
     alpha = base * 60
     rng = np.random.default_rng(seed)
     simulated = []
     for _ in range(n_sims):
         w = rng.dirichlet(alpha)
+        # Vary the minimum regional equity allocation alongside the age weights.
         floor = rng.uniform(0.10, 0.20)
         weights = dict(zip(
             ["population", "age_0_14", "age_15_64", "age_65_plus"], w
@@ -201,6 +215,8 @@ def run_weight_sensitivity(
             profile, weights=weights, equity_floor=floor
         )
         simulated.append(shares.to_numpy() * regional_budget_eur)
+    # Summarise the distribution across simulations, not a confidence interval
+    # for real-world spending or clinical outcomes.
     values = np.asarray(simulated)
     return pd.DataFrame({
         "prefecture": profile["prefecture"],
