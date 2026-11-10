@@ -55,6 +55,10 @@ class AlbaniaAllAgeAllocationTests(unittest.TestCase):
         comparison = compare_allocation_scenarios(10_000_000)
         self.assertEqual(len(comparison), 12)
         self.assertAlmostEqual(comparison["all_age_allocation_eur"].sum(), 10_000_000)
+        higher_floor = compare_allocation_scenarios(10_000_000, equity_floor=0.25)
+        self.assertTrue((higher_floor["older_age_focused_share"] >= 0.25 / 12).all())
+        with self.assertRaises(ValueError):
+            compare_allocation_scenarios(-1)
         first = run_weight_sensitivity(10_000_000, n_sims=30, seed=7)
         second = run_weight_sensitivity(10_000_000, n_sims=30, seed=7)
         self.assertTrue(first.equals(second))
