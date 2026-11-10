@@ -6,6 +6,8 @@ The project should be interpreted against the age range actually present in each
 
 The existence of an age variable does not establish that every life stage is represented or that one biological-age equation is valid across childhood, adolescence and adulthood.
 
+For Project 30, the published PhenoAge reference strata used here begin at age 18. The implementation rejects inputs below 18 and includes a boundary check; this is an adult research model, not a paediatric prediction tool.
+
 ## All-age inclusion without invalid extrapolation
 
 The wider portfolio's demographic perspective includes children, young people, working-age adults and older adults. LongevityAI must not convert that inclusive perspective into unsupported pediatric predictions.
