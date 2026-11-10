@@ -86,7 +86,7 @@ def calculate_all_age_need_shares(
     required = {
         "prefecture", "population", "population_share",
         "age_0_14_share_national", "age_15_64_share_national",
-        "age_65_plus_share_national", *AGE_COLUMNS,
+        "age_65_plus_share_national", "age_80_plus", *AGE_COLUMNS,
     }
     if profile.empty or not required.issubset(profile.columns):
         raise ValueError(f"Profile must be non-empty and include: {sorted(required)}")
@@ -95,6 +95,8 @@ def calculate_all_age_need_shares(
     numeric = profile[list(required - {"prefecture"})].to_numpy(dtype=float)
     if not np.isfinite(numeric).all() or np.any(numeric < 0):
         raise ValueError("Profile demographic values and shares must be finite and non-negative.")
+    if (profile["age_80_plus"] > profile["age_65_plus"]).any():
+        raise ValueError("The 80+ cohort cannot exceed the 65+ cohort.")
     if not np.isclose(profile["population_share"].sum(), 1.0):
         raise ValueError("Population shares must sum to one.")
     for col in AGE_COLUMNS:
