@@ -45,3 +45,26 @@ def test_power_curve_uses_integer_arm_sizes_and_validates_inputs():
     assert curve.loc[1, "achieved_power"] > 0
     with pytest.raises(ValueError, match="at least four"):
         power_curve(10.0, [3])
+
+from run import cuped_adjust, mean_effect, power_and_mde, simulate, stratified_bootstrap
+
+
+def test_simulation_uses_balanced_random_assignment_for_odd_samples():
+    frame = simulate(101, 42, 2.5)
+    assert abs(int(frame["treatment"].sum()) - int((frame["treatment"] == 0).sum())) == 1
+
+
+def test_experiment_estimators_reject_degenerate_inputs():
+    with pytest.raises(ValueError, match="positive sample variance"):
+        cuped_adjust(np.array([1.0, 2.0, 3.0, 4.0]), np.ones(4))
+    with pytest.raises(ValueError, match="at least two"):
+        mean_effect(np.array([1.0, 2.0, 3.0]), np.array([0, 0, 1]))
+    with pytest.raises(ValueError, match="at least 100"):
+        stratified_bootstrap(np.arange(10.0), np.array([0, 0, 0, 0, 0, 1, 1, 1, 1, 1]), 10, 42)
+
+
+def test_power_calculation_validates_and_handles_odd_sample_sizes():
+    result = power_and_mde(10.0, 101)
+    assert result["mde_outcome_units"] > 0
+    with pytest.raises(ValueError, match="alpha"):
+        power_and_mde(10.0, 100, alpha=1.0)
