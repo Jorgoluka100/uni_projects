@@ -132,6 +132,11 @@ def clean_data(df: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, int]]:
     duplicate_rows = int(df.duplicated().sum())
     cleaned = df.drop_duplicates().copy()
 
+    numeric_columns = sorted(REQUIRED_COLUMNS - {GROUP_COLUMN})
+    for column in numeric_columns:
+        cleaned[column] = pd.to_numeric(cleaned[column], errors="coerce")
+    cleaned[numeric_columns] = cleaned[numeric_columns].replace([np.inf, -np.inf], np.nan)
+
     missing_group_or_target = int(cleaned[[GROUP_COLUMN, TARGET]].isna().any(axis=1).sum())
     cleaned = cleaned.dropna(subset=[GROUP_COLUMN, TARGET]).copy()
 
@@ -166,6 +171,12 @@ def subject_holdout(
     df: pd.DataFrame,
     random_state: int,
 ) -> tuple[np.ndarray, np.ndarray]:
+    if df.empty or GROUP_COLUMN not in df.columns or TARGET not in df.columns:
+        raise ValueError("subject holdout requires non-empty data with subject and target columns")
+    if df[GROUP_COLUMN].isna().any() or df[TARGET].isna().any():
+        raise ValueError("subject and target columns must not contain missing values")
+    if df[GROUP_COLUMN].nunique() < 3:
+        raise ValueError("At least three unique subjects are required for a subject holdout")
     splitter = GroupShuffleSplit(n_splits=1, test_size=0.20, random_state=random_state)
     train_idx, test_idx = next(
         splitter.split(df, y=df[TARGET], groups=df[GROUP_COLUMN])
@@ -215,10 +226,16 @@ def build_models(random_state: int) -> dict[str, Pipeline]:
 
 
 def regression_metrics(y_true: pd.Series | np.ndarray, y_pred: np.ndarray) -> Metrics:
+    truth = np.asarray(y_true, dtype=float)
+    prediction = np.asarray(y_pred, dtype=float)
+    if truth.ndim != 1 or prediction.ndim != 1 or truth.size == 0 or truth.shape != prediction.shape:
+        raise ValueError("true and predicted values must be non-empty aligned 1D arrays")
+    if not np.isfinite(truth).all() or not np.isfinite(prediction).all():
+        raise ValueError("true and predicted values must be finite")
     return Metrics(
-        mae=float(mean_absolute_error(y_true, y_pred)),
-        rmse=float(np.sqrt(mean_squared_error(y_true, y_pred))),
-        r2=float(r2_score(y_true, y_pred)),
+        mae=float(mean_absolute_error(truth, prediction)),
+        rmse=float(np.sqrt(mean_squared_error(truth, prediction))),
+        r2=float(r2_score(truth, prediction)),
     )
 
 
@@ -228,6 +245,10 @@ def grouped_cross_validation(
     y: pd.Series,
     groups: pd.Series,
 ) -> dict[str, Any]:
+    if not (len(X) == len(y) == len(groups)) or len(X) == 0:
+        raise ValueError("X, y and groups must be non-empty and have equal lengths")
+    if groups.isna().any() or y.isna().any():
+        raise ValueError("group and target values must be complete")
     unique_groups = int(groups.nunique())
     n_splits = min(5, unique_groups)
     if n_splits < 2:
