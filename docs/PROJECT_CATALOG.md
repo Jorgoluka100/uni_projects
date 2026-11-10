@@ -47,7 +47,7 @@ Raw group coursework, lecturer-authored tutorials, reference notebooks, old copi
 
 # 24 professional applications
 
-Every project below has a recruiter-facing notebook plus implementation and evidence files.
+Each project below has a recruiter-facing notebook or a canonical root-level notebook, with supporting implementation, documentation and evidence.
 
 ## Data Science & Decision Science
 
@@ -61,27 +61,29 @@ Every project below has a recruiter-facing notebook plus implementation and evid
 8. [`projects/statistical_marketing_mix/`](../projects/statistical_marketing_mix/) — OLS, robust inference, diagnostics and scenarios.
 9. [`projects/experiment_lab/`](../projects/experiment_lab/) — A/B testing, CUPED, power and guardrails.
 10. [`projects/parkinsons_progression/`](../projects/parkinsons_progression/) — subject-grouped regression validation.
+11. [`projects/longevity_ai/`](../projects/longevity_ai/) — human biomarker research, biological-age modelling, uncertainty, subgroup audits and scientific limitations.
+12. [`projects/albania_health_resource_allocation/`](../projects/albania_health_resource_allocation/) — Albania healthcare budget scenario planning across all 12 prefectures, Census 2023 all-age demographics and sensitivity analysis.
 
 ## Machine Learning / Deep Learning / AI Engineering
 
-11. [`projects/grounded_rag/`](../projects/grounded_rag/) — retrieval, citations, abstention, prompt-injection checks, FastAPI and Docker.
-12. [`projects/deep_learning_marketing_response/`](../projects/deep_learning_marketing_response/) — PyTorch MLP with a Logistic Regression baseline, AdamW and calibration.
-13. [`projects/nlp_document_intelligence/`](../projects/nlp_document_intelligence/) — TF-IDF, Naive Bayes, calibrated SVM, confidence routing and error analysis.
-14. [`projects/image_classification_confidence/`](../projects/image_classification_confidence/) — transfer learning, calibration, selective prediction and Grad-CAM.
-15. **[`projects/cnn_retail_image_classification/`](../projects/cnn_retail_image_classification/)** — custom CNN, deeper regularised CNN, BatchNorm, Dropout, augmentation, AdamW, ResNet18 transfer learning, calibration and confidence-based review routing.
-16. [`projects/energy_demand_forecasting/`](../projects/energy_demand_forecasting/) — TensorFlow Conv1D/LSTM forecasting.
-17. [`projects/model_watch/`](../projects/model_watch/) — drift, data quality, discrimination, calibration and retraining policy.
+13. [`projects/grounded_rag/](../projects/grounded_rag/) — retrieval, citations, abstention, prompt-injection checks, FastAPI and Docker.
+14. [`projects/deep_learning_marketing_response/](../projects/deep_learning_marketing_response/) — PyTorch MLP with a Logistic Regression baseline, AdamW and calibration.
+15. [`projects/nlp_document_intelligence/](../projects/nlp_document_intelligence/) — TF-IDF, Naive Bayes, calibrated SVM, confidence routing and error analysis.
+16. [`projects/image_classification_confidence/](../projects/image_classification_confidence/) — transfer learning, calibration, selective prediction and Grad-CAM.
+17. **[`projects/cnn_retail_image_classification/](../projects/cnn_retail_image_classification/)** — custom CNN, deeper regularised CNN, BatchNorm, Dropout, augmentation, AdamW, ResNet18 transfer learning, calibration and confidence-based review routing.
+18. [`projects/energy_demand_forecasting/](../projects/energy_demand_forecasting/) — TensorFlow Conv1D/LSTM forecasting.
+19. [`projects/model_watch/](../projects/model_watch/) — drift, data quality, discrimination, calibration and retraining policy.
 
 ## Data Engineering / Analytics Engineering
 
-18. [`projects/reliable_event_pipeline/`](../projects/reliable_event_pipeline/) — schema contracts, rejects, deduplication, idempotency and reconciliation.
-19. [`projects/apache_spark_retail_intelligence/`](../projects/apache_spark_retail_intelligence/) — million-row Spark workload, windows, Customer 360, Spark ML and Parquet.
-20. [`projects/pyspark_clickstream_analytics/`](../projects/pyspark_clickstream_analytics/) — distributed clickstream transformations, sessions/funnels and load testing.
-21. [`projects/ecommerce_sql_analytics/`](../projects/ecommerce_sql_analytics/) — SQL, DuckDB/dbt, marts and data-quality tests.
+20. [`projects/reliable_event_pipeline/](../projects/reliable_event_pipeline/) — schema contracts, rejects, deduplication, idempotency and reconciliation.
+21. [`projects/apache_spark_retail_intelligence/](../projects/apache_spark_retail_intelligence/) — million-row Spark workload, windows, Customer 360, Spark ML and Parquet.
+22. [`projects/pyspark_clickstream_analytics/](../projects/pyspark_clickstream_analytics/) — distributed clickstream transformations, sessions/funnels and load testing.
+23. [`projects/ecommerce_sql_analytics/](../projects/ecommerce_sql_analytics/) — SQL, DuckDB/dbt, marts and data-quality tests.
 
 ## Analytics / BI
 
-22. [`projects/executive_commerce_bi/`](../projects/executive_commerce_bi/) — governed KPIs, Power BI PBIP/PBIR/TMDL, DAX, Tableau and validation.
+24. [`projects/executive_commerce_bi/](../projects/executive_commerce_bi/) — governed KPIs, Power BI PBIP/PBIR/TMDL, DAX, Tableau and validation.
 
 ## Other retained Jorgo portfolio / laboratory notebooks
 
@@ -105,6 +107,3 @@ Every project below has a recruiter-facing notebook plus implementation and evid
 
 Return to the **[single portfolio homepage](../README.md)**.
 
-
-23. [`projects/longevity_ai/`](../projects/longevity_ai/) — human biomarker research, biological-age modelling, uncertainty, subgroup audits and scientific limitations.
-24. [`projects/albania_health_resource_allocation/`](../projects/albania_health_resource_allocation/) — Albania healthcare budget scenario planning across all 12 prefectures, with Census 2023 all-age demographics and sensitivity analysis.
