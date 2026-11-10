@@ -52,7 +52,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install test dependencies
-        run: python -m pip install --upgrade pip numpy pandas scipy scikit-learn joblib pytest catboost
+        run: python -m pip install --upgrade pip numpy pandas scipy scikit-learn joblib pytest catboost xgboost
       - name: Compile-check new and upgraded project code
         run: python -m compileall -q extensions/albania_all_age_allocation.py tests projects/experiment_lab projects/model_watch
       - name: Test Albania all-age demographic allocation
@@ -69,6 +69,7 @@ jobs:
           PYTHONPATH=projects/nlp_document_intelligence python -m pytest -q projects/nlp_document_intelligence/tests
           PYTHONPATH=projects/grounded_rag python -m pytest -q projects/grounded_rag/tests
           PYTHONPATH=projects/experiment_lab python -m pytest -q projects/experiment_lab/tests
+          PYTHONPATH=projects/xgboost_bike_demand python -m pytest -q projects/xgboost_bike_demand/tests
       - name: Self-test ExperimentLab
         run: python projects/experiment_lab/run.py --self-test
       - name: Self-test ModelWatch
