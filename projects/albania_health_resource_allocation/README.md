@@ -6,7 +6,7 @@
 
 ## Decision question
 
-How could a hypothetical additional healthcare budget be distributed transparently between national programmes and regional service delivery, while considering residents of **all ages** rather than focusing primarily on older residents?
+How could a hypothetical additional healthcare budget be distributed transparently between national programmes and regional service delivery, using a balanced view of the **whole population** rather than prioritising one age group?
 
 This is a decision-support scenario, not a claim that an optimiser can determine the clinically optimal budget.
 
@@ -14,9 +14,9 @@ This is a decision-support scenario, not a claim that an optimiser can determine
 
 - The original 09B notebook and its six-programme €100m scenario.
 - Census 2023 population counts for all 12 prefectures.
-- An all-age demographic extension covering **0–14, 15–64 and 65+**, with an 80+ sub-cohort derived from the original notebook’s 80–84 and 85+ counts.
-- Young-, old- and total-dependency ratios.
-- A side-by-side comparison of population-only, all-age and older-age-focused regional allocations; the older-age comparator retains the notebook’s 65+ and 80+ emphasis.
+- An all-age demographic extension covering the three mutually exclusive Census cohorts: **0–14, 15–64 and 65+**.
+- Young-, 65+- and total-dependency ratios, reported as descriptive population indicators.
+- A side-by-side comparison of a population-only baseline and a balanced all-age regional allocation. Each published age cohort receives the same scenario weight; no age group is singled out for extra priority.
 - A 1,000-scenario sensitivity analysis over alternative demographic weights and equity floors.
 - Validation tests for Census totals, age-group reconciliation, budget conservation and reproducibility.
 - A repeatable export command that writes the prefecture profile, allocation comparison, sensitivity ranges and scenario metadata to CSV/JSON.
@@ -56,7 +56,7 @@ python extensions/export_albania_all_age_outputs.py
 By default, this writes to `artifacts/albania_all_age/`:
 
 - `prefecture_age_profile.csv` — 12 prefectures, broad age cohorts, population shares and dependency ratios.
-- `allocation_scenario_comparison.csv` — population-only, all-age and older-age-focused allocations.
+- `allocation_scenario_comparison.csv` — population-only baseline and balanced all-age allocations.
 - `allocation_weight_sensitivity.csv` — 10th, median and 90th percentile allocations from the seeded sensitivity run.
 - `scenario_metadata.json` — source, budget, assumptions, simulation count and random seed.
 
@@ -92,7 +92,7 @@ python -m unittest discover -s tests -p "test_albania_*" -v
 
 ## Modelling choices and limitations
 
-- The all-age model uses broad Census cohorts: 0–14, 15–64 and 65+. The original notebook's 65+ subgroups remain available for older-age analysis.
+- The all-age model uses the three mutually exclusive Census cohorts: 0–14, 15–64 and 65+. The 65+ cohort remains represented as one part of the whole population; there is no separate 80+ or older-only allocation scenario in this extension.
 - Population shares and age-cohort shares are demographic allocation proxies. They are **not** measured disease burden, healthcare utilisation, disability prevalence, individual medical need or age-specific expenditure.
 - The all-age weights and equal-prefecture equity floor are explicit scenario assumptions. They must be reviewed with Albanian health economists, clinicians and public authorities before policy use.
 - The model does not infer an individual's healthcare spending from household expenditure. INSTAT's Household Budget Survey is collected at household level; individual-age spending claims require suitable microdata and a defensible attribution method.
@@ -100,6 +100,6 @@ python -m unittest discover -s tests -p "test_albania_*" -v
 
 ## Why this is stronger
 
-The extension makes the trade-offs visible: children and working-age residents are represented alongside older residents; population-only and older-age-focused scenarios can be compared with an all-age scenario; and the allocation is checked against official Census totals rather than relying on an undocumented demographic split.
+The extension makes the trade-offs visible across all three source-defined age cohorts, compares a population-only baseline with a balanced all-age scenario, and checks allocations against official Census totals rather than relying on an undocumented demographic split.
 
 This is an auditable planning model—not a clinical recommendation, fiscal forecast or causal estimate of health outcomes.
