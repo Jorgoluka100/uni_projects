@@ -51,39 +51,39 @@ Each project below has a recruiter-facing notebook or a canonical root-level not
 
 ## Data Science & Decision Science
 
-1. [`projects/flight_delay_risk/`](../projects/flight_delay_risk/) — temporal validation, CatBoost, uncertainty and operational decisioning.
-2. [`projects/linear_regression_energy_efficiency/`](../projects/linear_regression_energy_efficiency/) — Linear Regression, Ridge/Lasso, polynomial comparison, CV, residuals and bootstrap uncertainty.
-3. [`projects/customer_churn_prediction/`](../projects/customer_churn_prediction/) — classification, calibration and cost-aware retention decisions.
-4. [`projects/uk_house_price_prediction/`](../projects/uk_house_price_prediction/) — regression with time-aware validation and uncertainty.
-5. [`projects/retail_customer_segmentation/`](../projects/retail_customer_segmentation/) — cleaning, RFM and clustering.
-6. [`projects/knn_product_quality/`](../projects/knn_product_quality/) — KNN, scaling, tuning, neighbour evidence and confidence review.
-7. [`projects/xgboost_bike_demand/`](../projects/xgboost_bike_demand/) — XGBoost, chronological validation and operational error analysis.
-8. [`projects/statistical_marketing_mix/`](../projects/statistical_marketing_mix/) — OLS, robust inference, diagnostics and scenarios.
-9. [`projects/experiment_lab/`](../projects/experiment_lab/) — A/B testing, CUPED, power and guardrails.
-10. [`projects/parkinsons_progression/`](../projects/parkinsons_progression/) — subject-grouped regression validation.
-11. [`projects/longevity_ai/`](../projects/longevity_ai/) — human biomarker research, biological-age modelling, uncertainty, subgroup audits and scientific limitations.
-12. [`projects/albania_health_resource_allocation/`](../projects/albania_health_resource_allocation/) — Albania healthcare budget scenario planning across all 12 prefectures, Census 2023 all-age demographics and sensitivity analysis.
+1. [Flight Delay Risk](../projects/flight_delay_risk/) — temporal validation, CatBoost, uncertainty and operational decisioning.
+2. [Linear Regression — Building Energy Efficiency](../projects/linear_regression_energy_efficiency/) — Linear Regression, Ridge/Lasso, polynomial comparison, CV, residuals and bootstrap uncertainty.
+3. [Customer Churn Prediction](../projects/customer_churn_prediction/) — classification, calibration and cost-aware retention decisions.
+4. [UK House Price Prediction](../projects/uk_house_price_prediction/) — regression with time-aware validation and uncertainty.
+5. [Retail Customer Segmentation](../projects/retail_customer_segmentation/) — cleaning, RFM and clustering.
+6. [KNN Product Quality](../projects/knn_product_quality/) — KNN, scaling, tuning, neighbour evidence and confidence review.
+7. [XGBoost Bike Demand](../projects/xgboost_bike_demand/) — XGBoost, chronological validation and operational error analysis.
+8. [Statistical Marketing Mix](../projects/statistical_marketing_mix/) — OLS, robust inference, diagnostics and scenarios.
+9. [ExperimentLab](../projects/experiment_lab/) — A/B testing, CUPED, power and guardrails.
+10. [Parkinson's Progression](../projects/parkinsons_progression/) — subject-grouped regression validation.
+11. [LongevityAI](../projects/longevity_ai/) — human biomarker research, biological-age modelling, uncertainty, subgroup audits and scientific limitations.
+12. [Albania Healthcare Resource Allocation — 09B](../projects/albania_health_resource_allocation/) — healthcare budget scenario planning across all 12 prefectures, Census 2023 all-age demographics and sensitivity analysis.
 
 ## Machine Learning / Deep Learning / AI Engineering
 
-13. [`projects/grounded_rag/](../projects/grounded_rag/) — retrieval, citations, abstention, prompt-injection checks, FastAPI and Docker.
-14. [`projects/deep_learning_marketing_response/](../projects/deep_learning_marketing_response/) — PyTorch MLP with a Logistic Regression baseline, AdamW and calibration.
-15. [`projects/nlp_document_intelligence/](../projects/nlp_document_intelligence/) — TF-IDF, Naive Bayes, calibrated SVM, confidence routing and error analysis.
-16. [`projects/image_classification_confidence/](../projects/image_classification_confidence/) — transfer learning, calibration, selective prediction and Grad-CAM.
-17. **[`projects/cnn_retail_image_classification/](../projects/cnn_retail_image_classification/)** — custom CNN, deeper regularised CNN, BatchNorm, Dropout, augmentation, AdamW, ResNet18 transfer learning, calibration and confidence-based review routing.
-18. [`projects/energy_demand_forecasting/](../projects/energy_demand_forecasting/) — TensorFlow Conv1D/LSTM forecasting.
-19. [`projects/model_watch/](../projects/model_watch/) — drift, data quality, discrimination, calibration and retraining policy.
+13. [Grounded RAG](../projects/grounded_rag/) — retrieval, citations, abstention, prompt-injection checks, FastAPI and Docker.
+14. [Deep Learning Marketing Response](../projects/deep_learning_marketing_response/) — PyTorch MLP with a Logistic Regression baseline, AdamW and calibration.
+15. [NLP Document Intelligence](../projects/nlp_document_intelligence/) — TF-IDF, Naive Bayes, calibrated SVM, confidence routing and error analysis.
+16. [Image Classification Confidence](../projects/image_classification_confidence/) — transfer learning, calibration, selective prediction and Grad-CAM.
+17. [CNN Retail Image Classification](../projects/cnn_retail_image_classification/) — custom CNN, deeper regularised CNN, BatchNorm, Dropout, augmentation, AdamW, ResNet18 transfer learning, calibration and confidence-based review routing.
+18. [Energy Demand Forecasting](../projects/energy_demand_forecasting/) — TensorFlow Conv1D/LSTM forecasting.
+19. [ModelWatch](../projects/model_watch/) — drift, data quality, discrimination, calibration and retraining policy.
 
 ## Data Engineering / Analytics Engineering
 
-20. [`projects/reliable_event_pipeline/](../projects/reliable_event_pipeline/) — schema contracts, rejects, deduplication, idempotency and reconciliation.
-21. [`projects/apache_spark_retail_intelligence/](../projects/apache_spark_retail_intelligence/) — million-row Spark workload, windows, Customer 360, Spark ML and Parquet.
-22. [`projects/pyspark_clickstream_analytics/](../projects/pyspark_clickstream_analytics/) — distributed clickstream transformations, sessions/funnels and load testing.
-23. [`projects/ecommerce_sql_analytics/](../projects/ecommerce_sql_analytics/) — SQL, DuckDB/dbt, marts and data-quality tests.
+20. [Reliable Event Pipeline](../projects/reliable_event_pipeline/) — schema contracts, rejects, deduplication, idempotency and reconciliation.
+21. [Apache Spark Retail Intelligence](../projects/apache_spark_retail_intelligence/) — million-row Spark workload, windows, Customer 360, Spark ML and Parquet.
+22. [PySpark Clickstream Analytics](../projects/pyspark_clickstream_analytics/) — distributed clickstream transformations, sessions/funnels and load testing.
+23. [E-commerce SQL + dbt](../projects/ecommerce_sql_analytics/) — SQL, DuckDB/dbt, marts and data-quality tests.
 
 ## Analytics / BI
 
-24. [`projects/executive_commerce_bi/](../projects/executive_commerce_bi/) — governed KPIs, Power BI PBIP/PBIR/TMDL, DAX, Tableau and validation.
+24. [Executive Commerce Intelligence](../projects/executive_commerce_bi/) — governed KPIs, Power BI PBIP/PBIR/TMDL, DAX, Tableau and validation.
 
 ## Other retained Jorgo portfolio / laboratory notebooks
 
