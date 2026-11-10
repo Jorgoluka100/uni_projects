@@ -4,6 +4,7 @@ on:
   push:
     branches: [main, portfolio-next-level]
     paths:
+      - "projects/linear_regression_energy_efficiency/**"
       - "projects/statistical_marketing_mix/**"
       - "projects/parkinsons_progression/**"
       - "extensions/albania_all_age_allocation.py"
@@ -22,6 +23,7 @@ on:
       - ".github/workflows/albania-all-age-tests.yml"
   pull_request:
     paths:
+      - "projects/linear_regression_energy_efficiency/**"
       - "projects/statistical_marketing_mix/**"
       - "projects/parkinsons_progression/**"
       - "extensions/albania_all_age_allocation.py"
@@ -78,6 +80,7 @@ jobs:
           PYTHONPATH=projects/knn_product_quality python -m pytest -q projects/knn_product_quality/tests
           PYTHONPATH=projects/parkinsons_progression python -m pytest -q projects/parkinsons_progression/tests
           PYTHONPATH=projects/statistical_marketing_mix python -m pytest -q projects/statistical_marketing_mix/tests
+          PYTHONPATH=projects/linear_regression_energy_efficiency python -m pytest -q projects/linear_regression_energy_efficiency/tests
       - name: Self-test ExperimentLab
         run: python projects/experiment_lab/run.py --self-test
       - name: Self-test ModelWatch
