@@ -70,6 +70,7 @@ jobs:
           PYTHONPATH=projects/grounded_rag python -m pytest -q projects/grounded_rag/tests
           PYTHONPATH=projects/experiment_lab python -m pytest -q projects/experiment_lab/tests
           PYTHONPATH=projects/xgboost_bike_demand python -m pytest -q projects/xgboost_bike_demand/tests
+          PYTHONPATH=projects/model_watch python -m pytest -q projects/model_watch/tests
       - name: Self-test ExperimentLab
         run: python projects/experiment_lab/run.py --self-test
       - name: Self-test ModelWatch
