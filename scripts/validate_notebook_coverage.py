@@ -14,6 +14,13 @@ NOTEBOOK_INDEX = ROOT / "docs" / "NOTEBOOK_INDEX.md"
 PROJECTS = ROOT / "projects"
 SKILLS = ROOT / "skills"
 
+# Companion/research projects whose canonical notebook is retained at repository root.
+# Their project folders provide a dedicated README and reusable extension code/evidence.
+EXTERNAL_NOTEBOOK_PROJECTS = {
+    "projects/longevity_ai": "30_LongevityAI_Human_Biological_Age_and_Healthspan_Intelligence.ipynb",
+    "projects/albania_health_resource_allocation": "09B_Albania_Healthcare_Resource_Allocation_Optimisation.ipynb",
+}
+
 
 def read_notebook(path: Path, failures: list[str]) -> dict | None:
     if not path.is_file():
@@ -113,8 +120,22 @@ def main() -> int:
         if index_text and relative_notebook not in index_text:
             failures.append(f"notebook index does not reference {relative_notebook}")
 
-    # Manifest projects must still resolve to real checked project folders.
+    # Companion/research projects use a canonical root-level notebook rather than a duplicate copy.
+    catalog_text = CATALOG.read_text(encoding="utf-8") if CATALOG.is_file() else ""
+    for project_path, relative_notebook in EXTERNAL_NOTEBOOK_PROJECTS.items():
+        project_dir = ROOT / project_path
+        if not (project_dir / "README.md").is_file():
+            failures.append(f"external notebook project is missing README: {project_path}")
+        validate_recruiter_notebook(ROOT / relative_notebook, failures)
+        if index_text and relative_notebook not in index_text:
+            failures.append(f"notebook index does not reference {relative_notebook}")
+        if f"{project_path}/" not in catalog_text:
+            failures.append(f"project catalog does not reference {project_path}")
+
+    # Manifest projects must resolve either to Python-backed folders or to a
+    # documented companion project with a validated canonical root-level notebook.
     checked_paths = {str(path.relative_to(ROOT)) for path in projects}
+    checked_paths.update(EXTERNAL_NOTEBOOK_PROJECTS)
     for project in payload.get("production_projects", []):
         manifest_path = project.get("path")
         if manifest_path not in checked_paths:
@@ -146,6 +167,7 @@ def main() -> int:
         failures.append("docs/NOTEBOOK_INDEX.md is missing")
 
     print(f"Python-backed projects checked: {len(projects)}")
+    print(f"External notebook companion projects checked: {len(EXTERNAL_NOTEBOOK_PROJECTS)}")
     print(f"Focused notebook/Python pairs checked: {len(skill_notebooks)}")
     print(f"Failures: {len(failures)}")
     for failure in failures:
