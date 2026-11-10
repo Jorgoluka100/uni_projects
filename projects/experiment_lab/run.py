@@ -62,8 +62,8 @@ def mean_effect(y: np.ndarray, t: np.ndarray) -> tuple[float, float, float]:
 def cuped_adjust(y: np.ndarray, x: np.ndarray) -> tuple[np.ndarray, float]:
     outcome = np.asarray(y, dtype=float)
     covariate = np.asarray(x, dtype=float)
-    if outcome.ndim != 1 or covariate.ndim != 1 or outcome.size == 0 or outcome.shape != covariate.shape:
-        raise ValueError("outcome and pre-treatment covariate must be non-empty aligned 1D arrays")
+    if outcome.ndim != 1 or covariate.ndim != 1 or outcome.size < 2 or outcome.shape != covariate.shape:
+        raise ValueError("outcome and pre-treatment covariate must be aligned 1D arrays with at least two rows")
     if not np.isfinite(outcome).all() or not np.isfinite(covariate).all():
         raise ValueError("outcome and pre-treatment covariate must be finite")
     variance = float(np.var(covariate, ddof=1))
