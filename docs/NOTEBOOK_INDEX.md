@@ -6,7 +6,7 @@ The repository has three layers:
 
 1. **Jorgo Luka university / course evidence** — work attributable to Jorgo or a clearly identifiable Jorgo contribution.
 2. **Focused skills notebooks + `.py` scripts** — compact DataCamp-style / interview-revision examples.
-3. **22 strengthened projects** — recruiter-facing `project_notebook.ipynb` applications plus normal Python/SQL/BI source files.
+3. **24 strengthened projects** — recruiter-facing `project_notebook.ipynb` applications plus normal Python/SQL/BI source files.
 
 Lecturer tutorials, another student's notebook and raw group copies are kept only in the historical archive and are not indexed as Jorgo-authored evidence.
 
@@ -80,7 +80,7 @@ Raw group notebooks, lecturer tutorials, reference notebooks and exact old worki
 | Support Vector Machines | [`11_support_vector_machines.ipynb`](../skills/11_support_vector_machines.ipynb) | [`11_support_vector_machines.py`](../skills/11_support_vector_machines.py) |
 | Trees & ensemble models | [`12_tree_and_ensemble_models.ipynb`](../skills/12_tree_and_ensemble_models.ipynb) | [`12_tree_and_ensemble_models.py`](../skills/12_tree_and_ensemble_models.py) |
 
-## 3. Strengthened projects — 22 notebook-first applications
+## 3. Strengthened projects — 24 notebook-first / companion applications
 
 | Project | Notebook | Project code |
 | --- | --- | --- |
@@ -106,6 +106,9 @@ Raw group notebooks, lecturer tutorials, reference notebooks and exact old worki
 | PySpark Clickstream | [`project_notebook.ipynb`](../projects/pyspark_clickstream_analytics/project_notebook.ipynb) | [`projects/pyspark_clickstream_analytics/`](../projects/pyspark_clickstream_analytics/) |
 | E-commerce SQL + dbt | [`project_notebook.ipynb`](../projects/ecommerce_sql_analytics/project_notebook.ipynb) | [`projects/ecommerce_sql_analytics/`](../projects/ecommerce_sql_analytics/) |
 | Executive Commerce Intelligence | [`project_notebook.ipynb`](../projects/executive_commerce_bi/project_notebook.ipynb) | [`projects/executive_commerce_bi/`](../projects/executive_commerce_bi/) |
+
+| **LongevityAI** | [`30_LongevityAI_Human_Biological_Age_and_Healthspan_Intelligence.ipynb`](../30_LongevityAI_Human_Biological_Age_and_Healthspan_Intelligence.ipynb) | [`projects/longevity_ai/`](../projects/longevity_ai/) |
+| **Albania Healthcare Resource Allocation — 09B** | [`09B_Albania_Healthcare_Resource_Allocation_Optimisation.ipynb`](../09B_Albania_Healthcare_Resource_Allocation_Optimisation.ipynb) | [`projects/albania_health_resource_allocation/`](../projects/albania_health_resource_allocation/) · [all-age analysis module](../extensions/albania_all_age_allocation.py) |
 
 ## Why both `.ipynb` and modular source exist
 
