@@ -12,6 +12,7 @@ Python · SQL · R · Apache Spark/PySpark · Machine Learning · Deep Learning 
 | Area | Best place to start |
 | --- | --- |
 | **University / MSc evidence** | [University project index](docs/UNIVERSITY_PROJECTS.md) · direct links below |
+| **Albania healthcare policy analytics** | [09B all-age resource allocation](projects/albania_health_resource_allocation/) · [Original 09B notebook](09B_Albania_Healthcare_Resource_Allocation_Optimisation.ipynb) |
 | **Data Science** | [LongevityAI](projects/longevity_ai/) · [Flight Delay](projects/flight_delay_risk/) · [Linear Regression Energy](projects/linear_regression_energy_efficiency/) · [Customer Churn](projects/customer_churn_prediction/) |
 | **Machine Learning algorithms** | **[Complete ML algorithm coverage map](docs/ML_ALGORITHM_COVERAGE.md)** · [foundations](skills/) |
 | **Deep Learning** | [CNN 2D Image Classification](projects/cnn_retail_image_classification/) · [Deep Learning Marketing](projects/deep_learning_marketing_response/) · [Energy Forecasting](projects/energy_demand_forecasting/) |
