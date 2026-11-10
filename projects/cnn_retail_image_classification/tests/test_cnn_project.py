@@ -1,6 +1,7 @@
 from pathlib import Path
 import ast
 
+import numpy as np
 import torch
 
 ROOT = Path(__file__).resolve().parents[1]
