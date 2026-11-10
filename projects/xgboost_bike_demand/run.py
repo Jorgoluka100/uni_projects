@@ -113,12 +113,24 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def chronological_split(df: pd.DataFrame, train_fraction: float = 0.70, validation_fraction: float = 0.15):
+    if not 0 < train_fraction < 1 or not 0 < validation_fraction < 1:
+        raise ValueError("train and validation fractions must be between zero and one")
+    if train_fraction + validation_fraction >= 1:
+        raise ValueError("train and validation fractions must leave a non-empty test partition")
+    if df.empty or "timestamp" not in df.columns:
+        raise ValueError("data must be non-empty and include timestamp")
+    if df["timestamp"].isna().any() or not df["timestamp"].is_monotonic_increasing:
+        raise ValueError("timestamps must be complete and chronologically ordered")
+    if df["timestamp"].duplicated().any():
+        raise ValueError("timestamps must be unique")
     n = len(df)
     train_end = int(n * train_fraction)
     validation_end = int(n * (train_fraction + validation_fraction))
     train = df.iloc[:train_end].copy()
     validation = df.iloc[train_end:validation_end].copy()
     test = df.iloc[validation_end:].copy()
+    if train.empty or validation.empty or test.empty:
+        raise ValueError("chronological split produced an empty partition")
     if not (train["timestamp"].max() < validation["timestamp"].min() <= validation["timestamp"].max() < test["timestamp"].min()):
         raise ValueError("Chronological split is not strictly ordered")
     summary = SplitSummary(
@@ -147,12 +159,26 @@ def feature_columns(df: pd.DataFrame) -> list[str]:
 
 
 def make_xy(df: pd.DataFrame, features: list[str]) -> tuple[pd.DataFrame, pd.Series]:
+    missing = sorted((set(features) | {TARGET}) - set(df.columns))
+    if missing:
+        raise ValueError(f"model data is missing columns: {missing}")
+    if LEAKAGE_COLUMNS.intersection(features) or TARGET in features:
+        raise ValueError("target and post-outcome leakage columns must not enter model features")
+    if df.empty:
+        raise ValueError("model data must not be empty")
     return df[features].copy(), df[TARGET].astype(float).copy()
 
 
 def metrics(y_true: pd.Series | np.ndarray, y_pred: np.ndarray) -> Metrics:
     truth = np.asarray(y_true, dtype=float)
-    pred = np.maximum(np.asarray(y_pred, dtype=float), 0.0)
+    prediction = np.asarray(y_pred, dtype=float)
+    if truth.ndim != 1 or prediction.ndim != 1 or truth.size == 0 or truth.shape != prediction.shape:
+        raise ValueError("truth and predictions must be non-empty aligned 1D arrays")
+    if not np.isfinite(truth).all() or not np.isfinite(prediction).all():
+        raise ValueError("truth and predictions must contain only finite values")
+    if np.any(truth < 0):
+        raise ValueError("bike demand truth values must be non-negative")
+    pred = np.maximum(prediction, 0.0)
     return Metrics(
         mae=float(mean_absolute_error(truth, pred)),
         rmse=float(math.sqrt(mean_squared_error(truth, pred))),

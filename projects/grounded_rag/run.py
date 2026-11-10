@@ -296,6 +296,10 @@ class GroundedRAG:
         return float(self.bm25.score(self.expand_query(q)).max())
 
     def retrieve(self, q: str, top_k: int = 3) -> list[RetrievalResult]:
+        if not isinstance(q, str) or not q.strip():
+            raise ValueError("query must be a non-empty string")
+        if not isinstance(top_k, int) or top_k < 1:
+            raise ValueError("top_k must be a positive integer")
         expanded = self.expand_query(q)
         bm = normalise(self.bm25.score(expanded))
         word = cosine_similarity(self.word.transform([expanded]), self.word_matrix).ravel()
@@ -312,6 +316,12 @@ class GroundedRAG:
         ]
 
     def answer(self, q: str, top_k: int = 3, abstain_threshold: float = 2.8) -> dict:
+        if not isinstance(q, str) or not q.strip():
+            raise ValueError("query must be a non-empty string")
+        if not isinstance(top_k, int) or top_k < 1:
+            raise ValueError("top_k must be a positive integer")
+        if not np.isfinite(abstain_threshold) or abstain_threshold < 0:
+            raise ValueError("abstain_threshold must be finite and non-negative")
         if self.injection_detected(q):
             return {
                 "query": q,

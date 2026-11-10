@@ -36,6 +36,7 @@ class Metrics:
 
 
 def normalise_text(text: str) -> str:
+    # Lightweight hygiene only: preserve useful wording while masking common contact details.
     text = str(text).replace("\x00", " ")
     text = re.sub(r"https?://\S+|www\.\S+", " URL ", text)
     text = re.sub(r"\b[\w.+-]+@[\w.-]+\.\w+\b", " EMAIL ", text)
@@ -44,6 +45,7 @@ def normalise_text(text: str) -> str:
 
 
 def load_corpus():
+    # Use the benchmark's predefined train/test split; never fit vocabulary on test text.
     kwargs = {
         "remove": ("headers", "footers", "quotes"),
         "shuffle": True,
@@ -59,14 +61,27 @@ def load_corpus():
     return x_train, y_train, x_test, y_test, target_names
 
 
+
 def corpus_audit(texts: list[str], labels: np.ndarray, target_names: list[str]) -> dict[str, Any]:
+    # Audit the raw benchmark split before modelling; this catches empty, misaligned or missing classes.
+    texts = [str(text) for text in texts]
+    labels = np.asarray(labels)
+    if not texts:
+        raise ValueError("texts must not be empty")
+    if labels.ndim != 1 or labels.size != len(texts):
+        raise ValueError("labels must be a 1D array aligned with the document list")
+    if not target_names:
+        raise ValueError("target_names must contain at least one class")
+
     lengths = np.asarray([len(text.split()) for text in texts], dtype=int)
     empty = int(sum(not text.strip() for text in texts))
     unique_labels, counts = np.unique(labels, return_counts=True)
-    if len(unique_labels) != len(target_names):
-        raise ValueError("Target-name count does not match observed labels")
-    if empty / max(len(texts), 1) > 0.10:
+    expected_labels = np.arange(len(target_names))
+    if not np.array_equal(unique_labels, expected_labels):
+        raise ValueError("Observed labels must cover the target-name indices exactly")
+    if empty / len(texts) > 0.10:
         raise ValueError("Unexpectedly high empty-document rate")
+
     return {
         "documents": int(len(texts)),
         "classes": int(len(target_names)),
@@ -76,8 +91,8 @@ def corpus_audit(texts: list[str], labels: np.ndarray, target_names: list[str]) 
         "class_counts": {target_names[int(k)]: int(v) for k, v in zip(unique_labels, counts)},
     }
 
-
 def build_vectorizer() -> TfidfVectorizer:
+    # Fit this vectorizer inside each Pipeline so vocabulary learning stays within training folds.
     return TfidfVectorizer(
         lowercase=True,
         strip_accents="unicode",
@@ -92,6 +107,7 @@ def build_vectorizer() -> TfidfVectorizer:
 
 
 def build_nb_baseline() -> Pipeline:
+    # Naive Bayes is a fast, interpretable text-classification reference point.
     return Pipeline(
         [
             ("tfidf", build_vectorizer()),
@@ -101,6 +117,7 @@ def build_nb_baseline() -> Pipeline:
 
 
 def build_calibrated_svm() -> Pipeline:
+    # LinearSVC is strong for sparse text; calibration adds probabilities for review routing.
     svm = LinearSVC(C=2.0, class_weight=None, random_state=RANDOM_STATE)
     calibrated = CalibratedClassifierCV(svm, method="sigmoid", cv=3)
     return Pipeline(
@@ -112,7 +129,18 @@ def build_calibrated_svm() -> Pipeline:
 
 
 def confidence_policy(probabilities: np.ndarray, threshold: float = 0.55) -> np.ndarray:
+    # Reject malformed probability rows before using confidence as an operational decision.
+    probabilities = np.asarray(probabilities, dtype=float)
+    if probabilities.ndim != 2 or probabilities.shape[0] == 0 or probabilities.shape[1] < 2:
+        raise ValueError("probabilities must be a non-empty [n, classes] matrix")
+    if not np.isfinite(probabilities).all() or np.any((probabilities < 0) | (probabilities > 1)):
+        raise ValueError("probabilities must be finite and within [0, 1]")
+    if not np.allclose(probabilities.sum(axis=1), 1.0, atol=1e-6, rtol=1e-6):
+        raise ValueError("each probability row must sum to one")
+    if not np.isfinite(threshold) or not 0.0 <= threshold <= 1.0:
+        raise ValueError("threshold must be finite and within [0, 1]")
     return probabilities.max(axis=1) >= threshold
+
 
 
 def evaluate(
@@ -121,17 +149,28 @@ def evaluate(
     truth: np.ndarray,
     threshold: float = 0.55,
 ) -> tuple[Metrics, dict[str, Any], np.ndarray, np.ndarray]:
-    prediction = model.predict(texts)
+    # Validate row alignment before computing metrics so a silent truncation cannot distort results.
+    truth = np.asarray(truth)
+    if not texts or truth.ndim != 1 or truth.size != len(texts):
+        raise ValueError("texts and 1D truth labels must be non-empty and aligned")
+
+    prediction = np.asarray(model.predict(texts))
+    if prediction.ndim != 1 or prediction.shape != truth.shape:
+        raise ValueError("model predictions must be a 1D array aligned with truth labels")
+
     probabilities = model.predict_proba(texts) if hasattr(model, "predict_proba") else None
-    accepted = None
     auto_rate = 1.0
     auto_accuracy = float(accuracy_score(truth, prediction))
     ll = None
     if probabilities is not None:
+        probabilities = np.asarray(probabilities, dtype=float)
+        if probabilities.shape[0] != truth.size:
+            raise ValueError("model probabilities must be aligned with truth labels")
         accepted = confidence_policy(probabilities, threshold)
         auto_rate = float(accepted.mean())
         auto_accuracy = float(accuracy_score(truth[accepted], prediction[accepted])) if accepted.any() else None
         ll = float(log_loss(truth, probabilities, labels=np.arange(probabilities.shape[1])))
+
     metrics = Metrics(
         accuracy=float(accuracy_score(truth, prediction)),
         macro_f1=float(f1_score(truth, prediction, average="macro")),
@@ -146,12 +185,18 @@ def evaluate(
     }
     if probabilities is None:
         probabilities = np.zeros((len(texts), 1), dtype=float)
-    if accepted is None:
-        accepted = np.ones(len(texts), dtype=bool)
     return metrics, detail, prediction, probabilities
 
 
 def threshold_sweep(probabilities: np.ndarray, truth: np.ndarray, prediction: np.ndarray) -> pd.DataFrame:
+    # This is a diagnostic coverage/accuracy curve, not a licence to tune on the held-out test set.
+    probabilities = np.asarray(probabilities, dtype=float)
+    truth = np.asarray(truth)
+    prediction = np.asarray(prediction)
+    confidence_policy(probabilities, threshold=0.0)  # Reuse the strict probability-matrix contract.
+    if truth.ndim != 1 or prediction.ndim != 1 or truth.size != probabilities.shape[0] or prediction.shape != truth.shape:
+        raise ValueError("truth and prediction must be aligned 1D arrays matching probability rows")
+
     rows = []
     for threshold in np.arange(0.35, 0.91, 0.05):
         accepted = probabilities.max(axis=1) >= threshold
@@ -164,12 +209,21 @@ def threshold_sweep(probabilities: np.ndarray, truth: np.ndarray, prediction: np
                 "review_rows": int((~accepted).sum()),
             }
         )
-    return pd.DataFrame(rows)
+    return pd.DataFrame(rows, columns=[
+        "threshold", "auto_route_rate", "auto_route_accuracy", "review_rate", "review_rows"
+    ])
 
 
 def confusion_pairs(confusion: np.ndarray, target_names: list[str], top_n: int = 20) -> pd.DataFrame:
+    # Remove the diagonal so the output ranks only genuine category mix-ups.
+    matrix = np.asarray(confusion)
+    if matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1] or matrix.shape[0] != len(target_names):
+        raise ValueError("confusion matrix must be square and align with target_names")
+    if not isinstance(top_n, int) or top_n < 1:
+        raise ValueError("top_n must be a positive integer")
+
     rows = []
-    matrix = confusion.copy().astype(int)
+    matrix = matrix.astype(int, copy=True)
     np.fill_diagonal(matrix, 0)
     for true_index in range(matrix.shape[0]):
         for pred_index in range(matrix.shape[1]):
@@ -182,8 +236,10 @@ def confusion_pairs(confusion: np.ndarray, target_names: list[str], top_n: int =
                         "count": count,
                     }
                 )
-    return pd.DataFrame(rows).sort_values("count", ascending=False).head(top_n)
-
+    # Keep a stable schema even when a perfect model produces no off-diagonal errors.
+    return pd.DataFrame(rows, columns=["true_category", "predicted_category", "count"]).sort_values(
+        "count", ascending=False
+    ).head(top_n)
 
 def category_keywords(model: Pipeline, target_names: list[str], top_n: int = 15) -> dict[str, list[str]]:
     vectorizer: TfidfVectorizer = model.named_steps["tfidf"]
@@ -208,7 +264,18 @@ def category_keywords(model: Pipeline, target_names: list[str], top_n: int = 15)
     return insights
 
 
+
 def length_error_slices(texts: list[str], truth: np.ndarray, prediction: np.ndarray, probabilities: np.ndarray) -> pd.DataFrame:
+    # Error slices test whether very short or unusually long documents need more human review.
+    truth = np.asarray(truth)
+    prediction = np.asarray(prediction)
+    probabilities = np.asarray(probabilities, dtype=float)
+    confidence_policy(probabilities, threshold=0.0)
+    if not texts or truth.ndim != 1 or prediction.ndim != 1:
+        raise ValueError("texts, truth and prediction must be non-empty 1D inputs")
+    if truth.size != len(texts) or prediction.shape != truth.shape or probabilities.shape[0] != truth.size:
+        raise ValueError("texts, labels, predictions and probability rows must be aligned")
+
     frame = pd.DataFrame(
         {
             "words": [len(text.split()) for text in texts],
@@ -231,17 +298,26 @@ def length_error_slices(texts: list[str], truth: np.ndarray, prediction: np.ndar
 
 
 def predict_document(model: Pipeline, text: str, target_names: list[str], threshold: float = 0.55) -> dict[str, Any]:
+    # Return a human-readable decision and alternatives, not just an opaque class number.
+    if not isinstance(text, str) or not text.strip():
+        raise ValueError("text must be a non-empty string")
+    if not target_names:
+        raise ValueError("target_names must contain at least one class")
     cleaned = normalise_text(text)
-    probabilities = model.predict_proba([cleaned])[0]
-    label_index = int(np.argmax(probabilities))
-    confidence = float(probabilities[label_index])
-    top_indices = np.argsort(probabilities)[-3:][::-1]
+    probabilities = np.asarray(model.predict_proba([cleaned]), dtype=float)
+    accepted = confidence_policy(probabilities, threshold)
+    if probabilities.shape[1] != len(target_names):
+        raise ValueError("model probability columns must align with target_names")
+
+    label_index = int(np.argmax(probabilities[0]))
+    confidence = float(probabilities[0, label_index])
+    top_indices = np.argsort(probabilities[0])[-min(3, len(target_names)):][::-1]
     return {
         "predicted_category": target_names[label_index],
         "confidence": confidence,
-        "decision": "auto_route" if confidence >= threshold else "human_review",
+        "decision": "auto_route" if bool(accepted[0]) else "human_review",
         "top_categories": [
-            {"category": target_names[int(i)], "probability": float(probabilities[int(i)])}
+            {"category": target_names[int(i)], "probability": float(probabilities[0, int(i)])}
             for i in top_indices
         ],
         "cleaned_preview": cleaned[:300],
@@ -249,14 +325,16 @@ def predict_document(model: Pipeline, text: str, target_names: list[str], thresh
 
 
 def save_json(path: Path, payload: Any) -> None:
+    # Create the destination folder so the helper also works with a fresh output directory.
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
-
 
 def main() -> None:
     x_train, y_train, x_test, y_test, target_names = load_corpus()
     audit_train = corpus_audit(x_train, y_train, target_names)
     audit_test = corpus_audit(x_test, y_test, target_names)
 
+    # Keep the simple baseline so the final model's value is measured, not assumed.
     baseline = build_nb_baseline()
     baseline.fit(x_train, y_train)
     baseline_metrics, _, _, _ = evaluate(baseline, x_test, y_test, threshold=0.55)
@@ -277,6 +355,7 @@ def main() -> None:
     save_json(RESULTS / "category_keywords.json", keywords)
     joblib.dump({"model": model, "target_names": target_names}, ARTIFACTS / "nlp_document_router.joblib")
 
+    # Reload the persisted artifact and check prediction parity before declaring it usable.
     bundle = joblib.load(ARTIFACTS / "nlp_document_router.joblib")
     parity_original = model.predict(x_test[:20])
     parity_loaded = bundle["model"].predict(x_test[:20])
@@ -285,6 +364,12 @@ def main() -> None:
 
     example_text = "The graphics driver crashes when I render a 3D scene and the display becomes corrupted."
     payload = {
+        "run_metadata": {
+            "dataset": "scikit-learn 20 Newsgroups",
+            "random_state": RANDOM_STATE,
+            "decision_threshold": 0.55,
+            "threshold_sweep_role": "held-out diagnostic only; not used to select the threshold",
+        },
         "train_audit": audit_train,
         "test_audit": audit_test,
         "naive_bayes_baseline": asdict(baseline_metrics),

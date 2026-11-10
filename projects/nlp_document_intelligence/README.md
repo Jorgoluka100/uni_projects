@@ -12,6 +12,8 @@ Scikit-learn's 20 Newsgroups corpus, downloaded through `fetch_20newsgroups`. He
 
 ## What this project demonstrates
 
+The executable pipeline includes short inline code notes explaining the purpose of preprocessing, leakage-safe vectorisation, baseline comparison, probability calibration, human-review thresholds, error slices and saved-model parity checks. Test notes explain the privacy and decision-policy guardrails.
+
 - text acquisition and cleaning
 - corpus/data-quality profiling
 - train/test separation supplied by the benchmark
@@ -29,9 +31,23 @@ Scikit-learn's 20 Newsgroups corpus, downloaded through `fetch_20newsgroups`. He
 
 ## Run
 
+Create an isolated environment and install the project's direct dependencies:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
+python -m pip install --upgrade pip
+python -m pip install numpy pandas scikit-learn joblib pytest
+```
+
+Run the full benchmark pipeline (the first run downloads the public 20 Newsgroups corpus):
+
 ```bash
 python run.py
+pytest -q tests
 ```
+
+The run writes machine-readable metrics, confusion pairs, confidence-threshold diagnostics, document-length error slices and a reloadable model artifact under `results/` and `artifacts/`. These are generated outputs, not hand-entered headline results.
 
 ## Portfolio files
 
@@ -44,3 +60,18 @@ python run.py
 ## Limitations
 
 20 Newsgroups is a historical benchmark and is not a live enterprise ticket stream. Real deployment would require domain-specific labelled text, privacy controls, continuous taxonomy management, calibration checks, language/drift monitoring and explicit human escalation for novel or high-impact documents.
+
+
+## Evaluation and decision policy
+
+- The Naive Bayes model is retained as a simple baseline; the calibrated linear SVM is compared against it on the benchmark's predefined held-out test split.
+- The default 0.55 confidence threshold is an explicit demonstration setting, not a claim of a universally optimal operating point.
+- The threshold sweep is a **held-out diagnostic** showing the coverage/review trade-off. It is not used to select the threshold. A real deployment should select policy thresholds on a separate validation set with operational stakeholders.
+- Macro-F1 gives each topic equal weight; weighted-F1 reflects the observed class frequencies. Both are reported so class imbalance is visible.
+- Confusion pairs and document-length slices make failure patterns inspectable instead of relying on one aggregate score.
+
+## Privacy, fairness and deployment boundaries
+
+The normaliser masks common email-address and URL patterns only. It is not a complete personally identifiable information (PII) detector or anonymisation system. Production text would need a tested privacy pipeline, access controls and retention policy before model processing.
+
+The benchmark is an English-language, historical newsgroup corpus with a fixed 20-topic taxonomy. Its results do not establish performance on modern customer support, legal, healthcare or other high-impact documents. Before deployment, collect representative domain-labelled data, audit subgroup and language performance where lawful and meaningful, assess calibration and drift, and keep human review for uncertain or novel cases.

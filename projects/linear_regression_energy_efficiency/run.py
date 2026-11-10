@@ -10,7 +10,6 @@ from __future__ import annotations
 import argparse
 import json
 import math
-import warnings
 from pathlib import Path
 
 import joblib
@@ -27,8 +26,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, PolynomialFeatures, StandardScaler
 from ucimlrepo import fetch_ucirepo
 
-warnings.filterwarnings("ignore")
-
 parser = argparse.ArgumentParser(description="Building heating-load regression portfolio project")
 parser.add_argument("--output-dir", default="results", help="Directory for metrics, tables and plots")
 parser.add_argument("--seed", type=int, default=42)
@@ -36,6 +33,12 @@ parser.add_argument("--test-size", type=float, default=0.20)
 parser.add_argument("--bootstrap", type=int, default=250, help="Bootstrap refits for uncertainty summary")
 parser.add_argument("--no-plots", action="store_true")
 args = parser.parse_args()
+if args.seed < 0:
+    parser.error("--seed must be non-negative")
+if not 0.0 < args.test_size < 1.0:
+    parser.error("--test-size must be strictly between zero and one")
+if args.bootstrap < 1:
+    parser.error("--bootstrap must be at least one")
 
 RNG = np.random.default_rng(args.seed)
 PROJECT = Path(__file__).resolve().parent

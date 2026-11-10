@@ -62,6 +62,16 @@ def load_dataset() -> tuple[pd.DataFrame, pd.Series, list[str]]:
 
 
 def audit_dataset(x: pd.DataFrame, y: pd.Series) -> DatasetAudit:
+    if not isinstance(x, pd.DataFrame) or x.empty or not isinstance(y, pd.Series):
+        raise ValueError("features and target must be a non-empty DataFrame and Series")
+    if len(x) != len(y) or y.isna().any():
+        raise ValueError("features and target must be aligned and target labels complete")
+    try:
+        numeric = x.to_numpy(dtype=float)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("all wine benchmark features must be numeric") from exc
+    if not np.isfinite(numeric).all():
+        raise ValueError("features must contain only finite numeric values")
     counts = y.value_counts()
     audit = DatasetAudit(
         rows=len(x),
@@ -126,6 +136,21 @@ def evaluate_confidence_policy(
     truth: np.ndarray,
     threshold: float,
 ) -> tuple[float, float | None]:
+    probabilities = np.asarray(probabilities, dtype=float)
+    predictions = np.asarray(predictions)
+    truth = np.asarray(truth)
+    if probabilities.ndim != 2 or probabilities.shape[0] == 0 or probabilities.shape[1] < 2:
+        raise ValueError("probabilities must be a non-empty [n, classes] matrix")
+    if predictions.ndim != 1 or truth.ndim != 1 or predictions.shape != truth.shape or len(truth) != len(probabilities):
+        raise ValueError("predictions and truth must be aligned with probability rows")
+    if not np.isfinite(probabilities).all() or np.any((probabilities < 0) | (probabilities > 1)):
+        raise ValueError("probabilities must be finite and within [0, 1]")
+    if not np.allclose(probabilities.sum(axis=1), 1.0, atol=1e-6):
+        raise ValueError("probability rows must sum to one")
+    if not np.isfinite(threshold) or not 0 <= threshold <= 1:
+        raise ValueError("threshold must be within [0, 1]")
+    if not np.isin(truth, np.arange(probabilities.shape[1])).all():
+        raise ValueError("truth labels must map to probability columns")
     confidence = probabilities.max(axis=1)
     accepted = confidence >= threshold
     review_rate = float((~accepted).mean())
@@ -202,8 +227,18 @@ def inspect_neighbours(model: Pipeline, x: pd.DataFrame, row: pd.DataFrame, top_
 
 
 def predict_one(model: Pipeline, row: pd.DataFrame, target_names: list[str]) -> dict[str, Any]:
-    probabilities = model.predict_proba(row)[0]
+    if not isinstance(row, pd.DataFrame) or len(row) != 1:
+        raise ValueError("predict_one requires a one-row DataFrame")
+    if not target_names:
+        raise ValueError("target_names must not be empty")
+    probabilities = np.asarray(model.predict_proba(row)[0], dtype=float)
     prediction = int(model.predict(row)[0])
+    if probabilities.ndim != 1 or len(probabilities) != len(target_names):
+        raise ValueError("model probability columns must align with target_names")
+    if not np.isfinite(probabilities).all() or np.any(probabilities < 0) or not np.isclose(probabilities.sum(), 1.0):
+        raise ValueError("model must return finite probabilities summing to one")
+    if not 0 <= prediction < len(target_names):
+        raise ValueError("predicted class has no matching target name")
     confidence = float(probabilities.max())
     return {
         "predicted_class": prediction,

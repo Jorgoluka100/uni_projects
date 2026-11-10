@@ -53,3 +53,21 @@ def test_metrics_are_zero_for_perfect_prediction():
     result = metrics(y, y)
     assert result.mae == 0.0
     assert result.rmse == 0.0
+
+def test_metrics_reject_invalid_targets_and_predictions():
+    import pytest
+
+    with pytest.raises(ValueError, match="non-negative"):
+        metrics(np.array([1.0, -1.0]), np.array([1.0, 2.0]))
+    with pytest.raises(ValueError, match="finite"):
+        metrics(np.array([1.0, 2.0]), np.array([1.0, np.nan]))
+
+
+def test_chronological_split_rejects_invalid_fractions_and_unsorted_data():
+    import pytest
+
+    frame = sample_frame(200)
+    with pytest.raises(ValueError, match="leave a non-empty test"):
+        chronological_split(frame, train_fraction=0.9, validation_fraction=0.2)
+    with pytest.raises(ValueError, match="chronologically ordered"):
+        chronological_split(frame.iloc[::-1].reset_index(drop=True))

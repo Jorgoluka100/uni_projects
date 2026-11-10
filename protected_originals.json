@@ -39,7 +39,9 @@
     "PySpark_Employee_DataFrame_Practice.ipynb",
     "Iris_Classification_Machine_Learning_Tutorial.ipynb",
     "Country_Development_Clustering_with_KMeans.ipynb",
-    "originals/pre_cleanup_2026_08_11/README.md"
+    "originals/pre_cleanup_2026_08_11/README.md",
+    "originals/pre_cleanup_2026_08_11/30_LongevityAI_Human_Biological_Age_and_Healthspan_Intelligence.ipynb",
+    "09B_Albania_Healthcare_Resource_Allocation_Optimisation.ipynb"
   ],
   "pinned_blob_sha": {
     "CN7030_Feature_Extraction_Comparison.ipynb": "5776440cf8d7a77889df3d7e704c12e3aed7a054",
@@ -56,6 +58,8 @@
     "06_Clickstream_Analysis_with_PySpark.ipynb": "3362f1f483aec6aa17d6c6eb0dcf123591b276a9",
     "07_London_Air_Quality_Analysis_with_R.ipynb": "5af1ace07655c3a4615a01c24f66750ff53d1a43",
     "LLM_Mastery_Hands_on_Code.ipynb": "12e489cd089aec87c55b6a21a081df6f24a8393b",
-    "LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb": "624225fd2a30f78b20080a5b78fa86b85123c204"
+    "LLM_Mastery_Hands_on_Code,_Align_and_Master_LLMs_Alignment.ipynb": "624225fd2a30f78b20080a5b78fa86b85123c204",
+    "originals/pre_cleanup_2026_08_11/30_LongevityAI_Human_Biological_Age_and_Healthspan_Intelligence.ipynb": "f58ccf7dc2314efe2d43bc45924064d6edc22abd",
+    "09B_Albania_Healthcare_Resource_Allocation_Optimisation.ipynb": "a858d26347c35f3047232c2ddd3b110fc3508a83"
   }
 }

@@ -4,15 +4,43 @@ on:
   push:
     branches: [main, portfolio-next-level]
     paths:
+      - "projects/linear_regression_energy_efficiency/**"
+      - "projects/statistical_marketing_mix/**"
+      - "projects/parkinsons_progression/**"
       - "extensions/albania_all_age_allocation.py"
+      - "extensions/export_albania_all_age_outputs.py"
       - "tests/test_albania_all_age_allocation.py"
+      - "tests/test_albania_output_export.py"
+      - "projects/grounded_rag/**"
+      - "projects/nlp_document_intelligence/**"
+      - "projects/reliable_event_pipeline/**"
+      - "projects/image_classification_confidence/**"
+      - "projects/retail_customer_segmentation/**"
+      - "projects/energy_demand_forecasting/**"
+      - "projects/uk_house_price_prediction/**"
+      - "projects/customer_churn_prediction/**"
+      - "projects/flight_delay_risk/**"
       - "projects/experiment_lab/**"
       - "projects/model_watch/**"
       - ".github/workflows/albania-all-age-tests.yml"
   pull_request:
     paths:
+      - "projects/linear_regression_energy_efficiency/**"
+      - "projects/statistical_marketing_mix/**"
+      - "projects/parkinsons_progression/**"
       - "extensions/albania_all_age_allocation.py"
+      - "extensions/export_albania_all_age_outputs.py"
       - "tests/test_albania_all_age_allocation.py"
+      - "tests/test_albania_output_export.py"
+      - "projects/flight_delay_risk/**"
+      - "projects/customer_churn_prediction/**"
+      - "projects/uk_house_price_prediction/**"
+      - "projects/energy_demand_forecasting/**"
+      - "projects/retail_customer_segmentation/**"
+      - "projects/image_classification_confidence/**"
+      - "projects/reliable_event_pipeline/**"
+      - "projects/nlp_document_intelligence/**"
+      - "projects/grounded_rag/**"
       - "projects/experiment_lab/**"
       - "projects/model_watch/**"
       - ".github/workflows/albania-all-age-tests.yml"
@@ -32,21 +60,34 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install test dependencies
-        run: python -m pip install --upgrade pip numpy pandas scipy scikit-learn joblib pytest catboost
+        run: python -m pip install --upgrade pip numpy pandas scipy scikit-learn joblib pytest catboost xgboost requests statsmodels
       - name: Compile-check new and upgraded project code
-        run: python -m compileall -q extensions/albania_all_age_allocation.py tests projects/experiment_lab projects/model_watch
-      - name: Test Albania all-age demographic allocation
-        run: python -m unittest discover -s tests -p "test_albania_all_age_allocation.py" -v
+        run: python -m compileall -q extensions tests projects/experiment_lab projects/model_watch
+      - name: Test Albania all-age allocation and exports
+        run: python -m unittest discover -s tests -p "test_albania_*" -v
       - name: Run regression, forecasting, churn, clustering and flight-risk tests
         run: |
-          python -m pytest -q projects/flight_delay_risk/tests
-          python -m pytest -q projects/customer_churn_prediction/tests
-          python -m pytest -q projects/uk_house_price_prediction/tests
-          python -m pytest -q projects/energy_demand_forecasting/tests
-          python -m pytest -q projects/retail_customer_segmentation/tests
+          PYTHONPATH=projects/flight_delay_risk python -m pytest -q projects/flight_delay_risk/tests
+          PYTHONPATH=projects/customer_churn_prediction python -m pytest -q projects/customer_churn_prediction/tests
+          PYTHONPATH=projects/uk_house_price_prediction python -m pytest -q projects/uk_house_price_prediction/tests
+          PYTHONPATH=projects/energy_demand_forecasting python -m pytest -q projects/energy_demand_forecasting/tests
+          PYTHONPATH=projects/retail_customer_segmentation python -m pytest -q projects/retail_customer_segmentation/tests
+          PYTHONPATH=projects/image_classification_confidence python -m pytest -q projects/image_classification_confidence/tests
+          PYTHONPATH=projects/reliable_event_pipeline python -m pytest -q projects/reliable_event_pipeline/tests
+          PYTHONPATH=projects/nlp_document_intelligence python -m pytest -q projects/nlp_document_intelligence/tests
+          PYTHONPATH=projects/grounded_rag python -m pytest -q projects/grounded_rag/tests
+          PYTHONPATH=projects/experiment_lab python -m pytest -q projects/experiment_lab/tests
+          PYTHONPATH=projects/xgboost_bike_demand python -m pytest -q projects/xgboost_bike_demand/tests
+          PYTHONPATH=projects/model_watch python -m pytest -q projects/model_watch/tests
+          PYTHONPATH=projects/knn_product_quality python -m pytest -q projects/knn_product_quality/tests
+          PYTHONPATH=projects/parkinsons_progression python -m pytest -q projects/parkinsons_progression/tests
+          PYTHONPATH=projects/statistical_marketing_mix python -m pytest -q projects/statistical_marketing_mix/tests
+          PYTHONPATH=projects/linear_regression_energy_efficiency python -m pytest -q projects/linear_regression_energy_efficiency/tests
       - name: Self-test ExperimentLab
         run: python projects/experiment_lab/run.py --self-test
       - name: Self-test ModelWatch
         run: python projects/model_watch/run.py --self-test
       - name: Smoke-test Albania all-age analysis entry point
         run: python extensions/albania_all_age_allocation.py
+      - name: Smoke-test Albania results export
+        run: python extensions/export_albania_all_age_outputs.py --output-dir /tmp/albania-all-age-ci

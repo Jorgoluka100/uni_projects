@@ -195,3 +195,7 @@ For raw university group work, lecturer tutorials, reference notebooks, older co
 ## Licence
 
 My own code and documentation are MIT-licensed. External datasets, course materials and pretrained models retain their original licences and terms; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## Inclusive analysis and responsible age coverage
+
+The portfolio considers children, young people, working-age adults and older people wherever source data support the analysis. Each model must still stay within its validated population: for example, adult-derived biological-age equations must not be extrapolated to children. See the [inclusive analysis and age-coverage standard](docs/ALL_AGE_INCLUSION_AND_FAIRNESS_STANDARD.md) and [LongevityAI age-coverage notes](projects/longevity_ai/AGE_COVERAGE_AND_FAIRNESS.md).

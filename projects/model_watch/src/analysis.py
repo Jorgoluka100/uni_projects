@@ -27,9 +27,13 @@ def calibration_table(
 ) -> pd.DataFrame:
     target = np.asarray(target, dtype=int)
     probability = np.asarray(probability, dtype=float)
-    if len(target) != len(probability):
-        raise ValueError("Target and probability lengths must match")
-    if bins < 2:
+    if target.ndim != 1 or probability.ndim != 1 or target.size == 0 or target.shape != probability.shape:
+        raise ValueError("Target and probability must be non-empty aligned 1D arrays")
+    if not np.isin(target, [0, 1]).all():
+        raise ValueError("Target must contain binary 0/1 labels")
+    if not np.isfinite(probability).all() or np.any((probability < 0) | (probability > 1)):
+        raise ValueError("Probability values must be finite and within [0, 1]")
+    if not isinstance(bins, int) or bins < 2:
         raise ValueError("Use at least two calibration bins")
     frame = pd.DataFrame({"target": target, "probability": probability})
     frame["bin"] = pd.cut(
@@ -59,8 +63,19 @@ def score_decile_table(
     target_col: str = "target",
     deciles: int = 10,
 ) -> pd.DataFrame:
+    if target_col not in frame.columns or frame.empty:
+        raise ValueError("score-decile frame must be non-empty and contain the target column")
+    probabilities = np.asarray(probability, dtype=float)
+    if probabilities.ndim != 1 or probabilities.size != len(frame):
+        raise ValueError("probability must be a 1D array aligned with the frame")
+    if not np.isfinite(probabilities).all() or np.any((probabilities < 0) | (probabilities > 1)):
+        raise ValueError("probability values must be finite and within [0, 1]")
+    if not isinstance(deciles, int) or deciles < 2:
+        raise ValueError("deciles must be an integer of at least two")
+    if not np.isin(frame[target_col].to_numpy(), [0, 1]).all():
+        raise ValueError("target column must contain binary 0/1 labels")
     work = frame[[target_col]].copy().reset_index(drop=True)
-    work["probability"] = np.asarray(probability, dtype=float)
+    work["probability"] = probabilities
     work["score_decile"] = pd.qcut(
         work["probability"],
         q=deciles,
@@ -155,6 +170,10 @@ def classify_metric_change(
     amber_threshold: float,
     red_threshold: float,
 ) -> str:
+    if not np.isfinite([value, amber_threshold, red_threshold]).all():
+        raise ValueError("metric values and alert thresholds must be finite")
+    if amber_threshold < 0 or red_threshold < amber_threshold:
+        raise ValueError("thresholds must satisfy 0 <= amber <= red")
     if value >= red_threshold:
         return "red"
     if value >= amber_threshold:
@@ -164,14 +183,19 @@ def classify_metric_change(
 
 def worst_severity(levels: Iterable[str]) -> str:
     levels = list(levels)
+    unknown = sorted(set(levels) - set(SEVERITY_ORDER))
+    if unknown:
+        raise ValueError(f"unknown monitoring severities: {unknown}")
     if not levels:
         return "green"
-    return max(levels, key=lambda level: SEVERITY_ORDER.get(level, -1))
+    return max(levels, key=lambda level: SEVERITY_ORDER[level])
 
 
 def decision_from_report(report: dict) -> MonitoringDecision:
     batch = str(report.get("batch", "unknown"))
     alert = str(report.get("alert", "green"))
+    if alert not in SEVERITY_ORDER:
+        raise ValueError(f"unknown monitoring severity: {alert}")
     reasons = tuple(str(reason) for reason in report.get("reasons", []))
     investigate = alert in {"amber", "red"}
     retrain_candidate = alert == "red"
@@ -206,11 +230,15 @@ def consecutive_alerts(
     reports: Iterable[dict],
     minimum_severity: str = "amber",
 ) -> int:
+    if minimum_severity not in SEVERITY_ORDER:
+        raise ValueError(f"unknown minimum severity: {minimum_severity}")
     threshold = SEVERITY_ORDER[minimum_severity]
     count = 0
     for report in reversed(list(reports)):
         level = str(report.get("alert", "green"))
-        if SEVERITY_ORDER.get(level, -1) >= threshold:
+        if level not in SEVERITY_ORDER:
+            raise ValueError(f"unknown monitoring severity: {level}")
+        if SEVERITY_ORDER[level] >= threshold:
             count += 1
         else:
             break

@@ -1,0 +1,39 @@
+name: CNN retail image classification CI
+
+on:
+  push:
+    branches: [main, portfolio-next-level]
+    paths:
+      - "projects/cnn_retail_image_classification/**"
+      - ".github/workflows/cnn-retail-ci.yml"
+  pull_request:
+    paths:
+      - "projects/cnn_retail_image_classification/**"
+      - ".github/workflows/cnn-retail-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  model-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      MPLBACKEND: Agg
+      OMP_NUM_THREADS: "2"
+      MKL_NUM_THREADS: "2"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install CPU deep-learning test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision
+          python -m pip install numpy pandas scikit-learn matplotlib pillow pytest
+      - name: Run CNN architecture and evaluation tests
+        working-directory: projects/cnn_retail_image_classification
+        run: python -m pytest -q tests

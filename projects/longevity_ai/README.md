@@ -12,6 +12,7 @@ LongevityAI combines public human biomarker data, published biological-age mathe
 
 - **Human data:** NHANES biomarker data and population reference benchmarking.
 - **Geroscience:** published PhenoAge implementation and cross-check.
+- **Age scope:** the PhenoAge implementation is guarded to the adult reference population (18+); it does not generate predictions for children.
 - **Validation:** PhenoAge trajectory cross-check correlation **0.9977**.
 - **Machine learning:** selected HistGradientBoosting model with locked-test **MAE 8.83 years**, **RMSE 11.22 years**, **R² 0.572**.
 - **Explainability:** predictive biomarker importance and transparent one-at-a-time sensitivity analysis.
