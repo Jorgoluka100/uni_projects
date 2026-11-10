@@ -16,7 +16,6 @@ EXPECTED_AGE_TOTALS = {
     "age_0_14": 373_929,
     "age_15_64": 1_555_080,
     "age_65_plus": 473_104,
-    "age_80_plus": 97_417,
 }
 
 # INSTAT Table 1.6: total population by prefecture and broad age group.
@@ -38,12 +37,10 @@ AGE_COUNTS = [
 # do not invent separate child, youth or working-age sub-bands when the source
 # table only supplies 0–14 and 15–64; finer analysis needs finer source data.
 AGE_COLUMNS = ["age_0_14", "age_15_64", "age_65_plus"]
-# 80+ is a nested subset of 65+, not a fourth mutually exclusive cohort.
-# It is retained for a focused older-age comparison and must never be added
-# again when reconciling the all-age population total.
-# Derived from the original 09B notebook age_80_84 + age_85_plus prefecture counts.
-AGE_80_PLUS = [6_197, 3_696, 7_968, 8_821, 11_729, 3_859, 8_739, 2_051, 4_395, 6_934, 24_651, 8_377]
 DEFAULT_AGE_WEIGHTS = {
+    # Each published age cohort receives the same scenario weight; the
+    # population-wide share supplies the remaining 40% of the signal.
+    # These are transparent policy assumptions, not measured health need.
     "age_0_14": 0.20,
     "age_15_64": 0.20,
     "age_65_plus": 0.20,
@@ -55,7 +52,6 @@ DEFAULT_EQUITY_FLOOR = 0.15
 def build_age_profile() -> pd.DataFrame:
     """Return a validated prefecture-level population profile for all ages."""
     df = pd.DataFrame(AGE_COUNTS, columns=["prefecture", *AGE_COLUMNS])
-    df["age_80_plus"] = AGE_80_PLUS
     # Reconstruct each prefecture's total from mutually exclusive age bands.
     df["population"] = df[AGE_COLUMNS].sum(axis=1)
     for col in AGE_COLUMNS:
@@ -66,14 +62,12 @@ def build_age_profile() -> pd.DataFrame:
         df[f"{col}_pct_local"] = df[col] / df["population"]
     df["population_share"] = df["population"] / df["population"].sum()
     df["young_dependency_ratio"] = 100 * df["age_0_14"] / df["age_15_64"]
-    df["old_dependency_ratio"] = 100 * df["age_65_plus"] / df["age_15_64"]
+    df["age_65_plus_dependency_ratio"] = 100 * df["age_65_plus"] / df["age_15_64"]
     df["total_dependency_ratio"] = (
         100 * (df["age_0_14"] + df["age_65_plus"]) / df["age_15_64"]
     )
     if df["prefecture"].duplicated().any():
         raise ValueError("Prefecture names must be unique.")
-    if (df["age_80_plus"] > df["age_65_plus"]).any():
-        raise ValueError("The 80+ cohort cannot exceed the 65+ cohort.")
     if int(df["population"].sum()) != TOTAL_POPULATION:
         raise ValueError("Prefecture population totals do not reconcile to Census 2023.")
     for col, expected in EXPECTED_AGE_TOTALS.items():
@@ -96,7 +90,7 @@ def calculate_all_age_need_shares(
     required = {
         "prefecture", "population", "population_share",
         "age_0_14_share_national", "age_15_64_share_national",
-        "age_65_plus_share_national", "age_80_plus", *AGE_COLUMNS,
+        "age_65_plus_share_national", *AGE_COLUMNS,
     }
     if profile.empty or not required.issubset(profile.columns):
         raise ValueError(f"Profile must be non-empty and include: {sorted(required)}")
@@ -105,8 +99,6 @@ def calculate_all_age_need_shares(
     numeric = profile[list(required - {"prefecture"})].to_numpy(dtype=float)
     if not np.isfinite(numeric).all() or np.any(numeric < 0):
         raise ValueError("Profile demographic values and shares must be finite and non-negative.")
-    if (profile["age_80_plus"] > profile["age_65_plus"]).any():
-        raise ValueError("The 80+ cohort cannot exceed the 65+ cohort.")
     if not np.isclose(profile["population_share"].sum(), 1.0):
         raise ValueError("Population shares must sum to one.")
     for col in AGE_COLUMNS:
@@ -162,7 +154,7 @@ def compare_allocation_scenarios(
     regional_budget_eur: float,
     equity_floor: float = DEFAULT_EQUITY_FLOOR,
 ) -> pd.DataFrame:
-    """Compare population-only, all-age and older-age-focused scenarios."""
+    """Compare a population-only baseline with a balanced all-age scenario."""
     if not np.isfinite(regional_budget_eur) or regional_budget_eur < 0:
         raise ValueError("regional_budget_eur must be finite and non-negative.")
     if not 0 <= equity_floor < 1:
@@ -176,21 +168,9 @@ def compare_allocation_scenarios(
     all_age = calculate_all_age_need_shares(
         profile.reset_index(), equity_floor=equity_floor
     )
-    # Comparator 3: deliberately older-age-weighted; this is a scenario,
-    # not a claim that older residents are the only group with healthcare needs.
-    # Showing it beside the all-age model makes the demographic trade-off visible.
-    older_focused = (
-        equity_floor / len(profile)
-        + (1 - equity_floor) * (
-            0.50 * profile["population_share"]
-            + 0.30 * profile["age_65_plus_share_national"]
-            + 0.20 * (profile["age_80_plus"] / profile["age_80_plus"].sum())
-        )
-    )
     out = pd.DataFrame({
         "population_only_share": population_only,
         "all_age_share": all_age,
-        "older_age_focused_share": older_focused,
     })
     for col in list(out.columns):
         out[col.replace("_share", "_allocation_eur")] = out[col] * regional_budget_eur
@@ -246,7 +226,7 @@ def main() -> None:
     print("CENSUS 2023 — ALL-AGE PROFILE BY PREFECTURE")
     print(profile[[
         "prefecture", "population", "age_0_14", "age_15_64", "age_65_plus",
-        "young_dependency_ratio", "old_dependency_ratio", "total_dependency_ratio",
+        "young_dependency_ratio", "age_65_plus_dependency_ratio", "total_dependency_ratio",
     ]].to_string(index=False))
     print("\nREGIONAL ALLOCATION SCENARIOS — €40m illustrative regional pool")
     print(comparison.to_string(index=False))
