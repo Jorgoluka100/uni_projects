@@ -29,8 +29,8 @@ def _validate_history(X, *, lookback: int, horizon: int) -> np.ndarray:
     history = np.asarray(X, dtype=float)
     if history.ndim != 3 or history.shape[0] == 0 or history.shape[2] < 1:
         raise ValueError("X must be a non-empty 3D array shaped (samples, lookback, features)")
-    if lookback < 7 or history.shape[1] < lookback:
-        raise ValueError("lookback must be at least 7 and no greater than the supplied history")
+    if lookback < 1 or history.shape[1] < lookback:
+        raise ValueError("lookback must be positive and no greater than the supplied history")
     if horizon < 1:
         raise ValueError("horizon must be positive")
     if not np.isfinite(history).all():
@@ -44,6 +44,8 @@ def last_value_baseline(X, horizon: int = 14) -> np.ndarray:
 
 
 def seasonal_weekly_baseline(X, lookback: int = 60, horizon: int = 14) -> np.ndarray:
+    if lookback < 7:
+        raise ValueError("weekly seasonal baseline requires a lookback of at least 7 days")
     history = _validate_history(X, lookback=lookback, horizon=horizon)
     return np.stack([history[:, lookback - 7 + (step % 7), 0] for step in range(horizon)], axis=1)
 
